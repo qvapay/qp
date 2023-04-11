@@ -14,7 +14,7 @@ export default function MainStack() {
 
     return (
         <Tab.Navigator
-            initialRouteName="P2pScreen"
+            initialRouteName="HomeScreen"
             tabBar={props => <BottomBar {...props} />}
             screenOptions={{
                 headerShown: false,

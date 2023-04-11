@@ -24,6 +24,12 @@ const apiRequest = async (url, options = {}, navigation) => {
     // Get accessToken from EncryptedStorage
     const accessToken = await EncryptedStorage.getItem("accessToken");
 
+    // Check if accessToken !exists
+    if (!accessToken) {
+        onInvalidToken(navigation);
+        return null;
+    }
+
     try {
 
         console.log(accessToken)
@@ -66,7 +72,11 @@ const apiRequest = async (url, options = {}, navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
-    await EncryptedStorage.removeItem('accessToken');
+    try {
+        await EncryptedStorage.removeItem('accessToken');
+    } catch (error) {
+
+    }
     navigation.replace('AuthStack');
 };
 
