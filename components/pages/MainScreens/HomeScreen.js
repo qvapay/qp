@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, ScrollView, Linking } from 'react-native'
+import { AppContext } from '../../../AppContext';
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Transactions from '../../ui/Transactions'

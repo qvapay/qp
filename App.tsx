@@ -25,165 +25,167 @@ import ConfirmSendScreen from './components/pages/InOutOperations/ConfirmSendScr
 import {ThemeProvider} from '@rneui/themed';
 import {theme} from './components/ui/Theme';
 
+// Import AppProvider
+import {AppProvider} from './AppContext';
+
 // Stack Navigation
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView style={styles.container}>
+      <AppProvider>
+        <SafeAreaView style={styles.container}>
+          <StatusBar
+            hidden={false}
+            animated={true}
+            barStyle={'default'}
+            backgroundColor={theme.darkColors?.background}
+            showHideTransition={'fade'}
+          />
 
-        <StatusBar
-          hidden={false}
-          animated={true}
-          barStyle={'default'}
-          backgroundColor={theme.darkColors?.background}
-          showHideTransition={'fade'}
-        />
-
-        {/* Navigation COntainer */}
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="SplashScreen"
-            screenOptions={({navigation}) => ({
-              title: '',
-              headerBackVisible: true,
-              headerBackTitleVisible: false,
-              headerBackButtonMenuEnabled: false,
-              headerShadowVisible: false,
-              headerStyle: {
-                backgroundColor: theme.darkColors?.background,
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-              headerLeft: () => (
-                <FontAwesome5
-                  name={'qrcode'}
-                  style={styles.qrIconStyle}
-                  onPress={() => navigation.navigate('ScanScreen')}
-                />
-              ),
-              headerRight: props => (
-                <AvatarPicture {...props} navigation={navigation} />
-              ),
-            })}>
-
-            {/* SplashScreen which will come once for 2 Seconds */}
-            <Stack.Screen
-              name="SplashScreen"
-              component={SplashScreen}
-              options={{headerShown: false}}
-            />
-
-            {/* Auth Navigator: Include Login and Signup */}
-            <Stack.Screen
-              name="AuthStack"
-              component={AuthStack}
-              options={{
-                headerShown: false,
-                animationDuration: 300,
-                animation: 'fade',
-              }}
-            />
-
-            {/* Main Tabs Navigator: Home, KeyPad, Lightning, Store, P2P */}
-            <Stack.Screen
-              name="MainStack"
-              component={MainStack}
-              options={{headerBackVisible: false}}
-            />
-
-            <Stack.Screen
-              name="TransactionStack"
-              component={TransactionStack}
-              options={{
-                headerLeft: () => {
-                  return null;
+          {/* Navigation COntainer */}
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="SplashScreen"
+              screenOptions={{
+                title: '',
+                headerBackVisible: true,
+                headerBackTitleVisible: false,
+                headerBackButtonMenuEnabled: false,
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: theme.darkColors?.background,
                 },
-                headerRight: () => {
-                  return null;
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
                 },
-              }}
-            />
+              }}>
+              {/* SplashScreen which will come once for 2 Seconds */}
+              <Stack.Screen
+                name="SplashScreen"
+                component={SplashScreen}
+                options={{headerShown: false}}
+              />
 
-            <Stack.Screen
-              name="ScanScreen"
-              component={ScanScreen}
-              options={{
-                title: 'Scan',
-                headerShown: false,
-                animationDuration: 150,
-                animation: 'fade_from_bottom',
-              }}
-            />
+              {/* Auth Navigator: Include Login and Signup */}
+              <Stack.Screen
+                name="AuthStack"
+                component={AuthStack}
+                options={{
+                  headerShown: false,
+                  animationDuration: 300,
+                  animation: 'fade',
+                }}
+              />
 
-            <Stack.Screen
-              name="SendScreen"
-              component={SendScreen}
-              options={{
-                headerLeft: () => {
-                  return null;
-                },
-                headerRight: () => {
-                  return null;
-                },
-              }}
-            />
+              {/* Main Tabs Navigator: Home, KeyPad, Lightning, Store, P2P */}
+              <Stack.Screen
+                name="MainStack"
+                component={MainStack}
+                options={({navigation}) => ({
+                  headerBackVisible: false,
+                  headerLeft: () => (
+                    <FontAwesome5
+                      name={'qrcode'}
+                      style={styles.qrIconStyle}
+                      onPress={() => navigation.navigate('ScanScreen')}
+                    />
+                  ),
+                  headerRight: () => <AvatarPicture />,
+                })}
+              />
 
-            <Stack.Screen
-              name="ConfirmSendScreen"
-              component={ConfirmSendScreen}
-              options={{
-                title: 'Confirmar envío',
-                headerLeft: () => {
-                  return null;
-                },
-                headerRight: () => {
-                  return null;
-                },
-              }}
-            />
+              <Stack.Screen
+                name="TransactionStack"
+                component={TransactionStack}
+                options={{
+                  headerLeft: () => {
+                    return null;
+                  },
+                  headerRight: () => {
+                    return null;
+                  },
+                }}
+              />
 
-            <Stack.Screen
-              name="ReceiveScreen"
-              component={ReceiveScreen}
-              options={{
-                headerLeft: () => {
-                  return null;
-                },
-                headerRight: () => {
-                  return null;
-                },
-              }}
-            />
+              <Stack.Screen
+                name="ScanScreen"
+                component={ScanScreen}
+                options={{
+                  title: 'Scan',
+                  headerShown: false,
+                  animationDuration: 150,
+                  animation: 'fade_from_bottom',
+                }}
+              />
 
-            <Stack.Screen
-              name="ProfileScreen"
-              component={ProfileScreen}
-              options={{
-                title: 'Perfil de usuario',
-                headerShown: false,
-                animationDuration: 150,
-                animation: 'fade_from_bottom',
-              }}
-            />
+              <Stack.Screen
+                name="SendScreen"
+                component={SendScreen}
+                options={{
+                  headerLeft: () => {
+                    return null;
+                  },
+                  headerRight: () => {
+                    return null;
+                  },
+                }}
+              />
 
-            <Stack.Screen
-              name="SettingsScreen"
-              component={SettingsScreen}
-              options={{
-                title: 'Ajustes',
-                headerShown: false,
-                animationDuration: 150,
-                animation: 'fade_from_bottom',
-              }}
-            />
-            
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
+              <Stack.Screen
+                name="ConfirmSendScreen"
+                component={ConfirmSendScreen}
+                options={{
+                  title: 'Confirmar envío',
+                  headerLeft: () => {
+                    return null;
+                  },
+                  headerRight: () => {
+                    return null;
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="ReceiveScreen"
+                component={ReceiveScreen}
+                options={{
+                  headerLeft: () => {
+                    return null;
+                  },
+                  headerRight: () => {
+                    return null;
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="ProfileScreen"
+                component={ProfileScreen}
+                options={{
+                  title: 'Perfil de usuario',
+                  headerShown: false,
+                  animationDuration: 150,
+                  animation: 'fade_from_bottom',
+                }}
+              />
+
+              <Stack.Screen
+                name="SettingsScreen"
+                component={SettingsScreen}
+                options={{
+                  title: 'Ajustes',
+                  headerShown: false,
+                  animationDuration: 150,
+                  animation: 'fade_from_bottom',
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </AppProvider>
     </ThemeProvider>
   );
 }
