@@ -31,7 +31,8 @@ const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        
         <StatusBar
           hidden={false}
           animated={true}
