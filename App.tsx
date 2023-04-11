@@ -42,13 +42,52 @@ function App(): JSX.Element {
 
         {/* Navigation COntainer */}
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator
+            initialRouteName="SplashScreen"
+            screenOptions={({navigation}) => ({
+              title: '',
+              headerBackVisible: true,
+              headerBackTitleVisible: false,
+              headerBackButtonMenuEnabled: false,
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: theme.darkColors?.background,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerLeft: () => (
+                <FontAwesome5
+                  name={'qrcode'}
+                  style={styles.qrIconStyle}
+                  onPress={() => navigation.navigate('ScanScreen')}
+                />
+              ),
+              headerRight: props => (
+                <AvatarPicture {...props} navigation={navigation} />
+              ),
+            })}>
+
             {/* SplashScreen which will come once for 2 Seconds */}
             <Stack.Screen
               name="SplashScreen"
               component={SplashScreen}
               options={{headerShown: false}}
             />
+
+            {/* Auth Navigator: Include Login and Signup */}
+            <Stack.Screen
+              name="AuthStack"
+              component={AuthStack}
+              options={{
+                headerShown: false,
+                animationDuration: 300,
+                animation: 'fade',
+              }}
+            />
+
+            
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
