@@ -1,0 +1,25 @@
+import React from 'react'
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+
+export default function SendingPayment() {
+    return (
+        <View style={styles.container}>
+            <ActivityIndicator color="#fff" size="large" />
+            <Text style={styles.loadingText}>Procesando pago ...</Text>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    loadingText: {
+        color: '#fff',
+        fontSize: 18,
+        marginTop: 20,
+        fontFamily: 'Nunito-Regular',
+    },
+})
