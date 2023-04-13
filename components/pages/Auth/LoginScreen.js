@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useContext } from 'react';
 import { StyleSheet, TextInput, View, Text, ScrollView, Keyboard, KeyboardAvoidingView } from 'react-native';
 
 // Global Styles, try to add this to another place
@@ -55,6 +55,12 @@ export default function LoginScreen({ navigation }) {
             if (data.accessToken && data.me) {
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
                 await storeData('me', data.me);
+
+                // Update the user global AppContext state
+                const { setMe } = useContext(AppContext);
+                setMe(data.me);
+
+                // redirect to main stack
                 navigation.replace('MainStack');
             } else {
                 setErrortext(data.error);

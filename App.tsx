@@ -32,6 +32,7 @@ import {AppProvider} from './AppContext';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
+
   return (
     <ThemeProvider theme={theme}>
       <AppProvider>
@@ -46,6 +47,7 @@ function App(): JSX.Element {
 
           {/* Navigation COntainer */}
           <NavigationContainer>
+
             <Stack.Navigator
               initialRouteName="SplashScreen"
               screenOptions={{
@@ -62,6 +64,7 @@ function App(): JSX.Element {
                   fontWeight: 'bold',
                 },
               }}>
+
               {/* SplashScreen which will come once for 2 Seconds */}
               <Stack.Screen
                 name="SplashScreen"
@@ -74,27 +77,17 @@ function App(): JSX.Element {
                 name="AuthStack"
                 component={AuthStack}
                 options={{
-                  headerShown: false,
-                  animationDuration: 300,
-                  animation: 'fade',
+                  headerShown: false
                 }}
               />
 
-              {/* Main Tabs Navigator: Home, KeyPad, Lightning, Store, P2P */}
+              {/* Main Tabs Navigator */}
               <Stack.Screen
                 name="MainStack"
                 component={MainStack}
-                options={({navigation}) => ({
-                  headerBackVisible: false,
-                  headerLeft: () => (
-                    <FontAwesome5
-                      name={'qrcode'}
-                      style={styles.qrIconStyle}
-                      onPress={() => navigation.navigate('ScanScreen')}
-                    />
-                  ),
-                  headerRight: () => <AvatarPicture />,
-                })}
+                options={{
+                  headerShown: false,
+                }}
               />
 
               <Stack.Screen
