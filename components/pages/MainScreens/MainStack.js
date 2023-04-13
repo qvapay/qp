@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from '../../ui/BottomBar';
@@ -15,7 +15,15 @@ import AvatarPicture from '../../ui/AvatarPicture';
 // Theming App
 import { theme } from '../../ui/Theme';
 
+// AppContext
+import { AppContext } from '../../../AppContext';
+
 export default function MainStack() {
+
+    // Get the user me object from AppContext
+    const { me } = useContext(AppContext);
+
+    console.log(me);
 
     // Create the Bottom Tab Navigator
     const Tab = createBottomTabNavigator();
@@ -44,7 +52,7 @@ export default function MainStack() {
                     <View style={styles.avatarPicture}>
                         <AvatarPicture
                             size={32}
-                            source_uri={''}
+                            source_uri={me.profile_photo_url}
                         />
                     </View>
                 ),

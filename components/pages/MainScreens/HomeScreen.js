@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { StyleSheet, ScrollView, Linking } from 'react-native'
-import { AppContext } from '../../../AppContext';
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Transactions from '../../ui/Transactions'
 import { getMe } from '../../../utils/QvaPayClient';
 
+// Get global AppContext
+import { AppContext } from '../../../AppContext';
+
 export default function HomeScreen({ navigation }) {
 
-    // useState for me object
-    const [me, setMe] = useState({ balance: 0 });
+    // get Me from AppContext
+    const { me, setMe } = useContext(AppContext);
 
     // Get Me object from QvaPayClient and store on state
     const fetchMe = async () => {
