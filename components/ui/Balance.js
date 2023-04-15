@@ -135,6 +135,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Nunito-Bold",
     }
 })

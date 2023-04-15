@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, Pressable, Alert } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { globalStyles } from '../../ui/Theme';
 
+// Get global AppContext
+import { AppContext } from '../../../AppContext';
+
 export default function KeypadScreen({ navigation }) {
 
-    // Ceate a state for every touched amount
-    const [balance] = useState(0.5);
+    const { me } = useContext(AppContext);
     const [amount, setAmount] = useState('0');
 
     // KeyPad
@@ -65,14 +67,17 @@ export default function KeypadScreen({ navigation }) {
             return;
         }
 
+        // Dont allow more than me.balance value
+        if (parseFloat(amount + key) > me.balance) {
+            return;
+        }
+
         // Set the amount if everithing passes
         setAmount(amount + key);
     }
 
     // Send Amount to SendScreen
     const sendAmount = () => {
-        // if amount > 0, send amount to SendScreen
-        // else, show a Alert
         if (amount > 0) {
             navigation.navigate('SendScreen', { amount });
         } else {
@@ -93,7 +98,7 @@ export default function KeypadScreen({ navigation }) {
                 <View>
                     <Text style={styles.amount}>${amount}</Text>
                     <View style={styles.balance}>
-                        <Text style={styles.balanceText}>$ {balance}</Text>
+                        <Text style={styles.balanceText}>$ {me.balance}</Text>
                     </View>
                 </View>
 
@@ -147,9 +152,9 @@ const styles = StyleSheet.create({
     },
     balanceText: {
         color: '#fff',
-        fontSize: 14,
+        fontSize: 13,
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Nunito-Bold",
     },
     pad: {
         marginVertical: 15,
@@ -185,6 +190,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#fff',
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Nunito-Bold",
     }
 })
