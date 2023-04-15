@@ -6,6 +6,7 @@ import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
+import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -19,15 +20,19 @@ export default function LoginScreen({ navigation }) {
 
     const passwordInputRef = createRef();
 
+    const { setMe } = useContext(AppContext);
+
     // Login Method from QvaPayClient
     const login = async (email, password) => {
         try {
             const response = await qvaPayClient.post("/auth/login", { email, password });
+
             if (response.data && response.data.accessToken) {
                 return response.data;
             } else {
                 throw new Error("No se pudo iniciar sesión correctamente");
             }
+
         } catch (error) {
             console.log(error.response.data)
             throw error;
@@ -52,12 +57,12 @@ export default function LoginScreen({ navigation }) {
 
         try {
             const data = await login(email, password);
+
             if (data.accessToken && data.me) {
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
                 await storeData('me', data.me);
 
                 // Update the user global AppContext state
-                const { setMe } = useContext(AppContext);
                 setMe(data.me);
 
                 // redirect to main stack

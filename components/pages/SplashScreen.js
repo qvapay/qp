@@ -6,25 +6,24 @@ import { getMe } from '../../utils/QvaPayClient';
 export default function SplashScreen({ navigation }) {
 
     useEffect(() => {
-        setTimeout(() => {
-            // Create a async function to check if the token is valid
-            const checkToken = async () => {
-                const accessToken = await EncryptedStorage.getItem("accessToken");
-                // Check Token Via QvaPayClient getMe
-                try {
-                    const checkToken = await getMe(navigation);
-                } catch (error) {
-                    console.log(error)
-                }
+        // Create a async function to check if the token is valid
+        const checkToken = async () => {
 
-                if (accessToken !== undefined && accessToken !== null && checkToken !== undefined && checkToken !== null) {
-                    navigation.replace('MainStack');
-                } else {
-                    navigation.replace('AuthStack');
-                }
+            const accessToken = await EncryptedStorage.getItem("accessToken");
+
+            // Check Token Via QvaPayClient getMe
+            try {
+                const checkToken = await getMe(navigation);
+            } catch (error) {
+                console.log(error)
             }
-            checkToken();
-        }, 3000);
+
+            if (accessToken !== undefined && accessToken !== null && checkToken !== undefined && checkToken !== null) {
+                navigation.replace('MainStack');
+            }
+        }
+
+        checkToken();
     }, []);
 
     return (

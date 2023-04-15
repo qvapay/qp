@@ -58,14 +58,17 @@ const apiRequest = async (url, options = {}, navigation) => {
 
     } catch (error) {
         console.error("Error1: " + error);
+
         if (error.response && error.response.status === 401) {
             onInvalidToken(navigation);
             return null;
         }
+
         if (error.response && error.response.status === 422) {
             onInvalidResponse(navigation);
             return null;
         }
+        
         throw error;
     }
 }
