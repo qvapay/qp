@@ -8,7 +8,6 @@ export default function ReceiveScreen({ route }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <StatusBar hidden={true} />
             <ProfileScreen amount={amount} />
         </View>
     )

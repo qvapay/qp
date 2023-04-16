@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
@@ -18,7 +18,7 @@ import { theme } from '../../ui/Theme';
 // AppContext
 import { AppContext } from '../../../AppContext';
 
-export default function MainStack() {
+export default function MainStack({ navigation }) {
 
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
@@ -29,8 +29,11 @@ export default function MainStack() {
     return (
         <Tab.Navigator
             initialRouteName="HomeScreen"
+            backBehavior='initialRoute'
             tabBar={props => <BottomBar {...props} />}
             screenOptions={({ navigation }) => ({
+                headerTitle: '',
+                headerShown: true,
                 headerBackVisible: true,
                 headerBackTitleVisible: false,
                 headerBackButtonMenuEnabled: false,
@@ -38,7 +41,6 @@ export default function MainStack() {
                 headerStyle: {
                     backgroundColor: theme.darkColors?.background,
                 },
-                headerShown: true,
                 headerLeft: () => (
                     <FontAwesome5
                         name={'qrcode'}
@@ -47,12 +49,14 @@ export default function MainStack() {
                     />
                 ),
                 headerRight: () => (
-                    <View style={styles.avatarPicture}>
-                        <AvatarPicture
-                            size={32}
-                            source_uri={me.profile_photo_url}
-                        />
-                    </View>
+                    <Pressable onPress={() => navigation.navigate("SettingsScreen")}>
+                        <View style={styles.avatarPicture}>
+                            <AvatarPicture
+                                size={32}
+                                source_uri={me.profile_photo_url}
+                            />
+                        </View>
+                    </Pressable>
                 ),
             })}
         >

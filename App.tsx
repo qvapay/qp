@@ -175,6 +175,7 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
+              
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>
