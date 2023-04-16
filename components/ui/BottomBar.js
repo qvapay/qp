@@ -28,6 +28,8 @@ export default function BottomBar({ state, descriptors, navigation }) {
         },
     ];
 
+
+
     return (
         <View style={styles.BottomNav}>
             {
@@ -95,6 +97,15 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         backgroundColor: '#161d31',
         justifyContent: 'space-between',
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOpacity: 0.3,
+            },
+            android: {
+                elevation: 3,
+            },
+        }),
     },
     pressableArea: {
         flex: 1,

@@ -23,8 +23,6 @@ export default function MainStack() {
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
 
-    console.log(me);
-
     // Create the Bottom Tab Navigator
     const Tab = createBottomTabNavigator();
 
