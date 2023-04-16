@@ -1,28 +1,26 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import QR from '../ui/QR';
+import { AppContext } from '../../AppContext';
 import { View, StyleSheet } from 'react-native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen({ amount = 0 }) {
 
-    const [user, setUser] = useState({});
-    const { qrData = `qvapay://u:${user.username}:a:${amount}` } = user;
+    const { me } = useContext(AppContext);
+    const { qrData = `qvapay://u:${me.username}:a:${amount}` } = me;
 
-    // Get the user data from the AsyncStorage getItem('me') from useEffect
+    // Set the max brightness on screen
     useEffect(() => {
-        const getUserData = async () => {
-            const me = await AsyncStorage.getItem('me');
-            console.log(me)
-            setUser(JSON.parse(me));
+        const setMaxBrightness = async () => {
+            await Brightness.setBrightnessAsync(1);
         }
-        getUserData();
-    }, []);
+        setMaxBrightness();
+    }, [])
 
     return (
         <View style={styles.container}>
-            <ProfilePictureSection user={user} />
+            <ProfilePictureSection user={me} />
             <View style={styles.qrSection}>
                 <QR qrData={qrData} />
             </View>

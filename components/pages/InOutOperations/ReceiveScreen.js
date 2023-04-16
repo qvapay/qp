@@ -2,7 +2,7 @@ import React from 'react'
 import { StatusBar, View } from 'react-native'
 import ProfileScreen from '../ProfileScreen';
 
-export default function ReceiveScreen({ route, navigation }) {
+export default function ReceiveScreen({ route }) {
 
     const { amount } = route.params;
 
