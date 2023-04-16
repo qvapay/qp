@@ -4,6 +4,7 @@ import QR from '../ui/QR';
 import { AppContext } from '../../AppContext';
 import { View, StyleSheet } from 'react-native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
+import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
 export default function ProfileScreen({ amount = 0 }) {
 
@@ -12,11 +13,20 @@ export default function ProfileScreen({ amount = 0 }) {
 
     // Set the max brightness on screen
     useEffect(() => {
-        const setMaxBrightness = async () => {
-            await Brightness.setBrightnessAsync(1);
-        }
-        setMaxBrightness();
-    }, [])
+        // Guardar el brillo actual para poder restaurarlo luego
+        DeviceBrightness.getBrightnessLevel().then((brightness) => {
+            // Establecer el brillo al máximo
+            DeviceBrightness.setBrightnessLevel(1);
+        });
+
+        // Limpiar la función de efecto para que se ejecute solo una vez
+        return () => {
+            // Restaurar el brillo original
+            DeviceBrightness.getBrightnessLevel().then((brightness) => {
+                DeviceBrightness.setBrightnessLevel(brightness);
+            });
+        };
+    }, []);
 
     return (
         <View style={styles.container}>

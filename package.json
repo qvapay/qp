@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@adrianso/react-native-device-brightness": "^1.2.7",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
