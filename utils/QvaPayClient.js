@@ -21,7 +21,6 @@ const qvaPayClient = axios.create({
 // Create a generic function to make every request to the API
 const apiRequest = async (url, options = {}, navigation) => {
 
-    // Get accessToken from EncryptedStorage
     const accessToken = await EncryptedStorage.getItem("accessToken");
 
     // Check if accessToken !exists
@@ -29,18 +28,18 @@ const apiRequest = async (url, options = {}, navigation) => {
         onInvalidToken(navigation);
         return null;
     }
-
+    
+    console.log("apiRequest:" + accessToken)
+    
     try {
-
-        console.log(accessToken)
 
         const response = await qvaPayClient.request({
             url,
             headers: {
                 Authorization: `Bearer ${accessToken}`,
-                ...options.headers, // Si hay headers adicionales, los mezcla con los existentes
+                ...options.headers
             },
-            ...options,
+            ...options
         });
 
         // Verifica si el token no es válido
@@ -54,9 +53,11 @@ const apiRequest = async (url, options = {}, navigation) => {
             onInvalidResponse(navigation);
             return null;
         }
+
         return response.data;
 
     } catch (error) {
+
         console.error("Error1: " + error);
 
         if (error.response && error.response.status === 401) {

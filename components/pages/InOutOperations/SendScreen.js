@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-native';
-import { PermissionsAndroid, Platform, StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native'
-import Contacts from 'react-native-contacts';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Pressable, FlatList } from 'react-native'
 import AvatarScroll from '../../ui/AvatarScroll';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AvatarPicture from '../../ui/AvatarPicture';
 
 export default function SendScreen({ route, navigation }) {
 
     const [text, setText] = useState('');
-    const [contacts, setContacts] = useState([]);
+    const [contacts, setContacts] = useState([
+        { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d', name: 'Juan Perez', phone: '+5491122334455', email: 'pepeconejito@gmail.com', source_uri: 'https://www.w3schools.com/howto/img_avatar.png', username: 'pepeconejito' },
+    ]);
     const [amount, setAmount] = useState(route.params.amount);
 
     // Check if amount has no decimals and if not, add .00
@@ -18,56 +21,41 @@ export default function SendScreen({ route, navigation }) {
         }
     }, [amount]);
 
-    // Try to read contacts, so ask for a permission
+    // Load contacts on mount
     useEffect(() => {
-        if (Platform.OS === 'android') {
-            PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-                title: 'Contacts',
-                message: 'This app would like to view your contacts.',
-            }).then(() => {
-                loadContacts();
-            });
-        } else {
-            loadContacts();
-        }
+        loadContacts();
     }, []);
 
-    // Load Contact List
-    const loadContacts = () => {
-        Contacts.getAll()
-            .then(contacts => {
-                setContacts(contacts);
-            })
-            .catch(e => {
-                console.log(e)
-                alert('Permission to access contacts was denied...');
-                console.warn('Permission to access contacts was denied');
-            });
+    // Load LOCAL contacts (not phone contacts but AsyncStorage Contacts)
+    const loadContacts = async () => {
+        const contacts = await AsyncStorage.getItem('contacts');
+        if (contacts) {
+            setContacts(JSON.parse(contacts));
+        }
     };
 
-    // Search inside contacts
+    // search for contacts on text change
     const search = (text) => {
 
-        // set Text
         setText(text);
 
         // If text is empty, load all contacts
         if (text === '') {
             loadContacts();
             return;
+        } else {
+            // Serach on every contact name and phone and email and filter it
+            const filteredContacts = contacts.filter((contact) => {
+                return contact.name.toLowerCase().includes(text.toLowerCase()) ||
+                    contact.username.toLowerCase().includes(text.toLowerCase()) ||
+                    contact.phone.toLowerCase().includes(text.toLowerCase()) ||
+                    contact.email.toLowerCase().includes(text.toLowerCase());
+            });
         }
 
-        Contacts.getContactsMatchingString(text)
-            .then(contacts => {
-                setContacts(contacts);
-            })
-            .catch(e => {
-                console.log(e)
-                alert('Permission to access contacts was denied...');
-                console.warn('Permission to access contacts was denied');
-            });
-    };
+        // Set filtered contacts
+        setContacts(filteredContacts);
+    }
 
     // Validar si el valor proporcionado es un correo electrónico
     const isEmail = (text) => {
@@ -82,26 +70,42 @@ export default function SendScreen({ route, navigation }) {
     };
 
     // Go to ConfirmSendScreen
-    const handleSendMoney = () => {
-        // Comprueba si se ha seleccionado un contacto o si 'text' es un correo electrónico,
-        // número de teléfono o nombre de usuario válido
-        if (
-            isEmail(text) ||
-            isPhoneNumber(text) ||
-            (text !== '' && text.trim().length >= 3) // Asume que un nombre de usuario válido tiene al menos 3 caracteres
-        ) {
+    const handleSendMoney = ({ uuid = '' }) => {
+
+        if (isEmail(text) || isPhoneNumber(text) || (text !== '' && text.trim().length >= 3)) {
             const destination = text;
-            navigation.navigate('ConfirmSendScreen', {
-                amount,
-                destination
-            });
+            navigation.navigate('ConfirmSendScreen', { amount, destination });
+        } else if (uuid !== '') {
+            const destination = contacts.find((contact) => contact.uuid === uuid);
+            navigation.navigate('ConfirmSendScreen', { amount, destination });
         } else {
-            // Si no cumple con las condiciones, muestra un mensaje de error
             Alert.alert(
                 'Error',
                 'Por favor, seleccione un contacto o ingrese un correo electrónico, número de teléfono o nombre de usuario válido en el buscador.'
             );
         }
+    };
+
+
+    // Extract item View for a more clean code
+    const itemView = ({ item }) => {
+        return (
+            <Pressable onPress={() => { handleSendMoney(item) }} >
+                <View style={styles.contactView}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={styles.contactAvatar}>
+                            <AvatarPicture source_uri={item.source_uri} />
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
+                            <Text style={styles.contactName}>{item.name}</Text>
+                            <Text style={styles.contactNumber}>
+                                {item.phone?.length > 0 ? item.phone : item.email}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            </Pressable>
+        );
     };
 
     return (
@@ -113,11 +117,9 @@ export default function SendScreen({ route, navigation }) {
             </View>
 
             <View style={styles.sendingContactContainer}>
-
                 <View key={'fastDestinationSelector'} style={styles.avatarScroll}>
                     <AvatarScroll navigation={navigation} />
                 </View>
-
                 <View style={styles.searchBar}>
                     <FontAwesome5 name='search' size={12} color='#7f8c8d' />
                     <TextInput
@@ -127,24 +129,11 @@ export default function SendScreen({ route, navigation }) {
                         style={styles.searchBarText}
                     />
                 </View>
-
                 <View key={'destinationContactList'}>
                     <FlatList
                         data={contacts}
-                        keyExtractor={(item) => item.recordID}
-                        renderItem={({ item }) => (
-                            <View style={styles.contactView}>
-                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                                    <Image source={require('../../../assets/images/contact.jpg')} style={styles.image} />
-                                    <View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
-                                        <Text style={styles.contactName}>{item.displayName}</Text>
-                                        <Text style={styles.contactNumber}>
-                                            {item.phoneNumbers && item.phoneNumbers[0] && item.phoneNumbers[0].number}
-                                        </Text>
-                                    </View>
-                                </View>
-                            </View>
-                        )}
+                        keyExtractor={(item) => item.uuid}
+                        renderItem={({ item }) => itemView({ item })}
                     />
                 </View>
             </View>
@@ -204,8 +193,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#7367f0',
     },
-    avatarScroll: {
-    },
     buttonTextStyle: {
         fontSize: 16,
         color: '#FFFFFF',
@@ -243,14 +230,9 @@ const styles = StyleSheet.create({
     contactNumber: {
         fontSize: 14,
         color: '#7f8c8d',
-        fontFamily: "Nunito-Light",
+        fontFamily: "Nunito-Medium",
     },
-    image: {
-        width: 30,
-        height: 30,
-        borderWidth: 1,
-        marginRight: 15,
-        borderRadius: 15,
-        borderColor: 'white',
+    contactAvatar: {
+        marginRight: 10
     },
 })

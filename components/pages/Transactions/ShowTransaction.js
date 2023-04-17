@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme'
 import { StyleSheet, Text, View } from 'react-native'
+import { getShortDateTime } from '../../../utils/Helpers';
 import { getTransaction } from '../../../utils/QvaPayClient';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import QPButton from '../../ui/QPButton';
-import { getShortDateTime } from '../../../utils/Helpers';
 
 export default function ShowTransaction({ route, navigation }) {
 
@@ -72,7 +72,7 @@ export default function ShowTransaction({ route, navigation }) {
 
             <ProfilePictureSection user={payeer} />
 
-            <View style={[globalStyles.section, { flex: 2 }]}>
+            <View style={[globalStyles.section, { flex: 1 }]}>
 
                 <Text style={[globalStyles.amount, { fontSize: 50, color, marginBottom: 0 }]}>
                     {transaction ? `${amountSign}${transaction.amount}` : 'Loading...'}

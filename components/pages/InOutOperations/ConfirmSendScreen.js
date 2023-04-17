@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, Pressable } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, Pressable } from 'react-native'
 import Sound from 'react-native-sound';
 import QPButton from '../../ui/QPButton';
 import SendingPayment from './SendingPayment';
@@ -15,11 +15,15 @@ export default function ConfirmSendScreen({ route, navigation }) {
 
     const [user, setUser] = useState({});
     const { destination = '' } = route.params;
-    const [to, setTo] = useState(destination);
-    const [amount, setAmount] = useState(route.params.amount);
+    const [to] = useState(destination);
+    const [amount] = useState(route.params.amount);
     const [comment, setComment] = useState('');
     const [sendingPayment, setSendingPayment] = useState(false);
     const [paymentCompleted, setPaymentCompleted] = useState(false);
+
+    useEffect(() => {
+        navigation.setOptions({ title: `Enviando ${amount}` });
+    }, []);
 
     useEffect(() => {
         ding.setVolume(1);
@@ -122,11 +126,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
                                 <ProfilePictureSection user={user} />
                             </View>
 
-                            <View style={styles.destinationAmount}>
-                                <Text style={styles.sendingLabel}>Enviando ...</Text>
-                                <Text style={styles.amount}>$ {amount}</Text>
-                            </View>
-
                             <View style={styles.destinationComment}>
                                 <CommentSticker setComment={setComment} />
                             </View>
@@ -154,23 +153,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#161d31',
     },
     destinationAvatar: {
-        flex: 3,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    destinationName: {
-        color: '#fff',
-        fontSize: 20,
-        marginVertical: 10,
-        fontFamily: "Nunito-Regular",
-    },
-    avatar: {
-        width: 90,
-        height: 90,
-        marginTop: 10,
-        borderWidth: 3,
-        borderRadius: 45,
-        borderColor: 'white',
+        flex: 1,
     },
     sendingLabel: {
         fontSize: 13,
@@ -178,17 +161,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: "Nunito-Regular",
     },
-    destinationAmount: {
-        flex: 1,
-    },
     destinationComment: {
-        flex: 3,
+        flex: 1,
         justifyContent: 'center',
     },
-    amount: {
-        fontSize: 30,
-        color: '#fff',
-        alignSelf: 'center',
-        fontFamily: "Nunito-Black",
-    }
 })

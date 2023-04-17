@@ -18,7 +18,7 @@ import { theme } from '../../ui/Theme';
 // AppContext
 import { AppContext } from '../../../AppContext';
 
-export default function MainStack({ navigation }) {
+export default function MainStack() {
 
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);

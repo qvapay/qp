@@ -37,6 +37,7 @@ function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       <AppProvider>
         <SafeAreaView style={styles.container}>
+
           <StatusBar
             hidden={false}
             animated={true}
@@ -175,7 +176,7 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
-              
+
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>
