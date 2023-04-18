@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import IndexP2p from '../P2P/IndexP2p'
 import { StyleSheet, View, Pressable, Text } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
+
 import Offers from '../P2P/Offers.js'
 
 export default function P2pScreen({ navigation }) {

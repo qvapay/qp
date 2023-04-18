@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Alert } from 'react-native';
-import { StyleSheet, Text, View, TextInput, Pressable, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Alert } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import AvatarScroll from '../../ui/AvatarScroll';
+import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AvatarPicture from '../../ui/AvatarPicture';
 
 export default function SendScreen({ route, navigation }) {
 

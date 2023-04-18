@@ -7,10 +7,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthStack from './components/pages/Auth/AuthStack';
 import MainStack from './components/pages/MainScreens/MainStack';
 
-// UI Components
-import AvatarPicture from './components/ui/AvatarPicture';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 // Screens
 import ScanScreen from './components/pages/ScanScreen';
 import SplashScreen from './components/pages/SplashScreen';
