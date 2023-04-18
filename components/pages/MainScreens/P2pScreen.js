@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
-import IndexP2p from '../P2P/IndexP2p'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Pressable, Text } from 'react-native'
+import IndexP2p from '../P2P/IndexP2p'
 import { globalStyles } from '../../ui/Theme'
-
-import Offers from '../P2P/Offers.js'
+import { getP2POffers } from '../../../utils/QvaPayClient'
 
 export default function P2pScreen({ navigation }) {
 
+    const [buyoffers, setBuyoffers] = useState([]);
+    const [selloffers, setSelloffers] = useState([]);
     const [isSellEnabled, setIsSellEnabled] = useState(false);
 
-    console.log(Offers)
+    // useEffect for Buy Offers with getP2POffers({type = 'buy'})
+    useEffect(() => {
+        const getOffers = async () => {
+            const offers = await getP2POffers({ type: 'buy', navigation });
+            setBuyoffers(offers);
+        }
+        getOffers();
+    }, []);
+
+    // useEffect for Sell Offers with getP2POffers({type = 'sell'})
+    useEffect(() => {
+        const getOffers = async () => {
+            const offers = await getP2POffers({ type: 'sell', navigation });
+            setSelloffers(offers);
+        }
+        getOffers();
+    }, []);
 
     const OffersFilter = ({ isSellEnabled, onToggle }) => (
         <View style={styles.filterContainer}>
@@ -38,7 +55,7 @@ export default function P2pScreen({ navigation }) {
                 isSellEnabled={isSellEnabled}
                 onToggle={(value) => setIsSellEnabled(value)}
             />
-            <IndexP2p offers={Offers} />
+            <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} />
         </View>
     )
 }

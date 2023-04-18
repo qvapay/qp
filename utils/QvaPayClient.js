@@ -28,9 +28,9 @@ const apiRequest = async (url, options = {}, navigation) => {
         onInvalidToken(navigation);
         return null;
     }
-    
+
     console.log("apiRequest:" + accessToken)
-    
+
     try {
 
         const response = await qvaPayClient.request({
@@ -69,7 +69,10 @@ const apiRequest = async (url, options = {}, navigation) => {
             onInvalidResponse(navigation);
             return null;
         }
-        
+
+        // If none is matched, the go away
+        onInvalidToken(navigation);
+
         throw error;
     }
 }
@@ -78,9 +81,7 @@ const apiRequest = async (url, options = {}, navigation) => {
 const onInvalidToken = async (navigation) => {
     try {
         await EncryptedStorage.removeItem('accessToken');
-    } catch (error) {
-
-    }
+    } catch (error) { }
     navigation.replace('AuthStack');
 };
 
@@ -94,9 +95,7 @@ const getMe = async (navigation) => {
     try {
         const response = await apiRequest('/user', { method: 'GET' }, navigation);
         return response;
-    } catch (error) {
-        console.error(error);
-    }
+    } catch (error) { console.error(error); }
 };
 
 // get all transactions from the user
@@ -131,21 +130,15 @@ const checkUser = async ({ to, navigation }) => {
     }
 };
 
-// function to transfer balance between users, get 2 parameters, an email or uuid or phone and the amount ot transfer
-// Send with the user token aquired from localstorage token
+// transfer balance between users
 const transferBalance = async (to, amount, description) => {
+
     const accessToken = await EncryptedStorage.getItem("accessToken");
-    const data = {
-        to,
-        amount,
-        description,
-        notify: true,
-    };
+    const data = { to, amount, description, notify: true };
+
     try {
         const response = await qvaPayClient.post("/transactions/transfer", data, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
+            headers: { Authorization: `Bearer ${accessToken}` },
         });
 
         if (response.data && response.data.uuid) {
@@ -159,4 +152,14 @@ const transferBalance = async (to, amount, description) => {
     }
 };
 
-export { qvaPayClient, transferBalance, getTransaction, getTransactions, getMe, checkUser };
+// Get P2P Offers
+const getP2POffers = async ({ type = 'buy', coin = '', navigation }) => {
+    try {
+        const response = await apiRequest(`/p2p/index?type=${type}`, { method: 'GET' }, navigation);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export { qvaPayClient, transferBalance, getTransaction, getTransactions, getMe, checkUser, getP2POffers };
