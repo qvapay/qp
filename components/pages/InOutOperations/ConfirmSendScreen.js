@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, Pressable } from 'react-native'
+import { StyleSheet, View, KeyboardAvoidingView, Pressable } from 'react-native'
 import Sound from 'react-native-sound';
 import QPButton from '../../ui/QPButton';
 import SendingPayment from './SendingPayment';
 import CompletedPayment from './CompletedPayment';
 import CommentSticker from '../../ui/CommentSticker';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient';
 
 Sound.setCategory('Playback');
@@ -42,13 +43,7 @@ export default function ConfirmSendScreen({ route, navigation }) {
     }, [paymentCompleted]);
 
     const playDone = () => {
-        ding.play(success => {
-            if (success) {
-                console.log('successfully finished playing');
-            } else {
-                console.log('playback failed due to audio decoding errors');
-            }
-        });
+        ding.play();
     };
 
     // useEffect to get the destination data and check against checkUser from QvaPayClient
@@ -56,6 +51,36 @@ export default function ConfirmSendScreen({ route, navigation }) {
         const fetchUser = async () => {
             const response = await checkUser({ to, navigation });
             setUser(response.user);
+
+            console.log("User: " + response.user)
+
+            // Sve this user to the contact list in AsyncStorage or update it by its uuid
+            const contacts = await AsyncStorage.getItem('contacts');
+
+            console.log("Contacts" + contacts)
+
+            // toSave User schema
+            const userToSave = {
+                uuid: response.user.uuid,
+                name: response.user.name,
+                username: response.user.username,
+                source_uri: response.user.profile_photo_url,
+            };
+
+            if (contacts) {
+                const contactsArray = JSON.parse(contacts);
+                const contactIndex = contactsArray.findIndex((contact) => contact.uuid === response.user.uuid);
+                if (contactIndex === -1) {
+                    contactsArray.push(userToSave);
+                } else {
+                    contactsArray[contactIndex] = userToSave
+                }
+                await AsyncStorage.setItem('contacts', JSON.stringify(contactsArray));
+
+                console.log("Contacts Updated" + contactsArray)
+            } else {
+                await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]));
+            }
         };
         fetchUser();
     }, []);
@@ -78,7 +103,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
         // If data status = paid and there is an uuid
         // Make a sound and change to payment completed animation
         if (response.status === 201 && response.data.uuid) {
-            // Play the confirmation Sound
             playDone();
             setPaymentCompleted(true);
         } else {
@@ -104,11 +128,7 @@ export default function ConfirmSendScreen({ route, navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView
-            style={styles.container}
-            keyboardVerticalOffset={100}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+        <KeyboardAvoidingView style={styles.container} >
             {paymentCompleted ? (
                 <Pressable
                     style={{ flex: 1 }}
@@ -122,20 +142,19 @@ export default function ConfirmSendScreen({ route, navigation }) {
                 <>
                     {sendingPayment ? (<SendingPayment />) : (
                         <>
-                            <View style={styles.destinationAvatar}>
-                                <ProfilePictureSection user={user} />
+                            <View style={{ flex: 1 }}>
+
+                                <View style={styles.destinationAvatar}>
+                                    <ProfilePictureSection user={user} />
+                                </View>
+
+                                <View style={styles.destinationComment}>
+                                    <CommentSticker setComment={setComment} />
+                                </View>
+
                             </View>
 
-                            <View style={styles.destinationComment}>
-                                <CommentSticker setComment={setComment} />
-                            </View>
-
-                            <View style={styles.confirmTransaction}>
-                                <QPButton
-                                    title={`ENVIAR \$${amount}`}
-                                    onPress={handleConfirmSendMoney}
-                                />
-                            </View>
+                            <QPButton title={`ENVIAR \$${amount}`} onPress={handleConfirmSendMoney} />
                         </>
                     )}
                 </>
@@ -147,7 +166,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 10,
         paddingHorizontal: 20,
         alignContent: 'center',
         backgroundColor: '#161d31',

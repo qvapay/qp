@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-native';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Pressable, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList } from 'react-native'
+import QPButton from '../../ui/QPButton';
 import AvatarScroll from '../../ui/AvatarScroll';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,9 +10,7 @@ import AvatarPicture from '../../ui/AvatarPicture';
 export default function SendScreen({ route, navigation }) {
 
     const [text, setText] = useState('');
-    const [contacts, setContacts] = useState([
-        { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d', name: 'Juan Perez', phone: '+5491122334455', email: 'pepeconejito@gmail.com', source_uri: 'https://www.w3schools.com/howto/img_avatar.png', username: 'pepeconejito' },
-    ]);
+    const [contacts, setContacts] = useState([]);
     const [amount, setAmount] = useState(route.params.amount);
 
     // Check if amount has no decimals and if not, add .00
@@ -21,11 +20,6 @@ export default function SendScreen({ route, navigation }) {
         }
     }, [amount]);
 
-    // Load contacts on mount
-    useEffect(() => {
-        loadContacts();
-    }, []);
-
     // Load LOCAL contacts (not phone contacts but AsyncStorage Contacts)
     const loadContacts = async () => {
         const contacts = await AsyncStorage.getItem('contacts');
@@ -34,27 +28,15 @@ export default function SendScreen({ route, navigation }) {
         }
     };
 
+    // Load contacts on mount
+    useEffect(() => {
+        loadContacts();
+        console.log(contacts)
+    }, []);
+
     // search for contacts on text change
     const search = (text) => {
-
         setText(text);
-
-        // If text is empty, load all contacts
-        if (text === '') {
-            loadContacts();
-            return;
-        } else {
-            // Serach on every contact name and phone and email and filter it
-            const filteredContacts = contacts.filter((contact) => {
-                return contact.name.toLowerCase().includes(text.toLowerCase()) ||
-                    contact.username.toLowerCase().includes(text.toLowerCase()) ||
-                    contact.phone.toLowerCase().includes(text.toLowerCase()) ||
-                    contact.email.toLowerCase().includes(text.toLowerCase());
-            });
-        }
-
-        // Set filtered contacts
-        setContacts(filteredContacts);
     }
 
     // Validar si el valor proporcionado es un correo electrónico
@@ -71,7 +53,6 @@ export default function SendScreen({ route, navigation }) {
 
     // Go to ConfirmSendScreen
     const handleSendMoney = ({ uuid = '' }) => {
-
         if (isEmail(text) || isPhoneNumber(text) || (text !== '' && text.trim().length >= 3)) {
             const destination = text;
             navigation.navigate('ConfirmSendScreen', { amount, destination });
@@ -86,7 +67,6 @@ export default function SendScreen({ route, navigation }) {
         }
     };
 
-
     // Extract item View for a more clean code
     const itemView = ({ item }) => {
         return (
@@ -98,9 +78,7 @@ export default function SendScreen({ route, navigation }) {
                         </View>
                         <View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
                             <Text style={styles.contactName}>{item.name}</Text>
-                            <Text style={styles.contactNumber}>
-                                {item.phone?.length > 0 ? item.phone : item.email}
-                            </Text>
+                            <Text style={styles.contactNumber}>{item.username}</Text>
                         </View>
                     </View>
                 </View>
@@ -138,14 +116,8 @@ export default function SendScreen({ route, navigation }) {
                 </View>
             </View>
 
-            <View style={{ backgroundColor: '#161d31' }}>
-                <TouchableOpacity
-                    style={styles.buttonStyle}
-                    activeOpacity={0.5}
-                    onPress={handleSendMoney}>
-                    <Text style={styles.buttonTextStyle}>ENVIAR ${amount}</Text>
-                </TouchableOpacity>
-            </View>
+            <QPButton title={`ENVIAR \$${amount}`} onPress={handleSendMoney} />
+
         </View>
     )
 }
@@ -212,6 +184,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#7f8c8d',
         paddingVertical: 0,
+        textTransform: 'none',
         paddingHorizontal: 10,
         fontFamily: "Nunito-Regular",
     },

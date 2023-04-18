@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#7f8c8d',
         paddingVertical: 0,
+        textTransform: 'none',
         paddingHorizontal: 10,
         fontFamily: "Nunito-Regular",
     },
