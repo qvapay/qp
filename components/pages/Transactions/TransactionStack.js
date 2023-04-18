@@ -13,6 +13,7 @@ export default function TransactionStack() {
             name="TransactionStack"
             initialRouteName="IndexTransaction"
         >
+            
             <Stack.Screen
                 name="IndexTransaction"
                 component={IndexTransaction}

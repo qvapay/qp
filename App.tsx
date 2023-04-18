@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // Navigation Stacks
 import AuthStack from './components/pages/Auth/AuthStack';
 import MainStack from './components/pages/MainScreens/MainStack';
+import PeerToPeerStack from './components/pages/P2P/PeerToPeerStack';
 
 // Screens
 import ScanScreen from './components/pages/ScanScreen';
@@ -28,12 +29,10 @@ import {AppProvider} from './AppContext';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-
   return (
     <ThemeProvider theme={theme}>
       <AppProvider>
         <SafeAreaView style={styles.container}>
-
           <StatusBar
             hidden={false}
             animated={true}
@@ -44,7 +43,6 @@ function App(): JSX.Element {
 
           {/* Navigation COntainer */}
           <NavigationContainer>
-
             <Stack.Navigator
               initialRouteName="SplashScreen"
               screenOptions={{
@@ -61,7 +59,6 @@ function App(): JSX.Element {
                   fontWeight: 'bold',
                 },
               }}>
-
               {/* SplashScreen which will come once for 2 Seconds */}
               <Stack.Screen
                 name="SplashScreen"
@@ -74,7 +71,7 @@ function App(): JSX.Element {
                 name="AuthStack"
                 component={AuthStack}
                 options={{
-                  headerShown: false
+                  headerShown: false,
                 }}
               />
 
@@ -87,6 +84,7 @@ function App(): JSX.Element {
                 }}
               />
 
+              {/* Transactions Stack */}
               <Stack.Screen
                 name="TransactionStack"
                 component={TransactionStack}
@@ -97,6 +95,15 @@ function App(): JSX.Element {
                   headerRight: () => {
                     return null;
                   },
+                }}
+              />
+
+              {/* P2P Stack */}
+              <Stack.Screen
+                name="PeerToPeerStack"
+                component={PeerToPeerStack}
+                options={{
+                  headerShown: false,
                 }}
               />
 
@@ -172,7 +179,6 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
-
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>

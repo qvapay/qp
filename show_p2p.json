@@ -1,0 +1,42 @@
+{
+  "amount": "50.00",
+  "coin": "BANK_CUP",
+  "coin_data": {
+    "coins_categories_id": 2,
+    "fee_in": "0.00",
+    "fee_out": "0.00",
+    "id": 34,
+    "logo": "bankcup",
+    "max_in": 1000,
+    "max_out": 1000,
+    "min_in": "50.00",
+    "min_out": "10.00",
+    "name": "Banco CUP",
+    "price": "0.006097560000000000",
+    "tick": "BANK_CUP"
+  },
+  "created_at": "2023-04-18T18:51:33.000000Z",
+  "id": 33256,
+  "only_kyc": 0,
+  "owner": {
+    "average_rating": "5.00",
+    "bio": "",
+    "complete_name": "Osvaldo Orestes <i class=\"fas fa-badge-check text-warning\" title=\"Usuario Verificado Gold\"></i>",
+    "cover_photo_url": "https://media.qvapay.com/covers/timeline.jpg",
+    "golden_check": 1,
+    "kyc": 1,
+    "lastname": "Orestes",
+    "name": "Osvaldo",
+    "name_verified": "Osvaldo <i class=\"fas fa-badge-check text-warning\" title=\"Usuario Verificado Gold\"></i>",
+    "profile_photo_url": "https://media.qvapay.com/profiles/aKGvjKDirWRFpcMEFqj2KSPRCynhv5got1kqX5wu.jpg",
+    "username": "osvalditoolm",
+    "uuid": "0129c6d6-ad37-45d6-8046-d84e373a3492"
+  },
+  "peer_id": 0,
+  "receive": "8850.000000000000",
+  "status": "open",
+  "type": "buy",
+  "updated_at": "2023-04-18T18:51:33.000000Z",
+  "user_id": 190264,
+  "uuid": "44e130cb-5488-43c9-82d6-c87f7e801a5d"
+}

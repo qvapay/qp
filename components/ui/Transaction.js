@@ -36,7 +36,7 @@ export default function Transaction({ transaction, navigation }) {
     const navigateToTransaction = () => {
         navigation.navigate('TransactionStack', {
             screen: 'ShowTransaction',
-            params: { uuid: uuid },
+            params: { uuid },
         })
     }
 

@@ -10,20 +10,14 @@ export default function P2pScreen({ navigation }) {
     const [selloffers, setSelloffers] = useState([]);
     const [isSellEnabled, setIsSellEnabled] = useState(false);
 
-    // useEffect for Buy Offers with getP2POffers({type = 'buy'})
+    // useEffect for Offers with getP2POffers
     useEffect(() => {
         const getOffers = async () => {
-            const offers = await getP2POffers({ type: 'buy', navigation });
-            setBuyoffers(offers);
-        }
-        getOffers();
-    }, []);
+            const buyOffers = await getP2POffers({ type: 'buy', navigation });
+            setBuyoffers(buyOffers);
 
-    // useEffect for Sell Offers with getP2POffers({type = 'sell'})
-    useEffect(() => {
-        const getOffers = async () => {
-            const offers = await getP2POffers({ type: 'sell', navigation });
-            setSelloffers(offers);
+            const sellOffers = await getP2POffers({ type: 'sell', navigation });
+            setSelloffers(sellOffers);
         }
         getOffers();
     }, []);
@@ -55,7 +49,7 @@ export default function P2pScreen({ navigation }) {
                 isSellEnabled={isSellEnabled}
                 onToggle={(value) => setIsSellEnabled(value)}
             />
-            <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} />
+            <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} navigation={navigation} />
         </View>
     )
 }
