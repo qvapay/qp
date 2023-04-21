@@ -1,8 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
+import RatingStars from './RatingStars';
 import { SvgUri } from 'react-native-svg';
 import AvatarPicture from './AvatarPicture';
-import RatingStars from './RatingStars';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function P2POffer({ offer, navigation }) {
 
@@ -23,7 +24,7 @@ export default function P2POffer({ offer, navigation }) {
     fixedReceive = parseFloat(receive).toFixed(2)
 
     // limit the amount of characters for the username
-    const usernameLabel = username.length > 10 ? username.substring(0, 10) + '...' : username
+    const usernameLabel = username.length > 20 ? username.substring(0, 20) + '...' : username
 
     // Navigation function to ShowTransaction screen
     const navigateToP2P = () => {
@@ -37,30 +38,35 @@ export default function P2POffer({ offer, navigation }) {
     return (
         <Pressable onPress={navigateToP2P} >
             <View style={styles.offerItem}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                    
                     <View style={[styles.coinSection, { width: 50, height: 50 }]}>
                         <SvgUri width="100%" height="100%" uri={coin_logo} />
                     </View>
+
                     <View style={styles.offerDetails}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.offerAmountLabel}>Recibe: </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name='arrow-down' size={14} color='#28c76f' />
                             <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.offerAmountLabel}>Paga: </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name='arrow-up' size={14} color='#ea5455' />
                             <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
                         </View>
                     </View>
                 </View>
+
                 <View style={styles.peerContainer}>
-                    <View style={{ marginRight: 10, justifyContent: 'flex-end' }}>
+                    <AvatarPicture size={48} source_uri={profile_photo_url} />
+                    <View style={{ marginLeft: 10 }}>
                         <Text style={styles.peerUsername}>{usernameLabel}</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                        <View style={{ flexDirection: 'row' }}>
                             <RatingStars rating={average_rating} fontSize={12} size={10} />
                         </View>
                     </View>
-                    <AvatarPicture size={50} source_uri={profile_photo_url} />
                 </View>
+
             </View>
         </Pressable>
     )
@@ -95,20 +101,22 @@ const styles = StyleSheet.create({
     offerAmount: {
         fontSize: 14,
         color: 'white',
+        marginLeft: 5,
         fontFamily: 'Nunito-Black',
     },
     offerReceive: {
         fontSize: 14,
         color: 'white',
+        marginLeft: 5,
         fontFamily: 'Nunito-Black',
     },
     peerContainer: {
-        alignItems: 'center',
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
     peerUsername: {
-        fontSize: 14,
+        fontSize: 16,
         color: 'white',
         fontFamily: 'Nunito-Light',
     },
