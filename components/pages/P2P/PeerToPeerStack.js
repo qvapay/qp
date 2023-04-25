@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
 import ShowP2p from './ShowP2p';
 import CreateP2p from './CreateP2p';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { theme } from '../../ui/Theme';
+import { StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function PeerToPeerStack() {
 
@@ -15,14 +15,7 @@ export default function PeerToPeerStack() {
             name="PeerToPeerStack"
             initialRouteName="ShowP2p"
             screenOptions={{
-                title: '',
-                headerStyle: {
-                    backgroundColor: theme.darkColors?.background,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
+                headerShown: false
             }}
         >
 
@@ -34,6 +27,7 @@ export default function PeerToPeerStack() {
             <Stack.Screen
                 name="CreateP2p"
                 component={CreateP2p}
+
             />
 
         </Stack.Navigator>

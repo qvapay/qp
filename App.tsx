@@ -102,9 +102,6 @@ function App(): JSX.Element {
               <Stack.Screen
                 name="PeerToPeerStack"
                 component={PeerToPeerStack}
-                options={{
-                  headerShown: false,
-                }}
               />
 
               <Stack.Screen

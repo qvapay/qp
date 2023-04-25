@@ -24,7 +24,7 @@ export default function P2POffer({ offer, navigation }) {
     fixedReceive = parseFloat(receive).toFixed(2)
 
     // limit the amount of characters for the username
-    const usernameLabel = username.length > 20 ? username.substring(0, 20) + '...' : username
+    const usernameLabel = username.length > 14 ? username.substring(0, 14) + '...' : username
 
     // Navigation function to ShowTransaction screen
     const navigateToP2P = () => {
@@ -40,7 +40,7 @@ export default function P2POffer({ offer, navigation }) {
             <View style={styles.offerItem}>
 
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    
+
                     <View style={[styles.coinSection, { width: 50, height: 50 }]}>
                         <SvgUri width="100%" height="100%" uri={coin_logo} />
                     </View>

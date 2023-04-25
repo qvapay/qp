@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar } from '@rneui/base';
 import { StyleSheet, View } from 'react-native'
 
-export default function AvatarPicture({ size = 32, source_uri = '' }) {
+export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png' }) {
 
     // Dynamic borderWidth based on size
     const borderWidth = size / 30;
