@@ -79,7 +79,7 @@ export default function ShowP2p({ route, navigation }) {
 
     return (
         <View style={globalStyles.container} >
-
+            
             <View style={styles.peerOwnerContainer}>
                 <AvatarPicture size={56} source_uri={offer.owner?.profile_photo_url} />
                 <View style={{ marginLeft: 10 }}>

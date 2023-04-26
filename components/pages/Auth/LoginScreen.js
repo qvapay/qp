@@ -1,5 +1,6 @@
 import React, { useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, ScrollView, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Global Styles, try to add this to another place
 import Loader from '../../ui/Loader';
@@ -80,73 +81,67 @@ export default function LoginScreen({ navigation }) {
     };
 
     return (
-        <View style={globalStyles.container}>
-            <Loader loading={loading} />
-            <ScrollView
-                keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}>
-                <KeyboardAvoidingView enabled>
-                    <View style={{ alignItems: 'center' }}>
-                        <QPLogo />
-                    </View>
-                    <View style={styles.sectionStyle}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            onChangeText={(UserEmail) =>
-                                setEmail(UserEmail)
-                            }
-                            placeholder="Usuario, Correo o Teléfono"
-                            placeholderTextColor="#7f8c8d"
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            returnKeyType="next"
-                            onSubmitEditing={() =>
-                                passwordInputRef.current &&
-                                passwordInputRef.current.focus()
-                            }
-                            underlineColorAndroid="#f000"
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <View style={styles.sectionStyle}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            onChangeText={(UserPassword) =>
-                                setPassword(UserPassword)
-                            }
-                            placeholder="Contraseña"
-                            placeholderTextColor="#7f8c8d"
-                            keyboardType="default"
-                            ref={passwordInputRef}
-                            onSubmitEditing={Keyboard.dismiss}
-                            blurOnSubmit={false}
-                            secureTextEntry={true}
-                            underlineColorAndroid="#f000"
-                            returnKeyType="next"
-                        />
-                    </View>
+        <KeyboardAvoidingView
+            style={globalStyles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+        >
+            <KeyboardAwareScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+                <View style={{ alignItems: 'center' }}>
+                    <QPLogo />
+                </View>
+                <View style={styles.sectionStyle}>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={(UserEmail) =>
+                            setEmail(UserEmail)
+                        }
+                        placeholder="Usuario, Correo o Teléfono"
+                        placeholderTextColor="#7f8c8d"
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                        returnKeyType="next"
+                        onSubmitEditing={() =>
+                            passwordInputRef.current &&
+                            passwordInputRef.current.focus()
+                        }
+                        underlineColorAndroid="#f000"
+                        blurOnSubmit={false}
+                    />
+                </View>
+                <View style={styles.sectionStyle}>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={(UserPassword) =>
+                            setPassword(UserPassword)
+                        }
+                        placeholder="Contraseña"
+                        placeholderTextColor="#7f8c8d"
+                        keyboardType="default"
+                        ref={passwordInputRef}
+                        onSubmitEditing={Keyboard.dismiss}
+                        blurOnSubmit={false}
+                        secureTextEntry={true}
+                        underlineColorAndroid="#f000"
+                        returnKeyType="next"
+                    />
+                </View>
 
-                    {errortext != '' ? (
-                        <Text style={styles.errorTextStyle}>
-                            {errortext}
-                        </Text>
-                    ) : null}
-
-                    <QPButton title="Iniciar Sesión" onPress={handleLogin} />
-
-                    <Text
-                        style={styles.registerTextStyle}
-                        onPress={() => navigation.navigate('RegisterScreen')}>
-                        ¿No tienes cuenta? Regístrate
+                {errortext != '' ? (
+                    <Text style={styles.errorTextStyle}>
+                        {errortext}
                     </Text>
+                ) : null}
 
-                </KeyboardAvoidingView>
-            </ScrollView>
-        </View>
+                <QPButton title="Iniciar Sesión" onPress={handleLogin} />
+
+                <Text
+                    style={styles.registerTextStyle}
+                    onPress={() => navigation.navigate('RegisterScreen')}>
+                    ¿No tienes cuenta? Regístrate
+                </Text>
+            </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     );
 }
 

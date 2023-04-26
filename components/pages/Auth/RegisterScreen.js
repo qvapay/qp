@@ -1,5 +1,7 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
@@ -79,34 +81,34 @@ export default function RegisterScreen({ navigation }) {
     };
 
     return (
-        <View style={globalStyles.container}>
-            <Loader loading={loading} />
-            {isRegistraionSuccess ? (
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}>
-                    <View style={{ alignItems: 'center' }}>
-                        <QPLogo />
-                    </View>
-                    <Text style={styles.successTextStyle}>
-                        Registro satisfactorio.
-                    </Text>
-                    <Text style={styles.successTextStyle}>
-                        Por favor, inicie sesión para continuar.
-                    </Text>
-                    <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
-                </View>
-            ) : (
-                <ScrollView
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={{
+        <KeyboardAvoidingView
+            style={globalStyles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+        >
+            <KeyboardAwareScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+
+                <Loader loading={loading} />
+
+                {isRegistraionSuccess ? (
+                    <View style={{
                         flex: 1,
                         justifyContent: 'center',
                         alignContent: 'center',
                     }}>
-                    <KeyboardAvoidingView enabled>
+                        <View style={{ alignItems: 'center' }}>
+                            <QPLogo />
+                        </View>
+                        <Text style={styles.successTextStyle}>
+                            Registro satisfactorio.
+                        </Text>
+                        <Text style={styles.successTextStyle}>
+                            Por favor, inicie sesión para continuar.
+                        </Text>
+                        <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
+                    </View>
+                ) : (
+                    <>
                         <View style={{ alignItems: 'center' }}>
                             <QPLogo />
                         </View>
@@ -169,11 +171,10 @@ export default function RegisterScreen({ navigation }) {
                         ) : null}
 
                         <QPButton title="Registrarme" onPress={handleRegister} />
-
-                    </KeyboardAvoidingView>
-                </ScrollView>
-            )}
-        </View>
+                    </>
+                )}
+            </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
