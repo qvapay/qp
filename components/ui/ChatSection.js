@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function ChatSection() {
@@ -26,22 +26,23 @@ export default function ChatSection() {
         }
     };
 
-    // Message Container
-    const messageContainer = ({ item }) => (
-        <View style={styles.messageContainer(item.sender === 'Usuario1')}>
-            <Text style={styles.messageText}>{item.text}</Text>
-        </View>
-    )
-
     return (
         <View style={styles.container}>
+            
             <FlatList
-                data={messages}
                 ref={flatListRef}
-                renderItem={messageContainer}
+                data={messages}
+                renderItem={({ item }) => (
+                    <View style={styles.messageContainer(item.sender === 'Usuario1')}>
+                        <Text style={styles.messageText}>{item.text}</Text>
+                    </View>
+                )}
                 keyExtractor={item => item.id.toString()}
-                onContentSizeChange={() => messages.length > 0 && flatListRef.current.scrollToEnd({ animated: true })}
+                onContentSizeChange={() =>
+                    messages.length > 0 && flatListRef.current.scrollToEnd({ animated: true })
+                }
             />
+
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -55,7 +56,7 @@ export default function ChatSection() {
                 </TouchableOpacity>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -66,6 +67,9 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingHorizontal: 10,
         backgroundColor: '#283046',
+    },
+    keyboardAvoidingView: {
+        flex: 1,
     },
     messageContainer: isUser1 => ({
         alignSelf: isUser1 ? 'flex-end' : 'flex-start',

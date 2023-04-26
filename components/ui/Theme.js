@@ -17,8 +17,6 @@ const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        alignContent: 'center',
-        justifyContent: 'center',
         backgroundColor: '#161d31',
     },
     text: {

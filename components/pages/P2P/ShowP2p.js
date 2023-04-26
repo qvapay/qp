@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import ChatSection from '../../ui/ChatSection';
@@ -78,7 +78,7 @@ export default function ShowP2p({ route, navigation }) {
     )
 
     return (
-        <KeyboardAvoidingView style={globalStyles.container} >
+        <View style={globalStyles.container} >
 
             <View style={styles.peerOwnerContainer}>
                 <AvatarPicture size={56} source_uri={offer.owner?.profile_photo_url} />
@@ -113,11 +113,17 @@ export default function ShowP2p({ route, navigation }) {
             {showSteps ? <OfferStepsComponent /> : null}
             {showChat ? <ChatSection /> : <OfferLabelComponent />}
 
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        borderRadius: 10,
+        justifyContent: 'center',
+        backgroundColor: '#283046',
+    },
     peerOwnerContainer: {
         padding: 10,
         marginTop: 10,
