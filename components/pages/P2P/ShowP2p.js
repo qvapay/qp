@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
+
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import ChatSection from '../../ui/ChatSection';
@@ -51,6 +52,32 @@ export default function ShowP2p({ route, navigation }) {
         }
     }
 
+    const OfferInOutComponent = () => (
+        <>
+            <View style={styles.offerReceiveSend}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <FontAwesome5 name='arrow-down' size={26} color='#28c76f' />
+                        <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.coinLabel}>SQP</Text>
+                    </View>
+                </View>
+                <View style={styles.grayDivider}></View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <FontAwesome5 name='arrow-up' size={26} color='#ea5455' />
+                        <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.coinLabel}>{offer.coin_data?.name}</Text>
+                    </View>
+                </View>
+            </View>
+        </>
+    )
+
     // Custom Offer Label with explanation
     const OfferLabelComponent = () => (
         <>
@@ -78,8 +105,12 @@ export default function ShowP2p({ route, navigation }) {
     )
 
     return (
-        <View style={globalStyles.container} >
-            
+        <KeyboardAvoidingView
+            style={globalStyles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+        >
+
             <View style={styles.peerOwnerContainer}>
                 <AvatarPicture size={56} source_uri={offer.owner?.profile_photo_url} />
                 <View style={{ marginLeft: 10 }}>
@@ -88,32 +119,11 @@ export default function ShowP2p({ route, navigation }) {
                 </View>
             </View>
 
-            <View style={styles.offerReceiveSend}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-down' size={26} color='#28c76f' />
-                        <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.coinLabel}>SQP</Text>
-                    </View>
-                </View>
-                <View style={styles.grayDivider}></View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-up' size={26} color='#ea5455' />
-                        <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.coinLabel}>{offer.coin_data?.name}</Text>
-                    </View>
-                </View>
-            </View>
-
             {showSteps ? <OfferStepsComponent /> : null}
+            {showChat ? null : <OfferInOutComponent />}
             {showChat ? <ChatSection /> : <OfferLabelComponent />}
 
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -126,7 +136,6 @@ const styles = StyleSheet.create({
     },
     peerOwnerContainer: {
         padding: 10,
-        marginTop: 10,
         flexDirection: 'row',
     },
     peerName: {
@@ -136,14 +145,14 @@ const styles = StyleSheet.create({
     },
     offerReceiveSend: {
         marginTop: 10,
+        borderRadius: 10,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 10,
         backgroundColor: '#283046'
     },
     offerLabel: {
         padding: 25,
-        marginTop: 20,
+        marginTop: 10,
         borderRadius: 10,
         backgroundColor: '#283046'
     },
@@ -178,7 +187,6 @@ const styles = StyleSheet.create({
     offerSteps: {
         padding: 20,
         marginTop: 10,
-        marginBottom: 10,
         borderRadius: 10,
         backgroundColor: '#283046'
     },

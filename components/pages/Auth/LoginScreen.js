@@ -87,6 +87,9 @@ export default function LoginScreen({ navigation }) {
             keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
         >
             <KeyboardAwareScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+
+                <Loader loading={loading} />
+
                 <View style={{ alignItems: 'center' }}>
                     <QPLogo />
                 </View>

@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, Pressable, Alert } from 'react-native'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { globalStyles } from '../../ui/Theme';
-
-// Get global AppContext
 import { AppContext } from '../../../AppContext';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { StyleSheet, Text, View, Pressable, Alert } from 'react-native'
 
 export default function KeypadScreen({ navigation }) {
 
@@ -91,17 +89,14 @@ export default function KeypadScreen({ navigation }) {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#161d31" }}>
-
+        <View style={{ flex: 1, backgroundColor: "red" }}>
             <View style={globalStyles.container}>
-
                 <View>
                     <Text style={styles.amount}>${amount}</Text>
                     <View style={styles.balance}>
                         <Text style={styles.balanceText}>$ {me.balance}</Text>
                     </View>
                 </View>
-
                 <View style={styles.padContainer}>
                     {keys.map((row, rowIndex) => (
                         <View key={rowIndex} style={styles.pad}>
@@ -110,7 +105,6 @@ export default function KeypadScreen({ navigation }) {
                     ))}
                 </View>
             </View>
-
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={receiveAmount} >
                     <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-down' size={16} color='#fff' /> Recibir</Text>
