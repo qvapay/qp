@@ -174,4 +174,24 @@ const getP2POffer = async ({ uuid, navigation }) => {
     }
 }
 
-export { qvaPayClient, transferBalance, getTransaction, getTransactions, getMe, checkUser, getP2POffers, getP2POffer };
+const applyP2POffer = async ({ uuid, navigation }) => {
+    try {
+        const url = `/p2p/${uuid}/apply`
+        const response = await apiRequest(url, { method: 'POST' }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export {
+    qvaPayClient,
+    transferBalance,
+    getTransaction,
+    getTransactions,
+    getMe,
+    checkUser,
+    getP2POffers,
+    getP2POffer,
+    applyP2POffer
+};
