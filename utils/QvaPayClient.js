@@ -95,7 +95,7 @@ const getMe = async (navigation) => {
     try {
         const response = await apiRequest('/user', { method: 'GET' }, navigation);
         return response;
-    } catch (error) { console.error(error); }
+    } catch (error) { console.error(error) }
 };
 
 // get all transactions from the user
@@ -105,9 +105,7 @@ const getTransactions = async ({ description = '', status = "paid", limit = 5, n
         console.log(url)
         const response = await apiRequest(url, { method: 'GET' }, navigation);
         return response;
-    } catch (error) {
-        console.error(error);
-    }
+    } catch (error) { console.error(error) }
 };
 
 // get all transactions from the user
@@ -184,6 +182,18 @@ const applyP2POffer = async ({ uuid, navigation }) => {
     }
 }
 
+// Send a message to a P2P offer
+// uuid is the P2P offer
+const sendP2pMessage = async ({ uuid, text, navigation }) => {
+    try {
+        const url = `/p2p/${uuid}/msg`
+        const response = await apiRequest(url, { method: 'POST', data: { text } }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export {
     qvaPayClient,
     transferBalance,
@@ -193,5 +203,6 @@ export {
     checkUser,
     getP2POffers,
     getP2POffer,
-    applyP2POffer
+    applyP2POffer,
+    sendP2pMessage
 };

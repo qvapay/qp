@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
@@ -105,11 +105,7 @@ export default function ShowP2p({ route, navigation }) {
     )
 
     return (
-        <KeyboardAvoidingView
-            style={globalStyles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
-        >
+        <View style={globalStyles.container}>
 
             <View style={styles.peerOwnerContainer}>
                 <AvatarPicture size={56} source_uri={offer.owner?.profile_photo_url} />
@@ -121,9 +117,9 @@ export default function ShowP2p({ route, navigation }) {
 
             {showSteps ? <OfferStepsComponent /> : null}
             {showChat ? null : <OfferInOutComponent />}
-            {showChat ? <ChatSection /> : <OfferLabelComponent />}
+            {showChat ? <ChatSection uuid={uuid} /> : <OfferLabelComponent />}
 
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
