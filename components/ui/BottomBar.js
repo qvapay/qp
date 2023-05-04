@@ -28,8 +28,6 @@ export default function BottomBar({ state, descriptors, navigation }) {
         },
     ];
 
-
-
     return (
         <View style={styles.BottomNav}>
             {
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
     },
     pressableArea: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     fa: {
         fontSize: 20,

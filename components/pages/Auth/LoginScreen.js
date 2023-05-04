@@ -101,6 +101,7 @@ export default function LoginScreen({ navigation }) {
 
                 // redirect to main stack
                 navigation.replace('MainStack');
+
             } else {
                 setErrortext(data.error);
                 console.log('Please check your email id or password');
@@ -120,6 +121,7 @@ export default function LoginScreen({ navigation }) {
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
+
                     if (email && password) {
                         setEmail(email);
                         setPassword(password);
@@ -129,7 +131,6 @@ export default function LoginScreen({ navigation }) {
                 getStoredCredentials();
             })
             .catch(error => {
-                // La autenticación falló, maneja el error como desees
                 console.error("Error")
             });
     };
@@ -213,6 +214,7 @@ export default function LoginScreen({ navigation }) {
                 <Text style={styles.registerTextStyle}>
                     {biometricAvailable && <BiometricButton />}
                 </Text>
+
             </KeyboardAwareScrollView>
         </KeyboardAvoidingView>
     );
