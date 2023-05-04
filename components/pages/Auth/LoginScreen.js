@@ -1,6 +1,8 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, { useEffect, useState, createRef, useContext } from 'react';
 import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // Global Styles, try to add this to another place
 import Loader from '../../ui/Loader';
@@ -14,26 +16,54 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 
 export default function LoginScreen({ navigation }) {
 
+    const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
+    const { setMe } = useContext(AppContext);
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
 
-    const passwordInputRef = createRef();
+    // Biometric check
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [biometricAvailable, setBiometricAvailable] = useState(false);
+    const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
 
-    const { setMe } = useContext(AppContext);
+    // Check if devica can handle biometric auth
+    useEffect(() => {
+        FingerprintScanner.isSensorAvailable()
+            .then(() => {
+                setBiometricAvailable(true);
+            })
+            .catch(error => {
+                setErrorMessage(error.message);
+            });
+        // Limpiar en desmontaje
+        return () => {
+            FingerprintScanner.release();
+        };
+    }, []);
+
+    // Check if there's a stored email and password
+    useEffect(() => {
+        const checkStoredCredentialsForBiometricLogin = async () => {
+            const email = await EncryptedStorage.getItem('email');
+            const password = await EncryptedStorage.getItem('password');
+            if (email && password) {
+                setBiometricLoginCredentials(true)
+            }
+        }
+        checkStoredCredentialsForBiometricLogin();
+    }, []);
 
     // Login Method from QvaPayClient
     const login = async (email, password) => {
         try {
             const response = await qvaPayClient.post("/auth/login", { email, password });
-
             if (response.data && response.data.accessToken) {
                 return response.data;
             } else {
                 throw new Error("No se pudo iniciar sesión correctamente");
             }
-
         } catch (error) {
             console.log(error.response.data)
             throw error;
@@ -60,6 +90,9 @@ export default function LoginScreen({ navigation }) {
             const data = await login(email, password);
 
             if (data.accessToken && data.me) {
+
+                await EncryptedStorage.setItem('email', email);
+                await EncryptedStorage.setItem('password', password);
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
                 await storeData('me', data.me);
 
@@ -79,6 +112,39 @@ export default function LoginScreen({ navigation }) {
             setLoading(false);
         }
     };
+
+    const handleBiometricAuthentication = () => {
+        FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
+            .then(() => {
+                // get the stored credentials
+                const getStoredCredentials = async () => {
+                    const email = await EncryptedStorage.getItem('email');
+                    const password = await EncryptedStorage.getItem('password');
+                    if (email && password) {
+                        setEmail(email);
+                        setPassword(password);
+                        handleLogin();
+                    }
+                }
+                getStoredCredentials();
+            })
+            .catch(error => {
+                // La autenticación falló, maneja el error como desees
+                console.error("Error")
+            });
+    };
+
+    // Biometric button component as icon
+    const BiometricButton = () => {
+        return (
+            <FontAwesome5
+                name="fingerprint"
+                size={30}
+                color={biometricLoginCredentials ? "#28c76f" : "#4b4b4b"}
+                onPress={handleBiometricAuthentication}
+            />
+        );
+    }
 
     return (
         <KeyboardAvoidingView
@@ -142,6 +208,10 @@ export default function LoginScreen({ navigation }) {
                     style={styles.registerTextStyle}
                     onPress={() => navigation.navigate('RegisterScreen')}>
                     ¿No tienes cuenta? Regístrate
+                </Text>
+
+                <Text style={styles.registerTextStyle}>
+                    {biometricAvailable && <BiometricButton />}
                 </Text>
             </KeyboardAwareScrollView>
         </KeyboardAvoidingView>
