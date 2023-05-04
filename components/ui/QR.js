@@ -4,20 +4,19 @@ import QRCodeStyled from 'react-native-qrcode-styled';
 
 export default function QR({ qrData }) {
 
-    console.log("qrData: " + qrData)
-
     return (
-        <View style={styles.qrContainer}>
-            <QRCodeStyled
-                pieceSize={10}
-                color={'#161d31'}
-                logoBorderRadius={10}
-                backgroundColor={'white'}
-                style={styles.qrCodeStyled}
-                logoBackgroundColor={'transparent'}
-                data={qrData}
-            />
-        </View>
+        <QRCodeStyled
+            data={qrData}
+            pieceSize={10}
+            color={'#161d31'}
+            backgroundColor={'white'}
+            pieceCornerType={'rounded'}
+            logoBackgroundColor={'transparent'}
+            style={{ backgroundColor: 'white' }}
+            pieceBorderRadius={5}
+            isPiecesGlued={true}
+            padding={20}
+        />
     )
 }
 

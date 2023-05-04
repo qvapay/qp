@@ -4,9 +4,7 @@ import { globalStyles } from './Theme'
 import AvatarPicture from './AvatarPicture';
 import RatingStars from './RatingStars';
 
-export default function ProfilePictureSection({ user = {} }) {
-
-    console.log(user)
+export default function ProfilePictureSection({ user = {}, negative = false }) {
 
     // Destructuring the user object
     const {
@@ -18,14 +16,14 @@ export default function ProfilePictureSection({ user = {} }) {
         average_rating = "0.0",
     } = user;
 
-    // convert the average_rating to a number
     const average_rating_number = parseFloat(average_rating);
+    const textColor = negative ? '#161d31' : '#FFFFFF';
 
     return (
         <View style={globalStyles.profilePictureSection}>
-            <AvatarPicture size={150} source_uri={profile_photo_url} />
+            <AvatarPicture size={150} source_uri={profile_photo_url} negative />
             <View style={styles.fullNameView}>
-                <Text style={globalStyles.fullName}>{name} {lastname}</Text>
+                <Text style={{ ...globalStyles.fullName, color: textColor }}>{name} {lastname}</Text>
                 {golden_check == 1 && (
                     <Image
                         source={require('../../assets/images/gold-badge.png')}
@@ -33,7 +31,6 @@ export default function ProfilePictureSection({ user = {} }) {
                     />
                 )}
             </View>
-            <RatingStars rating={average_rating_number} />
         </View>
     )
 }
@@ -46,12 +43,4 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
     },
-    badgesSection: {
-        marginTop: 20,
-    },
-    badgeText: {
-        color: '#fff',
-        fontSize: 16,
-        fontFamily: 'Nunito-Light',
-    }
 })

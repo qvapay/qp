@@ -30,7 +30,7 @@ export default function ProfileScreen({ amount = 0 }) {
 
     return (
         <View style={styles.container}>
-            <ProfilePictureSection user={me} />
+            <ProfilePictureSection user={me} negative={true} />
             <View style={styles.qrSection}>
                 <QR qrData={qrData} />
             </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: '#161d31',
+        backgroundColor: 'white',
     },
     qrSection: {
         flex: 2,
