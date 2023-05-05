@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import { RNCamera } from 'react-native-camera';
 // import QRCodeScanner from 'react-native-qrcode-scanner';
 import { useNavigation } from '@react-navigation/native';
@@ -27,13 +27,13 @@ export default function ScanScreen() {
 
             <View style={styles.rectangleContainer}>
 
-                <QRCodeScanner
+                {/* <QRCodeScanner
                     onRead={onSuccess}
                     flashMode={RNCamera.Constants.FlashMode.off}
                     cameraStyle={styles.rectangle}
                     showMarker
                     markerStyle={styles.rectangle}
-                />
+                /> */}
 
             </View>
         </View>
