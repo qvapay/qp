@@ -5,11 +5,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>QvaPay requires FaceID access to allows you quick and secure access.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Your message to user when the camera is accessed for the first time</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Your message to user when the photo library is accessed for the first time</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Your message to user when the microsphone is accessed for the first time</string>
+	<string>Necesitamos acceso a la cámara para poder escanear correctamente el QR</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>

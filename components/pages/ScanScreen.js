@@ -1,9 +1,13 @@
 import React from 'react';
-// import { RNCamera } from 'react-native-camera';
-// import QRCodeScanner from 'react-native-qrcode-scanner';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+// Camera and permissions
+import { RNCamera } from 'react-native-camera';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import * as permissions from 'react-native-permissions';
+import { request, PERMISSIONS } from 'react-native-permissions';
 
 export default function ScanScreen() {
 
