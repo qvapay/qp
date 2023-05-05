@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
+// import { RNCamera } from 'react-native-camera';
+// import QRCodeScanner from 'react-native-qrcode-scanner';
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, Switch, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function ScanScreen() {
-
-    // is QR enabled or disabled
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     // Get navigation hook
     const navigation = useNavigation();
     const goHome = () => navigation.goBack();
 
+    const onSuccess = e => {
+        console.log(e.data);
+        // Puedes navegar a otra pantalla con los datos del QR o realizar alguna acción
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.scanTopBar}>
-                {/* Both icons, the camera and the back button, are from the react-native-vector-icons package. */}
                 <Pressable onPress={goHome} >
                     <FontAwesome5 name="arrow-left" size={24} style={styles.faIcon} />
                 </Pressable>
-
                 <FontAwesome5 name="lightbulb" size={24} style={styles.faIcon} />
             </View>
+
             <View style={styles.rectangleContainer}>
 
-                <View style={styles.rectangle}>
+                <QRCodeScanner
+                    onRead={onSuccess}
+                    flashMode={RNCamera.Constants.FlashMode.off}
+                    cameraStyle={styles.rectangle}
+                    showMarker
+                    markerStyle={styles.rectangle}
+                />
 
-                </View>
-
-                <View style={{ marginTop: 20 }}>
-                    <Switch
-                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
-                    />
-                </View>
             </View>
         </View>
     );
@@ -65,9 +62,8 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
         opacity: 0.5,
-        borderWidth: 20,
+        borderWidth: 8,
         borderRadius: 40,
-        borderColor: '#00FF00',
         backgroundColor: '#fff',
     },
     faIcon: {
