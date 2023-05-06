@@ -121,7 +121,6 @@ export default function LoginScreen({ navigation }) {
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
-
                     if (email && password) {
                         setEmail(email);
                         setPassword(password);

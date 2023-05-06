@@ -88,15 +88,26 @@ export default function KeypadScreen({ navigation }) {
         navigation.navigate('ReceiveScreen', { amount });
     }
 
+    // Set the max balance to the amount wen pressed
+    const setMaxBalance = () => {
+        console.log("setMaxBalance")
+        console.log(me.balance.toString())
+        setAmount(me.balance.toString());
+    }
+
     return (
         <View style={{ flex: 1, backgroundColor: "red" }}>
             <View style={globalStyles.container}>
+
                 <View>
                     <Text style={styles.amount}>${amount}</Text>
-                    <View style={styles.balance}>
-                        <Text style={styles.balanceText}>$ {me.balance}</Text>
-                    </View>
+                    <Pressable onPress={setMaxBalance}>
+                        <View style={styles.balance}>
+                            <Text style={styles.balanceText}>$ {me.balance}</Text>
+                        </View>
+                    </Pressable>
                 </View>
+
                 <View style={styles.padContainer}>
                     {keys.map((row, rowIndex) => (
                         <View key={rowIndex} style={styles.pad}>

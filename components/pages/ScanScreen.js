@@ -15,12 +15,15 @@ export default function ScanScreen() {
     const [permissionResult, setPermissionResult] = useState(null);
     const [validQR, setValidQR] = useState('#fff');
 
-    // request permission with a useEffec
+    // request permission with a useEffect
     useEffect(() => {
-        request(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA).then((result) => {
-            setPermissionResult(result)
-            console.log(result)
-        });
+        request(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA)
+            .then((result) => {
+                setPermissionResult(result)
+            })
+            .catch((error) => {
+                navigation.replace('MainStack');
+            })
     }, []);
 
     const onSuccess = e => {
