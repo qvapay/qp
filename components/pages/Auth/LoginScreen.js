@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -148,75 +148,69 @@ export default function LoginScreen({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView
-            style={globalStyles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
-        >
-            <KeyboardAwareScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
 
-                <Loader loading={loading} />
+            <Loader loading={loading} />
 
-                <View style={{ alignItems: 'center' }}>
-                    <QPLogo />
-                </View>
-                <View style={styles.sectionStyle}>
-                    <TextInput
-                        style={styles.inputStyle}
-                        onChangeText={(UserEmail) =>
-                            setEmail(UserEmail)
-                        }
-                        placeholder="Usuario, Correo o Teléfono"
-                        placeholderTextColor="#7f8c8d"
-                        autoCapitalize="none"
-                        keyboardType="email-address"
-                        returnKeyType="next"
-                        onSubmitEditing={() =>
-                            passwordInputRef.current &&
-                            passwordInputRef.current.focus()
-                        }
-                        underlineColorAndroid="#f000"
-                        blurOnSubmit={false}
-                    />
-                </View>
-                <View style={styles.sectionStyle}>
-                    <TextInput
-                        style={styles.inputStyle}
-                        onChangeText={(UserPassword) =>
-                            setPassword(UserPassword)
-                        }
-                        placeholder="Contraseña"
-                        placeholderTextColor="#7f8c8d"
-                        keyboardType="default"
-                        ref={passwordInputRef}
-                        onSubmitEditing={Keyboard.dismiss}
-                        blurOnSubmit={false}
-                        secureTextEntry={true}
-                        underlineColorAndroid="#f000"
-                        returnKeyType="next"
-                    />
-                </View>
+            <View style={{ alignItems: 'center' }}>
+                <QPLogo />
+            </View>
+            <View style={styles.sectionStyle}>
+                <TextInput
+                    style={styles.inputStyle}
+                    onChangeText={(UserEmail) =>
+                        setEmail(UserEmail)
+                    }
+                    placeholder="Usuario, Correo o Teléfono"
+                    placeholderTextColor="#7f8c8d"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    returnKeyType="next"
+                    onSubmitEditing={() =>
+                        passwordInputRef.current &&
+                        passwordInputRef.current.focus()
+                    }
+                    underlineColorAndroid="#f000"
+                    blurOnSubmit={false}
+                />
+            </View>
+            <View style={styles.sectionStyle}>
+                <TextInput
+                    style={styles.inputStyle}
+                    onChangeText={(UserPassword) =>
+                        setPassword(UserPassword)
+                    }
+                    placeholder="Contraseña"
+                    placeholderTextColor="#7f8c8d"
+                    keyboardType="default"
+                    ref={passwordInputRef}
+                    onSubmitEditing={Keyboard.dismiss}
+                    blurOnSubmit={false}
+                    secureTextEntry={true}
+                    underlineColorAndroid="#f000"
+                    returnKeyType="next"
+                />
+            </View>
 
-                {errortext != '' ? (
-                    <Text style={styles.errorTextStyle}>
-                        {errortext}
-                    </Text>
-                ) : null}
-
-                <QPButton title="Iniciar Sesión" onPress={handleLogin} />
-
-                <Text
-                    style={styles.registerTextStyle}
-                    onPress={() => navigation.navigate('RegisterScreen')}>
-                    ¿No tienes cuenta? Regístrate
+            {errortext != '' ? (
+                <Text style={styles.errorTextStyle}>
+                    {errortext}
                 </Text>
+            ) : null}
 
-                <Text style={styles.registerTextStyle}>
-                    {biometricAvailable && <BiometricButton />}
-                </Text>
+            <QPButton title="Iniciar Sesión" onPress={handleLogin} />
 
-            </KeyboardAwareScrollView>
-        </KeyboardAvoidingView>
+            <Text
+                style={styles.registerTextStyle}
+                onPress={() => navigation.navigate('RegisterScreen')}>
+                ¿No tienes cuenta? Regístrate
+            </Text>
+
+            <Text style={styles.registerTextStyle}>
+                {biometricAvailable && <BiometricButton />}
+            </Text>
+
+        </KeyboardAwareScrollView>
     );
 }
 

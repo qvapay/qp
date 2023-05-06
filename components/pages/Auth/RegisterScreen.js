@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import QPLogo from '../../ui/QPLogo';
@@ -81,100 +81,94 @@ export default function RegisterScreen({ navigation }) {
     };
 
     return (
-        <KeyboardAvoidingView
-            style={globalStyles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
-        >
-            <KeyboardAwareScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
 
-                <Loader loading={loading} />
+            <Loader loading={loading} />
 
-                {isRegistraionSuccess ? (
-                    <View style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignContent: 'center',
-                    }}>
-                        <View style={{ alignItems: 'center' }}>
-                            <QPLogo />
-                        </View>
-                        <Text style={styles.successTextStyle}>
-                            Registro satisfactorio.
-                        </Text>
-                        <Text style={styles.successTextStyle}>
-                            Por favor, inicie sesión para continuar.
-                        </Text>
-                        <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
+            {isRegistraionSuccess ? (
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <QPLogo />
                     </View>
-                ) : (
-                    <>
-                        <View style={{ alignItems: 'center' }}>
-                            <QPLogo />
-                        </View>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserName) => setUserName(UserName)}
-                                underlineColorAndroid="#f000"
-                                placeholder="Nombre"
-                                placeholderTextColor="#7f8c8d"
-                                autoCapitalize="sentences"
-                                returnKeyType="next"
-                                onSubmitEditing={() =>
-                                    emailInputRef.current && emailInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                                underlineColorAndroid="#f000"
-                                placeholder="Email"
-                                placeholderTextColor="#7f8c8d"
-                                keyboardType="email-address"
-                                ref={emailInputRef}
-                                returnKeyType="next"
-                                onSubmitEditing={() =>
-                                    passwordInputRef.current &&
-                                    passwordInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserPassword) =>
-                                    setUserPassword(UserPassword)
-                                }
-                                underlineColorAndroid="#f000"
-                                placeholder="Contraseña"
-                                placeholderTextColor="#7f8c8d"
-                                ref={passwordInputRef}
-                                returnKeyType="next"
-                                secureTextEntry={true}
-                                onSubmitEditing={() =>
-                                    ageInputRef.current &&
-                                    ageInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
+                    <Text style={styles.successTextStyle}>
+                        Registro satisfactorio.
+                    </Text>
+                    <Text style={styles.successTextStyle}>
+                        Por favor, inicie sesión para continuar.
+                    </Text>
+                    <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
+                </View>
+            ) : (
+                <>
+                    <View style={{ alignItems: 'center' }}>
+                        <QPLogo />
+                    </View>
+                    <View style={styles.sectionStyle}>
+                        <TextInput
+                            style={styles.inputStyle}
+                            onChangeText={(UserName) => setUserName(UserName)}
+                            underlineColorAndroid="#f000"
+                            placeholder="Nombre"
+                            placeholderTextColor="#7f8c8d"
+                            autoCapitalize="sentences"
+                            returnKeyType="next"
+                            onSubmitEditing={() =>
+                                emailInputRef.current && emailInputRef.current.focus()
+                            }
+                            blurOnSubmit={false}
+                        />
+                    </View>
+                    <View style={styles.sectionStyle}>
+                        <TextInput
+                            style={styles.inputStyle}
+                            onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+                            underlineColorAndroid="#f000"
+                            placeholder="Email"
+                            placeholderTextColor="#7f8c8d"
+                            keyboardType="email-address"
+                            ref={emailInputRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() =>
+                                passwordInputRef.current &&
+                                passwordInputRef.current.focus()
+                            }
+                            blurOnSubmit={false}
+                        />
+                    </View>
+                    <View style={styles.sectionStyle}>
+                        <TextInput
+                            style={styles.inputStyle}
+                            onChangeText={(UserPassword) =>
+                                setUserPassword(UserPassword)
+                            }
+                            underlineColorAndroid="#f000"
+                            placeholder="Contraseña"
+                            placeholderTextColor="#7f8c8d"
+                            ref={passwordInputRef}
+                            returnKeyType="next"
+                            secureTextEntry={true}
+                            onSubmitEditing={() =>
+                                ageInputRef.current &&
+                                ageInputRef.current.focus()
+                            }
+                            blurOnSubmit={false}
+                        />
+                    </View>
 
-                        {errortext != '' ? (
-                            <Text style={styles.errorTextStyle}>
-                                {errortext}
-                            </Text>
-                        ) : null}
+                    {errortext != '' ? (
+                        <Text style={styles.errorTextStyle}>
+                            {errortext}
+                        </Text>
+                    ) : null}
 
-                        <QPButton title="Registrarme" onPress={handleRegister} />
-                    </>
-                )}
-            </KeyboardAwareScrollView>
-        </KeyboardAvoidingView>
+                    <QPButton title="Registrarme" onPress={handleRegister} />
+                </>
+            )}
+        </KeyboardAwareScrollView>
     )
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -6,39 +6,45 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Camera and permissions
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import * as permissions from 'react-native-permissions';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
 export default function ScanScreen() {
 
-    // Get navigation hook
     const navigation = useNavigation();
     const goHome = () => navigation.goBack();
+    const [permissionResult, setPermissionResult] = useState(null);
+    const [validQR, setValidQR] = useState('#fff');
+
+    // request permission with a useEffec
+    useEffect(() => {
+        request(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA).then((result) => {
+            setPermissionResult(result)
+            console.log(result)
+        });
+    }, []);
 
     const onSuccess = e => {
         console.log(e.data);
-        // Puedes navegar a otra pantalla con los datos del QR o realizar alguna acción
     };
 
     return (
         <View style={styles.container}>
+
             <View style={styles.scanTopBar}>
                 <Pressable onPress={goHome} >
-                    <FontAwesome5 name="arrow-left" size={24} style={styles.faIcon} />
+                    <FontAwesome5 name="arrow-left" size={20} style={styles.faIcon} />
                 </Pressable>
-                <FontAwesome5 name="lightbulb" size={24} style={styles.faIcon} />
+                <FontAwesome5 name="lightbulb" size={20} style={styles.faIcon} />
             </View>
 
             <View style={styles.rectangleContainer}>
-
-                {/* <QRCodeScanner
-                    onRead={onSuccess}
-                    flashMode={RNCamera.Constants.FlashMode.off}
-                    cameraStyle={styles.rectangle}
-                    showMarker
-                    markerStyle={styles.rectangle}
-                /> */}
-
+                <View style={styles.cameraContainer}>
+                    <QRCodeScanner
+                        onRead={onSuccess}
+                        flashMode={RNCamera.Constants.FlashMode.off}
+                        cameraStyle={styles.camera}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -60,15 +66,19 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'transparent',
     },
-    rectangle: {
-        width: 300,
-        height: 300,
-        opacity: 0.5,
-        borderWidth: 8,
-        borderRadius: 40,
-        backgroundColor: '#fff',
+    cameraContainer: {
+        height: 280,
+        width: 280,
+        alignSelf: 'center',
+        borderRadius: 20,
+        borderWidth: 6,
+        borderColor: '#fff',
+        overflow: 'hidden',
+    },
+    camera: {
+        height: '100%',
+        width: '100%',
     },
     faIcon: {
         color: '#fff',
