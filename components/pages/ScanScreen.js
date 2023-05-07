@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -26,8 +27,25 @@ export default function ScanScreen() {
             })
     }, []);
 
+    // Succefully read a QR code
     const onSuccess = e => {
-        console.log(e.data);
+        const parsedData = parseQRData(e.data);
+        if (!isValidQRData(parsedData)) {
+            console.log('Invalid QR code');
+            return;
+        }
+        setValidQR('#28c76f');
+        navigateToTransferScreenWithDelay(parsedData, 1000);
+    };
+
+    // Navigate to another screen with a delay and params
+    const navigateToTransferScreenWithDelay = (params, delay) => {
+
+        console.log(params)
+
+        setTimeout(() => {
+            navigation.navigate('ConfirmSendScreen', { amount: params.amount, destination: params.username });
+        }, delay);
     };
 
     return (
@@ -41,7 +59,7 @@ export default function ScanScreen() {
             </View>
 
             <View style={styles.rectangleContainer}>
-                <View style={styles.cameraContainer}>
+                <View style={[styles.cameraContainer, { borderColor: validQR }]}>
                     <QRCodeScanner
                         onRead={onSuccess}
                         flashMode={RNCamera.Constants.FlashMode.off}
@@ -71,13 +89,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     cameraContainer: {
-        height: 280,
         width: 280,
-        alignSelf: 'center',
-        borderRadius: 20,
-        borderWidth: 6,
-        borderColor: '#fff',
+        height: 280,
+        borderWidth: 4,
+        borderRadius: 18,
         overflow: 'hidden',
+        alignSelf: 'center',
     },
     camera: {
         height: '100%',

@@ -17,6 +17,7 @@ export default function HomeScreen({ navigation }) {
     const fetchMe = async () => {
         try {
             const me = await getMe(navigation);
+            // Set a global me object
             setMe(me);
         } catch (error) {
             console.error(error);

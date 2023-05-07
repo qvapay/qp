@@ -9,7 +9,7 @@ import DeviceBrightness from '@adrianso/react-native-device-brightness';
 export default function ProfileScreen({ amount = 0 }) {
 
     const { me } = useContext(AppContext);
-    const { qrData = `qvapay://u:${me.username}:a:${amount}` } = me;
+    const { qrData = `qp://u:${me.username}:a:${amount}` } = me;
 
     // Set the max brightness on screen
     useEffect(() => {

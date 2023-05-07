@@ -60,6 +60,8 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         console.error("Error1: " + error);
 
+        // TODO If Error1: AxiosError: Network Error do something
+
         if (error.response && error.response.status === 401) {
             onInvalidToken(navigation);
             return null;
