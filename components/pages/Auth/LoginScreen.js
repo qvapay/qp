@@ -36,7 +36,7 @@ export default function LoginScreen({ navigation }) {
             .catch(error => {
                 setErrorMessage(error.message);
             });
-        // Limpiar en desmontaje
+
         return () => {
             FingerprintScanner.release();
         };
@@ -116,7 +116,6 @@ export default function LoginScreen({ navigation }) {
     const handleBiometricAuthentication = () => {
         FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
             .then(() => {
-                // get the stored credentials
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
