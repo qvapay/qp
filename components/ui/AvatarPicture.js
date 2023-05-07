@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar } from '@rneui/base';
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false }) {
 
@@ -19,5 +19,3 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
         </View>
     )
 }
-
-const styles = StyleSheet.create({})
