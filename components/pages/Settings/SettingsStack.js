@@ -1,12 +1,51 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Import Screens
+import SettingsMenu from './SettingsMenu';
+import SettingOption from './SettingOption';
+
+const defaultScreenOptions = {
+    headerTitleStyle: {
+        fontFamily: 'Nunito-Regular',
+    },
+    headerStyle: {
+        backgroundColor: '#161d31',
+    },
+    headerTintColor: '#fff',
+    headerShadowVisible: false,
+};
+
+// Stack Navigation
+const Stack = createNativeStackNavigator();
 
 export default function SettingsStack() {
+
     return (
-        <View>
-            <Text>SettingsStack</Text>
-        </View>
+        <Stack.Navigator
+            name="SettingsStack"
+            initialRouteName="SettingsMenu"
+            screenOptions={defaultScreenOptions}
+        >
+
+            <Stack.Screen
+                name="SettingsMenu"
+                component={SettingsMenu}
+                options={{
+                    title: 'Ajustes de su Cuenta',
+                }}
+            />
+
+            <Stack.Screen
+                name="SettingOption"
+                component={SettingOption}
+                options={{
+                    title: 'Ajustes de su Cuenta',
+                    animationDuration: 50,
+                    animation: 'slide_from_right',
+                }}
+            />
+
+        </Stack.Navigator>
     )
 }
-
-const styles = StyleSheet.create({})

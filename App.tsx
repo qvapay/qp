@@ -7,12 +7,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthStack from './components/pages/Auth/AuthStack';
 import MainStack from './components/pages/MainScreens/MainStack';
 import PeerToPeerStack from './components/pages/P2P/PeerToPeerStack';
+import SettingsStack from './components/pages/Settings/SettingsStack';
 
 // Screens
 import ScanScreen from './components/pages/ScanScreen';
 import SplashScreen from './components/pages/SplashScreen';
 import ProfileScreen from './components/pages/ProfileScreen';
-import SettingsScreen from './components/pages/SettingsScreen';
 import SendScreen from './components/pages/InOutOperations/SendScreen';
 import ReceiveScreen from './components/pages/InOutOperations/ReceiveScreen';
 import TransactionStack from './components/pages/Transactions/TransactionStack';
@@ -104,6 +104,17 @@ function App(): JSX.Element {
                 component={PeerToPeerStack}
               />
 
+              {/* Settings Stack */}
+              <Stack.Screen
+                name="SettingsStack"
+                component={SettingsStack}
+                options={{
+                  headerShown: false,
+                  animationDuration: 50,
+                  animation: 'slide_from_bottom',
+                }}
+              />
+
               <Stack.Screen
                 name="ScanScreen"
                 component={ScanScreen}
@@ -165,18 +176,6 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
-
-              <Stack.Screen
-                name="SettingsScreen"
-                component={SettingsScreen}
-                options={{
-                  title: 'Ajustes',
-                  headerShown: false,
-                  animationDuration: 150,
-                  animation: 'fade_from_bottom',
-                }}
-              />
-              
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>

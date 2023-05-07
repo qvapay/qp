@@ -5,10 +5,10 @@ import { theme } from '../../ui/Theme';
 import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function PeerToPeerStack() {
+// Stack Navigation
+const Stack = createNativeStackNavigator();
 
-    // Stack Navigation
-    const Stack = createNativeStackNavigator();
+export default function PeerToPeerStack() {
 
     return (
         <Stack.Navigator

@@ -60,7 +60,11 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         console.error("Error1: " + error);
 
-        // TODO If Error1: AxiosError: Network Error do something
+        // Network Error do nothing or 
+        if (error.request && !error.response) {
+            onNetworkError(navigation);
+            return null;
+        }
 
         if (error.response && error.response.status === 401) {
             onInvalidToken(navigation);
@@ -73,7 +77,7 @@ const apiRequest = async (url, options = {}, navigation) => {
         }
 
         // If none is matched, the go away
-        onInvalidToken(navigation);
+        onInvalidNavigation(navigation);
 
         throw error;
     }
@@ -91,6 +95,19 @@ const onInvalidToken = async (navigation) => {
 const onInvalidResponse = async (navigation) => {
     navigation.goBack();
 };
+
+// Go to Splash Screen
+const onInvalidNavigation = async (navigation) => {
+    navigation.replace("SplashScreen");
+};
+
+
+const onNetworkError = (navigation) => {
+    // Muestra un mensaje de error o realiza la acción que desees en caso de error de red
+    console.error("Network error: No internet connection.");
+    // Puedes navegar a una pantalla específica o mostrar un mensaje de error en la UI
+    // navigation.navigate("ErrorScreen", { message: "No internet connection." });
+}
 
 // GetMe Function for the me State
 const getMe = async (navigation) => {

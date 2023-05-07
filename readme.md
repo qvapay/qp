@@ -3,7 +3,7 @@ Basico colors:
 primary-background: #161d31
 bg: #192034
 bg: #111626
-elevated: #283046
+elevated dark color: #283046
 color: #b4b7bd
 primary: #7367f0
 secondary: #82868b

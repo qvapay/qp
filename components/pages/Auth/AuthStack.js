@@ -1,17 +1,16 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Main Pages Login/Register
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
-// Missing 2FA and Recover password Screen
+// TODO 2FA Screen
+// TODO Recover Password Screen
+
+// Stack Navigation
+const Stack = createNativeStackNavigator();
 
 export default function AuthStack() {
 
-    // Stack Navigation
-    const Stack = createNativeStackNavigator();
-
-    // Stack Navigator for Login and Sign up Screen 
     return (
         <Stack.Navigator name="AuthStack" initialRouteName="LoginScreen">
             <Stack.Screen

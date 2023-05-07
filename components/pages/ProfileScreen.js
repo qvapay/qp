@@ -15,13 +15,11 @@ export default function ProfileScreen({ amount = 0 }) {
     useEffect(() => {
         // Guardar el brillo actual para poder restaurarlo luego
         DeviceBrightness.getBrightnessLevel().then((brightness) => {
-            // Establecer el brillo al máximo
             DeviceBrightness.setBrightnessLevel(1);
         });
 
         // Limpiar la función de efecto para que se ejecute solo una vez
         return () => {
-            // Restaurar el brillo original
             DeviceBrightness.getBrightnessLevel().then((brightness) => {
                 DeviceBrightness.setBrightnessLevel(brightness);
             });

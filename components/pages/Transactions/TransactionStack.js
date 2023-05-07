@@ -3,17 +3,17 @@ import ShowTransaction from './ShowTransaction';
 import IndexTransaction from './IndexTransaction';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function TransactionStack() {
+// Stack Navigation
+const Stack = createNativeStackNavigator();
 
-    // Stack Navigation
-    const Stack = createNativeStackNavigator();
+export default function TransactionStack() {
 
     return (
         <Stack.Navigator
             name="TransactionStack"
             initialRouteName="IndexTransaction"
         >
-            
+
             <Stack.Screen
                 name="IndexTransaction"
                 component={IndexTransaction}
