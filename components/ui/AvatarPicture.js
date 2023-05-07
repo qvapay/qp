@@ -1,6 +1,7 @@
 import React from 'react'
-import { Avatar } from '@rneui/base';
 import { View } from 'react-native'
+import FastImage from 'react-native-fast-image';
+
 
 export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false }) {
 
@@ -10,11 +11,14 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
 
     return (
         <View>
-            <Avatar
-                rounded
-                size={size}
-                avatarStyle={{ borderWidth, borderColor }}
-                source={{ uri: source_uri }}
+            <FastImage
+                source={{
+                    uri: source_uri,
+                    priority: FastImage.priority.normal,
+                    cache: FastImage.cacheControl.immutable,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
+                style={{ width: size, height: size, borderRadius: size / 2, borderWidth, borderColor }}
             />
         </View>
     )
