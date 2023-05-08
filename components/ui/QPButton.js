@@ -7,8 +7,8 @@ export default function QPButton(props) {
     return (
         <Button
             {...props}
-            buttonStyle={[styles.buttonStyle, props.buttonStyle]}
             titleStyle={[styles.titleStyle, props.titleStyle]}
+            buttonStyle={[styles.buttonStyle, props.buttonStyle]}
         />
     )
 }
@@ -22,9 +22,5 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         alignItems: 'center',
         backgroundColor: '#7367f0',
-    },
-    titleStyle: {
-        fontSize: 16,
-        fontFamily: "Nunito-Black",
-    },
+    }
 })

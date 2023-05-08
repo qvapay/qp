@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../../../AppContext';
-import { StyleSheet, Text, View, Alert } from 'react-native'
-import EncryptedStorage from 'react-native-encrypted-storage';
-import QPButton from '../../ui/QPButton';
-import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native'
 
-// FontAwesome
+import QPButton from '../../ui/QPButton';
+import { AppContext } from '../../../AppContext';
+import { ScrollView } from 'react-native-gesture-handler';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 
@@ -38,6 +37,88 @@ export default function SettingsMenu({ navigation }) {
         );
     }
 
+    // Settings Items as an object of multiple dimensions:
+    const settings = {
+        account: {
+            title: 'CUENTA',
+            options: [
+                {
+                    title: 'Datos personales',
+                    screen: 'PersonalData',
+                },
+                {
+                    title: 'Idioma',
+                    screen: 'Language',
+                },
+            ],
+        },
+        security: {
+            title: 'SEGURIDAD',
+            options: [
+                {
+                    title: 'Cambiar contraseña',
+                    screen: 'ChangePassword',
+                },
+                {
+                    title: 'Autenticación de dos factores',
+                    screen: 'TwoFactorAuthentication',
+                },
+            ],
+        },
+        general: {
+            title: 'GENERAL',
+            options: [
+                {
+                    title: 'Tema',
+                    screen: 'Theme',
+                },
+            ],
+        },
+        notifications: {
+            title: 'NOTIFICACIONES',
+            options: [
+                {
+                    title: 'Configuración de notificaciones',
+                    screen: 'NotificationSettings',
+                },
+            ],
+        },
+        payment_methods: {
+            title: 'MÉTODOS DE PAGO',
+            options: [
+                {
+                    title: 'Tarjetas de crédito',
+                    screen: 'CreditCards',
+                },
+            ],
+        }
+    }
+
+    const SettingsItemSection = ({ section }) => {
+        return (
+            <View style={styles.box}>
+                <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>{section.title}</Text>
+                {section.options.map((option, index) => (
+                    <SettingsItemSectionItem
+                        key={index}
+                        title={option.title}
+                        onPress={() => navigation.navigate(option.screen)}
+                    />
+                ))}
+            </View>
+        );
+    };
+
+    const SettingsItemSectionItem = ({ title, onPress }) => {
+        return (
+            <TouchableOpacity onPress={onPress} style={styles.item}>
+                <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff' }}>{title}</Text>
+                <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
+            </TouchableOpacity>
+        );
+    };
+
+
     return (
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
@@ -55,26 +136,18 @@ export default function SettingsMenu({ navigation }) {
                 <View>
                     <QPButton
                         title="Editar Perfil"
+                        buttonStyle={{ marginBottom: 0 }}
                     />
                 </View>
 
             </View>
 
-            <View style={styles.box}>
-
-            </View>
-
-            <View style={styles.box}>
-
-            </View>
-
-            <QPButton
-                title="Ir a Detalles"
-                onPress={() => navigation.navigate('SettingOption')}
-            />
+            {Object.values(settings).map((section, index) => (
+                <SettingsItemSection key={index} section={section} />
+            ))}
 
             <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={logout} >
-                <Text style={{ fontFamily: 'Nunito-Bold' }}>Cerrar Sesión</Text>
+                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
             </QPButton>
 
         </ScrollView>
@@ -89,10 +162,15 @@ const styles = StyleSheet.create({
     },
     box: {
         flex: 1,
-        paddingTop: 20,
-        paddingHorizontal: 20,
+        padding: 20,
         borderRadius: 10,
         marginVertical: 10,
         backgroundColor: '#283046',
-    }
+    },
+    item: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
+    },
 })
