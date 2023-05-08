@@ -125,7 +125,7 @@ export default function SettingsMenu({ navigation }) {
             <View style={styles.box}>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ScanScreen')} />
                     <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} />
                 </View>
 
