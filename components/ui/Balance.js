@@ -3,17 +3,17 @@ import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Balance({ me = { balance: 0 } }) {
+export default function Balance({ navigation, me = { balance: 0 } }) {
 
     // QvaPay Balance state
     const [showBalance, setShowBalance] = useState(true);
 
     const add = () => {
-        console.log('add')
+        navigation.navigate('AddScreen');
     }
 
     const withdraw = () => {
-        console.log('withdraw')
+        navigation.navigate('WithdrawScreen');
     }
 
     // showBalance state persistence

@@ -24,6 +24,8 @@ import {theme} from './components/ui/Theme';
 
 // Import AppProvider
 import {AppProvider} from './AppContext';
+import AddScreen from './components/pages/DepositWithdraw/AddScreen';
+import WithdrawScreen from './components/pages/DepositWithdraw/WithdrawScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -114,6 +116,9 @@ function App(): JSX.Element {
                   animation: 'slide_from_bottom',
                 }}
               />
+
+              <Stack.Screen name="AddScreen" component={AddScreen} />
+              <Stack.Screen name="WithdrawScreen" component={WithdrawScreen} />
 
               <Stack.Screen
                 name="ScanScreen"

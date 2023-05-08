@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <ScrollView style={styles.container}>
-            <Balance me={me} />
+            <Balance navigation={navigation} me={me} />
             <Transactions navigation={navigation} />
             <Hero
                 actionText={"5 estrellas"}
