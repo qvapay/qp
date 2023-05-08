@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../../AppContext';
 import { StyleSheet, Text, View, Alert } from 'react-native'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import QPButton from '../../ui/QPButton';
 import { ScrollView } from 'react-native-gesture-handler';
 
+// FontAwesome
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ProfilePictureSection from '../../ui/ProfilePictureSection';
+
 export default function SettingsMenu({ navigation }) {
+
+    const { me } = useContext(AppContext);
 
     // Logout and Navigate to AuthStack
     const logout = () => {
@@ -31,15 +38,25 @@ export default function SettingsMenu({ navigation }) {
         );
     }
 
-    // Go Back button
-    const dismiss = () => {
-        navigation.goBack();
-    }
-
     return (
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
             <View style={styles.box}>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} />
+                </View>
+
+                <View>
+                    <ProfilePictureSection user={me} />
+                </View>
+
+                <View>
+                    <QPButton
+                        title="Editar Perfil"
+                    />
+                </View>
 
             </View>
 
@@ -56,9 +73,6 @@ export default function SettingsMenu({ navigation }) {
                 onPress={() => navigation.navigate('SettingOption')}
             />
 
-            <QPButton onPress={dismiss} >
-                <Text>X</Text>
-            </QPButton>
             <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={logout} >
                 <Text style={{ fontFamily: 'Nunito-Bold' }}>Cerrar Sesión</Text>
             </QPButton>
@@ -75,7 +89,8 @@ const styles = StyleSheet.create({
     },
     box: {
         flex: 1,
-        padding: 10,
+        paddingTop: 20,
+        paddingHorizontal: 20,
         borderRadius: 10,
         marginVertical: 10,
         backgroundColor: '#283046',

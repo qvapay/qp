@@ -48,9 +48,9 @@ function App(): JSX.Element {
               screenOptions={{
                 title: '',
                 headerBackVisible: true,
+                headerShadowVisible: false,
                 headerBackTitleVisible: false,
                 headerBackButtonMenuEnabled: false,
-                headerShadowVisible: false,
                 headerStyle: {
                   backgroundColor: theme.darkColors?.background,
                 },

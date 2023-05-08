@@ -11,6 +11,7 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
         profile_photo_url = 'https://qvapay.com/android-chrome-192x192.png',
         name = "",
         lastname = "",
+        username = "",
         kyc = 0,
         golden_check = 0,
         average_rating = "0.0",
@@ -21,7 +22,7 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
 
     return (
         <View style={globalStyles.profilePictureSection}>
-            <AvatarPicture size={150} source_uri={profile_photo_url} negative />
+            <AvatarPicture size={150} source_uri={profile_photo_url} negative={negative} />
             <View style={styles.fullNameView}>
                 <Text style={{ ...globalStyles.fullName, color: textColor }}>{name} {lastname}</Text>
                 {golden_check == 1 && (
@@ -31,6 +32,7 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
                     />
                 )}
             </View>
+            <Text style={{ fontFamily: 'Nunito-Regular', color: textColor }}>@{username}</Text>
         </View>
     )
 }

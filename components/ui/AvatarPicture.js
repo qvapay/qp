@@ -9,6 +9,8 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
     const borderWidth = size / 30;
     const borderColor = negative ? '#161d31' : '#FFFFFF';
 
+    console.log(negative)
+
     return (
         <View>
             <FastImage
