@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import QR from '../ui/QR';
 import { AppContext } from '../../AppContext';
 import { View, StyleSheet } from 'react-native';
@@ -10,21 +10,23 @@ export default function ProfileScreen({ amount = 0 }) {
 
     const { me } = useContext(AppContext);
     const { qrData = `qp://u:${me.username}:a:${amount}` } = me;
+    const [initialBrightness, setInitialBrightness] = useState(null);
 
     // Set the max brightness on screen
     useEffect(() => {
         // Guardar el brillo actual para poder restaurarlo luego
         DeviceBrightness.getBrightnessLevel().then((brightness) => {
+            setInitialBrightness(brightness);
             DeviceBrightness.setBrightnessLevel(1);
         });
 
         // Limpiar la función de efecto para que se ejecute solo una vez
         return () => {
-            DeviceBrightness.getBrightnessLevel().then((brightness) => {
-                DeviceBrightness.setBrightnessLevel(brightness);
-            });
+            if (initialBrightness !== null) {
+                DeviceBrightness.setBrightnessLevel(initialBrightness);
+            }
         };
-    }, []);
+    }, [initialBrightness]);
 
     return (
         <View style={styles.container}>

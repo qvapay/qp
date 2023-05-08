@@ -19,16 +19,8 @@ export default function PeerToPeerStack() {
             }}
         >
 
-            <Stack.Screen
-                name="ShowP2p"
-                component={ShowP2p}
-            />
-
-            <Stack.Screen
-                name="CreateP2p"
-                component={CreateP2p}
-
-            />
+            <Stack.Screen name="ShowP2p" component={ShowP2p} />
+            <Stack.Screen name="CreateP2p" component={CreateP2p} />
 
         </Stack.Navigator>
     )

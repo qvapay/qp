@@ -128,7 +128,6 @@ export default function SettingsMenu({ navigation }) {
         );
     };
 
-
     return (
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
@@ -136,7 +135,7 @@ export default function SettingsMenu({ navigation }) {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ScanScreen')} />
-                    <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ReceiveScreen')} />
                 </View>
 
                 <View>

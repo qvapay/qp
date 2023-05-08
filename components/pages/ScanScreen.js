@@ -67,6 +67,9 @@ export default function ScanScreen() {
                     />
                 </View>
             </View>
+
+
+
         </View>
     );
 }
