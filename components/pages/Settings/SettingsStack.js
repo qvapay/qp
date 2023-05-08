@@ -13,6 +13,7 @@ const defaultScreenOptions = {
         backgroundColor: '#161d31',
     },
     headerTintColor: '#fff',
+    headerTitleAlign: 'center',
     headerShadowVisible: false,
 };
 

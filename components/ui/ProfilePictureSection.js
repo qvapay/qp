@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { globalStyles } from './Theme'
 import AvatarPicture from './AvatarPicture';
-import RatingStars from './RatingStars';
 
 export default function ProfilePictureSection({ user = {}, negative = false }) {
 

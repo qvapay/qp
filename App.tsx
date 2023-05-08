@@ -58,9 +58,11 @@ function App(): JSX.Element {
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
-                  fontWeight: 'bold',
+                  fontFamily: 'Nunito-Regular',
                 },
+                headerTitleAlign: 'center',
               }}>
+
               {/* SplashScreen which will come once for 2 Seconds */}
               <Stack.Screen
                 name="SplashScreen"
@@ -117,8 +119,27 @@ function App(): JSX.Element {
                 }}
               />
 
-              <Stack.Screen name="AddScreen" component={AddScreen} />
-              <Stack.Screen name="WithdrawScreen" component={WithdrawScreen} />
+              <Stack.Screen
+                name="AddScreen"
+                component={AddScreen}
+                options={{
+                  title: 'Depositar fondos',
+                  headerTitleStyle: {
+                    fontFamily: 'Nunito-Regular',
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="WithdrawScreen"
+                component={WithdrawScreen}
+                options={{
+                  title: 'Extraer fondos',
+                  headerTitleStyle: {
+                    fontFamily: 'Nunito-Regular',
+                  },
+                }}
+              />
 
               <Stack.Screen
                 name="ScanScreen"
@@ -181,6 +202,7 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
+
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>

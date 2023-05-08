@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
@@ -11,6 +11,17 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 export default function SettingsMenu({ navigation }) {
 
     const { me } = useContext(AppContext);
+    const {
+        profile_photo_url = 'https://qvapay.com/android-chrome-192x192.png',
+        name = "",
+        lastname = "",
+        username = "",
+        kyc = 0,
+        golden_check = 0,
+        average_rating = "0.0",
+    } = me;
+
+    // Footer variables
     const version = '0.0.1';
     const versionUnixTimestamp = 1620000000;
 
@@ -152,8 +163,32 @@ export default function SettingsMenu({ navigation }) {
 
             </View>
 
+            {/* TODO GOLD CHECK PROMO IF USER IS NOT GOLD_CHECK */}
+            {
+                golden_check == 0 && (
+                    <TouchableOpacity
+                        style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
+                        onPress={() => navigation.navigate('GoldCheckBuy')}
+                    >
+                        <View style={{ marginRight: 20 }}>
+                            <Image
+                                source={require('../../../assets/images/gold-badge.png')}
+                                style={{ width: 28, height: 28 }}
+                            />
+                        </View>
+                        <View>
+                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
+                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Obtén beneficios adicionales</Text>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+
             {/* Referal invitation Card */}
-            <TouchableOpacity style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} onPress={() => navigation.navigate('ReferalInvitation')}>
+            <TouchableOpacity
+                style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
+                onPress={() => navigation.navigate('ReferalInvitation')}
+            >
                 <View style={{ marginRight: 20 }}>
                     <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
                 </View>
