@@ -13,10 +13,10 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
         username = "",
         kyc = 0,
         golden_check = 0,
-        average_rating = "0.0",
+        //average_rating = "0.0",
     } = user;
 
-    const average_rating_number = parseFloat(average_rating);
+    // const average_rating_number = parseFloat(average_rating);
     const textColor = negative ? '#161d31' : '#FFFFFF';
 
     return (
