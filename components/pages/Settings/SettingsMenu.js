@@ -39,6 +39,15 @@ export default function SettingsMenu({ navigation }) {
 
     // Settings Items as an object of multiple dimensions:
     const settings = {
+        general: {
+            title: 'GENERAL',
+            options: [
+                {
+                    title: 'Tema',
+                    screen: 'Theme',
+                },
+            ],
+        },
         account: {
             title: 'CUENTA',
             options: [
@@ -65,15 +74,6 @@ export default function SettingsMenu({ navigation }) {
                 },
             ],
         },
-        general: {
-            title: 'GENERAL',
-            options: [
-                {
-                    title: 'Tema',
-                    screen: 'Theme',
-                },
-            ],
-        },
         notifications: {
             title: 'NOTIFICACIONES',
             options: [
@@ -84,11 +84,19 @@ export default function SettingsMenu({ navigation }) {
             ],
         },
         payment_methods: {
-            title: 'MÉTODOS DE PAGO',
+            title: 'AJUSTES DE PAGO',
             options: [
                 {
-                    title: 'Tarjetas de crédito',
+                    title: 'Métodos de pago',
                     screen: 'CreditCards',
+                },
+                {
+                    title: 'Contactos favoritos',
+                    screen: 'FavoriteContacts',
+                },
+                {
+                    title: 'Límites',
+                    screen: 'LimitsSettings',
                 },
             ],
         }
@@ -137,10 +145,22 @@ export default function SettingsMenu({ navigation }) {
                     <QPButton
                         title="Editar Perfil"
                         buttonStyle={{ marginBottom: 0 }}
+                        onPress={() => navigation.navigate('PersonalData')}
                     />
                 </View>
 
             </View>
+
+            {/* Referal invitation Card */}
+            <TouchableOpacity style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} onPress={() => navigation.navigate('ReferalInvitation')}>
+                <View style={{ marginRight: 20 }}>
+                    <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                </View>
+                <View>
+                    <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                    <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                </View>
+            </TouchableOpacity>
 
             {Object.values(settings).map((section, index) => (
                 <SettingsItemSection key={index} section={section} />

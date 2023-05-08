@@ -18,13 +18,13 @@ import { theme } from '../../ui/Theme';
 // AppContext
 import { AppContext } from '../../../AppContext';
 
+// Create the Bottom Tab Navigator
+const Tab = createBottomTabNavigator();
+
 export default function MainStack() {
 
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
-
-    // Create the Bottom Tab Navigator
-    const Tab = createBottomTabNavigator();
 
     return (
         <Tab.Navigator
