@@ -2,6 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+// Blur Bar
+import { BlurView } from '@react-native-community/blur';
+
 export default function BottomBar({ state, descriptors, navigation }) {
 
     // Create the nav items array
@@ -30,6 +33,9 @@ export default function BottomBar({ state, descriptors, navigation }) {
 
     return (
         <View style={styles.BottomNav}>
+
+            {/* TODO Blur View Here */}
+
             {
                 // Map for the current defined routes
                 state.routes.map((route, index) => {
@@ -94,16 +100,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 10,
         backgroundColor: '#161d31',
+        // backgroundColor: 'transparent',
         justifyContent: 'space-between',
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOpacity: 0.3,
-            },
-            android: {
-                elevation: 10,
-            },
-        }),
     },
     pressableArea: {
         flex: 1,
@@ -116,5 +114,15 @@ const styles = StyleSheet.create({
     activeTab: {
         fontSize: 24,
         color: '#fff',
-    }
+    },
+    absolute: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+    },
+    blurView: {
+        ...StyleSheet.absoluteFillObject,
+    },
 })
