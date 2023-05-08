@@ -11,6 +11,8 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 export default function SettingsMenu({ navigation }) {
 
     const { me } = useContext(AppContext);
+    const version = '0.0.1';
+    const versionUnixTimestamp = 1620000000;
 
     // Logout and Navigate to AuthStack
     const logout = () => {
@@ -170,6 +172,19 @@ export default function SettingsMenu({ navigation }) {
                 <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
             </QPButton>
 
+            {/* Github, Twitter and Instagram accounts */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginVertical: 20 }}>
+                <FontAwesome5 name="github" size={24} style={{ color: '#fff' }} />
+                <FontAwesome5 name="twitter" size={24} style={{ color: '#fff' }} />
+                <FontAwesome5 name="instagram" size={24} style={{ color: '#fff' }} />
+            </View>
+
+            <Text style={styles.copyBottom}>
+                {`QvaPay © 2023 \n`}
+                {`v ${version} (${versionUnixTimestamp}) \n`}
+                {`Todos los derechos reservados \n`}
+            </Text>
+
         </ScrollView>
     )
 }
@@ -193,4 +208,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
     },
+    copyBottom: {
+        flexDirection: 'row',
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+    }
 })
