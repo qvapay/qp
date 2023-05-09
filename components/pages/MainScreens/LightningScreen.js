@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 
 const prizes = [
@@ -71,9 +71,9 @@ export default function LightningScreen() {
 
         if (canSpin()) {
             return (
-                <TouchableOpacity onPress={handleSpin}>
+                <Pressable onPress={handleSpin}>
                     <Text style={styles.button}>¡Gira la Rueda!</Text>
-                </TouchableOpacity>
+                </Pressable>
             );
         }
 

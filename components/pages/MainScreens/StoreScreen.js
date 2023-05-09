@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, TouchableOpacity, StyleSheet, TextInput, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native'
 import Card from '../../ui/Card'
 import { globalStyles } from '../../ui/Theme';
 import { qvaPayClient } from '../../../utils/QvaPayClient';

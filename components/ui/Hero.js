@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 
 export default function Hero({ title = "", subTitle = "", actionText, onActionPress, logoUrl }) {
@@ -11,11 +11,11 @@ export default function Hero({ title = "", subTitle = "", actionText, onActionPr
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subTitle}>{subTitle}</Text>
 
-                <TouchableOpacity onPress={onActionPress} style={styles.actionContainer}>
+                <Pressable onPress={onActionPress} style={styles.actionContainer}>
                     <View style={styles.actionButton}>
                         <Text style={styles.actionText}>{actionText}</Text>
                     </View>
-                </TouchableOpacity>
+                </Pressable>
 
             </LinearGradient>
         </View>

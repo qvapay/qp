@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
 
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
@@ -132,10 +132,10 @@ export default function SettingsMenu({ navigation }) {
 
     const SettingsItemSectionItem = ({ title, onPress }) => {
         return (
-            <TouchableOpacity onPress={onPress} style={styles.item}>
+            <Pressable onPress={onPress} style={styles.item}>
                 <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff' }}>{title}</Text>
                 <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
-            </TouchableOpacity>
+            </Pressable>
         );
     };
 
@@ -165,8 +165,8 @@ export default function SettingsMenu({ navigation }) {
 
             {/* TODO GOLD CHECK PROMO IF USER IS NOT GOLD_CHECK */}
             {
-                golden_check == 0 && (
-                    <TouchableOpacity
+                golden_check == 1 && (
+                    <Pressable
                         style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
                         onPress={() => navigation.navigate('GoldCheckBuy')}
                     >
@@ -180,12 +180,12 @@ export default function SettingsMenu({ navigation }) {
                             <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
                             <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Obtén beneficios adicionales</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Pressable>
                 )
             }
 
             {/* Referal invitation Card */}
-            <TouchableOpacity
+            <Pressable
                 style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
                 onPress={() => navigation.navigate('ReferalInvitation')}
             >
@@ -196,7 +196,7 @@ export default function SettingsMenu({ navigation }) {
                     <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
                     <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
                 </View>
-            </TouchableOpacity>
+            </Pressable>
 
             {Object.values(settings).map((section, index) => (
                 <SettingsItemSection key={index} section={section} />

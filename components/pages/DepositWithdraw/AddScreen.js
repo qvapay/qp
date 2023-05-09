@@ -1,36 +1,64 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Pressable, FlatList } from 'react-native'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+// Add GlobalStyles from Theme
+import { globalStyles } from '../../ui/Theme';
+
+const bankOptions = [
+    { id: 'bank1', name: 'Bank 1', icon: 'bank' },
+    { id: 'bank2', name: 'Bank 2', icon: 'bank' },
+    // Agrega más opciones de banco aquí
+];
 
 const cryptoCurrencies = [
-    { id: 'btc-ln', name: 'Bitcoin Lightning' },
-    { id: 'btc', name: 'Bitcoin' },
-    { id: 'eth', name: 'Ethereum' },
+    { id: 'btc-ln', name: 'Bitcoin Lightning', icon: 'bank' },
+    { id: 'btc', name: 'Bitcoin', icon: 'bank' },
+    { id: 'eth', name: 'Ethereum', icon: 'bank' },
     // Agrega más criptomonedas aquí
 ];
 
-const CryptoCard = ({ item, onPress }) => (
-    <TouchableOpacity onPress={onPress} style={styles.card}>
+const eWallets = [
+    { id: 'wallet1', name: 'E-Wallet 1', icon: 'bank' },
+    { id: 'wallet2', name: 'E-Wallet 2', icon: 'bank' },
+    // Agrega más opciones de E-Wallet aquí
+];
+
+const OptionCard = ({ item, onPress, selected }) => (
+    <Pressable
+        onPress={onPress}
+        style={[
+            styles.card,
+            selected ? styles.cardSelected : styles.cardUnselected,
+        ]}
+    >
+        <FontAwesome5
+            size={24}
+            icon={item.icon}
+            color={selected ? '#7367f0' : '#000'}
+        />
         <Text style={styles.cardText}>{item.name}</Text>
-    </TouchableOpacity>
+
+    </Pressable>
 )
 
 export default function AddScreen() {
 
     const [amount, setAmount] = useState('');
-    const [selectedCrypto, setSelectedCrypto] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const onDepositPress = () => {
         // Aquí puedes generar una llamada API para procesar el depósito
         // Luego navegar al siguiente Screen con las instrucciones de depósito
-        navigation.navigate('DepositInstructions', {
+        navigation.navigate('AddInstructionsScreen', {
             amount: amount,
-            crypto: selectedCrypto,
+            crypto: selectedOption,
         });
     };
 
-
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
+
             <Text style={styles.title}>Cantidad a depositar:</Text>
             <TextInput
                 keyboardType="numeric"
@@ -38,25 +66,55 @@ export default function AddScreen() {
                 onChangeText={setAmount}
                 value={amount}
             />
-            <Text style={styles.title}>Selecciona la criptomoneda:</Text>
+
+            <Text style={styles.title}>Criptomonedas:</Text>
             <FlatList
                 data={cryptoCurrencies}
                 renderItem={({ item }) => (
-                    <CryptoCard
+                    <OptionCard
                         item={item}
-                        onPress={() => setSelectedCrypto(item.id)}
+                        onPress={() => setSelectedOption(item.id)}
+                        selected={selectedOption === item.id}
                     />
                 )}
                 keyExtractor={(item) => item.id}
                 numColumns={3}
             />
-            <TouchableOpacity
+
+            <Text style={styles.title}>Banco:</Text>
+            <FlatList
+                data={bankOptions}
+                renderItem={({ item }) => (
+                    <OptionCard
+                        item={item}
+                        onPress={() => setSelectedOption(item.id)}
+                        selected={selectedOption === item.id}
+                    />
+                )}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+            />
+
+            <Text style={styles.title}>E-Wallets:</Text>
+            <FlatList
+                data={eWallets}
+                renderItem={({ item }) => (
+                    <OptionCard
+                        item={item}
+                        onPress={() => setSelectedOption(item.id)}
+                        selected={selectedOption === item.id}
+                    />
+                )}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+            />
+
+            <Pressable
                 style={styles.depositButton}
                 onPress={onDepositPress}
-                disabled={!amount || !selectedCrypto}
             >
                 <Text style={styles.buttonText}>Depositar</Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     )
 }
@@ -78,20 +136,6 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         marginBottom: 20,
     },
-    card: {
-        flex: 1,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 5,
-        padding: 10,
-        margin: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    cardText: {
-        fontSize: 14,
-        fontWeight: 'bold',
-    },
     depositButton: {
         backgroundColor: 'blue',
         padding: 10,
@@ -103,5 +147,26 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
+    },
+    card: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        margin: 5,
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: 'red',
+    },
+    cardSelected: {
+        borderColor: '#7367f0',
+    },
+    cardUnselected: {
+        borderColor: 'transparent',
+    },
+    cardText: {
+        marginTop: 5,
+        fontSize: 14,
+        textAlign: 'center',
     },
 })

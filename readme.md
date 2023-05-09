@@ -12,3 +12,7 @@ warning: #ff9f43
 danger: #ea5455  
 light: #f6f6f6  
 dark: #4b4b4b  
+
+
+TODO
+Replace ALL Pressable for Pressable for compatibility

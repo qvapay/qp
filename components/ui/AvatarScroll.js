@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AvatarScroll({ navigation }) {
@@ -22,10 +22,10 @@ export default function AvatarScroll({ navigation }) {
         <View style={styles.container}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 {favoriteContacts.map((contact) => (
-                    <TouchableOpacity key={contact.uuid} style={styles.contact} onPress={() => console.log(contact)}>
+                    <Pressable key={contact.uuid} style={styles.contact} onPress={() => console.log(contact)}>
                         <Text style={styles.name}>{contact.name}</Text>
                         <Image source={contact.profile_photo_url} style={styles.image} />
-                    </TouchableOpacity>
+                    </Pressable>
                 ))}
             </ScrollView>
         </View>

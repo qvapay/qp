@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Pressable, Image, FlatList } from 'react-native';
 
 export default function CommentSticker({ setComment }) {
 
@@ -11,21 +11,21 @@ export default function CommentSticker({ setComment }) {
     ];
 
     const renderSticker = ({ item }) => (
-        <TouchableOpacity onPress={() => setSelectedSticker(item)}>
+        <Pressable onPress={() => setSelectedSticker(item)}>
             <Image source={item.image} style={{ width: 50, height: 50 }} />
-        </TouchableOpacity>
+        </Pressable>
     );
 
     return (
         <View style={styles.container}>
 
             <View style={styles.tabContainer}>
-                <TouchableOpacity onPress={() => setTab('comment')}>
+                <Pressable onPress={() => setTab('comment')}>
                     <Text style={[styles.tabText, { fontWeight: tab === 'comment' ? 'bold' : 'normal' }]}>Comentario</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setTab('sticker')}>
+                </Pressable>
+                <Pressable onPress={() => setTab('sticker')}>
                     <Text style={[styles.tabText, { fontWeight: tab === 'sticker' ? 'bold' : 'normal' }]}>Stickers</Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
 
             {tab === 'comment' ? (
