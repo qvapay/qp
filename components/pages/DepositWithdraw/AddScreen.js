@@ -6,21 +6,21 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { globalStyles } from '../../ui/Theme';
 
 const bankOptions = [
-    { id: 'bank1', name: 'Bank 1', icon: 'bank' },
-    { id: 'bank2', name: 'Bank 2', icon: 'bank' },
+    { id: 'bank1', name: 'Bank 1', icon: 'question' },
+    { id: 'bank2', name: 'Bank 2', icon: 'question' },
     // Agrega más opciones de banco aquí
 ];
 
 const cryptoCurrencies = [
-    { id: 'btc-ln', name: 'Bitcoin Lightning', icon: 'bank' },
-    { id: 'btc', name: 'Bitcoin', icon: 'bank' },
-    { id: 'eth', name: 'Ethereum', icon: 'bank' },
+    { id: 'btc-ln', name: 'Bitcoin Lightning', icon: 'question' },
+    { id: 'btc', name: 'Bitcoin', icon: 'question' },
+    { id: 'eth', name: 'Ethereum', icon: 'question' },
     // Agrega más criptomonedas aquí
 ];
 
 const eWallets = [
-    { id: 'wallet1', name: 'E-Wallet 1', icon: 'bank' },
-    { id: 'wallet2', name: 'E-Wallet 2', icon: 'bank' },
+    { id: 'wallet1', name: 'E-Wallet 1', icon: 'question' },
+    { id: 'wallet2', name: 'E-Wallet 2', icon: 'question' },
     // Agrega más opciones de E-Wallet aquí
 ];
 
@@ -34,8 +34,7 @@ const OptionCard = ({ item, onPress, selected }) => (
     >
         <FontAwesome5
             size={24}
-            icon={item.icon}
-            color={selected ? '#7367f0' : '#000'}
+            name={item.icon}
         />
         <Text style={styles.cardText}>{item.name}</Text>
 
@@ -46,6 +45,16 @@ export default function AddScreen() {
 
     const [amount, setAmount] = useState('');
     const [selectedOption, setSelectedOption] = useState(null);
+
+    const RenderItem = ({ item }) => (
+        <View style={styles.cardContainer}>
+            <OptionCard
+                item={item}
+                onPress={() => setSelectedOption(item.id)}
+                selected={selectedOption === item.id}
+            />
+        </View>
+    );
 
     const onDepositPress = () => {
         // Aquí puedes generar una llamada API para procesar el depósito
@@ -70,13 +79,7 @@ export default function AddScreen() {
             <Text style={styles.title}>Criptomonedas:</Text>
             <FlatList
                 data={cryptoCurrencies}
-                renderItem={({ item }) => (
-                    <OptionCard
-                        item={item}
-                        onPress={() => setSelectedOption(item.id)}
-                        selected={selectedOption === item.id}
-                    />
-                )}
+                renderItem={RenderItem}
                 keyExtractor={(item) => item.id}
                 numColumns={3}
             />
@@ -84,13 +87,7 @@ export default function AddScreen() {
             <Text style={styles.title}>Banco:</Text>
             <FlatList
                 data={bankOptions}
-                renderItem={({ item }) => (
-                    <OptionCard
-                        item={item}
-                        onPress={() => setSelectedOption(item.id)}
-                        selected={selectedOption === item.id}
-                    />
-                )}
+                renderItem={RenderItem}
                 keyExtractor={(item) => item.id}
                 numColumns={3}
             />
@@ -98,13 +95,7 @@ export default function AddScreen() {
             <Text style={styles.title}>E-Wallets:</Text>
             <FlatList
                 data={eWallets}
-                renderItem={({ item }) => (
-                    <OptionCard
-                        item={item}
-                        onPress={() => setSelectedOption(item.id)}
-                        selected={selectedOption === item.id}
-                    />
-                )}
+                renderItem={RenderItem}
                 keyExtractor={(item) => item.id}
                 numColumns={3}
             />
@@ -168,5 +159,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 14,
         textAlign: 'center',
+    },
+    cardContainer: {
+        flex: 1 / 3,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
     },
 })
