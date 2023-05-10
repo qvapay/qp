@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable, FlatList, ScrollView, Dimensions } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
+import OptionCard from '../../ui/OptionCard';
 
 // TODO: Add a search bar to filter the coins
-
-// Option Card for every coin
-const OptionCard = ({ item, onPress, selected }) => (
-    <Pressable onPress={onPress} style={[styles.card, styles.cardSquare, selected ? styles.cardSelected : styles.cardUnselected]}>
-        <SvgUri width="24" height="24" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
-        <Text style={styles.cardText}>{item.name}</Text>
-    </Pressable>
-)
 
 // Scrollable FlatList for the Collapsible component
 const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
@@ -28,9 +20,7 @@ const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
     </ScrollView>
 )
 
-const screenWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const cardSize = (screenWidth - 20 * 2 - 5) / 3; // 20 es el padding horizontal del contenedor y 5 es el padding aplicado en las tarjetas del centro
 const amountInputHeight = 88; // Ajusta este valor según el tamaño real del campo 'amount'
 const depositButtonHeight = 100; // Ajusta este valor según el tamaño real del botón 'Depositar'
 const titleHeight = 30; // Ajusta este valor según el tamaño real del título
@@ -88,7 +78,7 @@ export default function AddScreen({ navigation }) {
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
-            setIsDepositButtonDisabled(!(numericValue >= 10));
+            setIsDepositButtonDisabled(!(numericValue >= 10 && selectedOption !== null));
         }
     };
 
@@ -148,7 +138,11 @@ export default function AddScreen({ navigation }) {
         <View style={[styles.cardContainer, index % 3 === 1 ? styles.cardCenter : null]}>
             <OptionCard
                 item={item}
-                onPress={() => setSelectedOption(item.id)}
+                onPress={() => {
+                    setSelectedOption(item.id);
+                    const numericValue = parseFloat(amount.substring(1));
+                    setIsDepositButtonDisabled(!(numericValue >= 10));
+                }}
                 selected={selectedOption === item.id}
             />
         </View>
@@ -228,38 +222,12 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    card: {
-        flex: 1,
-        padding: 10,
-        borderWidth: 2,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#283046',
-    },
-    cardSelected: {
-        borderColor: '#7367f0',
-    },
-    cardUnselected: {
-        borderColor: 'transparent',
-    },
-    cardText: {
-        fontSize: 14,
-        marginTop: 5,
-        color: 'white',
-        textAlign: 'center',
-        fontFamily: 'Nunito-Regular'
-    },
     cardCenter: {
         paddingHorizontal: 5,
     },
     cardContainer: {
         flex: 1 / 3,
         paddingVertical: 2.5,
-    },
-    cardSquare: {
-        width: cardSize,
-        height: cardSize,
     },
     scrollableFlatList: {
         maxHeight: maxHeight,

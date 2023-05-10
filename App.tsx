@@ -26,6 +26,7 @@ import {theme} from './components/ui/Theme';
 import {AppProvider} from './AppContext';
 import AddScreen from './components/pages/DepositWithdraw/AddScreen';
 import WithdrawScreen from './components/pages/DepositWithdraw/WithdrawScreen';
+import AddInstructionsScreen from './components/pages/DepositWithdraw/AddInstructionsScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -62,7 +63,6 @@ function App(): JSX.Element {
                 },
                 headerTitleAlign: 'center',
               }}>
-
               {/* SplashScreen which will come once for 2 Seconds */}
               <Stack.Screen
                 name="SplashScreen"
@@ -124,6 +124,17 @@ function App(): JSX.Element {
                 component={AddScreen}
                 options={{
                   title: 'Depositar fondos',
+                  headerTitleStyle: {
+                    fontFamily: 'Nunito-Regular',
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="AddInstructionsScreen"
+                component={AddInstructionsScreen}
+                options={{
+                  title: 'Finalizar depósito',
                   headerTitleStyle: {
                     fontFamily: 'Nunito-Regular',
                   },
@@ -202,7 +213,6 @@ function App(): JSX.Element {
                   animation: 'fade_from_bottom',
                 }}
               />
-
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaView>
