@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, TextInput, View, Pressable, FlatList } from 'react-native'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { View, Text, StyleSheet, TextInput, Pressable, FlatList, ScrollView, Dimensions } from 'react-native';
+import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
+import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
+import QPButton from '../../ui/QPButton';
 
 const OptionCard = ({ item, onPress, selected }) => (
-    <Pressable
-        onPress={onPress}
-        style={[
-            styles.card,
-            selected ? styles.cardSelected : styles.cardUnselected,
-        ]}
-    >
-        <FontAwesome5
-            size={24}
-            name={item.icon}
-        />
+    <Pressable onPress={onPress} style={[styles.card, styles.cardSquare, selected ? styles.cardSelected : styles.cardUnselected]}>
+        <SvgUri width="24" height="24" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
         <Text style={styles.cardText}>{item.name}</Text>
-
     </Pressable>
 )
+
+const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
+    <ScrollView style={styles.scrollableFlatList}>
+        <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+            numColumns={numColumns}
+        />
+    </ScrollView>
+)
+
+const screenWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const cardSize = (screenWidth - 22 * 2 - 5) / 3; // 10 es el padding horizontal del contenedor y 5 es el padding aplicado en las tarjetas del centro
+const amountInputHeight = 50; // Ajusta este valor según el tamaño real del campo 'amount'
+const depositButtonHeight = 60; // Ajusta este valor según el tamaño real del botón 'Depositar'
+const titleHeight = 30; // Ajusta este valor según el tamaño real del título
+const marginBottom = 20; // Ajusta este valor según los márgenes que deseas mantener
+const maxHeight = windowHeight - amountInputHeight - depositButtonHeight - titleHeight * 3 - marginBottom;
 
 export default function AddScreen({ navigation }) {
 
@@ -28,6 +40,11 @@ export default function AddScreen({ navigation }) {
     const [bankOptions, setBankOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
+
+    // State para controlar si cada categoría está abierta o cerrada
+    const [eWalletsOpen, setEWalletsOpen] = useState(false);
+    const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
+    const [cryptoCurrenciesOpen, setCryptoCurrenciesOpen] = useState(true);
 
     useEffect(() => {
         const getOptions = async () => {
@@ -49,8 +66,59 @@ export default function AddScreen({ navigation }) {
         getOptions();
     }, []);
 
-    const RenderItem = ({ item }) => (
-        <View style={styles.cardContainer}>
+    // Funciones para controlar la apertura y cierre de cada categoría
+    const toggleCryptoCurrencies = () => {
+        setCryptoCurrenciesOpen(!cryptoCurrenciesOpen);
+        setBankOptionsOpen(false);
+        setEWalletsOpen(false);
+    };
+    const toggleBankOptions = () => {
+        setBankOptionsOpen(!bankOptionsOpen);
+        setCryptoCurrenciesOpen(false);
+        setEWalletsOpen(false);
+    };
+    const toggleEWallets = () => {
+        setEWalletsOpen(!eWalletsOpen);
+        setCryptoCurrenciesOpen(false);
+        setBankOptionsOpen(false);
+    };
+
+    // Renderizado de cada acordeón
+    const renderCryptoCurrencies = () => (
+        <Collapsible collapsed={!cryptoCurrenciesOpen} >
+            <ScrollableFlatList
+                data={cryptoCurrencies}
+                renderItem={({ item, index }) => RenderItem({ item, index })}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+            />
+        </Collapsible>
+    );
+
+    const renderBankOptions = () => (
+        <Collapsible collapsed={!bankOptionsOpen}>
+            <ScrollableFlatList
+                data={bankOptions}
+                renderItem={({ item, index }) => RenderItem({ item, index })}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+            />
+        </Collapsible>
+    );
+
+    const renderEWallets = () => (
+        <Collapsible collapsed={!eWalletsOpen}>
+            <ScrollableFlatList
+                data={eWallets}
+                renderItem={({ item, index }) => RenderItem({ item, index })}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+            />
+        </Collapsible>
+    );
+
+    const RenderItem = ({ item, index }) => (
+        <View style={[styles.cardContainer, index % 3 === 1 ? styles.cardCenter : null]}>
             <OptionCard
                 item={item}
                 onPress={() => setSelectedOption(item.id)}
@@ -79,36 +147,25 @@ export default function AddScreen({ navigation }) {
                 value={amount}
             />
 
-            <Text style={styles.title}>Criptomonedas:</Text>
-            <FlatList
-                data={cryptoCurrencies}
-                renderItem={RenderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
+            <View style={{ flex: 1 }}>
+                <Pressable onPress={toggleCryptoCurrencies}>
+                    <Text style={styles.title}>Criptomonedas:</Text>
+                </Pressable>
+                {renderCryptoCurrencies()}
 
-            <Text style={styles.title}>Banco:</Text>
-            <FlatList
-                data={bankOptions}
-                renderItem={RenderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
+                <Pressable onPress={toggleBankOptions}>
+                    <Text style={styles.title}>Banco:</Text>
+                </Pressable>
+                {renderBankOptions()}
 
-            <Text style={styles.title}>E-Wallets:</Text>
-            <FlatList
-                data={eWallets}
-                renderItem={RenderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
+                <Pressable onPress={toggleEWallets}>
+                    <Text style={styles.title}>E-Wallets:</Text>
+                </Pressable>
+                {renderEWallets()}
+            </View>
 
-            <Pressable
-                style={styles.depositButton}
-                onPress={onDepositPress}
-            >
-                <Text style={styles.buttonText}>Depositar</Text>
-            </Pressable>
+            <QPButton onPress={onDepositPress} title="Depositar" />
+
         </View>
     )
 }
@@ -120,23 +177,23 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
+        marginVertical: 10,
+        fontFamily: 'Nunito-Regular'
     },
     input: {
         borderWidth: 1,
+        marginBottom: 20,
+        paddingVertical: 5,
         borderColor: 'gray',
         paddingHorizontal: 10,
-        paddingVertical: 5,
-        marginBottom: 20,
     },
     depositButton: {
-        backgroundColor: 'blue',
         padding: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop: 20,
+        borderRadius: 5,
+        alignItems: 'center',
+        backgroundColor: 'blue',
+        justifyContent: 'center',
     },
     buttonText: {
         color: 'white',
@@ -144,13 +201,12 @@ const styles = StyleSheet.create({
     },
     card: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         padding: 10,
-        margin: 5,
         borderWidth: 2,
         borderRadius: 10,
-        borderColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#283046',
     },
     cardSelected: {
         borderColor: '#7367f0',
@@ -163,9 +219,18 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textAlign: 'center',
     },
+    cardCenter: {
+        paddingHorizontal: 5,
+    },
     cardContainer: {
         flex: 1 / 3,
-        paddingHorizontal: 5,
-        paddingVertical: 5,
+        paddingVertical: 2.5,
+    },
+    cardSquare: {
+        width: cardSize,
+        height: cardSize,
+    },
+    scrollableFlatList: {
+        maxHeight: maxHeight,
     },
 })
