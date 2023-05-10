@@ -39,7 +39,7 @@ const maxHeight = windowHeight - amountInputHeight - depositButtonHeight - title
 
 export default function AddScreen({ navigation }) {
 
-    const [amount, setAmount] = useState('$0');
+    const [amount, setAmount] = useState('$');
     const [eWallets, setEWallets] = useState([]);
     const [bankOptions, setBankOptions] = useState([]);
     const [eWalletsOpen, setEWalletsOpen] = useState(false);
@@ -50,13 +50,14 @@ export default function AddScreen({ navigation }) {
     const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
 
     useEffect(() => {
-        
+
         const getOptions = async () => {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins(coins);
+
+            setEWallets(filteredCoins.eWallets);
             setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
-            setEWallets(filteredCoins.eWallets);
         };
 
         const filterCoins = (coins) => {
@@ -79,14 +80,18 @@ export default function AddScreen({ navigation }) {
         getOptions();
     }, []);
 
-    // Always keep the $ befor teh amount
+    // Always keep the $ before the amount
     const handleAmountChange = (text) => {
-        if (/^\d*\.?\d*$/.test(text) || text === '') {
-            setAmount('$' + text);
-            const numericValue = parseFloat(text);
+        // Remove the $ before validating and processing the text
+        const inputText = text.replace(/^\$/, '');
+
+        if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
+            setAmount('$' + inputText);
+            const numericValue = parseFloat(inputText);
             setIsDepositButtonDisabled(!(numericValue >= 10));
         }
     };
+
 
     // Funciones para controlar la apertura y cierre de cada categoría
     const toggleCryptoCurrencies = () => {
@@ -198,11 +203,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
+        color: 'white',
         marginVertical: 10,
         fontFamily: 'Nunito-Regular'
     },
     input: {
         fontSize: 30,
+        color: 'white',
         paddingVertical: 5,
         marginVertical: 10,
         textAlign: 'center',
@@ -237,9 +244,11 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
     },
     cardText: {
-        marginTop: 5,
         fontSize: 14,
+        marginTop: 5,
+        color: 'white',
         textAlign: 'center',
+        fontFamily: 'Nunito-Regular'
     },
     cardCenter: {
         paddingHorizontal: 5,

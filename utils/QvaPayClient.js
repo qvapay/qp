@@ -29,9 +29,11 @@ const apiRequest = async (url, options = {}, navigation) => {
         return null;
     }
 
-    console.log("apiRequest: " + accessToken)
+    console.log("Log apiRequest: " + accessToken)
 
     try {
+
+        console.log(url)
 
         const response = await qvaPayClient.request({
             url,
@@ -58,7 +60,8 @@ const apiRequest = async (url, options = {}, navigation) => {
 
     } catch (error) {
 
-        console.error("Error1: " + error);
+        console.error("Error apiRequest: " + error);
+        console.error("Error apiRequest: " + error.response);
 
         // Network Error do nothing or 
         if (error.request && !error.response) {
