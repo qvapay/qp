@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable, FlatList, ScrollView, Dimensions } from 'react-native';
+import QPButton from '../../ui/QPButton';
 import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
-import QPButton from '../../ui/QPButton';
 
+// TODO: Add a search bar to filter the coins
+
+// Option Card for every coin
 const OptionCard = ({ item, onPress, selected }) => (
     <Pressable onPress={onPress} style={[styles.card, styles.cardSquare, selected ? styles.cardSelected : styles.cardUnselected]}>
         <SvgUri width="24" height="24" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
@@ -13,6 +16,7 @@ const OptionCard = ({ item, onPress, selected }) => (
     </Pressable>
 )
 
+// Scrollable FlatList for the Collapsible component
 const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
     <ScrollView style={styles.scrollableFlatList}>
         <FlatList
@@ -26,45 +30,63 @@ const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
 
 const screenWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const cardSize = (screenWidth - 22 * 2 - 5) / 3; // 10 es el padding horizontal del contenedor y 5 es el padding aplicado en las tarjetas del centro
-const amountInputHeight = 50; // Ajusta este valor según el tamaño real del campo 'amount'
-const depositButtonHeight = 60; // Ajusta este valor según el tamaño real del botón 'Depositar'
+const cardSize = (screenWidth - 20 * 2 - 5) / 3; // 20 es el padding horizontal del contenedor y 5 es el padding aplicado en las tarjetas del centro
+const amountInputHeight = 88; // Ajusta este valor según el tamaño real del campo 'amount'
+const depositButtonHeight = 100; // Ajusta este valor según el tamaño real del botón 'Depositar'
 const titleHeight = 30; // Ajusta este valor según el tamaño real del título
-const marginBottom = 20; // Ajusta este valor según los márgenes que deseas mantener
+const marginBottom = 90; // Ajusta este valor según los márgenes que deseas mantener
 const maxHeight = windowHeight - amountInputHeight - depositButtonHeight - titleHeight * 3 - marginBottom;
 
 export default function AddScreen({ navigation }) {
 
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState('$0');
     const [eWallets, setEWallets] = useState([]);
     const [bankOptions, setBankOptions] = useState([]);
+    const [eWalletsOpen, setEWalletsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
-
-    // State para controlar si cada categoría está abierta o cerrada
-    const [eWalletsOpen, setEWalletsOpen] = useState(false);
     const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
     const [cryptoCurrenciesOpen, setCryptoCurrenciesOpen] = useState(true);
+    const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
 
     useEffect(() => {
+        
         const getOptions = async () => {
             const coins = await getCoins(navigation);
+            const filteredCoins = filterCoins(coins);
+            setBankOptions(filteredCoins.bankOptions);
+            setCryptoCurrencies(filteredCoins.cryptoCurrencies);
+            setEWallets(filteredCoins.eWallets);
+        };
 
-            // Extract bank options from coins API
+        const filterCoins = (coins) => {
             const bankOptions = coins.find((category) => category.name === 'Bank').coins;
-            setBankOptions(bankOptions);
+            const filteredBankOptions = bankOptions.filter((option) => option.enabled_in);
 
-            // Extract crypto options from coins API
             const cryptoCurrencies = coins.find((category) => category.name === 'Criptomonedas').coins;
-            setCryptoCurrencies(cryptoCurrencies);
+            const filteredCryptoCurrencies = cryptoCurrencies.filter((option) => option.enabled_in);
 
-            // Extract e-wallet options from coins API
             const eWallets = coins.find((category) => category.name === 'E-Wallet').coins;
-            setEWallets(eWallets);
+            const filteredEWallets = eWallets.filter((option) => option.enabled_in);
+
+            return {
+                bankOptions: filteredBankOptions,
+                cryptoCurrencies: filteredCryptoCurrencies,
+                eWallets: filteredEWallets,
+            };
         };
 
         getOptions();
     }, []);
+
+    // Always keep the $ befor teh amount
+    const handleAmountChange = (text) => {
+        if (/^\d*\.?\d*$/.test(text) || text === '') {
+            setAmount('$' + text);
+            const numericValue = parseFloat(text);
+            setIsDepositButtonDisabled(!(numericValue >= 10));
+        }
+    };
 
     // Funciones para controlar la apertura y cierre de cada categoría
     const toggleCryptoCurrencies = () => {
@@ -127,11 +149,10 @@ export default function AddScreen({ navigation }) {
         </View>
     );
 
+    // Navigate to AddInstructionsScreen
     const onDepositPress = () => {
-        // Aquí puedes generar una llamada API para procesar el depósito
-        // Luego navegar al siguiente Screen con las instrucciones de depósito
         navigation.navigate('AddInstructionsScreen', {
-            amount: amount,
+            amount: amount.substring(1),
             crypto: selectedOption,
         });
     };
@@ -143,7 +164,7 @@ export default function AddScreen({ navigation }) {
             <TextInput
                 keyboardType="numeric"
                 style={styles.input}
-                onChangeText={setAmount}
+                onChangeText={handleAmountChange}
                 value={amount}
             />
 
@@ -164,7 +185,7 @@ export default function AddScreen({ navigation }) {
                 {renderEWallets()}
             </View>
 
-            <QPButton onPress={onDepositPress} title="Depositar" />
+            <QPButton onPress={onDepositPress} title="Depositar" disabled={isDepositButtonDisabled} />
 
         </View>
     )
@@ -181,11 +202,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Regular'
     },
     input: {
-        borderWidth: 1,
-        marginBottom: 20,
+        fontSize: 30,
         paddingVertical: 5,
-        borderColor: 'gray',
-        paddingHorizontal: 10,
+        marginVertical: 10,
+        textAlign: 'center',
+        paddingHorizontal: 20,
+        fontFamily: 'Nunito-Black',
     },
     depositButton: {
         padding: 10,

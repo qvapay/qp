@@ -9,6 +9,7 @@ export default function QPButton(props) {
             {...props}
             titleStyle={[styles.titleStyle, props.titleStyle]}
             buttonStyle={[styles.buttonStyle, props.buttonStyle]}
+            disabledStyle={[styles.disabledStyle, props.disabledStyle]}
         />
     )
 }
@@ -22,5 +23,9 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         alignItems: 'center',
         backgroundColor: '#7367f0',
-    }
+    },
+    disabledStyle: {
+        opacity: 0.5,
+        backgroundColor: '#7367f0',
+    },
 })
