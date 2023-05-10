@@ -1,28 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, TextInput, View, Pressable, FlatList } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-// Add GlobalStyles from Theme
 import { globalStyles } from '../../ui/Theme';
-
-const bankOptions = [
-    { id: 'bank1', name: 'Bank 1', icon: 'question' },
-    { id: 'bank2', name: 'Bank 2', icon: 'question' },
-    // Agrega más opciones de banco aquí
-];
-
-const cryptoCurrencies = [
-    { id: 'btc-ln', name: 'Bitcoin Lightning', icon: 'question' },
-    { id: 'btc', name: 'Bitcoin', icon: 'question' },
-    { id: 'eth', name: 'Ethereum', icon: 'question' },
-    // Agrega más criptomonedas aquí
-];
-
-const eWallets = [
-    { id: 'wallet1', name: 'E-Wallet 1', icon: 'question' },
-    { id: 'wallet2', name: 'E-Wallet 2', icon: 'question' },
-    // Agrega más opciones de E-Wallet aquí
-];
+import { getCoins } from '../../../utils/QvaPayClient';
 
 const OptionCard = ({ item, onPress, selected }) => (
     <Pressable
@@ -41,10 +21,33 @@ const OptionCard = ({ item, onPress, selected }) => (
     </Pressable>
 )
 
-export default function AddScreen() {
+export default function AddScreen({ navigation }) {
 
     const [amount, setAmount] = useState('');
+    const [eWallets, setEWallets] = useState([]);
+    const [bankOptions, setBankOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
+    const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
+
+    useEffect(() => {
+        const getOptions = async () => {
+            const coins = await getCoins(navigation);
+
+            // Extract bank options from coins API
+            const bankOptions = coins.find((category) => category.name === 'Bank').coins;
+            setBankOptions(bankOptions);
+
+            // Extract crypto options from coins API
+            const cryptoCurrencies = coins.find((category) => category.name === 'Criptomonedas').coins;
+            setCryptoCurrencies(cryptoCurrencies);
+
+            // Extract e-wallet options from coins API
+            const eWallets = coins.find((category) => category.name === 'E-Wallet').coins;
+            setEWallets(eWallets);
+        };
+
+        getOptions();
+    }, []);
 
     const RenderItem = ({ item }) => (
         <View style={styles.cardContainer}>

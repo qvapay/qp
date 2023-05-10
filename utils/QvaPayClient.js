@@ -213,6 +213,17 @@ const sendP2pMessage = async ({ uuid, text, navigation }) => {
     }
 }
 
+// Get All available coins:
+const getCoins = async ({ navigation }) => {
+    try {
+        const url = `/coins`
+        const response = await apiRequest(url, { method: 'GET' }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     qvaPayClient,
     transferBalance,
@@ -223,5 +234,6 @@ export {
     getP2POffers,
     getP2POffer,
     applyP2POffer,
-    sendP2pMessage
+    sendP2pMessage,
+    getCoins
 };
