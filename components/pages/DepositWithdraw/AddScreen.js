@@ -152,7 +152,7 @@ export default function AddScreen({ navigation }) {
     const onDepositPress = () => {
         navigation.navigate('AddInstructionsScreen', {
             amount: amount.substring(1),
-            crypto: selectedOption,
+            coin: selectedOption,
         });
     };
 

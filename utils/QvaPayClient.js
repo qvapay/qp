@@ -227,6 +227,28 @@ const getCoins = async ({ navigation }) => {
     }
 };
 
+// Get the Coin data:
+const getCoinData = async ({ coin_id, navigation }) => {
+    try {
+        const url = `/coins/${coin_id}`
+        const response = await apiRequest(url, { method: 'GET' }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Get a TOPUP Wallet from a coin
+const getTopUpData = async ({ amount, coin, navigation }) => {
+    try {
+        const url = `/topup`
+        const response = await apiRequest(url, { method: 'POST', data: { amount, pay_method: coin }}, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     qvaPayClient,
     transferBalance,
@@ -238,5 +260,7 @@ export {
     getP2POffer,
     applyP2POffer,
     sendP2pMessage,
-    getCoins
+    getCoins,
+    getTopUpData,
+    getCoinData
 };

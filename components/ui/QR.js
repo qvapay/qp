@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import QRCodeStyled from 'react-native-qrcode-styled';
 
 export default function QR({ qrData }) {
