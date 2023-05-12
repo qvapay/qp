@@ -49,6 +49,11 @@ const globalStyles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: "Nunito-Black",
     },
+    title: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: 'Nunito-Bold'
+    }
 });
 
 export { theme, globalStyles };

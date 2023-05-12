@@ -6,6 +6,9 @@ import { globalStyles } from '../../ui/Theme';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { getTopUpData, getCoinData } from '../../../utils/QvaPayClient';
 
+import Toast from 'react-native-toast-message';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 export default function AddInstructionsScreen({ route, navigation }) {
 
     const { amount, coin } = route.params;
@@ -47,18 +50,41 @@ export default function AddInstructionsScreen({ route, navigation }) {
         fetchCoinData();
     }, []);
 
+    // Check payment Status
+    useEffect(() => {
+        checkPaymentStatus();
+    }, []);
+
     // Copy wallet address to clipboard
     const copyWalletAddressToClipboard = () => {
         Clipboard.setString(wallet);
-        alert('Dirección de billetera copiada al portapapeles');
+        console.log(wallet)
+        Toast.show({
+            type: 'success',
+            text1: 'Dirección de billetera copiada al portapapeles',
+            // text2: 'Dirección de billetera copiada al portapapeles',
+            position: 'bottom',
+            bottomOffset: 10,
+        });
+    };
+
+    const truncateWalletAddress = (address) => {
+        if (address.length > 28) {
+            return address.substring(0, 10) + '...' + address.substring(address.length - 10);
+        }
+        return address;
     };
 
     const openWalletApp = () => {
         // Implementar la funcionalidad para abrir la aplicación de la billetera
+        console.log('Abrir la aplicación de la billetera');
     };
 
     // Comprobar si el pago se ha completado y mostrar un mensaje de éxito
-    // ...
+    const checkPaymentStatus = () => {
+        // Implementar la lógica de comprobación de pago y mostrar un mensaje de éxito si se ha completado
+        console.log('Comprobar el estado del pago');
+    };
 
     return (
         <View style={[globalStyles.container]}>
@@ -91,9 +117,14 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 </View>
                 <View style={styles.itemColumn}>
                     <Text style={styles.text}>Wallet:</Text>
+
                     <Pressable onPress={copyWalletAddressToClipboard}>
-                        <Text style={[styles.text, { fontSize: 14, fontFamily: 'Nunito-Light', color: '#28c76f' }]}>{wallet}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Light', color: '#28c76f' }]}>{truncateWalletAddress(wallet)}</Text>
+                            <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
+                        </View>
                     </Pressable>
+
                 </View>
                 <View style={styles.itemColumn}>
                     <Text style={styles.text}>ID de transacción:</Text>
@@ -101,11 +132,14 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 </View>
 
                 <Text style={styles.invoiceFooter}>Realice el pago de esta factura en el tiempo indicado para evitar demoras en acreditarle.</Text>
+
             </View>
 
             <View>
                 <QPButton onPress={() => console.log("asd")} title="Abrir wallet externa" />
             </View>
+
+            <Toast />
         </View>
     )
 }

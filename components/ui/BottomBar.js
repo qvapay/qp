@@ -2,9 +2,6 @@ import React from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-// Blur Bar
-import { BlurView } from '@react-native-community/blur';
-
 export default function BottomBar({ state, descriptors, navigation }) {
 
     // Create the nav items array
@@ -33,8 +30,6 @@ export default function BottomBar({ state, descriptors, navigation }) {
 
     return (
         <View style={styles.BottomNav}>
-
-            {/* TODO Blur View Here */}
 
             {
                 // Map for the current defined routes

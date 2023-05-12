@@ -86,11 +86,13 @@ export default function LightningScreen() {
     return (
         <View style={[globalStyles.container, { alignItems: 'center' }]}>
 
-            <View style={styles.wheel} />
+            <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
+
+            {/* <View style={styles.wheel} />
 
             <View style={styles.bottom}>
                 {renderSpinButton()}
-            </View>
+            </View> */}
         </View>
     )
 }
