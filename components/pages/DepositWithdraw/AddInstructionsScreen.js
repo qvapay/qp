@@ -1,13 +1,69 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Alert } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { getTopUpData, getCoinData } from '../../../utils/QvaPayClient';
-
 import Toast from 'react-native-toast-message';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+import AppLink from 'react-native-app-link';
+
+const supportedWallets = [
+    {
+        name: 'Coinbase',
+        packageName: 'com.coinbase.android',
+        urlScheme: 'coinbase://',
+    },
+    {
+        name: 'Trust Wallet',
+        packageName: 'com.wallet.crypto.trustapp',
+        urlScheme: 'trust://',
+    },
+    {
+        name: 'MetaMask',
+        packageName: 'io.metamask',
+        urlScheme: 'metamask://',
+    },
+    {
+        name: 'Coinomi',
+        packageName: 'com.coinomi.wallet',
+        urlScheme: 'coinomi://',
+    },
+    {
+        name: 'Exodus',
+        packageName: 'exodusmovement.exodus',
+        urlScheme: 'exodus://',
+    },
+    {
+        name: 'Atomic Wallet',
+        packageName: 'io.atomicwallet',
+        urlScheme: 'atomicwallet://',
+    },
+    {
+        name: 'MyEtherWallet',
+        packageName: 'com.myetherwallet.mewwallet',
+        urlScheme: 'mewconnect://',
+    },
+    {
+        name: 'Enjin Wallet',
+        packageName: 'com.enjin.mobile.wallet',
+        urlScheme: 'enjinwallet://',
+    },
+    {
+        name: 'Bread Wallet',
+        packageName: 'com.breadwallet',
+        urlScheme: 'breadwallet://',
+    },
+    {
+        name: 'Edge Wallet',
+        packageName: 'co.edgesecure.app',
+        urlScheme: 'edge://',
+    },
+    // Añade más billeteras y sus identificadores de paquete aquí
+];
+
 
 export default function AddInstructionsScreen({ route, navigation }) {
 
@@ -62,12 +118,12 @@ export default function AddInstructionsScreen({ route, navigation }) {
         Toast.show({
             type: 'success',
             text1: 'Dirección de billetera copiada al portapapeles',
-            // text2: 'Dirección de billetera copiada al portapapeles',
             position: 'bottom',
             bottomOffset: 10,
         });
     };
 
+    // Show only initial and latest letters from a wallet
     const truncateWalletAddress = (address) => {
         if (address.length > 28) {
             return address.substring(0, 10) + '...' + address.substring(address.length - 10);
@@ -75,14 +131,58 @@ export default function AddInstructionsScreen({ route, navigation }) {
         return address;
     };
 
-    const openWalletApp = () => {
-        // Implementar la funcionalidad para abrir la aplicación de la billetera
-        console.log('Abrir la aplicación de la billetera');
+    const openWalletApp = async () => {
+        try {
+            // Filtra las billeteras compatibles instaladas en el dispositivo
+            const installedWallets = (
+                await Promise.all(
+                    supportedWallets.map(async (wallet) => {
+                        try {
+                            await AppLink.maybeOpenURL(wallet.urlScheme, {
+                                appName: wallet.name,
+                                appStoreId: '', // Coloca el ID de la tienda de aplicaciones para iOS aquí
+                                playStoreId: wallet.packageName,
+                            });
+                            return true;
+                        } catch (error) {
+                            return false;
+                        }
+                    })
+                )
+            ).filter((installed, index) => installed && supportedWallets[index]);
+
+            if (installedWallets.length === 0) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'No se encontraron billeteras compatibles',
+                    position: 'bottom',
+                    bottomOffset: 10,
+                });
+                return;
+            }
+
+            // Muestra la lista de billeteras instaladas y permite seleccionar una para abrir
+            Alert.alert(
+                'Seleccione una billetera',
+                'Elija una billetera para completar el pago:',
+                installedWallets.map((wallet) => ({
+                    text: wallet.name,
+                    onPress: () =>
+                        AppLink.openInStore({
+                            appName: wallet.name,
+                            appStoreId: '', // Coloca el ID de la tienda de aplicaciones para iOS aquí
+                            playStoreId: wallet.packageName,
+                        }),
+                })),
+                { cancelable: true }
+            );
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     // Comprobar si el pago se ha completado y mostrar un mensaje de éxito
     const checkPaymentStatus = () => {
-        // Implementar la lógica de comprobación de pago y mostrar un mensaje de éxito si se ha completado
         console.log('Comprobar el estado del pago');
     };
 
@@ -136,7 +236,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
             </View>
 
             <View>
-                <QPButton onPress={() => console.log("asd")} title="Abrir wallet externa" />
+                <QPButton onPress={openWalletApp} title="Abrir wallet externa" />
             </View>
 
             <Toast />
