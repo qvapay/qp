@@ -133,6 +133,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
 
     const openWalletApp = async () => {
         try {
+
             // Filtra las billeteras compatibles instaladas en el dispositivo
             const installedWallets = (
                 await Promise.all(
@@ -150,6 +151,8 @@ export default function AddInstructionsScreen({ route, navigation }) {
                     })
                 )
             ).filter((installed, index) => installed && supportedWallets[index]);
+
+            console.log(installedWallets)
 
             if (installedWallets.length === 0) {
                 Toast.show({
