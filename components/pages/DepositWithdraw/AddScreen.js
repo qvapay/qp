@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, Pressable, FlatList, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Dimensions } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
 import OptionCard from '../../ui/OptionCard';
 import ScrollableFlatList from '../../ui/ScrollableFlatList';
-
-const windowHeight = Dimensions.get('window').height;
-const amountInputHeight = 88; // Ajusta este valor según el tamaño real del campo 'amount'
-const depositButtonHeight = 100; // Ajusta este valor según el tamaño real del botón 'Depositar'
-const titleHeight = 30; // Ajusta este valor según el tamaño real del título
-const marginBottom = 90; // Ajusta este valor según los márgenes que deseas mantener
-const maxHeight = windowHeight - amountInputHeight - depositButtonHeight - titleHeight * 3 - marginBottom;
+import { filterCoins } from '../../../utils/Helpers';
 
 export default function AddScreen({ navigation }) {
 
@@ -32,27 +26,10 @@ export default function AddScreen({ navigation }) {
         const getOptions = async () => {
             // Get Coins and filter them by three main categories: Bank, E-Wallet and Crypto with enabled_in = true
             const coins = await getCoins(navigation);
-            const filteredCoins = filterCoins(coins);
+            const filteredCoins = filterCoins({ coins, in_out_p2p: "IN" });
             setEWallets(filteredCoins.eWallets);
             setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
-        };
-
-        const filterCoins = (coins) => {
-            const bankOptions = coins.find((category) => category.name === 'Bank').coins;
-            const filteredBankOptions = bankOptions.filter((option) => option.enabled_in);
-
-            const cryptoCurrencies = coins.find((category) => category.name === 'Criptomonedas').coins;
-            const filteredCryptoCurrencies = cryptoCurrencies.filter((option) => option.enabled_in);
-
-            const eWallets = coins.find((category) => category.name === 'E-Wallet').coins;
-            const filteredEWallets = eWallets.filter((option) => option.enabled_in);
-
-            return {
-                bankOptions: filteredBankOptions,
-                cryptoCurrencies: filteredCryptoCurrencies,
-                eWallets: filteredEWallets,
-            };
         };
 
         getOptions();
@@ -214,8 +191,5 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1 / 3,
         paddingVertical: 2.5,
-    },
-    scrollableFlatList: {
-        maxHeight: maxHeight,
     },
 })

@@ -82,5 +82,48 @@ const isValidQRData = (parsedData) => {
     return 'username' in parsedData && 'amount' in parsedData;
 };
 
+
+// Get a list of coins and filter them by IN/OUT/P2P 
+const filterCoins = ({ coins, in_out_p2p = "IN" }) => {
+
+    const filterByInOut = (option) => {
+        if (in_out_p2p === 'IN') {
+            return option.enabled_in;
+        } else if (in_out_p2p === 'OUT') {
+            return option.enabled_out;
+        } else if (in_out_p2p === 'P2P') {
+            return option.enabled_p2p;
+        } else {
+            return false;
+        }
+    };
+
+    const filterCategoryCoins = (categoryName) => {
+        const category = coins.find((category) => category.name === categoryName);
+        if (category) {
+            const filteredCoins = category.coins.filter(filterByInOut);
+            return filteredCoins;
+        }
+        return [];
+    };
+
+    const filteredBankOptions = filterCategoryCoins('Bank');
+    const filteredCryptoCurrencies = filterCategoryCoins('Criptomonedas');
+    const filteredEWallets = filterCategoryCoins('E-Wallet');
+
+    return {
+        bankOptions: filteredBankOptions,
+        cryptoCurrencies: filteredCryptoCurrencies,
+        eWallets: filteredEWallets,
+    };
+};
+
 // export timeSince function
-export { timeSince, reduceString, getShortDateTime, parseQRData, isValidQRData };
+export {
+    timeSince,
+    reduceString,
+    getShortDateTime,
+    parseQRData,
+    isValidQRData,
+    filterCoins
+};
