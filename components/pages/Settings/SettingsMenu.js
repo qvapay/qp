@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView } from 'react-native';
 
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
-import { ScrollView } from 'react-native-gesture-handler';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';

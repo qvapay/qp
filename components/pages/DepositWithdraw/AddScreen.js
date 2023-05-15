@@ -5,20 +5,7 @@ import { globalStyles } from '../../ui/Theme';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
 import OptionCard from '../../ui/OptionCard';
-
-// TODO: Add a search bar to filter the coins
-
-// Scrollable FlatList for the Collapsible component
-const ScrollableFlatList = ({ data, renderItem, keyExtractor, numColumns }) => (
-    <ScrollView style={styles.scrollableFlatList}>
-        <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-            numColumns={numColumns}
-        />
-    </ScrollView>
-)
+import ScrollableFlatList from '../../ui/ScrollableFlatList';
 
 const windowHeight = Dimensions.get('window').height;
 const amountInputHeight = 88; // Ajusta este valor según el tamaño real del campo 'amount'
@@ -32,9 +19,10 @@ export default function AddScreen({ navigation }) {
     const [amount, setAmount] = useState('$');
     const [eWallets, setEWallets] = useState([]);
     const [bankOptions, setBankOptions] = useState([]);
-    const [eWalletsOpen, setEWalletsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
+
+    const [eWalletsOpen, setEWalletsOpen] = useState(false);
     const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
     const [cryptoCurrenciesOpen, setCryptoCurrenciesOpen] = useState(true);
     const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
@@ -42,9 +30,9 @@ export default function AddScreen({ navigation }) {
     useEffect(() => {
 
         const getOptions = async () => {
+            // Get Coins and filter them by three main categories: Bank, E-Wallet and Crypto with enabled_in = true
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins(coins);
-
             setEWallets(filteredCoins.eWallets);
             setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
@@ -74,14 +62,12 @@ export default function AddScreen({ navigation }) {
     const handleAmountChange = (text) => {
         // Remove the $ before validating and processing the text
         const inputText = text.replace(/^\$/, '');
-
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
             setIsDepositButtonDisabled(!(numericValue >= 10 && selectedOption !== null));
         }
     };
-
 
     // Funciones para controlar la apertura y cierre de cada categoría
     const toggleCryptoCurrencies = () => {
@@ -149,7 +135,7 @@ export default function AddScreen({ navigation }) {
     );
 
     // Navigate to AddInstructionsScreen
-    const onDepositPress = () => {
+    const onAddPress = () => {
         navigation.navigate('AddInstructionsScreen', {
             amount: amount.substring(1),
             coin: selectedOption,
@@ -184,7 +170,7 @@ export default function AddScreen({ navigation }) {
                 {renderEWallets()}
             </View>
 
-            <QPButton onPress={onDepositPress} title="Depositar" disabled={isDepositButtonDisabled} />
+            <QPButton onPress={onAddPress} title="Depositar" disabled={isDepositButtonDisabled} />
 
         </View>
     )

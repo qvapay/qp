@@ -1,6 +1,6 @@
 import React from 'react'
+import { FlatList } from 'react-native';
 import P2POffer from '../../ui/P2POffer';
-import { FlatList } from 'react-native-gesture-handler';
 
 export default function IndexP2p({ offers, navigation }) {
 
