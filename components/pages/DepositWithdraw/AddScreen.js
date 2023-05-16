@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 30,
         color: 'white',
-        paddingVertical: 5,
         marginVertical: 10,
+        paddingVertical: 5,
         textAlign: 'center',
         paddingHorizontal: 20,
         fontFamily: 'Nunito-Black',

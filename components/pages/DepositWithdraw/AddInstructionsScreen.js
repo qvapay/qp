@@ -76,7 +76,9 @@ export default function AddInstructionsScreen({ route, navigation }) {
     const [transactionId, setTransactionId] = useState('');
     const [isPaid, setIsPaid] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [timer, setTimer] = useState(1799);
     const paymentStatusIntervalRef = useRef();
+    const [animation] = useState(new Animated.Value(0));
 
     // Get coin data using useEffect
     useEffect(() => {
@@ -102,7 +104,6 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 console.error(error);
             }
         };
-
         fetchCoinData();
     }, []);
 
@@ -116,7 +117,17 @@ export default function AddInstructionsScreen({ route, navigation }) {
         }
     }, [loading]);
 
-    const [animation] = useState(new Animated.Value(0));
+    // Countdown timer
+    useEffect(() => {
+        let countdownInterval = setInterval(() => {
+            if (timer > 0) {
+                setTimer(timer - 1);
+            } else {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+        return () => clearInterval(countdownInterval);
+    }, [timer]);
 
     useEffect(() => {
         Animated.timing(animation, {
@@ -286,6 +297,10 @@ export default function AddInstructionsScreen({ route, navigation }) {
                         </View>
 
                         <Text style={styles.invoiceFooter}>Realice el pago de esta factura en el tiempo indicado para evitar demoras en acreditarle.</Text>
+
+                        <Text style={[styles.text, { textAlign: 'center' }]}>
+                            {Math.floor(timer / 60)}:{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
+                        </Text>
 
                     </View>
 

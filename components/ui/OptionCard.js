@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
     },
     coinText: {
-        fontSize: 13,
+        fontSize: 11,
         color: 'white',
         textAlign: 'left',
         fontFamily: 'Nunito-Bold'
