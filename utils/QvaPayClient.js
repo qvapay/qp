@@ -130,7 +130,7 @@ const getTransactions = async ({ description = '', status = "paid", limit = 5, n
     } catch (error) { console.error(error) }
 };
 
-// get all transactions from the user
+// get specific transaction based on its uuid
 const getTransaction = async ({ uuid, navigation }) => {
     try {
         const response = await apiRequest(`/transactions/${uuid}`, { method: 'GET' }, navigation);

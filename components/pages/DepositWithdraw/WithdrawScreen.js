@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import OptionCard from '../../ui/OptionCard';
 import { globalStyles } from '../../ui/Theme';

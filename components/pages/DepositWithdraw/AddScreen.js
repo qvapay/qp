@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, Pressable, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
+import OptionCard from '../../ui/OptionCard';
 import { globalStyles } from '../../ui/Theme';
 import Collapsible from 'react-native-collapsible';
-import { getCoins } from '../../../utils/QvaPayClient';
-import OptionCard from '../../ui/OptionCard';
-import ScrollableFlatList from '../../ui/ScrollableFlatList';
 import { filterCoins } from '../../../utils/Helpers';
+import { getCoins } from '../../../utils/QvaPayClient';
+import ScrollableFlatList from '../../ui/ScrollableFlatList';
 
 export default function AddScreen({ navigation }) {
 
@@ -22,16 +22,13 @@ export default function AddScreen({ navigation }) {
     const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
 
     useEffect(() => {
-
         const getOptions = async () => {
-            // Get Coins and filter them by three main categories: Bank, E-Wallet and Crypto with enabled_in = true
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "IN" });
             setEWallets(filteredCoins.eWallets);
             setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
-
         getOptions();
     }, []);
 

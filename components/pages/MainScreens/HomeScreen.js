@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation }) {
         fetchMe();
     }, []);
 
-    // request the me object from the server every 60 seconds
+    // request the me object from the server every 120 seconds
     useEffect(() => {
         const interval = setInterval(fetchMe, 120000);
         return () => clearInterval(interval);

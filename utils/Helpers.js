@@ -118,6 +118,14 @@ const filterCoins = ({ coins, in_out_p2p = "IN" }) => {
     };
 };
 
+// Show only initial and latest letters from a wallet
+const truncateWalletAddress = (address) => {
+    if (address.length > 28) {
+        return address.substring(0, 10) + '...' + address.substring(address.length - 10);
+    }
+    return address;
+};
+
 // export timeSince function
 export {
     timeSince,
@@ -125,5 +133,6 @@ export {
     getShortDateTime,
     parseQRData,
     isValidQRData,
-    filterCoins
+    filterCoins,
+    truncateWalletAddress
 };
