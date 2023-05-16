@@ -40,8 +40,9 @@ export default function HomeScreen({ navigation }) {
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={fetchMe}
-                    tintColor="#fff"
-                    colors={['#fff']}
+                    tintColor="#7367f0"
+                    progressBackgroundColor="#161d31"
+                    colors={['#FFFFFF', '#28c76f']}
                 />
             }
         >
