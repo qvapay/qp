@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, Text, View, Pressable, Alert, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Alert, ActivityIndicator, Animated, Easing, StatusBar } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
@@ -116,16 +116,39 @@ export default function AddInstructionsScreen({ route, navigation }) {
         }
     }, [loading]);
 
+    const [animation] = useState(new Animated.Value(0));
+
+    useEffect(() => {
+        Animated.timing(animation, {
+            toValue: 1,
+            duration: 800,
+            easing: Easing.out(Easing.back(1.7)),
+            useNativeDriver: true,
+        }).start();
+    }, [animation]);
+
+    const opacity = animation.interpolate({
+        inputRange: [0, 0.8, 1],
+        outputRange: [0, 0.8, 1],
+    });
+
+    const scale = animation.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [0, 1.2, 1],
+    });
+
+    const rotate = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['-90deg', '0deg'],
+    });
+
     // Check the Payment Status from a transaction
     const checkPaymentStatus = async (transactionId) => {
         try {
             const transaction = await getTransaction({ uuid: transactionId, navigation });
             const { status } = transaction;
-
             if (status === "paid") {
                 setIsPaid(true);
-
-                // Clear interval paymentStatusInterval
                 clearInterval(paymentStatusIntervalRef.current);
             }
         } catch (error) {
@@ -203,7 +226,13 @@ export default function AddInstructionsScreen({ route, navigation }) {
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
             ) : isPaid ? (
-                <ActivityIndicator size="large" color="#000000" />
+                <View style={styles.container}>
+                    <StatusBar hidden={true} />
+                    <Animated.View style={[styles.checkmarkContainer, { opacity, transform: [{ scale }, { rotate }] }]}>
+                        <FontAwesome5 name="check" size={60} color="#fff" />
+                    </Animated.View>
+                    <Text style={styles.text}>Pago completado</Text>
+                </View>
             ) : (
                 <>
                     <View style={styles.cardContainer}>
@@ -229,7 +258,12 @@ export default function AddInstructionsScreen({ route, navigation }) {
                             <Text style={styles.text}>Valor:</Text>
                             <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
                                 <Text style={[styles.text, { fontFamily: 'Nunito-Black', color: "#28c76f" }]}>+ ${amount}</Text>
-                                <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Bold' }]}>{value}</Text>
+                                <Pressable onPress={() => copyTextToClipboard(value.toString())}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Bold' }]}>{value}</Text>
+                                        <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
+                                    </View>
+                                </Pressable>
                             </View>
                         </View>
                         <View style={styles.itemColumn}>
@@ -267,6 +301,11 @@ export default function AddInstructionsScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     cardContainer: {
         flex: 1,
         padding: 20,
@@ -307,5 +346,14 @@ const styles = StyleSheet.create({
         color: 'gray',
         textAlign: 'center',
         fontFamily: 'Nunito-Light',
-    }
+    },
+    checkmarkContainer: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+        borderRadius: 50,
+        alignItems: 'center',
+        backgroundColor: '#4cd964',
+        justifyContent: 'center',
+    },
 })

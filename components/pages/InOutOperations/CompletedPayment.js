@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, Animated, Easing, StatusBar } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function CompletedPayment() {
 
@@ -34,7 +34,7 @@ export default function CompletedPayment() {
         <View style={styles.container}>
             <StatusBar hidden={true} />
             <Animated.View style={[styles.checkmarkContainer, { opacity, transform: [{ scale }, { rotate }] }]}>
-                <Icon name="check" size={60} color="#fff" />
+                <FontAwesome5 name="check" size={60} color="#fff" />
             </Animated.View>
             <Text style={styles.text}>Pago completado</Text>
         </View>

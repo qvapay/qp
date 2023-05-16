@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#7367f0',
     },
+    titleStyle: {
+        fontFamily: 'Nunito-Regular'
+    },
     disabledStyle: {
         opacity: 0.5,
         backgroundColor: '#7367f0',

@@ -4,8 +4,6 @@ import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Transactions from '../../ui/Transactions'
 import { getMe } from '../../../utils/QvaPayClient';
-
-// Get global AppContext
 import { AppContext } from '../../../AppContext';
 
 export default function HomeScreen({ navigation }) {

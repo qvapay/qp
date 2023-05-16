@@ -35,7 +35,6 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
     // Balance microcomponent
     const formatBalance = (balance) => {
-        // If balance has no decimals, show X.00
         return showBalance ? (balance % 1 === 0 ? balance + '.00' : balance) : '*****';
     }
 
@@ -85,7 +84,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'space-between',
-
     },
     balanceAmount: {
         fontSize: 40,
