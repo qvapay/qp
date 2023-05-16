@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react'
-import { StyleSheet, ScrollView, Linking } from 'react-native'
+import React, { useEffect, useState, useContext } from 'react'
+import { StyleSheet, ScrollView, Linking, RefreshControl } from 'react-native'
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Transactions from '../../ui/Transactions'
@@ -12,31 +12,39 @@ export default function HomeScreen({ navigation }) {
 
     // get Me from AppContext
     const { me, setMe } = useContext(AppContext);
+    const [refreshing, setRefreshing] = useState(false);
 
     // Get Me object from QvaPayClient and store on state
     const fetchMe = async () => {
         try {
+            setRefreshing(true);
             const me = await getMe(navigation);
-            // Set a global me object
             setMe(me);
+            setRefreshing(false);
         } catch (error) {
             console.error(error);
+            setRefreshing(false);
         }
     };
 
-    // get the Me Object from getMe on QvaPayClient
+    // Get the Me object from getMe on QvaPayClient and request it every 120 seconds
     useEffect(() => {
         fetchMe();
-    }, []);
-
-    // request the me object from the server every 120 seconds
-    useEffect(() => {
         const interval = setInterval(fetchMe, 120000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={fetchMe}
+                    tintColor="#fff"
+                    colors={['#fff']}
+                />
+            }
+        >
             <Balance navigation={navigation} me={me} />
             <Transactions navigation={navigation} />
             <Hero
