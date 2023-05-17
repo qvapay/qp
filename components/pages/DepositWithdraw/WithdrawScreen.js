@@ -105,6 +105,7 @@ export default function WithdrawScreen({ navigation }) {
                     setIsDepositButtonDisabled(!(numericValue >= 10));
                 }}
                 selected={selectedOption === item.id}
+                in_out_p2p="OUT"
             />
         </View>
     );

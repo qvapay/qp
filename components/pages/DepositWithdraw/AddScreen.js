@@ -104,6 +104,7 @@ export default function AddScreen({ navigation }) {
                     setIsDepositButtonDisabled(!(numericValue >= 10));
                 }}
                 selected={selectedOption === item.id}
+                in_out_p2p="IN"
             />
         </View>
     );

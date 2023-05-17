@@ -5,7 +5,26 @@ import { SvgUri } from 'react-native-svg';
 const screenWidth = Dimensions.get('window').width;
 const cardSize = (screenWidth - 24 * 2 - 5) / 3;
 
-export default function OptionCard({ item, onPress, selected }) {
+export default function OptionCard({ item, onPress, selected, in_out_p2p = "P2P" }) {
+
+    const { fee_in, fee_out } = item;
+
+    console.log(in_out_p2p)
+
+    // Conditional fee in/out/p2p
+    // If in_out_p2p is "IN" then use the fee_in value
+    // If in_out_p2p is "OUT" then use the fee_out value
+    // If in_out_p2p is "P2P" then use 0 fee value
+    const fee = () => {
+        if (in_out_p2p === "IN") {
+            console.log(fee_in)
+            return fee_in;
+        } else if (in_out_p2p === "OUT") {
+            return fee_out;
+        } else {
+            return "0";
+        }
+    }
 
     // Format price with only 2 decimals
     const formatPrice = (price) => {
@@ -21,7 +40,7 @@ export default function OptionCard({ item, onPress, selected }) {
                 <Text style={styles.coinText}>{item.name}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.cardSubText}>{formatPrice(item.price)}</Text>
-                    <Text style={styles.cardSubText}>{item.fee_in}%</Text>
+                    <Text style={styles.cardSubText}>{fee()}%</Text>
                 </View>
             </View>
         </Pressable>
