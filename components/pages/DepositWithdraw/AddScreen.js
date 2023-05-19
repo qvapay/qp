@@ -39,7 +39,7 @@ export default function AddScreen({ navigation }) {
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
-            setIsDepositButtonDisabled(!(numericValue >= 10 && selectedOption !== null));
+            setIsDepositButtonDisabled(!(numericValue >= 5 && selectedOption !== null));
         }
     };
 
@@ -101,7 +101,7 @@ export default function AddScreen({ navigation }) {
                 onPress={() => {
                     setSelectedOption(item.id);
                     const numericValue = parseFloat(amount.substring(1));
-                    setIsDepositButtonDisabled(!(numericValue >= 10));
+                    setIsDepositButtonDisabled(!(numericValue >= item.min_in && numericValue <= item.max_in));
                 }}
                 selected={selectedOption === item.id}
                 in_out_p2p="IN"

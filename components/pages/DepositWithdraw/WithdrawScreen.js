@@ -11,8 +11,6 @@ import { filterCoins } from '../../../utils/Helpers';
 export default function WithdrawScreen({ navigation }) {
 
     const [amount, setAmount] = useState('$');
-    const [receivedAmount, setReceivedAmount] = useState('$ 0.00');
-    const [withdrawalDetails, setWithdrawalDetails] = useState([]);
 
     // Collapsible options
     const [eWallets, setEWallets] = useState([]);
@@ -26,7 +24,6 @@ export default function WithdrawScreen({ navigation }) {
     const [isWithdrawButtonDisabled, setIsWithdrawButtonDisabled] = useState(true);
 
     useEffect(() => {
-
         const getOptions = async () => {
             // Get Coins and filter them by three main categories: Bank, E-Wallet and Crypto with enabled_out = true
             const coins = await getCoins(navigation);
@@ -35,13 +32,12 @@ export default function WithdrawScreen({ navigation }) {
             setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
-
         getOptions();
     }, []);
 
-    // Navigate to AddInstructionsScreen
+    // Navigate to WithdrawInstructionsScreen
     const onWithdrawPress = () => {
-        console.log("Withdraw Pressed");
+        navigation.navigate('AddInstructionsScreen', { amount, selectedOption });
     };
 
     // Funciones para controlar la apertura y cierre de cada categoría
@@ -102,7 +98,7 @@ export default function WithdrawScreen({ navigation }) {
                 onPress={() => {
                     setSelectedOption(item.id);
                     const numericValue = parseFloat(amount.substring(1));
-                    setIsDepositButtonDisabled(!(numericValue >= 10));
+                    setIsWithdrawButtonDisabled(!(numericValue >= item.min_out));
                 }}
                 selected={selectedOption === item.id}
                 in_out_p2p="OUT"
