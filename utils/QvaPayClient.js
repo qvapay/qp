@@ -241,6 +241,18 @@ const getTopUpData = async ({ amount, coin, navigation }) => {
     }
 };
 
+// Send Withdraw data
+const sendWithdraw = async ({ amount, coin, details, navigation }) => {
+    try {
+        const url = `/withdraw`
+        const data = { amount, pay_method: coin, details }
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     qvaPayClient,
     transferBalance,
@@ -254,5 +266,6 @@ export {
     sendP2pMessage,
     getCoins,
     getTopUpData,
-    getCoinData
+    getCoinData,
+    sendWithdraw
 };

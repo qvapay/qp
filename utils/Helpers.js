@@ -29,7 +29,7 @@ const timeSince = (date) => {
 
 // String reduce function from P2P_796a9e71-3d67-4a42-9dc2-02a5d069fa23 to P2P_796a9e71
 const reduceString = (string) => {
-    return string.substring(0, 24);
+    return string.substring(0, 20);
 }
 
 // Get a long format date and return a short format date time

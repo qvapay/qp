@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import OptionCard from '../../ui/OptionCard';
 import { globalStyles } from '../../ui/Theme';
+import { AppContext } from '../../../AppContext';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
 import ScrollableFlatList from '../../ui/ScrollableFlatList';
@@ -10,6 +11,7 @@ import { filterCoins } from '../../../utils/Helpers';
 
 export default function WithdrawScreen({ navigation }) {
 
+    const { me } = useContext(AppContext);
     const [amount, setAmount] = useState('$');
 
     // Collapsible options
@@ -33,6 +35,15 @@ export default function WithdrawScreen({ navigation }) {
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
         getOptions();
+    }, []);
+
+    // set headerRight with the Current Balance
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Text style={styles.balanceText}>$ {me.balance}</Text>
+            ),
+        });
     }, []);
 
     // Navigate to WithdrawInstructionsScreen
@@ -142,6 +153,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+    },
+    balanceText: {
+        color: '#fff',
+        fontSize: 12,
+        alignSelf: 'center',
+        fontFamily: "Nunito-Bold",
     },
     title: {
         fontSize: 18,

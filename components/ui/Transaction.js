@@ -9,27 +9,13 @@ export default function Transaction({ transaction, navigation }) {
 
     // convert into Date object the updated_at string
     const updatedDate = new Date(updated_at);
-
-    // Positive/Negative colors
     const positive = "#28c76f";
     const negative = "#ea5455";
-
-    // Convert amount to float
     const amountFloat = parseFloat(amount);
-
-    // Determine if the transaction is negative or positive based on amount sign
     const isNegative = amountFloat < 0;
-
-    // Now we can use the isNegative variable to determine the color of the transaction
     const color = isNegative ? negative : positive;
-
-    // Put a "+" or "-" sign in front of the amount
     const amountSign = isNegative || "+";
-
-    // Set always a two decimal for the amount
     const amountFixed = amountFloat.toFixed(2);
-
-    // If is negative use the owner avatar, if not use the paid_by avatar
     const sourceUri = isNegative ? owner.profile_photo_url : paid_by.profile_photo_url;
 
     // Navigation function to ShowTransaction screen
