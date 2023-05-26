@@ -27,6 +27,7 @@ import {AppProvider} from './AppContext';
 import AddScreen from './components/pages/DepositWithdraw/AddScreen';
 import WithdrawScreen from './components/pages/DepositWithdraw/WithdrawScreen';
 import AddInstructionsScreen from './components/pages/DepositWithdraw/AddInstructionsScreen';
+import WithdrawInstructionsScreen from './components/pages/DepositWithdraw/WithdrawInstructionsScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -146,6 +147,17 @@ function App(): JSX.Element {
                 component={WithdrawScreen}
                 options={{
                   title: 'Extraer fondos',
+                  headerTitleStyle: {
+                    fontFamily: 'Nunito-Regular',
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="WithdrawInstructionsScreen"
+                component={WithdrawInstructionsScreen}
+                options={{
+                  title: 'Finalizar extracción',
                   headerTitleStyle: {
                     fontFamily: 'Nunito-Regular',
                   },

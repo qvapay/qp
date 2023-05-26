@@ -37,7 +37,10 @@ export default function WithdrawScreen({ navigation }) {
 
     // Navigate to WithdrawInstructionsScreen
     const onWithdrawPress = () => {
-        navigation.navigate('AddInstructionsScreen', { amount, selectedOption });
+        navigation.navigate('WithdrawInstructionsScreen', {
+            amount: amount.substring(1),
+            coin: selectedOption,
+        });
     };
 
     // Funciones para controlar la apertura y cierre de cada categoría

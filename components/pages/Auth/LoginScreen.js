@@ -64,7 +64,6 @@ export default function LoginScreen({ navigation }) {
                 throw new Error("No se pudo iniciar sesión correctamente");
             }
         } catch (error) {
-            console.log(error.response.data)
             throw error;
         }
     };

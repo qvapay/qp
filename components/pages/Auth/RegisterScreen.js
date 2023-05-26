@@ -59,14 +59,11 @@ export default function RegisterScreen({ navigation }) {
             invite: '',
         };
 
-        console.log(dataToSend)
-
         try {
             const response = await qvaPayClient.post('/auth/register', dataToSend);
 
             if (response.status === 201 && response.data.accessToken) {
                 setIsRegistraionSuccess(true);
-                console.log('Registration Successful. Please Login to proceed');
             } else {
                 setErrortext(response.msg);
                 throw new Error("No se pudo registrar correctamente");

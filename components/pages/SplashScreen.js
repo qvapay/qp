@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
-import EncryptedStorage from 'react-native-encrypted-storage';
 import { getMe } from '../../utils/QvaPayClient';
 
 export default function SplashScreen({ navigation }) {
 
     useEffect(() => {
         const checkToken = async () => {
-
-            console.log("Checking Token")
 
             try {
                 const checkToken = await getMe(navigation);

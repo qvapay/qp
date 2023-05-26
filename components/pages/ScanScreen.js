@@ -31,7 +31,6 @@ export default function ScanScreen() {
     const onSuccess = e => {
         const parsedData = parseQRData(e.data);
         if (!isValidQRData(parsedData)) {
-            console.log('Invalid QR code');
             return;
         }
         setValidQR('#28c76f');
@@ -40,9 +39,6 @@ export default function ScanScreen() {
 
     // Navigate to another screen with a delay and params
     const navigateToTransferScreenWithDelay = (params, delay) => {
-
-        console.log(params)
-
         setTimeout(() => {
             navigation.navigate('ConfirmSendScreen', { amount: params.amount, destination: params.username });
         }, delay);

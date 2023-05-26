@@ -54,12 +54,8 @@ export default function ConfirmSendScreen({ route, navigation }) {
             const response = await checkUser({ to, navigation });
             setUser(response.user);
 
-            console.log("User: " + response.user)
-
             // Sve this user to the contact list in AsyncStorage or update it by its uuid
             const contacts = await AsyncStorage.getItem('contacts');
-
-            console.log("Contacts" + contacts)
 
             // toSave User schema
             const userToSave = {
@@ -92,7 +88,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
 
         // Validate data
         if (!to || !amount || !comment) {
-            console.log('Missing required data');
             return;
         }
 

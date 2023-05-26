@@ -29,11 +29,7 @@ const apiRequest = async (url, options = {}, navigation) => {
         return null;
     }
 
-    console.log("Log apiRequest: " + accessToken)
-
     try {
-
-        console.log(url)
 
         const response = await qvaPayClient.request({
             url,
@@ -59,9 +55,6 @@ const apiRequest = async (url, options = {}, navigation) => {
         return response.data;
 
     } catch (error) {
-
-        console.error("Error apiRequest: " + error);
-        console.error("Error apiRequest: " + error.response);
 
         // Network Error do nothing or 
         if (error.request && !error.response) {
@@ -124,7 +117,6 @@ const getMe = async (navigation) => {
 const getTransactions = async ({ description = '', status = "paid", limit = 5, navigation }) => {
     try {
         const url = `/transactions?status=${status}&amount=${limit}&description=${description}`;
-        console.log(url)
         const response = await apiRequest(url, { method: 'GET' }, navigation);
         return response;
     } catch (error) { console.error(error) }
@@ -242,7 +234,7 @@ const getCoinData = async ({ coin_id, navigation }) => {
 const getTopUpData = async ({ amount, coin, navigation }) => {
     try {
         const url = `/topup`
-        const response = await apiRequest(url, { method: 'POST', data: { amount, pay_method: coin }}, navigation);
+        const response = await apiRequest(url, { method: 'POST', data: { amount, pay_method: coin } }, navigation);
         return response;
     } catch (error) {
         console.error(error);

@@ -232,7 +232,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
     };
 
     return (
-        <View style={[globalStyles.container]}>
+        <View style={globalStyles.container}>
 
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
