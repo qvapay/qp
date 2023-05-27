@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         marginBottom: 10,
-        borderRadius: 10
     },
     transactionsDetails: {
         flexDirection: 'row',

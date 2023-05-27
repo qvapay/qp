@@ -27,7 +27,6 @@ export default function WithdrawScreen({ navigation }) {
 
     useEffect(() => {
         const getOptions = async () => {
-            // Get Coins and filter them by three main categories: Bank, E-Wallet and Crypto with enabled_out = true
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "OUT" });
             setEWallets(filteredCoins.eWallets);
@@ -41,7 +40,9 @@ export default function WithdrawScreen({ navigation }) {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Text style={styles.balanceText}>$ {me.balance}</Text>
+                <View style={styles.balance}>
+                    <Text style={styles.balanceText}>$ {me.balance}</Text>
+                </View>
             ),
         });
     }, []);
@@ -82,7 +83,6 @@ export default function WithdrawScreen({ navigation }) {
             />
         </Collapsible>
     );
-
     const renderBankOptions = () => (
         <Collapsible collapsed={!bankOptionsOpen}>
             <ScrollableFlatList
@@ -93,7 +93,6 @@ export default function WithdrawScreen({ navigation }) {
             />
         </Collapsible>
     );
-
     const renderEWallets = () => (
         <Collapsible collapsed={!eWalletsOpen}>
             <ScrollableFlatList
@@ -120,11 +119,20 @@ export default function WithdrawScreen({ navigation }) {
         </View>
     );
 
+    // Dont allow the user to type on ampunt input more than me.balance value
+    const handleAmountChange = (text) => {
+        const numericValue = parseFloat(text.substring(1));
+        if (numericValue > me.balance) {
+            return;
+        }
+        setAmount(text);
+    };
+
     return (
         <View style={globalStyles.container}>
 
             <Text style={styles.label}>Cantidad a extraer:</Text>
-            <TextInput style={styles.input} keyboardType="numeric" value={amount} onChangeText={setAmount} />
+            <TextInput style={styles.input} keyboardType="numeric" value={amount} onChangeText={handleAmountChange} />
 
             <View style={{ flex: 1 }}>
                 <Pressable onPress={toggleCryptoCurrencies}>
@@ -153,6 +161,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+    },
+    balance: {
+        borderRadius: 10,
+        paddingVertical: 5,
+        alignSelf: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        backgroundColor: '#283046',
     },
     balanceText: {
         color: '#fff',

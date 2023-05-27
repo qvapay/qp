@@ -43,7 +43,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
             <View style={styles.topLabels}>
                 <Text style={styles.white}>Balance QvaPay:</Text>
-                <Text style={styles.gray}>Mi cuenta <FontAwesome5 name='chevron-right' /></Text>
+                {/* <Text style={styles.gray}>Mi cuenta <FontAwesome5 name='chevron-right' /></Text> */}
             </View>
 
             <View style={styles.topLabels}>

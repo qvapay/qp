@@ -167,7 +167,7 @@ export default function SettingsMenu({ navigation }) {
                 golden_check == 1 && (
                     <Pressable
                         style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
-                        onPress={() => navigation.navigate('GoldCheckBuy')}
+                        onPress={() => navigation.navigate('GoldCheck')}
                     >
                         <View style={{ marginRight: 20 }}>
                             <Image
@@ -242,9 +242,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     copyBottom: {
-        flexDirection: 'row',
-        textAlign: 'center',
         marginTop: 10,
+        color: 'white',
         marginBottom: 20,
+        textAlign: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        fontFamily: 'Nunito-Regular',
     }
 })

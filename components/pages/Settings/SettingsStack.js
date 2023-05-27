@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Import Screens
 import SettingsMenu from './SettingsMenu';
 import SettingOption from './SettingOption';
+import GoldCheck from './GoldCheck';
 
 const defaultScreenOptions = {
     headerTitleStyle: {
@@ -44,6 +45,14 @@ export default function SettingsStack() {
                     title: 'Ajustes de su Cuenta',
                     animationDuration: 50,
                     animation: 'slide_from_right',
+                }}
+            />
+
+            <Stack.Screen
+                name="GoldCheck"
+                component={GoldCheck}
+                options={{
+                    title: '',
                 }}
             />
 

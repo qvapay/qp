@@ -50,7 +50,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
                     keyExtractor={(item, index) => `input-${index}`}
                     renderItem={({ item }) => (
                         <View>
-                            <Text>{`${item.name}:`}</Text>
+                            <Text style={styles.text}>{`${item.name}:`}</Text>
                             <View style={styles.sectionStyle}>
                                 <TextInput
                                     autoGrow
@@ -70,7 +70,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
         setSending(true);
 
         try {
-            const {uuid} = await sendWithdraw({ amount, coin: coinData.tick, details: formData, navigation });
+            const { uuid } = await sendWithdraw({ amount, coin: coinData.tick, details: formData, navigation });
             navigation.navigate('TransactionStack', {
                 screen: 'ShowTransaction',
                 params: { uuid },
@@ -92,7 +92,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
                         <ActivityIndicator size="large" color="#000000" />
                     ) : (
                         <>
-                            <Text style={styles.invoiceHeader}>Complete los datos necesarios para completar esta extraccion:</Text>
+                            <Text style={styles.invoiceHeader}>Complete los datos necesarios para completar esta extracción:</Text>
 
                             <View style={{ flex: 1 }}>
                                 {renderForm()}
@@ -108,6 +108,11 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    text: {
+        color: 'white',
+        fontSize: 14,
+        fontFamily: 'Nunito-Regular',
+    },
     invoiceHeader: {
         marginVertical: 16,
         fontSize: 14,
