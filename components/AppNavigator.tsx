@@ -21,12 +21,15 @@ import ConfirmSendScreen from './pages/InOutOperations/ConfirmSendScreen';
 import AddInstructionsScreen from './pages/DepositWithdraw/AddInstructionsScreen';
 import WithdrawInstructionsScreen from './pages/DepositWithdraw/WithdrawInstructionsScreen';
 
+// Import Routes
+import {ROUTES} from './routes';
+
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="SplashScreen"
+      initialRouteName={ROUTES.SPLASH_SCREEN}
       screenOptions={{
         title: '',
         headerBackVisible: true,
@@ -44,14 +47,14 @@ export default function AppNavigator() {
       }}>
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
-        name="SplashScreen"
+        name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
         options={{headerShown: false}}
       />
 
       {/* Auth Navigator: Include Login and Signup */}
       <Stack.Screen
-        name="AuthStack"
+        name={ROUTES.AUTH_STACK}
         component={AuthStack}
         options={{
           headerShown: false,
@@ -60,7 +63,7 @@ export default function AppNavigator() {
 
       {/* Main Tabs Navigator */}
       <Stack.Screen
-        name="MainStack"
+        name={ROUTES.MAIN_STACK}
         component={MainStack}
         options={{
           headerShown: false,
@@ -69,7 +72,7 @@ export default function AppNavigator() {
 
       {/* Transactions Stack */}
       <Stack.Screen
-        name="TransactionStack"
+        name={ROUTES.TRANSACTION_STACK}
         component={TransactionStack}
         options={{
           headerLeft: () => {
@@ -82,11 +85,11 @@ export default function AppNavigator() {
       />
 
       {/* P2P Stack */}
-      <Stack.Screen name="PeerToPeerStack" component={PeerToPeerStack} />
+      <Stack.Screen name={ROUTES.P2P_STACK} component={PeerToPeerStack} />
 
       {/* Settings Stack */}
       <Stack.Screen
-        name="SettingsStack"
+        name={ROUTES.SETTINGS_STACK}
         component={SettingsStack}
         options={{
           headerShown: false,
@@ -96,7 +99,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="AddScreen"
+        name={ROUTES.ADD_SCREEN}
         component={AddScreen}
         options={{
           title: 'Depositar fondos',
@@ -107,7 +110,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="AddInstructionsScreen"
+        name={ROUTES.ADD_INSTRUCTIONS_SCREEN}
         component={AddInstructionsScreen}
         options={{
           title: 'Finalizar depósito',
@@ -118,7 +121,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="WithdrawScreen"
+        name={ROUTES.WITHDRAW_SCREEN}
         component={WithdrawScreen}
         options={{
           title: 'Extraer fondos',
@@ -129,7 +132,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="WithdrawInstructionsScreen"
+        name={ROUTES.WITHDRAW_INSTRUCTIONS_SCREEN}
         component={WithdrawInstructionsScreen}
         options={{
           title: 'Finalizar extracción',
@@ -140,10 +143,9 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="ScanScreen"
+        name={ROUTES.SCAN_SCREEN}
         component={ScanScreen}
         options={{
-          title: 'Scan',
           headerShown: false,
           animationDuration: 150,
           animation: 'fade_from_bottom',
@@ -151,7 +153,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="SendScreen"
+        name={ROUTES.SEND_SCREEN}
         component={SendScreen}
         options={{
           headerLeft: () => {
@@ -164,7 +166,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="ConfirmSendScreen"
+        name={ROUTES.CONFIRM_SEND_SCREEN}
         component={ConfirmSendScreen}
         options={{
           title: 'Confirmar envío',
@@ -178,7 +180,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="ReceiveScreen"
+        name={ROUTES.RECEIVE_SCREEN}
         component={ReceiveScreen}
         options={{
           headerLeft: () => {
@@ -191,10 +193,9 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen
-        name="ProfileScreen"
+        name={ROUTES.PROFILE_SCREEN}
         component={ProfileScreen}
         options={{
-          title: 'Perfil de usuario',
           headerShown: false,
           animationDuration: 150,
           animation: 'fade_from_bottom',
