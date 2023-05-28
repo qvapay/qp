@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Alert, Image, StyleSheet, Pressable, Text, View } from 'react-native';
+import { Alert, Image, StyleSheet, ScrollView, Text, View } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
@@ -31,34 +31,57 @@ export default function GoldCheck() {
     return (
         <View style={globalStyles.container}>
 
-            <View style={{ flex: 1 }}>
-                <Image
-                    source={require('../../../assets/images/gold_check.png')} // Asume que tienes una imagen llamada 'gold_check.png' en tu directorio 'assets'
-                    style={styles.goldCheckImage}
-                />
+            <ScrollView showsVerticalScrollIndicator={false}>
 
-                <Text style={styles.goldCheckBenefits}>
-                    Al adquirir la Verificación Dorada podrás disfrutar de beneficios como mayor visibilidad,
-                    mayor límite de transacciones y soporte prioritario.
-                </Text>
+                <View style={{ flex: 1 }}>
+                    <Image
+                        source={require('../../../assets/images/gold_check.png')} // Asume que tienes una imagen llamada 'gold_check.png' en tu directorio 'assets'
+                        style={styles.goldCheckImage}
+                    />
 
-                <Pressable
-                    style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
-                    onPress={() => navigation.navigate('ReferalInvitation')}
-                >
-                    <View style={{ marginRight: 20 }}>
-                        <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                    <Text style={[styles.goldCheckBenefits, styles.box]}>
+                        Al adquirir la Verificación Dorada podrás disfrutar de beneficios como mayor visibilidad,
+                        mayor límite de transacciones y soporte prioritario.
+                    </Text>
+
+                    <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
+                        <View style={{ marginRight: 20 }}>
+                            <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                        </View>
+                        <View>
+                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
-                        <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
-                    </View>
-                </Pressable>
 
-                <Text style={styles.accountStatus}>
-                    Estado de tu cuenta: {status === 'gold' ? "Verificado Dorado" : "Estándar"}
-                </Text>
-            </View>
+                    <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
+                        <View style={{ marginRight: 20 }}>
+                            <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                        </View>
+                        <View>
+                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                        </View>
+                    </View>
+
+                    <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
+                        <View style={{ marginRight: 20 }}>
+                            <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                        </View>
+                        <View>
+                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                        </View>
+                    </View>
+
+                    <Text style={styles.accountStatus}>
+                        Estado de tu cuenta: {status === 'gold' ? "Verificado Dorado" : "Estándar"}
+                    </Text>
+
+                </View>
+
+
+            </ScrollView>
 
             <QPButton
                 title={status === 'gold' ? "Extender Verificación Dorada" : "Solicitar Verificación Dorada"}

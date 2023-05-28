@@ -68,6 +68,7 @@ export default function IndexTransaction({ navigation }) {
             </View>
             <FlatList
                 data={transactions}
+                showsVerticalScrollIndicator={false}
                 keyExtractor={(transaction) => transaction.uuid}
                 renderItem={({ item }) => (
                     <Transaction
