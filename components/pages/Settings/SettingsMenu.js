@@ -162,26 +162,26 @@ export default function SettingsMenu({ navigation }) {
 
             </View>
 
-            {/* TODO GOLD CHECK PROMO IF USER IS NOT GOLD_CHECK */}
-            {
-                golden_check == 1 && (
-                    <Pressable
-                        style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
-                        onPress={() => navigation.navigate('GoldCheck')}
-                    >
-                        <View style={{ marginRight: 20 }}>
-                            <Image
-                                source={require('../../../assets/images/gold-badge.png')}
-                                style={{ width: 28, height: 28 }}
-                            />
-                        </View>
-                        <View>
-                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
-                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Obtén beneficios adicionales</Text>
-                        </View>
-                    </Pressable>
-                )
-            }
+            {/* GoldenCheck Card */}
+            <Pressable
+                style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
+                onPress={() => navigation.navigate('GoldCheck')}
+            >
+                <View style={{ marginRight: 20 }}>
+                    <Image
+                        source={require('../../../assets/images/gold-badge.png')}
+                        style={{ width: 28, height: 28 }}
+                    />
+                </View>
+                <View>
+                    <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
+                    {
+                        golden_check == 1
+                            ? <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Ver mi suscripción</Text>
+                            : <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Comprar GOLD Check</Text>
+                    }
+                </View>
+            </Pressable>
 
             {/* Referal invitation Card */}
             <Pressable
@@ -229,7 +229,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#161d31',
     },
     box: {
-        flex: 1,
         padding: 20,
         borderRadius: 10,
         marginVertical: 10,
