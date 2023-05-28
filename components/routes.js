@@ -12,7 +12,7 @@ export const ROUTES = {
     // Auth Screens
     LOGIN_SCREEN: "LoginScreen",
     REGISTER_SCREEN: "RegisterScreen",
-    
+
     // Home Screens
     HOME_SCREEN: "HomeScreen",
     ADD_SCREEN: "AddScreen",

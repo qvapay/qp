@@ -16,3 +16,7 @@ dark: #4b4b4b
 
 TODO
 Replace ALL Pressable for Pressable for compatibility
+
+TODO: 
+Replace al navigation.replace{'string') for
+navigation.replace(ROUTES.ROUTE_NAME) 

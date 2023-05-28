@@ -1,14 +1,34 @@
 import { createTheme } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 
+// colors:
+const colors = {
+
+    primary_bg: "#161d31",
+    scondary_bg: "#192034",
+    main_bg: "#111626",
+
+    color: "#b4b7bd",
+
+    primary: "#7367f0",
+    secondary: "#82868b",
+    success: "#28c76f",
+    warning: "#ff9f43",
+    danger: "#ea5455",
+    light: "#f6f6f6",
+    dark: "#4b4b4b",
+
+    elevated_dark_color: "#283046",
+}
+
 const theme = createTheme({
     lightColors: {
-        primary: '#7367f0',
-        background: '#161d31',
+        primary: colors.primary,
+        background: colors.primary_bg,
     },
     darkColors: {
-        primary: '#7367f0',
-        background: '#161d31',
+        primary: colors.primary,
+        background: colors.primary_bg,
     },
     mode: 'dark',
 });
@@ -42,7 +62,7 @@ const containerStyles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#161d31',
+        backgroundColor: colors.primary_bg,
     },
     section: {
         flex: 1,
@@ -63,7 +83,7 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         justifyContent: 'center',
-        backgroundColor: '#161d31',
+        backgroundColor: colors.primary_bg,
     },
     text: {
         color: 'white',

@@ -68,8 +68,8 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
-    // Handle the login process
-    const handleLogin = async () => {
+    // handle submit form
+    const handleLoginSubmit = async () => {
 
         setErrortext('');
         if (!email) {
@@ -80,6 +80,14 @@ export default function LoginScreen({ navigation }) {
             alert('Debe rellenar la contraseña');
             return;
         }
+
+        handleLogin(email, password)
+    }
+
+    // Handle the login process
+    const handleLogin = async (email, password) => {
+
+        console.log(email, password)
 
         // Set loading and try to login
         setLoading(true);
@@ -112,16 +120,21 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
-    const handleBiometricAuthentication = () => {
+    const handleBiometricLogin = () => {
+
         FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
             .then(() => {
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
+
+                    console.log(email)
+                    console.log(password)
+
                     if (email && password) {
                         setEmail(email);
                         setPassword(password);
-                        handleLogin();
+                        handleLogin(email, password)
                     }
                 }
                 getStoredCredentials();
@@ -138,7 +151,7 @@ export default function LoginScreen({ navigation }) {
                 name="fingerprint"
                 size={30}
                 color={biometricLoginCredentials ? "#28c76f" : "#4b4b4b"}
-                onPress={handleBiometricAuthentication}
+                onPress={handleBiometricLogin}
             />
         );
     }
@@ -194,7 +207,7 @@ export default function LoginScreen({ navigation }) {
                 </Text>
             ) : null}
 
-            <QPButton title="Iniciar Sesión" onPress={handleLogin} />
+            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
 
             <Text
                 style={styles.registerTextStyle}

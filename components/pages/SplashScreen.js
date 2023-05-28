@@ -2,6 +2,10 @@ import React, { useEffect } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 import { getMe } from '../../utils/QvaPayClient';
 
+// Import routes.js
+import { ROUTES } from '../routes'
+
+
 export default function SplashScreen({ navigation }) {
 
     useEffect(() => {
@@ -14,9 +18,9 @@ export default function SplashScreen({ navigation }) {
             }
 
             if (checkToken !== undefined && checkToken !== null) {
-                navigation.replace('MainStack');
+                navigation.replace(ROUTES.MAIN_STACK);
             } else {
-                navigation.replace('AuthStack');
+                navigation.replace(ROUTES.AUTH_STACK);
             }
         }
 

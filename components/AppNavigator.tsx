@@ -74,14 +74,6 @@ export default function AppNavigator() {
       <Stack.Screen
         name={ROUTES.TRANSACTION_STACK}
         component={TransactionStack}
-        options={{
-          headerLeft: () => {
-            return null;
-          },
-          headerRight: () => {
-            return null;
-          },
-        }}
       />
 
       {/* P2P Stack */}
@@ -152,45 +144,17 @@ export default function AppNavigator() {
         }}
       />
 
-      <Stack.Screen
-        name={ROUTES.SEND_SCREEN}
-        component={SendScreen}
-        options={{
-          headerLeft: () => {
-            return null;
-          },
-          headerRight: () => {
-            return null;
-          },
-        }}
-      />
+      <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
 
       <Stack.Screen
         name={ROUTES.CONFIRM_SEND_SCREEN}
         component={ConfirmSendScreen}
         options={{
           title: 'Confirmar envío',
-          headerLeft: () => {
-            return null;
-          },
-          headerRight: () => {
-            return null;
-          },
         }}
       />
 
-      <Stack.Screen
-        name={ROUTES.RECEIVE_SCREEN}
-        component={ReceiveScreen}
-        options={{
-          headerLeft: () => {
-            return null;
-          },
-          headerRight: () => {
-            return null;
-          },
-        }}
-      />
+      <Stack.Screen name={ROUTES.RECEIVE_SCREEN} component={ReceiveScreen} />
 
       <Stack.Screen
         name={ROUTES.PROFILE_SCREEN}
