@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
 
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
@@ -207,9 +207,21 @@ export default function SettingsMenu({ navigation }) {
 
             {/* Github, Twitter and Instagram accounts */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginVertical: 20 }}>
-                <FontAwesome5 name="github" size={24} style={{ color: '#fff' }} />
-                <FontAwesome5 name="twitter" size={24} style={{ color: '#fff' }} />
-                <FontAwesome5 name="instagram" size={24} style={{ color: '#fff' }} />
+                <Pressable onPress={() => Linking.openURL('https://github.com/qvapay/qp')}>
+                    <FontAwesome5 name="github" size={24} style={{ color: '#fff' }} />
+                </Pressable>
+
+                <Pressable onPress={() => Linking.openURL('https://twitter.com/qvapay')}>
+                    <FontAwesome5 name="twitter" size={24} style={{ color: '#fff' }} />
+                </Pressable>
+
+                <Pressable onPress={() => Linking.openURL('https://instagram.com/qvapay')}>
+                    <FontAwesome5 name="instagram" size={24} style={{ color: '#fff' }} />
+                </Pressable>
+
+                <Pressable onPress={() => Linking.openURL('https://qvapay.raiseaticket.com')}>
+                    <FontAwesome5 name="headset" size={24} style={{ color: '#fff' }} />
+                </Pressable>
             </View>
 
             <Text style={styles.copyBottom}>
