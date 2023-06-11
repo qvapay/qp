@@ -87,8 +87,6 @@ export default function LoginScreen({ navigation }) {
     // Handle the login process
     const handleLogin = async (email, password) => {
 
-        console.log(email, password)
-
         // Set loading and try to login
         setLoading(true);
 
@@ -110,7 +108,6 @@ export default function LoginScreen({ navigation }) {
 
             } else {
                 setErrortext(data.error);
-                console.log('Please check your email id or password');
             }
         } catch (error) {
             setErrortext(error.response.data.error);
@@ -127,9 +124,6 @@ export default function LoginScreen({ navigation }) {
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
-
-                    console.log(email)
-                    console.log(password)
 
                     if (email && password) {
                         setEmail(email);

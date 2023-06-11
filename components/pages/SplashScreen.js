@@ -14,7 +14,6 @@ export default function SplashScreen({ navigation }) {
             try {
                 const checkToken = await getMe(navigation);
             } catch (error) {
-                console.log(error)
             }
 
             if (checkToken !== undefined && checkToken !== null) {

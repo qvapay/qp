@@ -9,12 +9,9 @@ export default function OptionCard({ item, onPress, selected, in_out_p2p = "P2P"
 
     const { fee_in, fee_out } = item;
 
-    console.log(in_out_p2p)
-
     // Conditional fee in/out/p2p
     const fee = () => {
         if (in_out_p2p === "IN") {
-            console.log(fee_in)
             return fee_in;
         } else if (in_out_p2p === "OUT") {
             return fee_out;

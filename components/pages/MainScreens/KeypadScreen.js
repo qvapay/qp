@@ -90,8 +90,6 @@ export default function KeypadScreen({ navigation }) {
 
     // Set the max balance to the amount wen pressed
     const setMaxBalance = () => {
-        console.log("setMaxBalance")
-        console.log(me.balance.toString())
         setAmount(me.balance.toString());
     }
 

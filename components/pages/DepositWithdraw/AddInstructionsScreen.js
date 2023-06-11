@@ -199,8 +199,6 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 )
             ).filter((installed, index) => installed && supportedWallets[index]);
 
-            console.log(installedWallets)
-
             if (installedWallets.length === 0) {
                 Toast.show({
                     type: 'error',

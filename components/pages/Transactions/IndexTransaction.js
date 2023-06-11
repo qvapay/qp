@@ -20,7 +20,6 @@ export default function IndexTransaction({ navigation }) {
                 status: searchStatus,
                 description: searchQuery
             };
-            console.log(params)
             const transactions = await getTransactions({ ...params, navigation });
             setTransactions(transactions);
         } catch (error) {

@@ -30,7 +30,6 @@ export default function SendScreen({ route, navigation }) {
     // Load contacts on mount
     useEffect(() => {
         loadContacts();
-        console.log(contacts)
     }, []);
 
     // search for contacts on text change

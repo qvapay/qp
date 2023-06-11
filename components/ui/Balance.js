@@ -22,7 +22,6 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
             try {
                 await AsyncStorage.setItem('showBalance', JSON.stringify(showBalance));
             } catch (e) {
-                console.log(e);
             }
         };
         storeBalance();

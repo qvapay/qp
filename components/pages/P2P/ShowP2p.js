@@ -24,13 +24,10 @@ export default function ShowP2p({ route, navigation }) {
     useEffect(() => {
         const getOffer = async () => {
             const response = await getP2POffer({ uuid, navigation });
-            console.log(response)
             setOffer(response);
         }
         getOffer();
     }, [])
-
-    console.log(offer)
 
     // Apply to an offer and change the status to "applied"
     const applyToOffer = () => {

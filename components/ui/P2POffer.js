@@ -28,7 +28,6 @@ export default function P2POffer({ offer, navigation }) {
 
     // Navigation function to ShowTransaction screen
     const navigateToP2P = () => {
-        console.log(uuid)
         navigation.navigate('PeerToPeerStack', {
             screen: 'ShowP2p',
             params: { uuid },

@@ -74,8 +74,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
                     contactsArray[contactIndex] = userToSave
                 }
                 await AsyncStorage.setItem('contacts', JSON.stringify(contactsArray));
-
-                console.log("Contacts Updated" + contactsArray)
             } else {
                 await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]));
             }
@@ -130,7 +128,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
                 <Pressable
                     style={{ flex: 1 }}
                     onPress={() => {
-                        console.log("Completed onPress")
                         navigation.navigate('HomeScreen');
                     }}>
                     <CompletedPayment />

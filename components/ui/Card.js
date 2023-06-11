@@ -7,7 +7,7 @@ export default function Card({ header = 'Header', subHeader = '', logo = "" }) {
 
     // handle Press
     const handlePress = () => {
-        console.log('Card pressed')
+        
     }
 
     return (
