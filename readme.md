@@ -1,22 +1,19 @@
-Basic colors:
+# QvaPay - Pasarela de pagos y mercado P2P
+### Realiza pagos instantáneos y compra y vende criptomonedas en tu moneda local.
 
-primary-background: #161d31  
-bg: #192034  
-bg: #111626  
-elevated dark color: #283046  
-color: #b4b7bd  
-primary: #7367f0  
-secondary: #82868b  
-success: #28c76f  
-warning: #ff9f43  
-danger: #ea5455  
-light: #f6f6f6  
-dark: #4b4b4b  
+![QvaPay Image](https://i.imgur.com/5Z3Z3ZM.png)
 
 
-TODO
-Replace ALL Pressable for Pressable for compatibility
+Web:
+https://qvapay.com
 
-TODO: 
-Replace al navigation.replace{'string') for
-navigation.replace(ROUTES.ROUTE_NAME) 
+## 🎉 Novedades
+
+✅ Login / Registro</br>
+✅ Recargar cuenta / Extraser fondos</br>
+✅ Enviar y Recibir pagos</br>
+✅ Ajustes de cuenta</br>
+✅ Escanear QR de pago</br>
+✅ Mostrar QR de pagos</br>
+✅ Listar Ofertas P2P</br>
+✅ Enjoy!
