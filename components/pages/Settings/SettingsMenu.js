@@ -56,7 +56,8 @@ export default function SettingsMenu({ navigation }) {
             options: [
                 {
                     title: 'Tema',
-                    screen: 'Theme',
+                    screen: 'ThemeScreen',
+                    enabled: true,
                 },
             ],
         },
@@ -65,11 +66,13 @@ export default function SettingsMenu({ navigation }) {
             options: [
                 {
                     title: 'Datos personales',
-                    screen: 'PersonalData',
+                    screen: 'UserdataScreen',
+                    enabled: true,
                 },
                 {
                     title: 'Idioma',
                     screen: 'Language',
+                    enabled: true,
                 },
             ],
         },
@@ -78,11 +81,13 @@ export default function SettingsMenu({ navigation }) {
             options: [
                 {
                     title: 'Cambiar contraseña',
-                    screen: 'ChangePassword',
+                    screen: 'PasswordScreen',
+                    enabled: true,
                 },
                 {
                     title: 'Autenticación de dos factores',
                     screen: 'TwoFactorAuthentication',
+                    enabled: true,
                 },
             ],
         },
@@ -92,6 +97,7 @@ export default function SettingsMenu({ navigation }) {
                 {
                     title: 'Configuración de notificaciones',
                     screen: 'NotificationSettings',
+                    enabled: true,
                 },
             ],
         },
@@ -101,14 +107,17 @@ export default function SettingsMenu({ navigation }) {
                 {
                     title: 'Métodos de pago',
                     screen: 'CreditCards',
+                    enabled: false,
                 },
                 {
                     title: 'Contactos favoritos',
                     screen: 'FavoriteContacts',
+                    enabled: false,
                 },
                 {
                     title: 'Límites',
                     screen: 'LimitsSettings',
+                    enabled: false,
                 },
             ],
         }
@@ -121,8 +130,11 @@ export default function SettingsMenu({ navigation }) {
                 {section.options.map((option, index) => (
                     <SettingsItemSectionItem
                         key={index}
+                        // if the option is enabled, navigate to the screen else do nothing
                         title={option.title}
-                        onPress={() => navigation.navigate(option.screen)}
+                        onPress={option.enabled ? () => navigation.navigate(option.screen) : () => {
+                            console.log(option)
+                        }}
                     />
                 ))}
             </View>

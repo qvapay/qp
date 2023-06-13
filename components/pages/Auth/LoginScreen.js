@@ -15,10 +15,12 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 
 export default function LoginScreen({ navigation }) {
 
+    const { setMe } = useContext(AppContext);
+
     const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
-    const { setMe } = useContext(AppContext);
     const [password, setPassword] = useState('');
+    const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
 
@@ -78,6 +80,16 @@ export default function LoginScreen({ navigation }) {
         }
         if (!password) {
             alert('Debe rellenar la contraseña');
+            return;
+        }
+        if (!code) {
+            alert('Debe rellenar el código de acceso');
+            return;
+        }
+
+        // Temporal code validation if code === 'CUBA2023'
+        if (code !== 'CUBA2023') {
+            alert('Código de acceso incorrecto');
             return;
         }
 
@@ -158,6 +170,7 @@ export default function LoginScreen({ navigation }) {
             <View style={{ alignItems: 'center' }}>
                 <QPLogo />
             </View>
+
             <View style={styles.sectionStyle}>
                 <TextInput
                     style={styles.inputStyle}
@@ -177,6 +190,7 @@ export default function LoginScreen({ navigation }) {
                     blurOnSubmit={false}
                 />
             </View>
+
             <View style={styles.sectionStyle}>
                 <TextInput
                     style={styles.inputStyle}
@@ -190,6 +204,22 @@ export default function LoginScreen({ navigation }) {
                     onSubmitEditing={Keyboard.dismiss}
                     blurOnSubmit={false}
                     secureTextEntry={true}
+                    underlineColorAndroid="#f000"
+                    returnKeyType="next"
+                />
+            </View>
+
+            <View style={styles.sectionStyle}>
+                <TextInput
+                    style={styles.inputStyle}
+                    onChangeText={(UserSecretCode) =>
+                        setCode(UserSecretCode)
+                    }
+                    placeholder="Código de acceso"
+                    placeholderTextColor="#7f8c8d"
+                    keyboardType="default"
+                    onSubmitEditing={Keyboard.dismiss}
+                    blurOnSubmit={false}
                     underlineColorAndroid="#f000"
                     returnKeyType="next"
                 />
