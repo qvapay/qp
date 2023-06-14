@@ -168,7 +168,7 @@ export default function SettingsMenu({ navigation }) {
                     <QPButton
                         title="Editar Perfil"
                         buttonStyle={{ marginBottom: 0 }}
-                        onPress={() => navigation.navigate('PersonalData')}
+                        onPress={() => navigation.navigate('UserdataScreen')}
                     />
                 </View>
 

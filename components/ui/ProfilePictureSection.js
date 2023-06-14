@@ -13,7 +13,7 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
         username = "",
         kyc = 0,
         golden_check = 0,
-        //average_rating = "0.0",
+        average_rating = "0.0",
     } = user;
 
     // const average_rating_number = parseFloat(average_rating);
@@ -21,7 +21,15 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
 
     return (
         <View style={globalStyles.profilePictureSection}>
-            <AvatarPicture size={150} source_uri={profile_photo_url} negative={negative} />
+
+            <AvatarPicture
+                size={150}
+                source_uri={profile_photo_url}
+                negative={negative}
+                showBadge={true}
+                rating={average_rating}
+            />
+
             <View style={styles.fullNameView}>
                 <Text style={{ ...globalStyles.fullName, color: textColor }}>{name} {lastname}</Text>
                 {golden_check == 1 && (

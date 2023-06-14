@@ -1,13 +1,21 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
+import { StyleSheet, Text, View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function UserdataScreen() {
 
     return (
-        <View style={[globalStyles.container, { alignItems: 'center' }]}>
-            <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
-        </View>
+        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
+
+            <View>
+                <Text>Nombre</Text>
+                <Text>Apellido</Text>
+                <Text>Correo</Text>
+                <Text>Usuario</Text>
+            </View>
+
+        </KeyboardAwareScrollView>
     )
 }
 
