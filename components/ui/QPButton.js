@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#7367f0',
     },
     titleStyle: {
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Nunito-Bold'
     },
     disabledStyle: {
         opacity: 0.5,

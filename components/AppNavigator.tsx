@@ -28,6 +28,7 @@ const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
+    
     <Stack.Navigator
       initialRouteName={ROUTES.SPLASH_SCREEN}
       screenOptions={{
@@ -45,6 +46,7 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
+
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
@@ -144,8 +146,6 @@ export default function AppNavigator() {
         }}
       />
 
-      <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
-
       <Stack.Screen
         name={ROUTES.CONFIRM_SEND_SCREEN}
         component={ConfirmSendScreen}
@@ -153,8 +153,6 @@ export default function AppNavigator() {
           title: 'Confirmar envío',
         }}
       />
-
-      <Stack.Screen name={ROUTES.RECEIVE_SCREEN} component={ReceiveScreen} />
 
       <Stack.Screen
         name={ROUTES.PROFILE_SCREEN}
@@ -165,6 +163,10 @@ export default function AppNavigator() {
           animation: 'fade_from_bottom',
         }}
       />
+
+      <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
+      <Stack.Screen name={ROUTES.RECEIVE_SCREEN} component={ReceiveScreen} />
+
     </Stack.Navigator>
   );
 }

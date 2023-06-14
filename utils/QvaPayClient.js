@@ -265,6 +265,16 @@ const buyGoldCheck = async ({ navigation }) => {
     }
 };
 
+const updateUserData = async ({ navigation, data }) => {
+    try {
+        const url = `/user`
+        const response = await apiRequest(url, { method: 'PUT', data }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     qvaPayClient,
     transferBalance,
@@ -280,5 +290,6 @@ export {
     getTopUpData,
     getCoinData,
     sendWithdraw,
-    buyGoldCheck
+    buyGoldCheck,
+    updateUserData
 };

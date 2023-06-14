@@ -111,7 +111,6 @@ export default function RegisterScreen({ navigation }) {
                             underlineColorAndroid="#f000"
                             placeholder="Nombre"
                             placeholderTextColor="#7f8c8d"
-                            autoCapitalize="sentences"
                             returnKeyType="next"
                             onSubmitEditing={() =>
                                 emailInputRef.current && emailInputRef.current.focus()

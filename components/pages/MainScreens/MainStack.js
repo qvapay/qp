@@ -49,7 +49,10 @@ export default function MainStack() {
                     />
                 ),
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate("SettingsStack")}>
+                    <Pressable
+                        onPress={() => navigation.navigate("SettingsStack")}
+                        onLongPress={() => navigation.navigate("SettingsStack", { screen: 'UserdataScreen' })}
+                    >
                         <View style={styles.avatarPicture}>
                             <AvatarPicture size={28} source_uri={me.profile_photo_url} />
                         </View>

@@ -179,7 +179,6 @@ export default function LoginScreen({ navigation }) {
                     }
                     placeholder="Usuario, Correo o Teléfono"
                     placeholderTextColor="#7f8c8d"
-                    autoCapitalize="none"
                     keyboardType="email-address"
                     returnKeyType="next"
                     onSubmitEditing={() =>
