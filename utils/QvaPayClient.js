@@ -275,6 +275,16 @@ const updateUserData = async ({ navigation, data }) => {
     }
 };
 
+const getProducts = async () => {
+    try {
+        const response = await qvaPayClient.get('/services');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching services:', error);
+        return [];
+    }
+};
+
 export {
     qvaPayClient,
     transferBalance,
@@ -291,5 +301,6 @@ export {
     getCoinData,
     sendWithdraw,
     buyGoldCheck,
-    updateUserData
+    updateUserData,
+    getProducts
 };

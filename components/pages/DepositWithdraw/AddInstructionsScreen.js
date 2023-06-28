@@ -73,6 +73,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
     const [logo, setLogo] = useState('');
     const [tick, setTick] = useState('');
     const [name, setName] = useState('');
+    const [note, setNote] = useState('');
     const [transactionId, setTransactionId] = useState('');
     const [isPaid, setIsPaid] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -90,11 +91,12 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 const priceWithDecimals = parseFloat(price).toFixed(2);
 
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
-                const { transaction_id, value, wallet } = walletResponse;
+                const { transaction_id, value, wallet, note = "" } = walletResponse;
 
                 setLogo(logo)
                 setName(name)
                 setTick(tick)
+                setNote(note)
                 setValue(value)
                 setWallet(wallet)
                 setPrice(priceWithDecimals)
@@ -294,7 +296,11 @@ export default function AddInstructionsScreen({ route, navigation }) {
                             </Pressable>
                         </View>
 
-                        <Text style={styles.invoiceFooter}>Realice el pago de esta factura en el tiempo indicado para evitar demoras en acreditarle.</Text>
+                        {note != "" ? (
+                            <Text style={styles.invoiceFooter}>{note}</Text>
+                        ) : (
+                            <Text style={styles.invoiceFooter}>Realice el pago de esta factura en el tiempo indicado para evitar demoras en acreditarle.</Text>
+                        )}
 
                         <Text style={[styles.text, { textAlign: 'center' }]}>
                             {Math.floor(timer / 60)}:{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}

@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
-import StoreScreen from './StoreScreen';
+import ShopScreen from './ShopScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
 
@@ -64,7 +64,7 @@ export default function MainStack() {
             <Tab.Screen name="P2pScreen" component={P2pScreen} />
             <Tab.Screen name="KeypadScreen" component={KeypadScreen} />
             <Tab.Screen name="LightningScreen" component={LightningScreen} />
-            <Tab.Screen name="StoreScreen" component={StoreScreen} />
+            <Tab.Screen name="ShopScreen" component={ShopScreen} />
         </Tab.Navigator>
     )
 }
