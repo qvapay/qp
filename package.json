@@ -30,6 +30,7 @@
     "react-native-fast-image": "^8.6.3",
     "react-native-fingerprint-scanner": "git+https://github.com/hieuvp/react-native-fingerprint-scanner.git#9cecc0db326471c571553ea85f7c016fee2f803d",
     "react-native-gifted-chat": "^2.0.1",
+    "react-native-gradle-plugin": "^0.71.19",
     "react-native-image-picker": "^5.3.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
