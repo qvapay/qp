@@ -181,6 +181,7 @@ export default function LoginScreen({ navigation }) {
                     placeholderTextColor="#7f8c8d"
                     keyboardType="email-address"
                     returnKeyType="next"
+                    autoCapitalize="none"
                     onSubmitEditing={() =>
                         passwordInputRef.current &&
                         passwordInputRef.current.focus()
