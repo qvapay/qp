@@ -87,8 +87,8 @@ export default function LoginScreen({ navigation }) {
             return;
         }
 
-        // Temporal code validation if code === 'CUBA2023'
-        if (code !== 'CUBA2023') {
+        // Temporal code validation if code === 'BITCOINASERE'
+        if (code !== 'BITCOINASERE') {
             alert('Código de acceso incorrecto');
             return;
         }
