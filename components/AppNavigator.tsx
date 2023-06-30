@@ -87,7 +87,7 @@ export default function AppNavigator() {
         component={SettingsStack}
         options={{
           headerShown: false,
-          animationDuration: 50,
+          animationDuration: 250,
           animation: 'slide_from_bottom',
         }}
       />
@@ -141,7 +141,7 @@ export default function AppNavigator() {
         component={ScanScreen}
         options={{
           headerShown: false,
-          animationDuration: 150,
+          animationDuration: 250,
           animation: 'fade_from_bottom',
         }}
       />
@@ -159,7 +159,7 @@ export default function AppNavigator() {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          animationDuration: 150,
+          animationDuration: 250,
           animation: 'fade_from_bottom',
         }}
       />

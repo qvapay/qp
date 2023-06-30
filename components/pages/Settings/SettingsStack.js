@@ -1,5 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HeaderBackButton } from '@react-navigation/elements';
+import { useNavigation } from '@react-navigation/native';
 
 // Import Screens
 import GoldCheck from './GoldCheck';
@@ -19,12 +21,15 @@ const defaultScreenOptions = {
     headerTintColor: '#fff',
     headerTitleAlign: 'center',
     headerShadowVisible: false,
+    headerShown: true,
 };
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
 
 export default function SettingsStack() {
+
+    const navigation = useNavigation();
 
     return (
         <Stack.Navigator
@@ -38,6 +43,14 @@ export default function SettingsStack() {
                 component={SettingsMenu}
                 options={{
                     title: 'Ajustes de su Cuenta',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -46,8 +59,16 @@ export default function SettingsStack() {
                 component={SettingOption}
                 options={{
                     title: 'Ajustes de su Cuenta',
-                    animationDuration: 50,
+                    animationDuration: 250,
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -56,6 +77,14 @@ export default function SettingsStack() {
                 component={GoldCheck}
                 options={{
                     title: '',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -65,6 +94,14 @@ export default function SettingsStack() {
                 options={{
                     title: '',
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -74,6 +111,14 @@ export default function SettingsStack() {
                 options={{
                     title: '',
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -83,6 +128,14 @@ export default function SettingsStack() {
                 options={{
                     title: '',
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 

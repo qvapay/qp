@@ -126,6 +126,7 @@ export default function RegisterScreen({ navigation }) {
                             placeholder="Email"
                             placeholderTextColor="#7f8c8d"
                             keyboardType="email-address"
+                            autoCapitalize="none"
                             ref={emailInputRef}
                             returnKeyType="next"
                             onSubmitEditing={() =>
@@ -143,6 +144,7 @@ export default function RegisterScreen({ navigation }) {
                             }
                             underlineColorAndroid="#f000"
                             placeholder="Contraseña"
+                            autoCapitalize="none"
                             placeholderTextColor="#7f8c8d"
                             ref={passwordInputRef}
                             returnKeyType="next"
