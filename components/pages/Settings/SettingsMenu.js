@@ -25,7 +25,7 @@ export default function SettingsMenu({ navigation }) {
         average_rating = "0.0",
     } = me;
 
-    // Footer variables
+    // Footer variables get the from app/build.gradle
     const version = '1.1';
     const versionUnixTimestamp = 1620000000;
 

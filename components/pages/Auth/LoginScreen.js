@@ -117,6 +117,12 @@ export default function LoginScreen({ navigation }) {
                 // Update the user global AppContext state
                 setMe(data.me);
 
+                // if user has two_factor_secret = true, redirect to TwoFactorScreen if not, redirect to MainStack
+                if (data.me.two_factor_secret) {
+                    navigation.replace('TwoFactorScreen');
+                    return;
+                }
+
                 // redirect to main stack
                 navigation.replace('MainStack');
 
