@@ -114,8 +114,7 @@ export default function LoginScreen({ navigation }) {
                 }
 
                 // redirect to main stack
-                // navigation.replace('MainStack');
-                navigation.replace('TwoFactorScreen');
+                navigation.replace('MainStack');
 
             } else {
                 setErrortext(data.error);

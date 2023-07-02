@@ -65,11 +65,6 @@ export default function KeypadScreen({ navigation }) {
             return;
         }
 
-        // Dont allow more than me.balance value
-        if (parseFloat(amount + key) > me.balance) {
-            return;
-        }
-
         // Set the amount if everithing passes
         setAmount(amount + key);
     }
@@ -77,6 +72,13 @@ export default function KeypadScreen({ navigation }) {
     // Send Amount to SendScreen
     const sendAmount = () => {
         if (amount > 0) {
+
+            // Dont allow more than me.balance value
+            if (amount > me.balance) {
+                Alert.alert('Error', 'El monto no puede ser mayor a tu balance');
+                return;
+            }
+
             navigation.navigate('SendScreen', { amount });
         } else {
             Alert.alert('Error', 'El monto debe ser mayor a 0');
