@@ -1,19 +1,10 @@
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native'
 import { globalStyles } from '../../ui/Theme';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ShopIndex from '../Shop/ShopIndex';
 
 export default function ShopScreen({ navigation }) {
-
-    // Change the top right icon for the cart component
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <Text>ASD</Text>
-            ),
-        });
-    }, [navigation]);
 
     return (
         <View style={globalStyles.container}>

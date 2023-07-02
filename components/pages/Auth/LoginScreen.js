@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -84,16 +84,6 @@ export default function LoginScreen({ navigation }) {
             alert('Debe rellenar la contraseña');
             return;
         }
-        if (!code) {
-            alert('Debe rellenar el código de acceso');
-            return;
-        }
-
-        // Temporal code validation if code === 'BITCOINASERE'
-        if (code !== 'BITCOINASERE') {
-            alert('Código de acceso incorrecto');
-            return;
-        }
 
         handleLogin(email, password)
     }
@@ -124,11 +114,13 @@ export default function LoginScreen({ navigation }) {
                 }
 
                 // redirect to main stack
-                navigation.replace('MainStack');
+                // navigation.replace('MainStack');
+                navigation.replace('TwoFactorScreen');
 
             } else {
                 setErrortext(data.error);
             }
+
         } catch (error) {
             Sentry.captureException(error);
         } finally {
@@ -211,22 +203,6 @@ export default function LoginScreen({ navigation }) {
                     onSubmitEditing={Keyboard.dismiss}
                     blurOnSubmit={false}
                     secureTextEntry={true}
-                    underlineColorAndroid="#f000"
-                    returnKeyType="next"
-                />
-            </View>
-
-            <View style={styles.sectionStyle}>
-                <TextInput
-                    style={styles.inputStyle}
-                    onChangeText={(UserSecretCode) =>
-                        setCode(UserSecretCode)
-                    }
-                    placeholder="Código de acceso"
-                    placeholderTextColor="#7f8c8d"
-                    keyboardType="default"
-                    onSubmitEditing={Keyboard.dismiss}
-                    blurOnSubmit={false}
                     underlineColorAndroid="#f000"
                     returnKeyType="next"
                 />

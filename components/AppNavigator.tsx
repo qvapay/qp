@@ -27,8 +27,8 @@ import {ROUTES} from './routes';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
+
   return (
-    
     <Stack.Navigator
       initialRouteName={ROUTES.SPLASH_SCREEN}
       screenOptions={{
