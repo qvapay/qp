@@ -122,6 +122,7 @@ export default function LoginScreen({ navigation }) {
             }
 
         } catch (error) {
+            setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);
         } finally {
             setLoading(false);
@@ -173,9 +174,7 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.sectionStyle}>
                 <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserEmail) =>
-                        setEmail(UserEmail)
-                    }
+                    onChangeText={(UserEmail) => setEmail(UserEmail)}
                     placeholder="Usuario, Correo o Teléfono"
                     placeholderTextColor="#7f8c8d"
                     keyboardType="email-address"

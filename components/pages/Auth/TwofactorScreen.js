@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -13,9 +13,34 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
 
 export default function TwoFactorScreen() {
+
+    const [loading, setLoading] = useState(false);
+    const [twofactorcode, setTwofactorcode] = useState('');
+
     return (
         <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
-            <Text>TwoFactorScreen</Text>
+            <Loader loading={loading} />
+
+            <View style={{ alignItems: 'center' }}>
+                <QPLogo />
+            </View>
+
+            <View style={styles.sectionStyle}>
+                <TextInput
+                    style={styles.inputStyle}
+                    onChangeText={(twofactorcode) => setTwofactorcode(twofactorcode)}
+                    placeholder="Código de verificación"
+                    placeholderTextColor="#7f8c8d"
+                    keyboardType="numeric"
+                    returnKeyType="next"
+                    autoCapitalize="none"
+                    underlineColorAndroid="#f000"
+                    blurOnSubmit={false}
+                />
+            </View>
+
+            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+
         </KeyboardAwareScrollView>
     )
 }
