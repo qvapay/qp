@@ -5,6 +5,8 @@ import { getMe } from '../../utils/QvaPayClient';
 // Import routes.js
 import { ROUTES } from '../routes'
 
+// Sentry
+import * as Sentry from '@sentry/react-native';
 
 export default function SplashScreen({ navigation }) {
 
@@ -14,6 +16,7 @@ export default function SplashScreen({ navigation }) {
             try {
                 const checkToken = await getMe(navigation);
             } catch (error) {
+                Sentry.captureException(error);
             }
 
             if (checkToken !== undefined && checkToken !== null) {

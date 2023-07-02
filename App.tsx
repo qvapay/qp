@@ -7,7 +7,16 @@ import {ThemeProvider} from '@rneui/themed';
 import {theme, containerStyles} from './components/ui/Theme';
 import AppNavigator from './components/AppNavigator';
 
+// Onesiganl push notifications
 import OneSignal from 'react-native-onesignal';
+
+// Sentry crash reporting
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({ 
+  dsn: 'https://c09b39b83c90495d9a5e0b9c8e3efb0d@o483954.ingest.sentry.io/4505457463132160', 
+  tracesSampleRate: 1.0,
+});
 
 function App(): JSX.Element {
 
@@ -34,4 +43,5 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+// export default App;
+export default Sentry.wrap(App);

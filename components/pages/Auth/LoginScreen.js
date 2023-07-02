@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard, Button } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -12,6 +12,8 @@ import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
+
+import * as Sentry from '@sentry/react-native';
 
 export default function LoginScreen({ navigation }) {
 
@@ -66,7 +68,7 @@ export default function LoginScreen({ navigation }) {
                 throw new Error("No se pudo iniciar sesión correctamente");
             }
         } catch (error) {
-            throw error;
+            Sentry.captureException(error);
         }
     };
 
@@ -123,7 +125,7 @@ export default function LoginScreen({ navigation }) {
             }
         } catch (error) {
             setErrortext(error.response.data.error);
-            console.error(error);
+            Sentry.captureException(error);
         } finally {
             setLoading(false);
         }
