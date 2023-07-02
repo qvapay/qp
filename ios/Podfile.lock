@@ -85,6 +85,16 @@ PODS:
   - libwebp/mux (1.2.4):
     - libwebp/demux
   - libwebp/webp (1.2.4)
+  - OneSignalXCFramework (3.12.4):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.4)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.4)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.4)
+  - OneSignalXCFramework/OneSignalCore (3.12.4)
+  - OneSignalXCFramework/OneSignalExtension (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
   - OpenSSL-Universal (1.1.1100)
   - Permission-Camera (3.6.1):
     - RNPermissions
@@ -405,6 +415,9 @@ PODS:
     - React
   - react-native-image-picker (5.6.0):
     - React-Core
+  - react-native-onesignal (4.5.1):
+    - OneSignalXCFramework (= 3.12.4)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (4.6.3):
     - RCT-Folly
     - RCTRequired
@@ -608,6 +621,7 @@ DEPENDENCIES:
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -650,6 +664,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - libwebp
+    - OneSignalXCFramework
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
@@ -716,6 +731,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fingerprint-scanner"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -791,6 +808,7 @@ SPEC CHECKSUMS:
   hermes-engine: c85f703623cb12d7e1d9db91afe53b3ea8aa7219
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
+  OneSignalXCFramework: 087934ab0d4d7445fcf1c015c7c782359e26c020
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-Camera: bf6791b17c7f614b6826019fcfdcc286d3a107f6
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -814,6 +832,7 @@ SPEC CHECKSUMS:
   react-native-encrypted-storage: db300a3f2f0aba1e818417c1c0a6be549038deb7
   react-native-fingerprint-scanner: ac6656f18c8e45a7459302b84da41a44ad96dbbe
   react-native-image-picker: db60857e03d63721f19b6f4027de20429ddd9cba
+  react-native-onesignal: 7bd44dbd031d8d57110c0203836ffc37ddead526
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   React-NativeModulesApple: 038cd625999ff352fc13d11fd335ea7509794599
   React-perflogger: 684a11499a0589cc42135d6d5cc04d0e4e0e261a
