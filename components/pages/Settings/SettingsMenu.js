@@ -39,8 +39,6 @@ export default function SettingsMenu({ navigation }) {
                 // Obtén el estado del dispositivo desde OneSignal
                 const deviceState = await OneSignal.getDeviceState();
 
-                console.log("Log:", deviceState);
-
                 // hasNotificationPermission & isSubscribed son los valores que necesitamos
                 const { hasNotificationPermission, isSubscribed } = deviceState;
 
@@ -55,7 +53,6 @@ export default function SettingsMenu({ navigation }) {
                 OneSignal.setEmail(email);
                 // OneSignal.setSMSNumber(phone);
                 // OneSignal.sendTag("key", "value");
-
     
             } catch (error) {
                 // Si algo sale mal, registra el error en la consola
