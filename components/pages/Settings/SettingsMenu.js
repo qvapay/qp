@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
 
 import QPButton from '../../ui/QPButton';
@@ -7,22 +7,63 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 
+import OneSignal from 'react-native-onesignal';
+
 export default function SettingsMenu({ navigation }) {
 
     const { me } = useContext(AppContext);
     const {
+        uuid = "",
+        email = "",
         profile_photo_url = 'https://qvapay.com/android-chrome-192x192.png',
         name = "",
         lastname = "",
         username = "",
         kyc = 0,
+        phone = "",
         golden_check = 0,
         average_rating = "0.0",
     } = me;
 
     // Footer variables
-    const version = '0.0.1';
+    const version = '1.1';
     const versionUnixTimestamp = 1620000000;
+
+    // useState for the notification switch
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
+    // useEffect for the notifications switch
+    useEffect(() => {
+        const getNotificationsState = async () => {
+            try {
+                // Obtén el estado del dispositivo desde OneSignal
+                const deviceState = await OneSignal.getDeviceState();
+
+                console.log("Log:", deviceState);
+
+                // hasNotificationPermission & isSubscribed son los valores que necesitamos
+                const { hasNotificationPermission, isSubscribed } = deviceState;
+
+                // Si el usuario no ha dado permiso para recibir notificaciones, no hagas nada
+                // ...
+
+                // launch trigger for permission
+                OneSignal.addTrigger("showPushPermission", 'true');
+
+                // Set external userID to Onesignal
+                OneSignal.setExternalUserId(uuid);
+                OneSignal.setEmail(email);
+                // OneSignal.setSMSNumber(phone);
+                // OneSignal.sendTag("key", "value");
+
+    
+            } catch (error) {
+                // Si algo sale mal, registra el error en la consola
+                console.error("Error al obtener el estado de las notificaciones:", error);
+            }
+        }
+        getNotificationsState();
+    }, []);
 
     // Logout and Navigate to AuthStack
     const logout = () => {
@@ -154,16 +195,13 @@ export default function SettingsMenu({ navigation }) {
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
             <View style={styles.box}>
-
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ScanScreen')} />
                     <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ReceiveScreen')} />
                 </View>
-
                 <View>
                     <ProfilePictureSection user={me} />
                 </View>
-
                 <View>
                     <QPButton
                         title="Editar Perfil"
@@ -171,7 +209,6 @@ export default function SettingsMenu({ navigation }) {
                         onPress={() => navigation.navigate('UserdataScreen')}
                     />
                 </View>
-
             </View>
 
             {/* GoldenCheck Card */}
