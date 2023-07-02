@@ -124,7 +124,6 @@ export default function LoginScreen({ navigation }) {
                 setErrortext(data.error);
             }
         } catch (error) {
-            setErrortext(error.response.data.error);
             Sentry.captureException(error);
         } finally {
             setLoading(false);

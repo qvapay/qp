@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { parseQRData, isValidQRData } from '../../utils/Helpers';
-import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -9,9 +8,8 @@ import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
-export default function ScanScreen() {
+export default function ScanScreen({ navigation }) {
 
-    const navigation = useNavigation();
     const goHome = () => navigation.goBack();
     const [permissionResult, setPermissionResult] = useState(null);
     const [validQR, setValidQR] = useState('#fff');
@@ -63,8 +61,6 @@ export default function ScanScreen() {
                     />
                 </View>
             </View>
-
-
 
         </View>
     );
