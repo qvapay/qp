@@ -7,7 +7,11 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 
+// Onsegnal for notifications
 import OneSignal from 'react-native-onesignal';
+
+// Get device info to determine the app version
+import DeviceInfo from 'react-native-device-info';
 
 export default function SettingsMenu({ navigation }) {
 
@@ -26,8 +30,8 @@ export default function SettingsMenu({ navigation }) {
     } = me;
 
     // Footer variables get the from app/build.gradle
-    const version = '1.1';
-    const versionUnixTimestamp = 1620000000;
+    const version = DeviceInfo.getVersion();
+    const buildNumber = DeviceInfo.getBuildNumber();
 
     // useState for the notification switch
     const [isSubscribed, setIsSubscribed] = useState(false);
@@ -272,7 +276,7 @@ export default function SettingsMenu({ navigation }) {
 
             <Text style={styles.copyBottom}>
                 {`QvaPay © 2023 \n`}
-                {`v ${version} (${versionUnixTimestamp}) \n`}
+                {`v ${version} b (${buildNumber})\n`}
                 {`Todos los derechos reservados \n`}
             </Text>
 
