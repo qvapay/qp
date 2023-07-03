@@ -17,12 +17,11 @@ import * as Sentry from '@sentry/react-native';
 
 export default function LoginScreen({ navigation }) {
 
-    const { setMe } = useContext(AppContext);
+    const { me, setMe } = useContext(AppContext);
 
     const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
 
@@ -76,7 +75,6 @@ export default function LoginScreen({ navigation }) {
     const handleLoginSubmit = async () => {
 
         setErrortext('');
-        
         if (!email) {
             alert('Debe rellenar el usuario');
             return;
@@ -102,21 +100,18 @@ export default function LoginScreen({ navigation }) {
 
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
+                await EncryptedStorage.setItem('accessToken', data.accessToken);
+                await storeData('me', data.me);
 
-                // if user has two_factor_secret = true, redirect to TwoFactorScreen if not, redirect to MainStack
-                if (data.me.two_factor_secret) {
-                    navigation.replace('TwoFactorScreen', { accessToken: data.accessToken, me: data.me });
-                    return;
-                } else {
-                    await EncryptedStorage.setItem('accessToken', data.accessToken);
-                    await storeData('me', data.me);
+                // Update the user global AppContext state
+                setMe(data.me);
 
-                    // Update the user global AppContext state
-                    setMe(data.me);
+                console.log("Token " + data.accessToken)
+                console.log("data.me " + JSON.stringify(data.me))
+                console.log("Me " + JSON.stringify(me))
 
-                    // redirect to main stack
-                    navigation.replace('MainStack');
-                }
+                // redirect to main stack
+                navigation.replace('MainStack');
 
             } else {
                 setErrortext(data.error);

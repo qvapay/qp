@@ -24,7 +24,11 @@ export default function AuthStack() {
             <Stack.Screen
                 name="TwoFactorScreen"
                 component={TwoFactorScreen}
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false,
+                    animationDuration: 250,
+                    animation: 'slide_from_right',
+                }}
             />
 
             <Stack.Screen

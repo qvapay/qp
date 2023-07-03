@@ -84,7 +84,7 @@ const onInvalidToken = async (navigation) => {
     try {
         await EncryptedStorage.removeItem('accessToken');
     } catch (error) {
-
+        console.error("onInvalidToken:" + error);
     }
     navigation.replace('AuthStack');
 };
@@ -105,9 +105,11 @@ const onNetworkError = (navigation) => {
 }
 
 // Check the 2FA token and code, return true or false based on response token
-const checkTwoFactor = async ({ code, navigation }) => {
+const checkTwoFactor = async ({ twofactorcode, navigation, accessToken }) => {
     try {
-        const response = await apiRequest('/auth/two-factor', { method: 'POST', data: { code } }, navigation);
+        const url = `/auth/two-factor`;
+        const data = { code: twofactorcode };
+        const response = await apiRequest(url, { method: 'POST', data }, navigation, accessToken);
         return response;
     } catch (error) { console.error(error) }
 };

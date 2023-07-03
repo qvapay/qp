@@ -16,7 +16,9 @@ export default function HomeScreen({ navigation }) {
     const fetchMe = async () => {
         try {
             setRefreshing(true);
+            console.log("getMe HomeScreen" , me)
             const me = await getMe(navigation);
+            console.log("getMe HomeScreen" , me)
             setMe(me);
             setRefreshing(false);
         } catch (error) {

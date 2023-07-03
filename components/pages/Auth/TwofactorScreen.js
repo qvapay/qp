@@ -9,18 +9,17 @@ import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { checkTwoFactor } from '../../../utils/QvaPayClient';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-import { useNavigation } from '@react-navigation/native';
+export default function TwoFactorScreen({ route, navigation }) {
 
-export default function TwoFactorScreen({ route }) {
-
-    const navigation = useNavigation();
-    
     const { setMe } = useContext(AppContext);
     const { accessToken, me } = route.params;
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
     const [twofactorcode, setTwofactorcode] = useState('');
+
+    console.log(me)
 
     const handleCodeSubmit = async () => {
 
@@ -50,19 +49,29 @@ export default function TwoFactorScreen({ route }) {
             }
 
             // Check if code is correct
-            const response = await checkTwoFactor(accessToken, twofactorcode);
+            const response = await checkTwoFactor({ navigation, accessToken, twofactorcode });
 
             // If code is correct, store user data and navigate to Home
             if (response.status === 200) {
-                await storeData('accessToken', accessToken);
-                await storeData('me', JSON.stringify(me));
+
+                await EncryptedStorage.setItem('accessToken', accessToken);
+
+                await storeData('me', me);
+
+                // Update the user global AppContext state
                 setMe(me);
 
+                // redirect to main stack
                 navigation.replace('MainStack');
+
+            } else {
+                setLoading(false);
+                setErrortext('El código es incorrecto');
+                return;
             }
 
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }
