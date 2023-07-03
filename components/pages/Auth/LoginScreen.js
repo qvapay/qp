@@ -96,7 +96,7 @@ export default function LoginScreen({ navigation }) {
         try {
             const data = await login(email, password);
 
-            if (data.accessToken && data.me) {
+            if (data && data.accessToken && data.me) {
 
                 // set 2fa as required in storage
                 EncryptedStorage.setItem('2faRequired', 'false');

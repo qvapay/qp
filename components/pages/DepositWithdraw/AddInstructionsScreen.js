@@ -74,6 +74,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
     const [tick, setTick] = useState('');
     const [name, setName] = useState('');
     const [note, setNote] = useState('');
+    const [memo, setMemo] = useState('');
     const [transactionId, setTransactionId] = useState('');
     const [isPaid, setIsPaid] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -91,17 +92,19 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 const priceWithDecimals = parseFloat(price).toFixed(2);
 
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
-                const { transaction_id, value, wallet, note = "" } = walletResponse;
+                const { transaction_id, value, wallet, note = "", memo = "" } = walletResponse;
 
                 setLogo(logo)
                 setName(name)
                 setTick(tick)
                 setNote(note)
+                setMemo(memo)
                 setValue(value)
                 setWallet(wallet)
                 setPrice(priceWithDecimals)
                 setTransactionId(transaction_id)
                 setLoading(false);
+
             } catch (error) {
                 console.error(error);
             }
@@ -286,6 +289,20 @@ export default function AddInstructionsScreen({ route, navigation }) {
                                 </View>
                             </Pressable>
                         </View>
+
+                        {/** If memo isnt "" show indications */}
+                        {memo != "" && (
+                            <View style={styles.itemColumn}>
+                                <Text style={styles.text}>Memo:</Text>
+                                <Pressable onPress={() => copyTextToClipboard(memo)}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Light', color: '#28c76f' }]}>{memo}</Text>
+                                        <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
+                                    </View>
+                                </Pressable>
+                            </View>
+                        )}
+
                         <View style={styles.itemColumn}>
                             <Text style={styles.text}>ID de transacción:</Text>
                             <Pressable onPress={() => copyTextToClipboard(transactionId)}>
