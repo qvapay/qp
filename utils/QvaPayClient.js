@@ -105,11 +105,11 @@ const onNetworkError = (navigation) => {
 }
 
 // Check the 2FA token and code, return true or false based on response token
-const checkTwoFactor = async ({ twofactorcode, navigation, accessToken }) => {
+const checkTwoFactor = async ({ twofactorcode, navigation }) => {
     try {
         const url = `/auth/two-factor`;
         const data = { code: twofactorcode };
-        const response = await apiRequest(url, { method: 'POST', data }, navigation, accessToken);
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
         return response;
     } catch (error) { console.error(error) }
 };

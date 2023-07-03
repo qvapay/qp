@@ -7,72 +7,43 @@ import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
-import { storeData } from '../../../utils/AsyncStorage';
 import { checkTwoFactor } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-export default function TwoFactorScreen({ route, navigation }) {
+export default function TwoFactorScreen({ navigation }) {
 
-    const { setMe } = useContext(AppContext);
-    const { accessToken, me } = route.params;
+    const { me, setMe } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
     const [twofactorcode, setTwofactorcode] = useState('');
 
-    console.log(me)
-
     const handleCodeSubmit = async () => {
 
         setLoading(true);
+        let errorMessage = '';
 
-        // Try
         try {
-            // Check if code is empty
-            if (twofactorcode.length === 0) {
-                setLoading(false);
-                setErrortext('El código no puede estar vacío');
-                return;
-            }
 
-            // Check if code is 6 digits long
-            if (twofactorcode.length !== 6) {
-                setLoading(false);
-                setErrortext('El código debe tener 6 dígitos');
-                return;
-            }
-
-            // Check if code is a number
-            if (isNaN(twofactorcode)) {
-                setLoading(false);
-                setErrortext('El código debe ser un número');
-                return;
-            }
-
-            // Check if code is correct
-            const response = await checkTwoFactor({ navigation, accessToken, twofactorcode });
-
-            // If code is correct, store user data and navigate to Home
-            if (response.status === 200) {
-
-                await EncryptedStorage.setItem('accessToken', accessToken);
-
-                await storeData('me', me);
-
-                // Update the user global AppContext state
-                setMe(me);
-
-                // redirect to main stack
-                navigation.replace('MainStack');
-
+            if (!twofactorcode.length) {
+                errorMessage = 'El código no puede estar vacío';
+            } else if (twofactorcode.length !== 6) {
+                errorMessage = 'El código debe tener 6 dígitos';
+            } else if (isNaN(twofactorcode)) {
+                errorMessage = 'El código debe ser un número';
             } else {
-                setLoading(false);
-                setErrortext('El código es incorrecto');
-                return;
+                const { status } = await checkTwoFactor({ navigation, twofactorcode });
+                if (status !== 200) {
+                    errorMessage = 'El código es incorrecto';
+                } else {
+                    await EncryptedStorage.setItem('2faRequired', 'false');
+                    navigation.replace('MainStack');
+                }
             }
 
         } catch (error) {
-            console.error(error);
+            console.error("Blow try: " + error);
         } finally {
+            setErrortext(errorMessage);
             setLoading(false);
         }
     }

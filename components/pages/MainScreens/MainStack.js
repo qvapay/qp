@@ -1,6 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Pressable } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import EncryptedStorage from "react-native-encrypted-storage";
+
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
@@ -9,8 +11,8 @@ import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
 
 // UI Components
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AvatarPicture from '../../ui/AvatarPicture';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // Theming App
 import { theme } from '../../ui/Theme';
@@ -25,6 +27,17 @@ export default function MainStack() {
 
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
+
+    // Check if there is a 2faRequired setting on EncryptedStorage
+    useEffect(() => {
+        const check2faRequired = async () => {
+            const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
+            if (twoFactorRequired == 'true') {
+                navigation.navigate('TwoFactorScreen');
+            }
+        }
+        check2faRequired();
+    }, []);
 
     return (
         <Tab.Navigator

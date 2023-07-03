@@ -98,6 +98,8 @@ export default function LoginScreen({ navigation }) {
 
             if (data.accessToken && data.me) {
 
+                // set 2fa as required in storage
+                EncryptedStorage.setItem('2faRequired', 'false');
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
@@ -106,9 +108,14 @@ export default function LoginScreen({ navigation }) {
                 // Update the user global AppContext state
                 setMe(data.me);
 
-                console.log("Token " + data.accessToken)
-                console.log("data.me " + JSON.stringify(data.me))
-                console.log("Me " + JSON.stringify(me))
+                // if user has two_factor_secret == true then redirect to TwoFactorScreen
+                // id not then redirect to MainStack
+                if (data.me.two_factor_secret) {
+                    // set 2fa as required in storage
+                    EncryptedStorage.setItem('2faRequired', 'true');
+                    navigation.replace('TwoFactorScreen');
+                    return;
+                }
 
                 // redirect to main stack
                 navigation.replace('MainStack');
