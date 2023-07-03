@@ -5,6 +5,7 @@ import AvatarScroll from '../../ui/AvatarScroll';
 import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { checkUser } from '../../../utils/QvaPayClient';
 
 export default function SendScreen({ route, navigation }) {
 
@@ -50,19 +51,42 @@ export default function SendScreen({ route, navigation }) {
     };
 
     // Go to ConfirmSendScreen
-    const handleSendMoney = ({ uuid = '' }) => {
+    const handleSendMoney = async ({ uuid = '' }) => {
+
+        let destination = '';
+
         if (isEmail(text) || isPhoneNumber(text) || (text !== '' && text.trim().length >= 3)) {
-            const destination = text;
-            navigation.navigate('ConfirmSendScreen', { amount, destination });
+            destination = text;
         } else if (uuid !== '') {
-            const destination = contacts.find((contact) => contact.uuid === uuid);
-            navigation.navigate('ConfirmSendScreen', { amount, destination });
+            destination = contacts.find((contact) => contact.uuid === uuid);
         } else {
             Alert.alert(
                 'Error',
                 'Por favor, seleccione un contacto o ingrese un correo electrónico, número de teléfono o nombre de usuario válido en el buscador.'
             );
+            return;
         }
+
+        // Surronud with try catch
+        try {
+            const response = await checkUser({ to: destination, navigation });
+            if (response.user) {
+                navigation.navigate('ConfirmSendScreen', { amount, destination });
+            } else {
+                Alert.alert(
+                    'Error',
+                    'El usuario no existe'
+                );
+            }
+        } catch (error) {
+            console.log(error);
+            Alert.alert(
+                'Error',
+                'El usuario no existe'
+            );
+            return;
+        }
+
     };
 
     // Extract item View for a more clean code
@@ -93,18 +117,21 @@ export default function SendScreen({ route, navigation }) {
             </View>
 
             <View style={styles.sendingContactContainer}>
+
                 <View key={'fastDestinationSelector'} style={styles.avatarScroll}>
                     <AvatarScroll navigation={navigation} />
                 </View>
+
                 <View style={styles.searchBar}>
                     <FontAwesome5 name='search' size={12} color='#7f8c8d' />
                     <TextInput
                         onChangeText={search}
-                        placeholder="Buscar"
+                        placeholder="Correo o username de destino"
                         placeholderTextColor="#7f8c8d"
                         style={styles.searchBarText}
                     />
                 </View>
+
                 <View key={'destinationContactList'}>
                     <FlatList
                         data={contacts}

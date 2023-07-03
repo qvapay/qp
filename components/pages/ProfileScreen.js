@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import QR from '../ui/QR';
 import { AppContext } from '../../AppContext';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
@@ -30,8 +30,17 @@ export default function ProfileScreen({ amount = 0 }) {
 
     return (
         <View style={styles.container}>
+
             <ProfilePictureSection user={me} negative={true} />
+
+
+
             <View style={styles.qrSection}>
+                {
+                    amount > 0 && (
+                        <Text style={styles.receivingAmount}>Recibir: ${amount}</Text>
+                    )
+                }
                 <QR qrData={qrData} />
             </View>
         </View>
@@ -47,7 +56,12 @@ const styles = StyleSheet.create({
     qrSection: {
         flex: 2,
         alignItems: 'center',
-        flexDirection: 'row',
         justifyContent: 'space-around',
+    },
+    receivingAmount: {
+        color: 'black',
+        fontSize: 20,
+        alignSelf: 'center',
+        fontFamily: "Nunito-Black",
     }
 })

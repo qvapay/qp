@@ -145,9 +145,14 @@ const getTransaction = async ({ uuid, navigation }) => {
 const checkUser = async ({ to, navigation }) => {
     try {
         const response = await apiRequest('/transactions/check', { method: 'POST', data: { to } }, navigation);
-        return response;
+        if (response && response.user) {
+            return response;
+        } else {
+            throw new Error("User not found or invalid response");
+        }
     } catch (error) {
         console.error(error);
+        return { error: true, message: error.message };
     }
 };
 

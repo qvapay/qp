@@ -48,7 +48,6 @@ export default function ConfirmSendScreen({ route, navigation }) {
 
     // useEffect to get the destination data and check against checkUser from QvaPayClient
     useEffect(() => {
-
         const fetchUser = async () => {
 
             const response = await checkUser({ to, navigation });
