@@ -1,21 +1,72 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { StyleSheet, TextInput, View, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import Loader from '../../ui/Loader';
+import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
-import { qvaPayClient } from '../../../utils/QvaPayClient';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import { checkTwoFactor } from '../../../utils/QvaPayClient';
 
-import * as Sentry from '@sentry/react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function TwoFactorScreen() {
+export default function TwoFactorScreen({ route }) {
 
+    const navigation = useNavigation();
+    
+    const { setMe } = useContext(AppContext);
+    const { accessToken, me } = route.params;
     const [loading, setLoading] = useState(false);
+    const [errortext, setErrortext] = useState('');
     const [twofactorcode, setTwofactorcode] = useState('');
+
+    const handleCodeSubmit = async () => {
+
+        setLoading(true);
+
+        // Try
+        try {
+            // Check if code is empty
+            if (twofactorcode.length === 0) {
+                setLoading(false);
+                setErrortext('El código no puede estar vacío');
+                return;
+            }
+
+            // Check if code is 6 digits long
+            if (twofactorcode.length !== 6) {
+                setLoading(false);
+                setErrortext('El código debe tener 6 dígitos');
+                return;
+            }
+
+            // Check if code is a number
+            if (isNaN(twofactorcode)) {
+                setLoading(false);
+                setErrortext('El código debe ser un número');
+                return;
+            }
+
+            // Check if code is correct
+            const response = await checkTwoFactor(accessToken, twofactorcode);
+
+            // If code is correct, store user data and navigate to Home
+            if (response.status === 200) {
+                await storeData('accessToken', accessToken);
+                await storeData('me', JSON.stringify(me));
+                setMe(me);
+
+                navigation.replace('MainStack');
+            }
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
@@ -39,7 +90,13 @@ export default function TwoFactorScreen() {
                 />
             </View>
 
-            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+            {errortext != '' ? (
+                <Text style={styles.errorTextStyle}>
+                    {errortext}
+                </Text>
+            ) : null}
+
+            <QPButton title="Verificar Código" onPress={handleCodeSubmit} />
 
         </KeyboardAwareScrollView>
     )

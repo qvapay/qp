@@ -76,6 +76,7 @@ export default function LoginScreen({ navigation }) {
     const handleLoginSubmit = async () => {
 
         setErrortext('');
+        
         if (!email) {
             alert('Debe rellenar el usuario');
             return;
@@ -101,20 +102,21 @@ export default function LoginScreen({ navigation }) {
 
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
-                await EncryptedStorage.setItem('accessToken', data.accessToken);
-                await storeData('me', data.me);
-
-                // Update the user global AppContext state
-                setMe(data.me);
 
                 // if user has two_factor_secret = true, redirect to TwoFactorScreen if not, redirect to MainStack
                 if (data.me.two_factor_secret) {
-                    navigation.replace('TwoFactorScreen');
+                    navigation.replace('TwoFactorScreen', { accessToken: data.accessToken, me: data.me });
                     return;
-                }
+                } else {
+                    await EncryptedStorage.setItem('accessToken', data.accessToken);
+                    await storeData('me', data.me);
 
-                // redirect to main stack
-                navigation.replace('MainStack');
+                    // Update the user global AppContext state
+                    setMe(data.me);
+
+                    // redirect to main stack
+                    navigation.replace('MainStack');
+                }
 
             } else {
                 setErrortext(data.error);

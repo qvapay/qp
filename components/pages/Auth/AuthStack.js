@@ -5,8 +5,6 @@ import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 import TwoFactorScreen from './TwofactorScreen';
 
-// TODO 2FA Screen
-
 // TODO Recover Password Screen
 
 // Stack Navigation

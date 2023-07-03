@@ -83,7 +83,9 @@ const apiRequest = async (url, options = {}, navigation) => {
 const onInvalidToken = async (navigation) => {
     try {
         await EncryptedStorage.removeItem('accessToken');
-    } catch (error) { }
+    } catch (error) {
+
+    }
     navigation.replace('AuthStack');
 };
 
@@ -97,13 +99,18 @@ const onInvalidNavigation = async (navigation) => {
     navigation.replace("SplashScreen");
 };
 
-
+// Network error
 const onNetworkError = (navigation) => {
-    // Muestra un mensaje de error o realiza la acción que desees en caso de error de red
     console.error("Network error: No internet connection.");
-    // Puedes navegar a una pantalla específica o mostrar un mensaje de error en la UI
-    // navigation.navigate("ErrorScreen", { message: "No internet connection." });
 }
+
+// Check the 2FA token and code, return true or false based on response token
+const checkTwoFactor = async ({ code, navigation }) => {
+    try {
+        const response = await apiRequest('/auth/two-factor', { method: 'POST', data: { code } }, navigation);
+        return response;
+    } catch (error) { console.error(error) }
+};
 
 // GetMe Function for the me State
 const getMe = async (navigation) => {
@@ -287,6 +294,7 @@ const getProducts = async () => {
 
 export {
     qvaPayClient,
+    checkTwoFactor,
     transferBalance,
     getTransaction,
     getTransactions,
