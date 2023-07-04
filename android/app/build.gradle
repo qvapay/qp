@@ -94,9 +94,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.qp"
+    namespace "com.qvapay.qp"
     defaultConfig {
-        applicationId "com.qp"
+        applicationId "com.qvapay.qp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 

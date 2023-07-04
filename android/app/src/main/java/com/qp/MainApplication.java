@@ -1,4 +1,4 @@
-package com.qp;
+package com.qvapay.qp;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

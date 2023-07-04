@@ -121,7 +121,7 @@ export default function LoginScreen({ navigation }) {
                 navigation.replace('MainStack');
 
             } else {
-                setErrortext(data.error);
+                setErrortext("Ocurrió un error al iniciar sesion, intente nuevamente");
             }
 
         } catch (error) {

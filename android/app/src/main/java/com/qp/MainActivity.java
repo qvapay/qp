@@ -1,4 +1,4 @@
-package com.qp;
+package com.qvapay.qp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
