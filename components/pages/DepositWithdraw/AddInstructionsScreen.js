@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, Text, View, Pressable, Alert, ActivityIndicator, Animated, Easing, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Alert, ActivityIndicator, Animated, Easing, StatusBar, Linking } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import { SvgUri } from 'react-native-svg';
 import { globalStyles } from '../../ui/Theme';
@@ -8,7 +8,6 @@ import { truncateWalletAddress } from '../../../utils/Helpers';
 import { getTopUpData, getCoinData, getTransaction } from '../../../utils/QvaPayClient';
 import Toast from 'react-native-toast-message';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import AppLink from 'react-native-app-link';
 
 const supportedWallets = [
     {
@@ -75,6 +74,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
     const [name, setName] = useState('');
     const [note, setNote] = useState('');
     const [memo, setMemo] = useState('');
+    const [url, setUrl] = useState('');
     const [transactionId, setTransactionId] = useState('');
     const [isPaid, setIsPaid] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -85,15 +85,22 @@ export default function AddInstructionsScreen({ route, navigation }) {
     // Get coin data using useEffect
     useEffect(() => {
         const fetchCoinData = async () => {
-
             try {
+
                 const response = await getCoinData({ coin_id: coin, navigation });
                 const { tick, logo, name, price } = response;
                 const priceWithDecimals = parseFloat(price).toFixed(2);
 
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
-                const { transaction_id, value, wallet, note = "", memo = "" } = walletResponse;
+                const { transaction_id, value, wallet, note = "", memo = "", url = "" } = walletResponse;
 
+                // if isset url and isnt "" then open url witj Linking and also cancel the component load
+                if (url !== "") {
+                    Linking.openURL(url);
+                    return;
+                }
+
+                setUrl(url)
                 setLogo(logo)
                 setName(name)
                 setTick(tick)
@@ -103,6 +110,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 setWallet(wallet)
                 setPrice(priceWithDecimals)
                 setTransactionId(transaction_id)
+
                 setLoading(false);
 
             } catch (error) {

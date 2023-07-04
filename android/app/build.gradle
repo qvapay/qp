@@ -99,8 +99,10 @@ android {
         applicationId "com.qp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.4.1"
+
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        
         missingDimensionStrategy 'react-native-camera', 'general'
     }
 

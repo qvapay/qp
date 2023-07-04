@@ -50,7 +50,7 @@ export default function SettingsMenu({ navigation }) {
                 // ...
 
                 // launch trigger for permission
-                OneSignal.addTrigger("showPushPermission", 'true');
+                // OneSignal.addTrigger("showPushPermission", 'true');
 
                 // Set external userID to Onesignal
                 OneSignal.setExternalUserId(uuid);

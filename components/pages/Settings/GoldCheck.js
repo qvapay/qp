@@ -51,10 +51,6 @@ export default function GoldCheck({ navigation }) {
             <ScrollView showsVerticalScrollIndicator={false}>
 
                 <View style={{ flex: 1 }}>
-                    <Image
-                        source={require('../../../assets/images/gold_check_hero.png')}
-                        style={styles.goldCheckImage}
-                    />
 
                     <Text style={[styles.goldCheckBenefits, styles.box]}>
                         Al adquirir la Verificación Dorada podrás disfrutar de beneficios como mayor visibilidad,
