@@ -42,10 +42,11 @@ export default function HomeScreen({ navigation }) {
                     progressBackgroundColor="#161d31"
                     colors={['#FFFFFF', '#28c76f']}
                 />
-            }
-        >
+            }>
+
             <Balance navigation={navigation} me={me} />
             <Transactions navigation={navigation} />
+            
             <Hero
                 actionText={"5 estrellas"}
                 title={"Valóranos \nen TrustPilot"}

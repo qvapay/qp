@@ -35,8 +35,7 @@ export default function SettingsStack() {
         <Stack.Navigator
             name="SettingsStack"
             initialRouteName="SettingsMenu"
-            screenOptions={defaultScreenOptions}
-        >
+            screenOptions={defaultScreenOptions}>
 
             <Stack.Screen
                 name="SettingsMenu"

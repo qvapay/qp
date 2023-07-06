@@ -113,18 +113,24 @@ export default function LoginScreen({ navigation }) {
                 if (data.me.two_factor_secret) {
                     // set 2fa as required in storage
                     EncryptedStorage.setItem('2faRequired', 'true');
-                    navigation.replace('TwoFactorScreen');
+                    navigation.replace('MainStack', { screen: 'TwoFactorScreen' });
                     return;
                 }
 
-                // redirect to main stack
-                navigation.replace('MainStack');
+                setLoading(false);
+
+                // Redirect to main stack
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'MainStack' }],
+                });
 
             } else {
                 setErrortext("Ocurrió un error al iniciar sesion, intente nuevamente");
             }
 
         } catch (error) {
+            setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);
         } finally {

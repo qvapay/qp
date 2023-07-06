@@ -23,7 +23,7 @@ import { AppContext } from '../../../AppContext';
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
-export default function MainStack() {
+export default function MainStack({ navigation }) {
 
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
@@ -33,7 +33,8 @@ export default function MainStack() {
         const check2faRequired = async () => {
             const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
             if (twoFactorRequired == 'true') {
-                navigation.navigate('TwoFactorScreen');
+                //navigation.navigate('TwoFactorScreen');
+                navigation.navigate('MainStack', { screen: 'TwoFactorScreen' });
             }
         }
         check2faRequired();
