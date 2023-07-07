@@ -10,6 +10,11 @@ import SettingsMenu from './SettingsMenu';
 import SettingOption from './SettingOption';
 import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
+import LanguageScreen from './LanguageScreen';
+import TwoFactorScreen from './TwoFactorScreen';
+import NotificationScreen from './NotificationScreen';
+import PaymewntMethodsScreen from './PaymewntMethodsScreen';
+import FavoriteContactsScreen from './FavoriteContactsScreen';
 
 // Import Routes
 import { ROUTES } from '../../routes';
@@ -125,8 +130,93 @@ export default function SettingsStack() {
             />
 
             <Stack.Screen
+                name="LanguageScreen"
+                component={LanguageScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
                 name="PasswordScreen"
                 component={PasswordScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="TwoFactorScreen"
+                component={TwoFactorScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="NotificationScreen"
+                component={NotificationScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="PaymewntMethodsScreen"
+                component={PaymewntMethodsScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="FavoriteContactsScreen"
+                component={FavoriteContactsScreen}
                 options={{
                     title: '',
                     animation: 'slide_from_right',

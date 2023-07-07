@@ -91,7 +91,7 @@ const SettingsMenu = () => {
                 },
                 {
                     title: 'Idioma',
-                    screen: 'Language',
+                    screen: 'LanguageScreen',
                     enabled: true,
                 },
             ],
@@ -106,7 +106,7 @@ const SettingsMenu = () => {
                 },
                 {
                     title: 'Autenticación de dos factores',
-                    screen: 'TwoFactorAuthentication',
+                    screen: 'TwoFactorScreen',
                     enabled: true,
                 },
             ],
@@ -116,7 +116,7 @@ const SettingsMenu = () => {
             options: [
                 {
                     title: 'Configuración de notificaciones',
-                    screen: 'NotificationSettings',
+                    screen: 'NotificationScreen',
                     enabled: true,
                 },
             ],
@@ -126,18 +126,13 @@ const SettingsMenu = () => {
             options: [
                 {
                     title: 'Métodos de pago',
-                    screen: 'CreditCards',
-                    enabled: false,
+                    screen: 'PaymewntMethodsScreen',
+                    enabled: true,
                 },
                 {
                     title: 'Contactos favoritos',
-                    screen: 'FavoriteContacts',
-                    enabled: false,
-                },
-                {
-                    title: 'Límites',
-                    screen: 'LimitsSettings',
-                    enabled: false,
+                    screen: 'FavoriteContactsScreen',
+                    enabled: true,
                 },
             ],
         }
