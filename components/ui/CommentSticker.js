@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     tabText: {
         color: '#fff',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     commentBar: {
         flex: 1,
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     comment: {
         fontSize: 16,
         color: 'white',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
 })

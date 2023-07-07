@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         marginVertical: 10,
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     input: {
         fontSize: 30,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         textAlign: 'center',
         paddingHorizontal: 20,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     depositButton: {
         padding: 10,

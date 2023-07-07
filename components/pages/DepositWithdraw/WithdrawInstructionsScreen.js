@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 14,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     invoiceHeader: {
         marginVertical: 16,
         fontSize: 14,
         color: 'gray',
         textAlign: 'center',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     sectionStyle: {
         height: 50,
@@ -132,6 +132,6 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 10,
         borderColor: '#283046',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
 })

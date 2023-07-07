@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
         fontSize: 11,
         color: 'white',
         textAlign: 'left',
-        fontFamily: 'Nunito-Bold'
+        fontFamily: 'Rubik-Bold'
     },
     cardSubText: {
         fontSize: 10,
         color: 'gray',
-        fontFamily: 'Nunito-Light'
+        fontFamily: 'Rubik-Light'
     },
 })

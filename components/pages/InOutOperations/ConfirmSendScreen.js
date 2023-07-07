@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#fff',
         alignSelf: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     destinationComment: {
         flex: 1,

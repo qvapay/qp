@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 10,
         borderColor: '#283046',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     registerTextStyle: {
         padding: 10,
@@ -260,12 +260,12 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         alignSelf: 'center',
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {
         fontSize: 14,
         color: '#ea5455',
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
 })

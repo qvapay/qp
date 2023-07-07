@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         marginTop: 20,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
 })

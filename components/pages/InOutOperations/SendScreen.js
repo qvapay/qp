@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 13,
         color: '#fff',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     amount: {
         fontSize: 30,
         color: '#fff',
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
     contactPickerContainer: {
         flex: 1,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: 'bold',
         paddingVertical: 10,
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     searchBar: {
         borderRadius: 10,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         textTransform: 'none',
         paddingHorizontal: 10,
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     contactView: {
         paddingVertical: 5,
@@ -223,12 +223,12 @@ const styles = StyleSheet.create({
     contactName: {
         color: '#fff',
         fontSize: 16,
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     contactNumber: {
         fontSize: 14,
         color: '#7f8c8d',
-        fontFamily: "Nunito-Medium",
+        fontFamily: "Rubik-Medium",
     },
     contactAvatar: {
         marginRight: 10

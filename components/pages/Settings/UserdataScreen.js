@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 16,
         color: '#7f8c8d',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     inputStyle: {
         flex: 1,
@@ -137,18 +137,18 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 10,
         borderColor: '#283046',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {
         fontSize: 14,
         color: '#ea5455',
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     successTextStyle: {
         fontSize: 18,
         color: 'white',
         textAlign: 'center',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
 })

@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     peerName: {
         fontSize: 20,
         color: 'white',
-        fontFamily: 'Nunito-Medium'
+        fontFamily: 'Rubik-Medium'
     },
     offerReceiveSend: {
         marginTop: 10,
@@ -153,19 +153,19 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         textAlign: 'center',
-        fontFamily: 'Nunito-Medium'
+        fontFamily: 'Rubik-Medium'
     },
     offerAmount: {
         fontSize: 28,
         color: 'white',
         marginLeft: 10,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     offerReceive: {
         fontSize: 28,
         color: 'white',
         marginLeft: 10,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     grayDivider: {
         height: 1,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     coinLabel: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     offerSteps: {
         padding: 20,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     offerStepsText: {
         fontSize: 16,
         color: 'white',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
         marginBottom: 3,
     }
 })

@@ -42,7 +42,7 @@ export default function AppNavigator() {
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
-          fontFamily: 'Nunito-Regular',
+          fontFamily: 'Rubik-Regular',
         },
         headerTitleAlign: 'center',
       }}>
@@ -98,7 +98,7 @@ export default function AppNavigator() {
         options={{
           title: 'Depositar fondos',
           headerTitleStyle: {
-            fontFamily: 'Nunito-Regular',
+            fontFamily: 'Rubik-Regular',
           },
         }}
       />
@@ -109,7 +109,7 @@ export default function AppNavigator() {
         options={{
           title: 'Finalizar depósito',
           headerTitleStyle: {
-            fontFamily: 'Nunito-Regular',
+            fontFamily: 'Rubik-Regular',
           },
         }}
       />
@@ -120,7 +120,7 @@ export default function AppNavigator() {
         options={{
           title: 'Extraer fondos',
           headerTitleStyle: {
-            fontFamily: 'Nunito-Regular',
+            fontFamily: 'Rubik-Regular',
           },
         }}
       />
@@ -131,7 +131,7 @@ export default function AppNavigator() {
         options={{
           title: 'Finalizar extracción',
           headerTitleStyle: {
-            fontFamily: 'Nunito-Regular',
+            fontFamily: 'Rubik-Regular',
           },
         }}
       />

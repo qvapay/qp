@@ -68,15 +68,15 @@ const styles = StyleSheet.create({
     transactionDescription: {
         fontSize: 16,
         color: 'white',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     transactionDescription2: {
         fontSize: 14,
         color: '#9da3b4',
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     },
     transactionAmount: {
         fontSize: 16,
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
 })

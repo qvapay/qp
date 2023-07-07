@@ -62,8 +62,8 @@ export default function GoldCheck({ navigation }) {
                             <FontAwesome5 name="percent" size={24} style={{ color: '#fff' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>0% FEES EN EL P2P</Text>
-                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>No cobramos comisiones en el P2P</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>0% FEES EN EL P2P</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>No cobramos comisiones en el P2P</Text>
                         </View>
                     </View>
 
@@ -72,8 +72,8 @@ export default function GoldCheck({ navigation }) {
                             <FontAwesome5 name="comments-dollar" size={24} style={{ color: '#fff' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>MÁS OPERACIONES</Text>
-                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Podrás realizar más operaciones diarias</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>MÁS OPERACIONES</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Podrás realizar más operaciones diarias</Text>
                         </View>
                     </View>
 
@@ -82,8 +82,8 @@ export default function GoldCheck({ navigation }) {
                             <FontAwesome5 name="check" size={24} style={{ color: '#fff' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>CHECK DORADO</Text>
-                            <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Tu cuenta aparece con un check dorado</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>CHECK DORADO</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Tu cuenta aparece con un check dorado</Text>
                         </View>
                     </View>
 
@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: 20,
         textAlign: 'center',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     accountStatus: {
         fontSize: 18,
         color: 'white',
         marginBottom: 20,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
 })

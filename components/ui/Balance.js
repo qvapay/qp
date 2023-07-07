@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
         fontSize: 40,
         color: '#fff',
         alignSelf: 'flex-start',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
     satsAmount: {
         fontSize: 20,
         color: '#fff',
-        fontFamily: "Nunito-Bold",
+        fontFamily: "Rubik-Bold",
     },
     actionButtons: {
         flexDirection: 'row',
@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
     white: {
         color: 'white',
         fontSize: 14,
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     },
     gray: {
         color: '#7f8c8d',
         fontSize: 14,
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     },
     actionButton1: {
         flex: 1,
@@ -134,6 +134,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: "Nunito-Bold",
+        fontFamily: "Rubik-Bold",
     }
 })

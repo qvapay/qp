@@ -90,24 +90,24 @@ const styles = StyleSheet.create({
     offerRatio: {
         fontSize: 14,
         color: 'white',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     offerAmountLabel: {
         fontSize: 14,
         color: 'white',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     offerAmount: {
         fontSize: 14,
         color: 'white',
         marginLeft: 5,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     offerReceive: {
         fontSize: 14,
         color: 'white',
         marginLeft: 5,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     peerContainer: {
         flex: 1,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     peerUsername: {
         fontSize: 16,
         color: 'white',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     peerBadges: {
         fontSize: 12,
@@ -126,6 +126,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         alignContent: 'flex-end',
         justifyContent: 'flex-end',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
 })

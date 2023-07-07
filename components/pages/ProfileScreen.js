@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20,
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     }
 })

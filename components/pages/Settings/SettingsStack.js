@@ -13,7 +13,7 @@ import PasswordScreen from './PasswordScreen';
 
 const defaultScreenOptions = {
     headerTitleStyle: {
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     headerStyle: {
         backgroundColor: '#161d31',

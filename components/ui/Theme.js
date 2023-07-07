@@ -36,25 +36,25 @@ const theme = createTheme({
 const textStyles = StyleSheet.create({
     text: {
         color: 'white',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     fullName: {
         fontSize: 20,
         color: 'white',
         marginLeft: 10,
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     amount: {
         fontSize: 60,
         color: 'white',
         marginBottom: 10,
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
     title: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Nunito-Bold'
+        fontFamily: 'Rubik-Bold'
     }
 });
 
@@ -87,7 +87,7 @@ const globalStyles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     section: {
         flex: 1,
@@ -105,19 +105,19 @@ const globalStyles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 10,
         color: 'white',
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     amount: {
         fontSize: 60,
         color: 'white',
         marginBottom: 10,
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
     title: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Nunito-Bold'
+        fontFamily: 'Rubik-Bold'
     }
 });
 

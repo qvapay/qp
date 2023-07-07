@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         color: '#fff',
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     subTitle: {
         fontSize: 16,
         color: '#fff',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     actionContainer: {
         alignItems: 'flex-end',
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
     actionText: {
         fontSize: 16,
         color: '#3b5998',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
 })

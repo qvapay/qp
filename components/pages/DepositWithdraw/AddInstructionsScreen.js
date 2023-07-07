@@ -273,16 +273,16 @@ export default function AddInstructionsScreen({ route, navigation }) {
                             <Text style={styles.text}>Moneda:</Text>
                             <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
                                 <Text style={styles.text}>{tick}</Text>
-                                <Text style={[styles.text, { fontSize: 14, fontFamily: 'Nunito-Light' }]}>$ {price}</Text>
+                                <Text style={[styles.text, { fontSize: 14, fontFamily: 'Rubik-Light' }]}>$ {price}</Text>
                             </View>
                         </View>
                         <View style={styles.itemRow}>
                             <Text style={styles.text}>Valor:</Text>
                             <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-                                <Text style={[styles.text, { fontFamily: 'Nunito-Black', color: "#28c76f" }]}>+ ${amount}</Text>
+                                <Text style={[styles.text, { fontFamily: 'Rubik-Black', color: "#28c76f" }]}>+ ${amount}</Text>
                                 <Pressable onPress={() => copyTextToClipboard(value.toString())}>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Bold' }]}>{value}</Text>
+                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Bold' }]}>{value}</Text>
                                         <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
                                     </View>
                                 </Pressable>
@@ -292,7 +292,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                             <Text style={styles.text}>Wallet:</Text>
                             <Pressable onPress={() => copyTextToClipboard(wallet)}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Light', color: '#28c76f' }]}>{truncateWalletAddress(wallet)}</Text>
+                                    <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Light', color: '#28c76f' }]}>{truncateWalletAddress(wallet)}</Text>
                                     <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
                                 </View>
                             </Pressable>
@@ -304,7 +304,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                                 <Text style={styles.text}>Memo:</Text>
                                 <Pressable onPress={() => copyTextToClipboard(memo)}>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Nunito-Light', color: '#28c76f' }]}>{memo}</Text>
+                                        <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Light', color: '#28c76f' }]}>{memo}</Text>
                                         <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
                                     </View>
                                 </Pressable>
@@ -361,17 +361,17 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Nunito-Bold'
+        fontFamily: 'Rubik-Bold'
     },
     subTitle: {
         fontSize: 16,
         color: 'gray',
-        fontFamily: 'Nunito-Light'
+        fontFamily: 'Rubik-Light'
     },
     text: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     itemRow: {
         alignItems: 'center',
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'gray',
         textAlign: 'center',
-        fontFamily: 'Nunito-Light',
+        fontFamily: 'Rubik-Light',
     },
     checkmarkContainer: {
         width: 100,

@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
         marginTop: 4,
         color: '#fff',
         textAlign: 'center',
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     },
 })

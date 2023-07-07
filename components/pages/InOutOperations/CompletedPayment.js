@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
         color: '#fff',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
 });  

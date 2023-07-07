@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginBottom: 10,
         alignSelf: 'center',
-        fontFamily: "Nunito-Black",
+        fontFamily: "Rubik-Black",
     },
     balance: {
         borderRadius: 10,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 13,
         alignSelf: 'center',
-        fontFamily: "Nunito-Bold",
+        fontFamily: "Rubik-Bold",
     },
     pad: {
         marginVertical: 15,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     padText: {
         fontSize: 35,
         color: '#fff',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
     actionButtons: {
         paddingBottom: 20,
@@ -193,6 +193,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#fff',
         textAlign: 'center',
-        fontFamily: "Nunito-Bold",
+        fontFamily: "Rubik-Bold",
     }
 })

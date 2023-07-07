@@ -176,19 +176,19 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 12,
         alignSelf: 'center',
-        fontFamily: "Nunito-Bold",
+        fontFamily: "Rubik-Bold",
     },
     title: {
         fontSize: 18,
         color: 'white',
         marginVertical: 10,
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     label: {
         fontSize: 16,
         color: 'white',
         marginTop: 10,
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     input: {
         fontSize: 30,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         paddingHorizontal: 20,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     pickerText: {
         fontSize: 18,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'white',
         borderRadius: 5,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     currencyText: {
         fontSize: 16,
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 20,
         marginVertical: 5,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     button: {
         padding: 10,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     container: {
         flex: 1,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         marginVertical: 10,
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     input: {
         fontSize: 30,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         paddingHorizontal: 20,
-        fontFamily: 'Nunito-Black',
+        fontFamily: 'Rubik-Black',
     },
     depositButton: {
         padding: 10,

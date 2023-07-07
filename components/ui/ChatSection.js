@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
         paddingHorizontal: 8,
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     },
     messageSend: {
         padding: 10,

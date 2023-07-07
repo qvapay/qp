@@ -168,7 +168,7 @@ export default function SettingsMenu({ navigation }) {
     const SettingsItemSection = ({ section }) => {
         return (
             <View style={styles.box}>
-                <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>{section.title}</Text>
+                <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>{section.title}</Text>
                 {section.options.map((option, index) => (
                     <SettingsItemSectionItem
                         key={index}
@@ -186,7 +186,7 @@ export default function SettingsMenu({ navigation }) {
     const SettingsItemSectionItem = ({ title, onPress }) => {
         return (
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff' }}>{title}</Text>
+                <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff' }}>{title}</Text>
                 <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
             </Pressable>
         );
@@ -224,11 +224,11 @@ export default function SettingsMenu({ navigation }) {
                     />
                 </View>
                 <View>
-                    <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
+                    <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
                     {
                         golden_check == 1
-                            ? <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Ver mi suscripción</Text>
-                            : <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Comprar GOLD Check</Text>
+                            ? <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Ver mi suscripción</Text>
+                            : <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Comprar GOLD Check</Text>
                     }
                 </View>
             </Pressable>
@@ -242,8 +242,8 @@ export default function SettingsMenu({ navigation }) {
                     <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
                 </View>
                 <View>
-                    <Text style={{ fontFamily: 'Nunito-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
-                    <Text style={{ fontFamily: 'Nunito-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                    <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                    <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
                 </View>
             </Pressable>
 
@@ -252,7 +252,7 @@ export default function SettingsMenu({ navigation }) {
             ))}
 
             <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={logout} >
-                <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
+                <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
             </QPButton>
 
             {/* Github, Twitter and Instagram accounts */}
@@ -309,6 +309,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Rubik-Regular',
     }
 })

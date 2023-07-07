@@ -39,7 +39,7 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
                     />
                 )}
             </View>
-            <Text style={{ fontFamily: 'Nunito-Regular', color: textColor }}>@{username}</Text>
+            <Text style={{ fontFamily: 'Rubik-Regular', color: textColor }}>@{username}</Text>
         </View>
     )
 }

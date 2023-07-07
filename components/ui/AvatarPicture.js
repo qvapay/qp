@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     badgeRatingText: {
         fontSize: 14,
         color: '#fff',
-        fontFamily: 'Nunito-Bold',
+        fontFamily: 'Rubik-Bold',
     },
     faIcon: {
         marginLeft: 5,

@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     white: {
         color: 'white',
         fontSize: 14,
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     },
     gray: {
         color: '#8F9BB3',
         fontSize: 14,
-        fontFamily: "Nunito-Light",
+        fontFamily: "Rubik-Light",
     }
 })

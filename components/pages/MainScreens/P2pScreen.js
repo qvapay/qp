@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     filterLabel: {
         fontSize: 16,
         color: '#7f8c8d',
-        fontFamily: 'Nunito-Regular'
+        fontFamily: 'Rubik-Regular'
     },
     filterLabelActive: {
         color: 'white',

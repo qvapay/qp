@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         textTransform: 'none',
         paddingHorizontal: 10,
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Rubik-Regular",
     },
 })
