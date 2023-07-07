@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 10,
         backgroundColor: '#161d31',
-        // backgroundColor: 'transparent',
         justifyContent: 'space-between',
     },
     pressableArea: {

@@ -42,7 +42,6 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
             <View style={styles.topLabels}>
                 <Text style={styles.white}>Balance QvaPay:</Text>
-                {/* <Text style={styles.gray}>Mi cuenta <FontAwesome5 name='chevron-right' /></Text> */}
             </View>
 
             <View style={styles.topLabels}>
@@ -51,6 +50,9 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
                         <Text style={styles.balanceAmount}>$ {formatBalance(me.balance)}</Text>
                     </View>
                 </Pressable>
+                <View>
+                    <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='yellow' /> {me.satoshis}</Text>
+                </View>
             </View>
 
             <View style={styles.actionButtons}>
@@ -91,9 +93,9 @@ const styles = StyleSheet.create({
         fontFamily: "Nunito-Black",
     },
     satsAmount: {
-        fontSize: 16,
+        fontSize: 20,
         color: '#fff',
-        fontFamily: "Nunito-Regular",
+        fontFamily: "Nunito-Bold",
     },
     actionButtons: {
         flexDirection: 'row',
