@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { StyleSheet, Text, View, Pressable, Alert } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Alert, Animated } from 'react-native'
 
 export default function KeypadScreen({ navigation }) {
 
     const { me } = useContext(AppContext);
     const [amount, setAmount] = useState('0');
+    const fontSize = useRef(new Animated.Value(60)).current;
 
     // KeyPad
     const keys = [
@@ -19,11 +20,7 @@ export default function KeypadScreen({ navigation }) {
 
     // KeyPad renderer
     const renderKey = (key, index) => (
-        <Pressable
-            key={index}
-            onPress={() => keyPressed(key)}
-            style={styles.pressable}
-        >
+        <Pressable key={index} onPress={() => keyPressed(key)} style={styles.pressable}>
             {key === '<' ? (
                 <FontAwesome5 name="backspace" size={18} color="#fff" />
             ) : (
@@ -43,7 +40,10 @@ export default function KeypadScreen({ navigation }) {
 
         // Add the amount to the state
         if (key === '<') {
-            setAmount(amount.slice(0, -1));
+            const newAmount = amount.slice(0, -1);
+            let newFontSize = calculateFontSize(newAmount);
+            animateFontSize(newFontSize);
+            setAmount(newAmount);
             return;
         }
 
@@ -64,6 +64,10 @@ export default function KeypadScreen({ navigation }) {
         if (amount.length >= 6) {
             return;
         }
+
+        // Animate font
+        let newFontSize = calculateFontSize(amount + key);
+        animateFontSize(newFontSize);
 
         // Set the amount if everithing passes
         setAmount(amount + key);
@@ -93,12 +97,30 @@ export default function KeypadScreen({ navigation }) {
         setAmount(me.balance.toString());
     }
 
+    // Dinamically reduce the KeyPad font based on amount of characters
+    const calculateFontSize = (amount) => {
+        let baseSize = 60;
+        let decreaseFactor = 4;
+        let newSize = baseSize - ((amount.length - 1) * decreaseFactor);
+        return newSize > 30 ? newSize : 30;
+    }
+
+    const animateFontSize = (newSize) => {
+        Animated.timing(fontSize, {
+            toValue: newSize,
+            duration: 150,
+            useNativeDriver: false,
+        }).start();
+    };
+
     return (
         <View style={{ flex: 1, backgroundColor: "red" }}>
             <View style={globalStyles.container}>
 
                 <View>
-                    <Text style={styles.amount}>${amount}</Text>
+                    <View style={styles.amountContainer}>
+                        <Animated.Text style={[styles.amount, { fontSize: fontSize }]}>${amount}</Animated.Text>
+                    </View>
                     <Pressable onPress={setMaxBalance}>
                         <View style={styles.balance}>
                             <Text style={styles.balanceText}>$ {me.balance}</Text>
@@ -113,7 +135,9 @@ export default function KeypadScreen({ navigation }) {
                         </View>
                     ))}
                 </View>
+
             </View>
+
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={receiveAmount} >
                     <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-down' size={16} color='#fff' /> Recibir</Text>
@@ -136,10 +160,14 @@ const styles = StyleSheet.create({
     padContainer: {
         marginTop: 30
     },
-    amount: {
-        fontSize: 70,
-        color: '#fff',
+    amountContainer: {
+        height: 80,
         marginBottom: 10,
+        justifyContent: 'center',
+    },
+    amount: {
+        fontSize: 60,
+        color: '#fff',
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
     },
