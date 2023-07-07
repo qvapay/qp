@@ -189,10 +189,7 @@ export default function LoginScreen({ navigation }) {
                     keyboardType="email-address"
                     returnKeyType="next"
                     autoCapitalize="none"
-                    onSubmitEditing={() =>
-                        passwordInputRef.current &&
-                        passwordInputRef.current.focus()
-                    }
+                    onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
                 />
@@ -201,9 +198,7 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.sectionStyle}>
                 <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserPassword) =>
-                        setPassword(UserPassword)
-                    }
+                    onChangeText={(UserPassword) => setPassword(UserPassword)}
                     placeholder="Contraseña"
                     placeholderTextColor="#7f8c8d"
                     keyboardType="default"
@@ -224,9 +219,7 @@ export default function LoginScreen({ navigation }) {
 
             <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
 
-            <Text
-                style={styles.registerTextStyle}
-                onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.registerTextStyle} onPress={() => navigation.navigate('RegisterScreen')}>
                 ¿No tienes cuenta? Regístrate
             </Text>
 

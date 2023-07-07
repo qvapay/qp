@@ -11,6 +11,9 @@ import SettingOption from './SettingOption';
 import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
 
+// Import Routes
+import { ROUTES } from '../../routes';
+
 const defaultScreenOptions = {
     headerTitleStyle: {
         fontFamily: 'Rubik-Regular',
@@ -64,7 +67,7 @@ export default function SettingsStack() {
                         <HeaderBackButton
                             {...props}
                             onPress={() => {
-                                navigation.goBack();
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
                         />
                     ),
@@ -80,7 +83,7 @@ export default function SettingsStack() {
                         <HeaderBackButton
                             {...props}
                             onPress={() => {
-                                navigation.goBack();
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
                         />
                     ),
@@ -97,7 +100,7 @@ export default function SettingsStack() {
                         <HeaderBackButton
                             {...props}
                             onPress={() => {
-                                navigation.goBack();
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
                         />
                     ),
@@ -114,7 +117,7 @@ export default function SettingsStack() {
                         <HeaderBackButton
                             {...props}
                             onPress={() => {
-                                navigation.goBack();
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
                         />
                     ),
@@ -131,7 +134,7 @@ export default function SettingsStack() {
                         <HeaderBackButton
                             {...props}
                             onPress={() => {
-                                navigation.goBack();
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
                         />
                     ),

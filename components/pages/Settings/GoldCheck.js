@@ -52,10 +52,12 @@ export default function GoldCheck({ navigation }) {
 
                 <View style={{ flex: 1 }}>
 
-                    <Text style={[styles.goldCheckBenefits, styles.box]}>
-                        Al adquirir la Verificación Dorada podrás disfrutar de beneficios como mayor visibilidad,
-                        mayor límite de transacciones y soporte prioritario.
-                    </Text>
+                    <View style={styles.box}>
+                        <Text style={styles.goldCheckBenefits}>
+                            Al adquirir la Verificación Dorada podrás disfrutar de beneficios como mayor visibilidad,
+                            mayor límite de transacciones y soporte prioritario.
+                        </Text>
+                    </View>
 
                     <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
                         <View style={{ marginRight: 20 }}>
@@ -135,7 +137,6 @@ const styles = StyleSheet.create({
     goldCheckBenefits: {
         fontSize: 16,
         color: 'white',
-        marginBottom: 20,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular',
     },

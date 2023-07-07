@@ -3,19 +3,25 @@ import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } 
 
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
+import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 
-// Onsegnal for notifications
 import OneSignal from 'react-native-onesignal';
-
-// Get device info to determine the app version
 import DeviceInfo from 'react-native-device-info';
 
-export default function SettingsMenu({ navigation }) {
+const SettingsMenu = () => {
 
+    const navigation = useNavigation();
     const { me } = useContext(AppContext);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
+    // APP Version data from build.gradle
+    const version = DeviceInfo.getVersion();
+    const buildNumber = DeviceInfo.getBuildNumber();
+
+    // default me data
     const {
         uuid = "",
         email = "",
@@ -29,67 +35,39 @@ export default function SettingsMenu({ navigation }) {
         average_rating = "0.0",
     } = me;
 
-    // Footer variables get the from app/build.gradle
-    const version = DeviceInfo.getVersion();
-    const buildNumber = DeviceInfo.getBuildNumber();
-
-    // useState for the notification switch
-    const [isSubscribed, setIsSubscribed] = useState(false);
-
-    // useEffect for the notifications switch
     useEffect(() => {
-        const getNotificationsState = async () => {
-            try {
-                // Obtén el estado del dispositivo desde OneSignal
-                const deviceState = await OneSignal.getDeviceState();
-
-                // hasNotificationPermission & isSubscribed son los valores que necesitamos
-                const { hasNotificationPermission, isSubscribed } = deviceState;
-
-                // Si el usuario no ha dado permiso para recibir notificaciones, no hagas nada
-                // ...
-
-                // launch trigger for permission
-                // OneSignal.addTrigger("showPushPermission", 'true');
-
-                // Set external userID to Onesignal
-                OneSignal.setExternalUserId(uuid);
-                OneSignal.setEmail(email);
-                // OneSignal.setSMSNumber(phone);
-                // OneSignal.sendTag("key", "value");
-    
-            } catch (error) {
-                // Si algo sale mal, registra el error en la consola
-                console.error("Error al obtener el estado de las notificaciones:", error);
-            }
-        }
         getNotificationsState();
     }, []);
 
-    // Logout and Navigate to AuthStack
-    const logout = () => {
-        // Show a confirm dialog and then logout
-        Alert.alert(
-            'Cerrar sesión',
-            '¿Estás seguro de que quieres cerrar sesión?',
-            [
-                {
-                    text: 'Cancelar',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                {
-                    text: 'Sí',
-                    onPress: () => {
-                        // Logout and navigate to AuthStack
-                        EncryptedStorage.removeItem("accessToken");
-                        navigation.replace('AuthStack');
-                    },
-                },
-            ],
-            { cancelable: false }
-        );
-    }
+    const getNotificationsState = async () => {
+        try {
+            const deviceState = await OneSignal.getDeviceState();
+            const { hasNotificationPermission, isSubscribed } = deviceState;
+
+            OneSignal.setExternalUserId(uuid);
+            OneSignal.setEmail(email);
+        } catch (error) {
+            console.error('Error al obtener el estado de las notificaciones:', error);
+        }
+    };
+
+    const logout = async () => {
+        await EncryptedStorage.removeItem('accessToken');
+        navigation.replace('AuthStack');
+    };
+
+    const confirmLogout = () =>
+        Alert.alert('Cerrar sesión', '¿Estás seguro de que quieres cerrar sesión?', [
+            {
+                text: 'Cancelar',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            {
+                text: 'Sí',
+                onPress: logout,
+            },
+        ]);
 
     // Settings Items as an object of multiple dimensions:
     const settings = {
@@ -172,11 +150,8 @@ export default function SettingsMenu({ navigation }) {
                 {section.options.map((option, index) => (
                     <SettingsItemSectionItem
                         key={index}
-                        // if the option is enabled, navigate to the screen else do nothing
                         title={option.title}
-                        onPress={option.enabled ? () => navigation.navigate(option.screen) : () => {
-                            console.log(option)
-                        }}
+                        onPress={option.enabled ? () => navigation.navigate(option.screen) : () => { }}
                     />
                 ))}
             </View>
@@ -217,6 +192,7 @@ export default function SettingsMenu({ navigation }) {
                 style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
                 onPress={() => navigation.navigate('GoldCheck')}
             >
+
                 <View style={{ marginRight: 20 }}>
                     <Image
                         source={require('../../../assets/images/gold-badge.png')}
@@ -251,7 +227,7 @@ export default function SettingsMenu({ navigation }) {
                 <SettingsItemSection key={index} section={section} />
             ))}
 
-            <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={logout} >
+            <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={confirmLogout} >
                 <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
             </QPButton>
 
@@ -312,3 +288,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Rubik-Regular',
     }
 })
+
+export default SettingsMenu;

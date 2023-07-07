@@ -120,14 +120,9 @@ export default function UserdataScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     sectionStyle: {
-        marginTop: 2,
-        flexDirection: 'row'
-    },
-    inputLabelStyle: {
-        fontSize: 14,
-        marginTop: 16,
-        color: '#7f8c8d',
-        fontFamily: "Rubik-Regular",
+        height: 50,
+        marginTop: 10,
+        flexDirection: 'row',
     },
     inputStyle: {
         flex: 1,
@@ -137,6 +132,12 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 10,
         borderColor: '#283046',
+        fontFamily: "Rubik-Regular",
+    },
+    inputLabelStyle: {
+        fontSize: 14,
+        marginTop: 16,
+        color: '#7f8c8d',
         fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {

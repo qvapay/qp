@@ -1,4 +1,5 @@
 export const ROUTES = {
+
     SPLASH_SCREEN: "SplashScreen",
 
     // Stacks
@@ -24,9 +25,11 @@ export const ROUTES = {
     CONFIRM_SEND_SCREEN: "ConfirmSendScreen",
     RECEIVE_SCREEN: "ReceiveScreen",
 
+    // In out Screens
     TRANSACTION_SCREEN: "TransactionScreen",
     P2P_SCREEN: "PeerToPeerScreen",
 
     // Profile & Settings Routes
+    SETTINGS_MENU: "SettingsMenu",
     PROFILE_SCREEN: "ProfileScreen",
 };
