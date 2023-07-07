@@ -5,18 +5,20 @@ import { StyleSheet } from 'react-native';
 const colors = {
 
     primary_bg: "#161d31",
-    scondary_bg: "#192034",
+    scondary_bg: "#21415F",
     main_bg: "#111626",
 
     color: "#b4b7bd",
 
-    primary: "#7367f0",
-    secondary: "#82868b",
+    primary: "#6759EF",
+    secondary: "#21415F",
     success: "#28c76f",
     warning: "#ff9f43",
-    danger: "#ea5455",
+    danger: "#DB253E",
     light: "#f6f6f6",
     dark: "#4b4b4b",
+
+    gray: "#D8D9DD",
 
     elevated_dark_color: "#283046",
 }

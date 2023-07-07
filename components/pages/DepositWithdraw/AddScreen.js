@@ -36,6 +36,10 @@ export default function AddScreen({ navigation }) {
     const handleAmountChange = (text) => {
         // Remove the $ before validating and processing the text
         const inputText = text.replace(/^\$/, '');
+
+        // Set max limit to 10k
+        if (inputText.length > 5) { return }
+
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
@@ -122,10 +126,10 @@ export default function AddScreen({ navigation }) {
 
             <Text style={styles.title}>Cantidad a depositar:</Text>
             <TextInput
-                keyboardType="numeric"
-                style={styles.input}
-                onChangeText={handleAmountChange}
                 value={amount}
+                style={styles.input}
+                keyboardType="numeric"
+                onChangeText={handleAmountChange}
             />
 
             <View style={{ flex: 1 }}>

@@ -6,6 +6,9 @@ import Transactions from '../../ui/Transactions'
 import { getMe } from '../../../utils/QvaPayClient';
 import { AppContext } from '../../../AppContext';
 
+// Import global style
+import { globalStyles } from '../../ui/Theme';
+
 export default function HomeScreen({ navigation }) {
 
     // get Me from AppContext
@@ -46,7 +49,7 @@ export default function HomeScreen({ navigation }) {
 
             <Balance navigation={navigation} me={me} />
             <Transactions navigation={navigation} />
-            
+
             <Hero
                 actionText={"5 estrellas"}
                 title={"Valóranos \nen TrustPilot"}
@@ -61,6 +64,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#161d31',
+        backgroundColor: globalStyles.container.backgroundColor,
     },
 })

@@ -8,8 +8,11 @@ import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
 import ScrollableFlatList from '../../ui/ScrollableFlatList';
 import { filterCoins } from '../../../utils/Helpers';
+import { useNavigation } from '@react-navigation/native';
 
-export default function WithdrawScreen({ navigation }) {
+export default function WithdrawScreen() {
+
+    const navigation = useNavigation();
 
     const { me } = useContext(AppContext);
     const [amount, setAmount] = useState('$');
@@ -18,7 +21,6 @@ export default function WithdrawScreen({ navigation }) {
     const [eWallets, setEWallets] = useState([]);
     const [bankOptions, setBankOptions] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
-
     const [selectedOption, setSelectedOption] = useState(null);
     const [eWalletsOpen, setEWalletsOpen] = useState(false);
     const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
@@ -41,7 +43,11 @@ export default function WithdrawScreen({ navigation }) {
         navigation.setOptions({
             headerRight: () => (
                 <View style={styles.balance}>
-                    <Text style={styles.balanceText}>$ {me.balance}</Text>
+                    <Pressable onPress={() => setAmount('$' + me.balance)}>
+                        <Text style={styles.balanceText}>
+                            $ {me.balance}
+                        </Text>
+                    </Pressable>
                 </View>
             ),
         });
@@ -122,9 +128,8 @@ export default function WithdrawScreen({ navigation }) {
     // Dont allow the user to type on ampunt input more than me.balance value
     const handleAmountChange = (text) => {
         const numericValue = parseFloat(text.substring(1));
-        if (numericValue > me.balance) {
-            return;
-        }
+        if (numericValue > me.balance) { return }
+        if (numericValue > 10000) { return }
         setAmount(text);
     };
 
