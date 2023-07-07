@@ -1,33 +1,31 @@
-import React, { useEffect } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
-
-// Import routes.js
-import { ROUTES } from '../routes'
-
-// Sentry
 import * as Sentry from '@sentry/react-native';
 
-export default function SplashScreen({ navigation }) {
+const SplashScreen = () => {
+
+    const navigation = useNavigation();
 
     useEffect(() => {
-        const checkToken = async () => {
-
+        const verifyToken = async () => {
+            let userToken;
             try {
-                const checkToken = await getMe(navigation);
+                userToken = await getMe(navigation);
             } catch (error) {
                 Sentry.captureException(error);
-            }
-
-            if (checkToken !== undefined && checkToken !== null) {
-                navigation.replace(ROUTES.MAIN_STACK);
-            } else {
-                navigation.replace(ROUTES.AUTH_STACK);
+            } finally {
+                if (userToken) {
+                    navigation.replace(ROUTES.MAIN_STACK);
+                } else {
+                    navigation.replace(ROUTES.AUTH_STACK);
+                }
             }
         }
-
-        checkToken();
-    }, []);
+        verifyToken();
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
@@ -57,3 +55,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
 })
+
+export default SplashScreen;
