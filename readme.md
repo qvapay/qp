@@ -16,4 +16,16 @@ https://qvapay.com
 ✅ Escanear QR de pago</br>
 ✅ Mostrar QR de pagos</br>
 ✅ Listar Ofertas P2P</br>
-✅ Enjoy!
+✅ Enjoy!  
+
+### New rebranding colors:
+
+Gray: #D8D9DD  
+Primary: #6759EF  
+Secondary: #21415F  
+
+Complementary:  
+Red: #990030  
+Danger: #DB253E  
+BG: #21415F  
+
