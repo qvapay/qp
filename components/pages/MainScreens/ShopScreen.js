@@ -8,6 +8,7 @@ export default function ShopScreen({ navigation }) {
 
     return (
         <View style={globalStyles.container}>
+            
             <View style={styles.searchBar}>
                 <FontAwesome5 name='search' size={12} color='#7f8c8d' />
                 <TextInput
@@ -16,7 +17,9 @@ export default function ShopScreen({ navigation }) {
                     placeholderTextColor="#7f8c8d"
                 />
             </View>
+
             <ShopIndex />
+
         </View>
     )
 }

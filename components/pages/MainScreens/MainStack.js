@@ -10,21 +10,20 @@ import ShopScreen from './ShopScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
 
-// UI Components
 import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-// Theming App
 import { theme } from '../../ui/Theme';
-
-// AppContext
 import { AppContext } from '../../../AppContext';
+import { useNavigation } from '@react-navigation/native';
 
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
-export default function MainStack({ navigation }) {
+export default function MainStack() {
 
+    // get the navigation object from useNavigation hook
+    const navigation = useNavigation();
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
 
@@ -33,7 +32,6 @@ export default function MainStack({ navigation }) {
         const check2faRequired = async () => {
             const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
             if (twoFactorRequired == 'true') {
-                //navigation.navigate('TwoFactorScreen');
                 navigation.navigate('MainStack', { screen: 'TwoFactorScreen' });
             }
         }
