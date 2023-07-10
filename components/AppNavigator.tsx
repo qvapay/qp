@@ -27,7 +27,6 @@ import {ROUTES} from './routes';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-
   return (
     <Stack.Navigator
       initialRouteName={ROUTES.SPLASH_SCREEN}
@@ -46,7 +45,6 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
-
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
@@ -140,9 +138,8 @@ export default function AppNavigator() {
         name={ROUTES.SCAN_SCREEN}
         component={ScanScreen}
         options={{
-          headerShown: false,
           animationDuration: 250,
-          animation: 'fade_from_bottom',
+          animation: 'slide_from_left',
         }}
       />
 
@@ -166,7 +163,6 @@ export default function AppNavigator() {
 
       <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
       <Stack.Screen name={ROUTES.RECEIVE_SCREEN} component={ReceiveScreen} />
-
     </Stack.Navigator>
   );
 }

@@ -3,14 +3,12 @@ import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-// Camera and permissions
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
 export default function ScanScreen({ navigation }) {
 
-    const goHome = () => navigation.goBack();
     const [permissionResult, setPermissionResult] = useState(null);
     const [validQR, setValidQR] = useState('#fff');
 
@@ -44,13 +42,6 @@ export default function ScanScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-
-            <View style={styles.scanTopBar}>
-                <Pressable onPress={goHome} >
-                    <FontAwesome5 name="arrow-left" size={20} style={styles.faIcon} />
-                </Pressable>
-                <FontAwesome5 name="lightbulb" size={20} style={styles.faIcon} />
-            </View>
 
             <View style={styles.rectangleContainer}>
                 <View style={[styles.cameraContainer, { borderColor: validQR }]}>
