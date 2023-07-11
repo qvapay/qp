@@ -7,7 +7,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 
-export default function ShopIndex() {
+export default function ShopIndexScreen() {
 
     const [commonProducts, setCommonProducts] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);

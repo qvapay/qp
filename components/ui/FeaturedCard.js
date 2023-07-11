@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 // {
 //     "uuid": "0f3c9429-db89-4493-931c-fa959c9652cf",
@@ -20,14 +21,14 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export default function FeaturedCard({ product }) {
 
+    const navigation = useNavigation();
+
     const { uuid, name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
     const [circlePos, setCirclePos] = React.useState({
         circle1: { top: 0, left: 0 },
         circle2: { bottom: 0, right: 0 },
         circle3: { bottom: 0, right: 0 },
     });
-
-    console.log(color)
 
     React.useEffect(() => {
         setCirclePos({
@@ -37,6 +38,11 @@ export default function FeaturedCard({ product }) {
         });
     }, []);
 
+    // handlePress on card
+    const handlePress = () => {
+        navigation.navigate('ProductScreen', { product });
+    }
+
     return (
         <View style={styles.cardContainer}>
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
@@ -44,7 +50,7 @@ export default function FeaturedCard({ product }) {
                 <View style={[styles.circle1, circlePos.circle1]} />
                 <View style={[styles.circle2, circlePos.circle2]} />
                 <View style={[styles.circle3, circlePos.circle3]} />
-                
+
                 <FastImage
                     style={styles.logo}
                     source={{ uri: `${logo_url}` }}

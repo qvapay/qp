@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function ShopItem() {
+export default function ShopItemScreen() {
     return (
         <View>
             <Text>ShopItem</Text>
