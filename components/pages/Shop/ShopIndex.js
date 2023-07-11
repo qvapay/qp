@@ -7,8 +7,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 
-
-
 export default function ShopIndex() {
 
     const [commonProducts, setCommonProducts] = useState([]);
@@ -27,10 +25,7 @@ export default function ShopIndex() {
 
     const renderItem = ({ item, index }) => (
         <View style={styles.cardContainer}>
-            <Card
-                header={item.name}
-                logo={item.logo_url}
-            />
+            <Card header={item.name} logo={item.logo_url} />
         </View>
     );
 
