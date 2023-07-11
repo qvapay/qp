@@ -45,6 +45,7 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
+        
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}

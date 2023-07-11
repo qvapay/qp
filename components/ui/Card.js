@@ -7,14 +7,14 @@ export default function Card({ header = 'Header', subHeader = '', logo = "" }) {
 
     // handle Press
     const handlePress = () => {
-        
+
     }
 
     return (
         <View style={styles.card}>
             <Pressable onPress={handlePress} >
                 <View style={styles.cardHeaders}>
-                    <Text style={styles.white}>{header}</Text>
+                    <Text style={styles.header}>{header}</Text>
                     <FontAwesome name='chevron-right' style={styles.gray} />
                 </View>
                 <View>
@@ -22,7 +22,7 @@ export default function Card({ header = 'Header', subHeader = '', logo = "" }) {
                 </View>
                 <View>
                     {
-                        subHeader && <Text style={[styles.gray, { fontSize: 10 }]}>{subHeader}</Text>
+                        subHeader && <Text style={styles.subHeader}>{subHeader}</Text>
                     }
                 </View>
             </Pressable>
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         backgroundColor: '#283046',
-        // backgroundColor: 'red',
     },
     cardHeaders: {
         marginBottom: 10,
@@ -46,19 +45,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    white: {
+    header: {
         fontSize: 14,
         color: '#fff',
-
+        fontFamily: 'Rubik-Medium',
     },
-    gray: {
-        fontSize: 12,
+    subHeader: {
+        fontSize: 10,
         color: '#7f8c8d',
-
+        fontFamily: 'Rubik-Light',
     },
     visaLogo: {
         height: 120,
         width: '100%',
         resizeMode: 'contain',
+    },
+    gray: {
+        fontSize: 12,
+        color: '#7f8c8d',
     },
 })

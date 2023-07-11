@@ -291,7 +291,7 @@ const updateUserData = async ({ navigation, data }) => {
 
 const getProducts = async () => {
     try {
-        const response = await qvaPayClient.get('/services');
+        const response = await qvaPayClient.get('/store');
         return response.data;
     } catch (error) {
         console.error('Error fetching services:', error);

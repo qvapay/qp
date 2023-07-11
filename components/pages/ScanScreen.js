@@ -7,10 +7,24 @@ import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
+// Todo: 
+// Add a button to light up the bulb
+
 export default function ScanScreen({ navigation }) {
 
     const [permissionResult, setPermissionResult] = useState(null);
     const [validQR, setValidQR] = useState('#fff');
+
+    // Add the bulb icon to right side of the top bar
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Pressable style={styles.scanTopBar} onPress={() => { }}>
+                    <FontAwesome5 name='lightbulb' size={20} style={styles.faIcon} />
+                </Pressable>
+            ),
+        });
+    }, [navigation]);
 
     // request permission with a useEffect
     useEffect(() => {
@@ -64,7 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#161d31'
     },
     scanTopBar: {
-        padding: 30,
+        marginRight: 10,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',

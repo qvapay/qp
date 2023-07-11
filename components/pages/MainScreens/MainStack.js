@@ -24,6 +24,7 @@ export default function MainStack() {
 
     // get the navigation object from useNavigation hook
     const navigation = useNavigation();
+
     // Get the user me object from AppContext
     const { me } = useContext(AppContext);
 
@@ -61,10 +62,8 @@ export default function MainStack() {
                     />
                 ),
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate("SettingsStack")}>
-                        <View style={styles.avatarPicture}>
-                            <AvatarPicture size={28} source_uri={me.profile_photo_url} />
-                        </View>
+                    <Pressable onPress={() => navigation.navigate("SettingsStack")} style={{ marginRight: 20 }}>
+                        <AvatarPicture size={28} source_uri={me.profile_photo_url} />
                     </Pressable>
                 ),
             })}
@@ -87,9 +86,6 @@ const styles = StyleSheet.create({
     qrIconStyle: {
         color: '#fff',
         fontSize: 24,
-        marginLeft: 20,
+        marginLeft: 20
     },
-    avatarPicture: {
-        marginRight: 20,
-    }
 });
