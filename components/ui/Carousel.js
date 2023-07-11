@@ -32,6 +32,5 @@ export default function Carousel({ featuredProducts = [] }) {
 const styles = StyleSheet.create({
     container: {
         marginBottom: 10,
-        // backgroundColor: '#283046', //TODO: Remove this when ready
     }
 })

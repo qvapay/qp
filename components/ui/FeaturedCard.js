@@ -27,6 +27,8 @@ export default function FeaturedCard({ product }) {
         circle3: { bottom: 0, right: 0 },
     });
 
+    console.log(color)
+
     React.useEffect(() => {
         setCirclePos({
             circle1: { top: `${Math.random() * 40 - 30}%`, left: `${Math.random() * 40 - 30}%` },
@@ -42,7 +44,7 @@ export default function FeaturedCard({ product }) {
                 <View style={[styles.circle1, circlePos.circle1]} />
                 <View style={[styles.circle2, circlePos.circle2]} />
                 <View style={[styles.circle3, circlePos.circle3]} />
-
+                
                 <FastImage
                     style={styles.logo}
                     source={{ uri: `${logo_url}` }}
