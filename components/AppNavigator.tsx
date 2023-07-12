@@ -21,11 +21,9 @@ import ConfirmSendScreen from './pages/InOutOperations/ConfirmSendScreen';
 import AddInstructionsScreen from './pages/DepositWithdraw/AddInstructionsScreen';
 import WithdrawInstructionsScreen from './pages/DepositWithdraw/WithdrawInstructionsScreen';
 
-// Shop Stack
-import ShopStack from './pages/Shop/ShopStack';
-
 // Import Routes
 import {ROUTES} from './routes';
+import ShopStack from './pages/Shop/ShopStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -80,14 +78,11 @@ export default function AppNavigator() {
         component={TransactionStack}
       />
 
-      {/* Transactions Stack */}
-      <Stack.Screen
-        name={ROUTES.SHOP_STACK}
-        component={ShopStack}
-      />
-
       {/* P2P Stack */}
       <Stack.Screen name={ROUTES.P2P_STACK} component={PeerToPeerStack} />
+
+      {/* Shop Stack */}
+      <Stack.Screen name={ROUTES.SHOP_STACK} component={ShopStack} />
 
       {/* Settings Stack */}
       <Stack.Screen

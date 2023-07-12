@@ -4,21 +4,6 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
-// {
-//     "uuid": "0f3c9429-db89-4493-931c-fa959c9652cf",
-//     "name": "Saldo mÃ³vil ETECSA",
-//     "lead": "$ 250 CUP",
-//     "color": "darker",
-//     "price": "28.00",
-//     "tax": "0.00",
-//     "desc": "Tarjeta de dÃ©bito VISA por el valor indicado. Esta es una tarjeta virtual emitida y funcional en cualquier comercio online de los EEUU. \r\nSÃ³lo vÃ¡lida en el territorio de los Estados Unidos de AmÃ©rica. \r\nLeer los tÃ©rminos y condiciones del uso y responsabilidades con esta tarjeta para evitar bloqueos o cancelaciones.\r\nEn prÃ³ximas actualizaciones se agregarÃ¡n nuevos montos y nuevas caracterÃ­sticas.",
-//     "meta": "[{\"html_name\": \"name\",\"html_type\": \"text\",\"html_label\": \"Nombre y Apellidos\",\"html_value\": \"Nombre y Apellidos\"}]",
-//     "featured": 0,
-//     "category": null,
-//     "logo_url": "/services/recarga.png",
-//     "cover_url": "/services/k90XAybRh4CNFDm1hO3eYwZAQ3bbmUuiOvn9OCGb.png"
-//   }
-
 export default function FeaturedCard({ product }) {
 
     const navigation = useNavigation();
@@ -38,17 +23,16 @@ export default function FeaturedCard({ product }) {
         });
     }, []);
 
+    // navigate to ShopStack with params ShopScreen
     const handlePress = () => {
-        // Cambia 'DetailScreen' por el nombre de la pantalla a la que deseas navegar
-        // navigation.navigate('DetailScreen', { product: product });
-        console.log(uuid)
+        navigation.navigate('ShopStack', {
+            screen: 'ShopItemScreen',
+            params: { uuid: uuid }
+        });
     };
 
     return (
-        <Pressable
-            style={styles.cardContainer}
-            onPress={handlePress}
-        >
+        <Pressable style={styles.cardContainer} onPress={handlePress}>
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
 
                 <View style={[styles.circle1, circlePos.circle1]} />
