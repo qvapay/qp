@@ -10,6 +10,9 @@ export const ROUTES = {
     SETTINGS_STACK: "SettingsStack",
     TRANSACTION_STACK: "TransactionStack",
 
+    // Shop Stack
+    SHOP_STACK: "ShopStack",
+
     // Auth Screens
     LOGIN_SCREEN: "LoginScreen",
     REGISTER_SCREEN: "RegisterScreen",

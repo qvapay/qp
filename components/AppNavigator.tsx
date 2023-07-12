@@ -21,6 +21,9 @@ import ConfirmSendScreen from './pages/InOutOperations/ConfirmSendScreen';
 import AddInstructionsScreen from './pages/DepositWithdraw/AddInstructionsScreen';
 import WithdrawInstructionsScreen from './pages/DepositWithdraw/WithdrawInstructionsScreen';
 
+// Shop Stack
+import ShopStack from './pages/Shop/ShopStack';
+
 // Import Routes
 import {ROUTES} from './routes';
 
@@ -75,6 +78,12 @@ export default function AppNavigator() {
       <Stack.Screen
         name={ROUTES.TRANSACTION_STACK}
         component={TransactionStack}
+      />
+
+      {/* Transactions Stack */}
+      <Stack.Screen
+        name={ROUTES.SHOP_STACK}
+        component={ShopStack}
       />
 
       {/* P2P Stack */}

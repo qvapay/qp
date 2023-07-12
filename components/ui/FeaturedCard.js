@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -30,7 +30,7 @@ export default function FeaturedCard({ product }) {
         circle3: { bottom: 0, right: 0 },
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         setCirclePos({
             circle1: { top: `${Math.random() * 40 - 30}%`, left: `${Math.random() * 40 - 30}%` },
             circle2: { bottom: `${Math.random() * 40 - 20}%`, right: `${Math.random() * 40 - 20}%` },
@@ -38,13 +38,17 @@ export default function FeaturedCard({ product }) {
         });
     }, []);
 
-    // handlePress on card
     const handlePress = () => {
-        navigation.navigate('ProductScreen', { product });
-    }
+        // Cambia 'DetailScreen' por el nombre de la pantalla a la que deseas navegar
+        // navigation.navigate('DetailScreen', { product: product });
+        console.log(uuid)
+    };
 
     return (
-        <View style={styles.cardContainer}>
+        <Pressable
+            style={styles.cardContainer}
+            onPress={handlePress}
+        >
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
 
                 <View style={[styles.circle1, circlePos.circle1]} />
@@ -65,7 +69,7 @@ export default function FeaturedCard({ product }) {
                 </LinearGradient>
 
             </View>
-        </View>
+        </Pressable>
     )
 }
 
