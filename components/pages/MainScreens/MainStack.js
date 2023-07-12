@@ -73,6 +73,7 @@ export default function MainStack() {
             <Tab.Screen name="KeypadScreen" component={KeypadScreen} />
             <Tab.Screen name="LightningScreen" component={LightningScreen} />
             <Tab.Screen name="ShopScreen" component={ShopScreen} />
+            
         </Tab.Navigator>
     )
 }

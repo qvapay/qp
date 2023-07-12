@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ShopItemScreen from './ShopItemScreen';
 import ShopIndexScreen from './ShopIndexScreen';
+import ShopCartScreen from './ShopCartScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -18,10 +19,9 @@ export default function ShopStack() {
                 headerShown: false
             }}
         >
-
             <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
             <Stack.Screen name="ShopItemScreen" component={ShopItemScreen} />
-
+            <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
         </Stack.Navigator>
     )
 }

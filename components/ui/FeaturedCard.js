@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,7 +9,7 @@ export default function FeaturedCard({ product }) {
     const navigation = useNavigation();
 
     const { uuid, name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
-    const [circlePos, setCirclePos] = React.useState({
+    const [circlePos, setCirclePos] = useState({
         circle1: { top: 0, left: 0 },
         circle2: { bottom: 0, right: 0 },
         circle3: { bottom: 0, right: 0 },

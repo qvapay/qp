@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 0,
         color: '#FFFFFF',
-        borderRadius: 10,
-        marginVertical: 20,
+        borderRadius: 6,
+        marginVertical: 10,
         alignItems: 'center',
         backgroundColor: '#7367f0',
     },
     titleStyle: {
-        fontFamily: 'Rubik-Bold'
+        fontFamily: 'Rubik-SemiBold'
     },
     disabledStyle: {
         opacity: 0.5,

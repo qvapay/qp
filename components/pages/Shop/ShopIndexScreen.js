@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View, TextInput, Text } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 
 // FeaturedCard
 import Card from '../../ui/Card'
@@ -9,12 +10,15 @@ import Carousel from '../../ui/Carousel'
 
 export default function ShopIndexScreen() {
 
+    // get navigation hook
+    const navigation = useNavigation();
+
     const [commonProducts, setCommonProducts] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const fetchedProducts = await getProducts();
+            const fetchedProducts = await getProducts({ navigation });
             const featuredProducts = fetchedProducts.filter(product => product.featured);
             const commonProducts = fetchedProducts.filter(product => !product.featured);
             setFeaturedProducts(featuredProducts);
@@ -23,9 +27,9 @@ export default function ShopIndexScreen() {
         fetchProducts();
     }, []);
 
-    const renderItem = ({ item, index }) => (
+    const productCard = ({ item, index }) => (
         <View style={styles.cardContainer}>
-            <Card header={item.name} logo={item.logo_url} />
+            <Card product={item} />
         </View>
     );
 
@@ -53,7 +57,7 @@ export default function ShopIndexScreen() {
             }
             data={commonProducts}
             numColumns={2}
-            renderItem={renderItem}
+            renderItem={productCard}
             columnWrapperStyle={styles.twoCards}
             keyExtractor={(_, index) => index.toString()}
         />

@@ -27,10 +27,12 @@ const theme = createTheme({
     lightColors: {
         primary: colors.primary,
         background: colors.primary_bg,
+        success: colors.success,
     },
     darkColors: {
         primary: colors.primary,
         background: colors.primary_bg,
+        success: colors.success,
     },
     mode: 'dark',
 });
@@ -117,10 +119,16 @@ const globalStyles = StyleSheet.create({
         fontFamily: "Rubik-Black",
     },
     title: {
-        fontSize: 18,
+        fontSize: 20,
         color: 'white',
+        marginVertical: 10,
         fontFamily: 'Rubik-Bold'
-    }
+    },
+    subtitle: {
+        fontSize: 16,
+        color: 'white',
+        fontFamily: 'Rubik-Regular'
+    },
 });
 
 export { theme, globalStyles, textStyles, containerStyles };

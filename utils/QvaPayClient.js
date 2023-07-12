@@ -289,12 +289,23 @@ const updateUserData = async ({ navigation, data }) => {
     }
 };
 
-const getProducts = async () => {
+const getProducts = async ({ navigation }) => {
     try {
-        const response = await qvaPayClient.get('/store');
-        return response.data;
+        const response = await apiRequest('/store', { method: 'GET' }, navigation);
+        return response;
     } catch (error) {
-        console.error('Error fetching services:', error);
+        console.error('Error fetching products:', error);
+        return [];
+    }
+};
+
+const getProductByUuid = async ({ navigation, uuid }) => {
+    try {
+        const url = `/store/${uuid}`
+        const response = await apiRequest(url, { method: 'GET' }, navigation);
+        return response;
+    } catch (error) {
+        console.error('Error fetching product:', error);
         return [];
     }
 };
@@ -317,5 +328,6 @@ export {
     sendWithdraw,
     buyGoldCheck,
     updateUserData,
-    getProducts
+    getProducts,
+    getProductByUuid
 };
