@@ -223,9 +223,7 @@ export default function LoginScreen({ navigation }) {
                 ¿No tienes cuenta? Regístrate
             </Text>
 
-            <Text style={styles.registerTextStyle}>
-                {biometricAvailable && <BiometricButton />}
-            </Text>
+            {biometricAvailable && <BiometricButton />}
 
         </KeyboardAwareScrollView>
     );
@@ -241,8 +239,7 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'white',
         borderWidth: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingHorizontal: 15,
         borderRadius: 10,
         borderColor: '#283046',
         fontFamily: "Rubik-Regular",
