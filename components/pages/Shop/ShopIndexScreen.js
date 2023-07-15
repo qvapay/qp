@@ -43,7 +43,7 @@ export default function ShopIndexScreen() {
                     placeholderTextColor="#7f8c8d"
                 />
             </View>
-            <FontAwesome5 name='shopping-cart' size={12} color='#7f8c8d' />
+            <FontAwesome5 style={styles.cartIcon} name='shopping-cart' size={18} color='#7f8c8d' />
         </View>
     )
 
@@ -81,13 +81,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginVertical: 10,
     },
     searchBar: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 10,
+        paddingHorizontal: 10,
+        backgroundColor: '#283046'
+    },
+    cartIcon: {
+        marginLeft: 10,
     },
     searchBarText: {
         height: 40,
