@@ -2,6 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg';
 
+// Theme
+import { theme } from './Theme';
+
 const screenWidth = Dimensions.get('window').width;
 const cardSize = (screenWidth - 24 * 2 - 5) / 3;
 
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     cardSelected: {
-        borderColor: '#7367f0',
+        borderColor: theme.darkColors.primary,
     },
     cardUnselected: {
         borderColor: 'transparent',

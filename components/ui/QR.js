@@ -2,13 +2,16 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import QRCodeStyled from 'react-native-qrcode-styled';
 
+// Theme
+import { theme } from './Theme';
+
 export default function QR({ qrData }) {
 
     return (
         <QRCodeStyled
             data={qrData}
             pieceSize={10}
-            color={'#161d31'}
+            color={theme.darkColors.background}
             backgroundColor={'white'}
             pieceCornerType={'rounded'}
             logoBackgroundColor={'transparent'}

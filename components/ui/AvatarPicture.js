@@ -3,11 +3,14 @@ import { StyleSheet, View, Text } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+// Theme
+import { theme } from './Theme';
+
 export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false, showBadge = false, rating = 0.0 }) {
 
     // Dynamic borderWidth based on size
     const borderWidth = size / 24;
-    const borderColor = negative ? '#161d31' : '#FFFFFF';
+    const borderColor = negative ? theme.darkColors.background : '#FFFFFF';
 
     return (
         <View>
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingVertical: 3,
         paddingHorizontal: 8,
-        backgroundColor: '#7367f0',
+        backgroundColor: theme.darkColors.primary,
         alignItems: 'center',
     },
     badgeRatingText: {

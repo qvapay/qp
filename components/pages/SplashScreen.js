@@ -5,6 +5,9 @@ import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
 
+// Theme
+import { theme } from '../ui/Theme';
+
 const SplashScreen = () => {
 
     const navigation = useNavigation();
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     imageLogo: {
         width: '50%',

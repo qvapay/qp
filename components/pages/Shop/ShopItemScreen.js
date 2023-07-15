@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginHorizontal: 10,
         paddingHorizontal: 15,
+        textAlign: 'center',
         borderColor: '#283046',
         fontFamily: "Rubik-Regular",
     },

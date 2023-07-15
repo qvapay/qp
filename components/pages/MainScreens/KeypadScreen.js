@@ -4,6 +4,9 @@ import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, Text, View, Pressable, Alert, Animated } from 'react-native'
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 export default function KeypadScreen({ navigation }) {
 
     const { me } = useContext(AppContext);
@@ -201,7 +204,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 20,
         justifyContent: 'center',
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     actionButton1: {
         flex: 1,

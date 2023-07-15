@@ -7,6 +7,9 @@ import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
+// Theme
+import { theme } from '../ui/Theme';
+
 // Todo: 
 // Add a button to light up the bulb
 
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#161d31'
+        backgroundColor: theme.darkColors.background
     },
     scanTopBar: {
         marginRight: 10,

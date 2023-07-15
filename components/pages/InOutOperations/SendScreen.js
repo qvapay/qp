@@ -7,6 +7,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUser } from '../../../utils/QvaPayClient';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 export default function SendScreen({ route, navigation }) {
 
     const [text, setText] = useState('');
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingHorizontal: 20,
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     sendingAmountContainer: {
         flex: 1,
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginVertical: 10,
         alignItems: 'center',
-        backgroundColor: '#7367f0',
+        backgroundColor: theme.darkColors.primary,
     },
     buttonTextStyle: {
         fontSize: 16,

@@ -5,6 +5,9 @@ import IndexP2p from '../P2P/IndexP2p'
 import { globalStyles } from '../../ui/Theme'
 import { getP2POffers } from '../../../utils/QvaPayClient'
 
+// Theme
+import { theme } from '../../ui/Theme'
+
 export default function P2pScreen({ navigation }) {
 
     const [buyoffers, setBuyoffers] = useState([]);
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     filterButtonActive: {
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     filterLabel: {
         fontSize: 16,

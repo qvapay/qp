@@ -11,6 +11,9 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import OneSignal from 'react-native-onesignal';
 import DeviceInfo from 'react-native-device-info';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 const SettingsMenu = () => {
 
     const navigation = useNavigation();
@@ -259,7 +262,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background
     },
     box: {
         padding: 20,

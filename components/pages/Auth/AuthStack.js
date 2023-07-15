@@ -5,6 +5,9 @@ import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 import TwoFactorScreen from './TwofactorScreen';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 // TODO Recover Password Screen
 
 // Stack Navigation
@@ -37,7 +40,7 @@ export default function AuthStack() {
                 options={{
                     title: '',
                     headerStyle: {
-                        backgroundColor: '#161d31',
+                        backgroundColor: theme.darkColors.background,
                     },
                     headerTintColor: '#fff',
                     headerShadowVisible: false,

@@ -16,6 +16,9 @@ import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 // Import Routes
 import { ROUTES } from '../../routes';
 
@@ -24,7 +27,7 @@ const defaultScreenOptions = {
         fontFamily: 'Rubik-Regular',
     },
     headerStyle: {
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     headerTintColor: '#fff',
     headerTitleAlign: 'center',

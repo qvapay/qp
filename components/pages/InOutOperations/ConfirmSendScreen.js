@@ -9,6 +9,9 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 Sound.setCategory('Playback');
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE);
 
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         alignContent: 'center',
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
     },
     destinationAvatar: {
         flex: 1,

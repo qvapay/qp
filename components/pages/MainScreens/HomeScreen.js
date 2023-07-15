@@ -6,6 +6,9 @@ import Transactions from '../../ui/Transactions'
 import { getMe } from '../../../utils/QvaPayClient';
 import { AppContext } from '../../../AppContext';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 // Import global style
 import { globalStyles } from '../../ui/Theme';
 
@@ -41,8 +44,8 @@ export default function HomeScreen({ navigation }) {
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={fetchMe}
-                    tintColor="#7367f0"
-                    progressBackgroundColor="#161d31"
+                    tintColor={theme.darkColors.primary}
+                    progressBackgroundColor={theme.darkColors.background}
                     colors={['#FFFFFF', '#28c76f']}
                 />
             }>

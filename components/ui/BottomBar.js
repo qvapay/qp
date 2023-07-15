@@ -2,6 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+// Theme
+import { theme } from './Theme';
+
 export default function BottomBar({ state, descriptors, navigation }) {
 
     // Create the nav items array
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         paddingVertical: 10,
-        backgroundColor: '#161d31',
+        backgroundColor: theme.darkColors.background,
         justifyContent: 'space-between',
     },
     pressableArea: {

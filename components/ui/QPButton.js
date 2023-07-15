@@ -2,6 +2,9 @@ import React from 'react'
 import { Button } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 
+// import global styles and theme
+import { theme } from './Theme';
+
 export default function QPButton(props) {
 
     return (
@@ -22,13 +25,13 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginVertical: 20,
         alignItems: 'center',
-        backgroundColor: '#7367f0',
+        backgroundColor: theme.darkColors.primary,
     },
     titleStyle: {
         fontFamily: 'Rubik-SemiBold'
     },
     disabledStyle: {
         opacity: 0.5,
-        backgroundColor: '#7367f0',
+        backgroundColor: theme.darkColors.primary,
     },
 })
