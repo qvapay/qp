@@ -28,17 +28,20 @@ export default function ShopItemScreen({ route }) {
             const fetchedProduct = await getProductByUuid({ navigation, uuid });
             if (fetchedProduct) {
                 setProduct(fetchedProduct);
+                setAmount(fetchedProduct.price);
             }
         };
         fetchProduct();
     }, []);
 
     if (!product) {
-        return <Text>Loading...</Text> // o algún componente de carga que te guste
+        return <Text>Loading...</Text>
     }
 
-    const increment = () => setAmount(amount + 1);
-    const decrement = () => setAmount(amount > 1 ? amount - 1 : 1);
+    // Parse amount as float
+    const parsedAmount = parseFloat(amount);
+    const increment = () => setAmount(parsedAmount + 1);
+    const decrement = () => setAmount(parsedAmount > 1 ? parsedAmount - 1 : 1);
 
     return (
         <View style={globalStyles.container}>
@@ -85,7 +88,6 @@ export default function ShopItemScreen({ route }) {
 
                     <Text style={globalStyles.title}>{name}</Text>
                     <Text style={styles.descText}>{`${desc}`}</Text>
-                    {/* <Text style={globalStyles.subtitle}>{category}</Text> */}
                 </View>
 
             </ScrollView>
