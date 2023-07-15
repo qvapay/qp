@@ -223,7 +223,9 @@ export default function LoginScreen({ navigation }) {
                 ¿No tienes cuenta? Regístrate
             </Text>
 
-            {biometricAvailable && <BiometricButton />}
+            <View style={styles.biometricIcon}>
+                {biometricAvailable && <BiometricButton />}
+            </View>
 
         </KeyboardAwareScrollView>
     );
@@ -258,4 +260,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
     },
+    biometricIcon: {
+        alignSelf: 'center',
+        marginTop: 20,
+    }
 })
