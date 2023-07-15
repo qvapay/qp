@@ -1,8 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
 import QRCodeStyled from 'react-native-qrcode-styled';
-
-// Theme
 import { theme } from './Theme';
 
 export default function QR({ qrData }) {
@@ -22,11 +19,3 @@ export default function QR({ qrData }) {
         />
     )
 }
-
-const styles = StyleSheet.create({
-    qrContainer: {
-        padding: 20,
-        borderRadius: 20,
-        backgroundColor: 'white'
-    }
-});

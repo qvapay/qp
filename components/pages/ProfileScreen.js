@@ -6,6 +6,9 @@ import { View, StyleSheet, Text } from 'react-native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
+// Theme
+import { theme } from '../ui/Theme';
+
 export default function ProfileScreen({ amount = 0 }) {
 
     const { me } = useContext(AppContext);
@@ -33,16 +36,11 @@ export default function ProfileScreen({ amount = 0 }) {
 
             <ProfilePictureSection user={me} negative={true} />
 
-
-
             <View style={styles.qrSection}>
-                {
-                    amount > 0 && (
-                        <Text style={styles.receivingAmount}>Recibir: ${amount}</Text>
-                    )
-                }
                 <QR qrData={qrData} />
+                {amount > 0 && <Text style={styles.receivingAmount}>Recibir: ${amount}</Text>}
             </View>
+
         </View>
     )
 }
@@ -52,6 +50,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         backgroundColor: 'white',
+        justifyContent: 'space-between',
     },
     qrSection: {
         flex: 2,
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     receivingAmount: {
-        color: 'black',
+        color: theme.darkColors.background,
         fontSize: 20,
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
