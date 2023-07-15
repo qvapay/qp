@@ -17,7 +17,7 @@ export default function ShopStack() {
             name="ShopStack"
             initialRouteName="ShopIndexScreen"
             screenOptions={{
-                headerShown: false,
+                headerShown: true,
                 animationDuration: 250,
                 animation: 'slide_from_right',
             }}
@@ -28,7 +28,8 @@ export default function ShopStack() {
                 name="ShopItemScreen"
                 component={ShopItemScreen}
                 options={{
-                    title: '',
+                    headerTitle: '',
+                    headerShown: false,
                     animationDuration: 250,
                     animation: 'slide_from_right',
                 }}

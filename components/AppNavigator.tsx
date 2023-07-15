@@ -85,6 +85,7 @@ export default function AppNavigator() {
         name={ROUTES.SHOP_STACK}
         component={ShopStack}
         options={{
+          headerShown: false, // Use the Stack Navigator header
           animationDuration: 250,
           animation: 'slide_from_right',
         }}

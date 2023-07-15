@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, TextInput, Pressable, StatusBar } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import { getProductByUuid } from '../../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
@@ -20,7 +20,7 @@ export default function ShopItemScreen({ route }) {
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(1);
-    const { name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
+    const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url } = product;
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -33,6 +33,20 @@ export default function ShopItemScreen({ route }) {
         };
         fetchProduct();
     }, []);
+
+    // Set the ShopItemScreen heade background color to color variable and no shadow
+    useEffect(() => {
+        navigation.setOptions({
+            headerStyle: {
+                backgroundColor: color,
+            },
+        });
+    }, [color]);
+
+    // Set the notification bar color to color variable
+    useEffect(() => {
+        StatusBar.setBackgroundColor(color);
+    }, [color]);
 
     if (!product) {
         return <Text>Loading...</Text>
@@ -51,11 +65,13 @@ export default function ShopItemScreen({ route }) {
     }
 
     return (
-        <View style={globalStyles.container}>
+        <View style={styles.container}>
+
             <ScrollView>
+
                 <View style={[styles.featuredCard, { backgroundColor: color }]}>
                     <FastImage
-                        style={[styles.logo, { borderRadius: 10 }]} // Añade el borderRadius directamente aquí
+                        style={styles.logo}
                         source={{ uri: `${logo_url}` }}
                         resizeMode={FastImage.resizeMode.contain}
                     />
@@ -99,17 +115,22 @@ export default function ShopItemScreen({ route }) {
 
             </ScrollView>
 
-            <QPButton title="Comprar" onPress={handleBuy} />
+            <View style={{ paddingHorizontal: 10 }}>
+                <QPButton title="Comprar" onPress={handleBuy} />
+            </View>
 
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: theme.darkColors.background,
+    },
     featuredCard: {
-        height: 150,
+        height: 200,
         width: '100%',
-        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
     },
@@ -120,6 +141,8 @@ const styles = StyleSheet.create({
     },
     productData: {
         flex: 1,
+        marginTop: 10,
+        paddingHorizontal: 20,
     },
     buyBottom: {
         flexDirection: 'row',
