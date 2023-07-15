@@ -43,12 +43,19 @@ export default function ShopItemScreen({ route }) {
     const increment = () => setAmount(parsedAmount + 1);
     const decrement = () => setAmount(parsedAmount > 1 ? parsedAmount - 1 : 1);
 
+    const handleBuy = () => {
+        navigation.navigate('ShopCheckoutScreen', {
+            uuid,
+            amount: parsedAmount,
+        });
+    }
+
     return (
         <View style={globalStyles.container}>
             <ScrollView>
                 <View style={[styles.featuredCard, { backgroundColor: color }]}>
                     <FastImage
-                        style={styles.logo}
+                        style={[styles.logo, { borderRadius: 10 }]} // Añade el borderRadius directamente aquí
                         source={{ uri: `${logo_url}` }}
                         resizeMode={FastImage.resizeMode.contain}
                     />
@@ -92,7 +99,7 @@ export default function ShopItemScreen({ route }) {
 
             </ScrollView>
 
-            <QPButton title="Comprar" />
+            <QPButton title="Comprar" onPress={handleBuy} />
 
         </View>
     )
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: '50%',
-        height: '90%',
+        height: '100%',
         position: 'absolute',
     },
     productData: {

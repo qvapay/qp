@@ -46,7 +46,6 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
-        
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
@@ -82,7 +81,14 @@ export default function AppNavigator() {
       <Stack.Screen name={ROUTES.P2P_STACK} component={PeerToPeerStack} />
 
       {/* Shop Stack */}
-      <Stack.Screen name={ROUTES.SHOP_STACK} component={ShopStack} />
+      <Stack.Screen
+        name={ROUTES.SHOP_STACK}
+        component={ShopStack}
+        options={{
+          animationDuration: 250,
+          animation: 'slide_from_right',
+        }}
+      />
 
       {/* Settings Stack */}
       <Stack.Screen

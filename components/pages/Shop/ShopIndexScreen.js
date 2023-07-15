@@ -39,7 +39,7 @@ export default function ShopIndexScreen() {
                 <FontAwesome5 name='search' size={12} color='#7f8c8d' />
                 <TextInput
                     placeholder="Buscar"
-                    style={styles.searchBarText}
+                    style={[styles.searchBarText, { paddingVertical: 6 }]} // Incrementa el padding en vez de usar una altura fija
                     placeholderTextColor="#7f8c8d"
                 />
             </View>
@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     searchBarText: {
-        height: 40,
         fontSize: 14,
         color: '#7f8c8d',
         paddingVertical: 0,

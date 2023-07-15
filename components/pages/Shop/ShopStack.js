@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ShopItemScreen from './ShopItemScreen';
 import ShopIndexScreen from './ShopIndexScreen';
 import ShopCartScreen from './ShopCartScreen';
+import ShopCheckoutScreen from './ShopCheckoutScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -16,12 +17,35 @@ export default function ShopStack() {
             name="ShopStack"
             initialRouteName="ShopIndexScreen"
             screenOptions={{
-                headerShown: false
+                headerShown: false,
+                animationDuration: 250,
+                animation: 'slide_from_right',
             }}
         >
             <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
-            <Stack.Screen name="ShopItemScreen" component={ShopItemScreen} />
+
+            <Stack.Screen
+                name="ShopItemScreen"
+                component={ShopItemScreen}
+                options={{
+                    title: '',
+                    animationDuration: 250,
+                    animation: 'slide_from_right',
+                }}
+            />
+
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
+
+            <Stack.Screen
+                name="ShopCheckoutScreen"
+                component={ShopCheckoutScreen}
+                options={{
+                    title: 'Finalizar Compra',
+                    animationDuration: 250,
+                    animation: 'slide_from_right',
+                }}
+            />
+
         </Stack.Navigator>
     )
 }
