@@ -46,7 +46,7 @@ export default function ScanScreen({ navigation }) {
         if (!isValidQRData(parsedData)) {
             return;
         }
-        setValidQR('#28c76f');
+        setValidQR(theme.darkColors.success);
         navigateToTransferScreenWithDelay(parsedData, 1000);
     };
 

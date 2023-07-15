@@ -93,7 +93,7 @@ export default function ShopItemScreen({ route }) {
                     <View style={styles.amountSelector}>
 
                         <Pressable onPress={decrement}>
-                            <Text style={globalStyles.subtitle}>-</Text>
+                            <FontAwesome5 name='minus' size={20} style={styles.counterIcons} />
                         </Pressable>
 
                         <TextInput
@@ -110,7 +110,7 @@ export default function ShopItemScreen({ route }) {
                         />
 
                         <Pressable onPress={increment}>
-                            <Text style={globalStyles.subtitle}>+</Text>
+                            <FontAwesome5 name='plus' size={20} style={styles.counterIcons} />
                         </Pressable>
 
                     </View>
@@ -121,7 +121,11 @@ export default function ShopItemScreen({ route }) {
 
             </ScrollView>
 
-            <View style={{ paddingHorizontal: 10 }}>
+            <View style={{ paddingHorizontal: 20 }}>
+                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+                    <Text style={{ color: 'white' }}>ASD</Text>
+                    <Text style={{ color: 'white' }}>ASD</Text>
+                </View>
                 <QPButton title="Comprar" onPress={handleBuy} />
             </View>
 
@@ -214,6 +218,13 @@ const styles = StyleSheet.create({
     },
     backButtonText: {
         fontSize: 16,
-        color: '#000', // color del texto
+        color: '#000',
+    },
+    faIcon: {
+        color: 'white'
+    },
+    counterIcons: {
+        color: 'white',
+        paddingHorizontal: 10,
     },
 })

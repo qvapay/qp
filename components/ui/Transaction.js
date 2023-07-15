@@ -2,6 +2,7 @@ import React from 'react'
 import AvatarPicture from './AvatarPicture';
 import { timeSince, reduceString } from '../../utils/Helpers';
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { theme } from './Theme';
 
 export default function Transaction({ transaction, navigation }) {
 
@@ -9,8 +10,10 @@ export default function Transaction({ transaction, navigation }) {
 
     // convert into Date object the updated_at string
     const updatedDate = new Date(updated_at);
-    const positive = "#28c76f";
-    const negative = "#ea5455";
+
+    const positive = theme.darkColors.success;
+    const negative = theme.darkColors.danger;
+
     const amountFloat = parseFloat(amount);
     const isNegative = amountFloat < 0;
     const color = isNegative ? negative : positive;
@@ -77,6 +80,6 @@ const styles = StyleSheet.create({
     },
     transactionAmount: {
         fontSize: 16,
-        fontFamily: "Rubik-Black",
+        fontFamily: "Rubik-Bold",
     },
 })

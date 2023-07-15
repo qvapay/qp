@@ -28,11 +28,13 @@ const theme = createTheme({
         primary: colors.primary,
         background: colors.primary_bg,
         success: colors.success,
+        danger: colors.danger,
     },
     darkColors: {
         primary: colors.primary,
         background: colors.primary_bg,
         success: colors.success,
+        danger: colors.danger,
     },
     mode: 'dark',
 });

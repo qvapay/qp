@@ -7,7 +7,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
@@ -165,7 +165,7 @@ export default function LoginScreen({ navigation }) {
             <FontAwesome5
                 name="fingerprint"
                 size={30}
-                color={biometricLoginCredentials ? "#28c76f" : "#4b4b4b"}
+                color={biometricLoginCredentials ? theme.darkColors.success : "#4b4b4b"}
                 onPress={handleBiometricLogin}
             />
         );

@@ -59,7 +59,7 @@ export default function ShowTransaction({ route, navigation }) {
             <ProfilePictureSection user={payeer} />
             <View style={[globalStyles.section, { flex: 1 }]}>
                 <Text style={[globalStyles.amount, { fontSize: 50, color, marginBottom: 0 }]}>
-                    {transaction ? `${amountSign}${transaction.amount}` : 'Loading...'}
+                    {transaction ? `${amountSign} \$${transaction.amount}` : 'Loading...'}
                 </Text>
                 <Text style={styles.transactionDate}>
                     {getShortDateTime(transaction.updated_at)}
