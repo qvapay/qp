@@ -6,6 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+
 const InfoContainer = ({ children, style }) => (
     <View style={[styles.infoContainer, style]}>
         <Text style={styles.infoText}>{children}</Text>
@@ -70,6 +73,9 @@ export default function ShopItemScreen({ route }) {
             <ScrollView>
 
                 <View style={[styles.featuredCard, { backgroundColor: color }]}>
+                    <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+                        <FontAwesome5 name='arrow-left' size={20} style={styles.faIcon} />
+                    </Pressable>
                     <FastImage
                         style={styles.logo}
                         source={{ uri: `${logo_url}` }}
@@ -199,5 +205,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderColor: '#283046',
         fontFamily: "Rubik-Regular",
+    },
+    backButton: {
+        top: 10,
+        left: 10,
+        padding: 10,
+        position: 'absolute',
+    },
+    backButtonText: {
+        fontSize: 16,
+        color: '#000', // color del texto
     },
 })
