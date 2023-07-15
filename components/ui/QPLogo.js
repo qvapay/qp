@@ -5,7 +5,7 @@ export default function QPLogo({ width = '50%', height = 100, resizeMode = 'cont
 
     return (
         <Image
-            source={require('../../assets/images/logo-qvapay.png')}
+            source={require('../../assets/images/qvapay-logo.png')}
             style={{ width, height, resizeMode }}
         />
     )

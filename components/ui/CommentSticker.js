@@ -7,7 +7,7 @@ export default function CommentSticker({ setComment }) {
     const [selectedSticker, setSelectedSticker] = useState(null);
 
     const stickers = [
-        { id: 1, image: require('../../assets/images/logo-qvapay.png') },
+        { id: 1, image: require('../../assets/images/qvapay-cover.png') },
     ];
 
     const renderSticker = ({ item }) => (

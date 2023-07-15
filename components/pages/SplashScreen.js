@@ -33,7 +33,7 @@ const SplashScreen = () => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../assets/images/logo-qvapay.png')}
+                source={require('../../assets/images/qvapay-cover.png')}
                 style={styles.imageLogo}
             />
         </View>
