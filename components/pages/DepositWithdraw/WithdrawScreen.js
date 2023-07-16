@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 10,
         justifyContent: 'center',
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
     },
     balanceText: {
         color: '#fff',

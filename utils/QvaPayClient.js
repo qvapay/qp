@@ -299,6 +299,7 @@ const getProducts = async ({ navigation }) => {
     }
 };
 
+// get the product Data from API
 const getProductByUuid = async ({ navigation, uuid }) => {
     try {
         const url = `/store/${uuid}`
@@ -309,6 +310,9 @@ const getProductByUuid = async ({ navigation, uuid }) => {
         return [];
     }
 };
+
+// Send the buy product/service to the API
+
 
 export {
     qvaPayClient,

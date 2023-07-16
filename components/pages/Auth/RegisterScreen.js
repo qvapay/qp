@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 15,
         borderRadius: 10,
-        borderColor: '#283046',
+        borderColor: theme.darkColors.elevation,
         fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {

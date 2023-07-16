@@ -3,8 +3,6 @@ import { FlatList, StyleSheet, View, TextInput, Text } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-
-// FeaturedCard
 import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         paddingHorizontal: 10,
-        backgroundColor: '#283046'
+        backgroundColor: theme.darkColors.elevation
     },
     cartIcon: {
         marginLeft: 10,

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         padding: 8,
         borderWidth: 2,
         borderRadius: 10,
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
         width: cardSize,
         height: cardSize,
     },

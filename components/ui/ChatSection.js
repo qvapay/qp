@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingBottom: 5,
         paddingHorizontal: 10,
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
     },
     inputContainer: {
         alignItems: 'center',

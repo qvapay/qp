@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingVertical: 10,
         paddingHorizontal: 15,
-        borderColor: '#283046',
+        borderColor: theme.darkColors.elevation,
         marginBottom: 10,
     },
     comment: {

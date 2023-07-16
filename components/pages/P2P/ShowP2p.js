@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-
 import QPButton from '../../ui/QPButton';
 import { globalStyles } from '../../ui/Theme';
 import ChatSection from '../../ui/ChatSection';
@@ -8,6 +7,7 @@ import RatingStars from '../../ui/RatingStars';
 import AvatarPicture from '../../ui/AvatarPicture';
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { theme } from '../../ui/Theme';
 
 export default function ShowP2p({ route, navigation }) {
 
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
     },
     peerOwnerContainer: {
         padding: 10,
@@ -141,13 +141,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        backgroundColor: '#283046'
+        backgroundColor: theme.darkColors.elevation
     },
     offerLabel: {
         padding: 25,
         marginTop: 10,
         borderRadius: 10,
-        backgroundColor: '#283046'
+        backgroundColor: theme.darkColors.elevation
     },
     offerLabelText: {
         fontSize: 18,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: 10,
         borderRadius: 10,
-        backgroundColor: '#283046'
+        backgroundColor: theme.darkColors.elevation
     },
     offerStepsText: {
         fontSize: 16,

@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 const colors = {
 
     primary_bg: "#161d31",
-    scondary_bg: "#21415F",
+    secondary_bg: "#21415F",
     main_bg: "#111626",
 
     color: "#b4b7bd",
@@ -29,12 +29,14 @@ const theme = createTheme({
         background: colors.primary_bg,
         success: colors.success,
         danger: colors.danger,
+        elevation: colors.elevated_dark_color,
     },
     darkColors: {
         primary: colors.primary,
         background: colors.primary_bg,
         success: colors.success,
         danger: colors.danger,
+        elevation: colors.elevated_dark_color,
     },
     mode: 'dark',
 });

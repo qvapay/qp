@@ -1,7 +1,5 @@
 import React from 'react'
-import { Image } from '@rneui/base'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
@@ -11,8 +9,6 @@ export default function Card({ product }) {
     const navigation = useNavigation();
 
     const { uuid, name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
-
-    console.log("Common:" + product)
 
     // navigate to ShopStack with params ShopScreen
     const handlePress = () => {
@@ -33,7 +29,7 @@ export default function Card({ product }) {
                         priority: FastImage.priority.normal,
                         cache: FastImage.cacheControl.immutable,
                     }}
-                    resizeMode={FastImage.resizeMode.cover}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
             </View>
 
@@ -46,7 +42,7 @@ export default function Card({ product }) {
                             priority: FastImage.priority.normal,
                             cache: FastImage.cacheControl.immutable,
                         }}
-                        resizeMode={FastImage.resizeMode.cover}
+                        resizeMode={FastImage.resizeMode.contain}
                     />
                 </View>
                 <Text numberOfLines={1} style={styles.header}>{name}</Text>

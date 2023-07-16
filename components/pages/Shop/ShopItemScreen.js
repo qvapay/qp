@@ -23,6 +23,7 @@ export default function ShopItemScreen({ route }) {
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(1);
+    const parsedAmount = parseFloat(amount);
     const [total, setTotal] = useState(0);
     const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url } = product;
 
@@ -32,7 +33,7 @@ export default function ShopItemScreen({ route }) {
             const fetchedProduct = await getProductByUuid({ navigation, uuid });
             if (fetchedProduct) {
                 setProduct(fetchedProduct);
-                setAmount(fetchedProduct.price);
+                setAmount(parseFloat(fetchedProduct.price));
             }
         };
         fetchProduct();
@@ -54,8 +55,20 @@ export default function ShopItemScreen({ route }) {
 
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {
-        const taxAmount = amount.toFixed(2) * (tax / 100);
-        const totalAmount = amount + taxAmount;
+        let taxPercentage = tax;
+
+        if (parsedAmount >= 5 && parsedAmount < 50) {
+            taxPercentage = tax * 2;
+        } else if (parsedAmount >= 50 && parsedAmount < 200) {
+            taxPercentage = tax;
+        } else if (parsedAmount >= 200 && parsedAmount < 1000) {
+            taxPercentage = tax * 0.75;
+        } else if (parsedAmount >= 1000) {
+            taxPercentage = tax * 0.5;
+        }
+
+        const taxAmount = parsedAmount.toFixed(2) * (taxPercentage / 100);
+        const totalAmount = parsedAmount + taxAmount;
         setTotal(totalAmount.toFixed(2));
     }, [amount]);
 
@@ -64,14 +77,14 @@ export default function ShopItemScreen({ route }) {
     }
 
     // Parse amount as float
-    const parsedAmount = parseFloat(amount);
     const increment = () => setAmount(parsedAmount + 1);
     const decrement = () => setAmount(parsedAmount > 1 ? parsedAmount - 1 : 1);
 
     const handleBuy = () => {
         navigation.navigate('ShopCheckoutScreen', {
             uuid,
-            amount: parsedAmount,
+            value: parsedAmount,
+            amount: total,
         });
     }
 
@@ -134,7 +147,7 @@ export default function ShopItemScreen({ route }) {
 
             </ScrollView>
 
-            <View style={{ paddingHorizontal: 20 }}>
+            <View style={{ paddingHorizontal: 20, paddingTop: 8 }}>
 
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
@@ -222,7 +235,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingHorizontal: 15,
         textAlign: 'center',
-        borderColor: '#283046',
+        borderColor: theme.darkColors.elevation,
         fontFamily: "Rubik-Regular",
     },
     backButton: {

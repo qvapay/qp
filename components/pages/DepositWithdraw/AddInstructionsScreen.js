@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         flexDirection: 'column',
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
         justifyContent: 'space-between',
     },
     title: {

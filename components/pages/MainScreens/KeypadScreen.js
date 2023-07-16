@@ -3,8 +3,6 @@ import { globalStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, Text, View, Pressable, Alert, Animated } from 'react-native'
-
-// Theme
 import { theme } from '../../ui/Theme';
 
 export default function KeypadScreen({ navigation }) {
@@ -182,7 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 10,
         justifyContent: 'center',
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
     },
     balanceText: {
         color: '#fff',
@@ -209,14 +207,14 @@ const styles = StyleSheet.create({
     actionButton1: {
         flex: 1,
         paddingVertical: 10,
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
         borderBottomLeftRadius: 10,
         borderTopLeftRadius: 10,
     },
     actionButton2: {
         flex: 1,
         paddingVertical: 10,
-        backgroundColor: '#283046',
+        backgroundColor: theme.darkColors.elevation,
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
     },
