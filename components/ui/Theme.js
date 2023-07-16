@@ -12,7 +12,7 @@ const colors = {
 
     primary: "#6759EF",
     secondary: "#21415F",
-    success: "#28c76f",
+    success: "#7BFFB1",
     warning: "#ff9f43",
     danger: "#DB253E",
     light: "#f6f6f6",

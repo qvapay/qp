@@ -5,12 +5,7 @@ import Balance from '../../ui/Balance'
 import Transactions from '../../ui/Transactions'
 import { getMe } from '../../../utils/QvaPayClient';
 import { AppContext } from '../../../AppContext';
-
-// Theme
-import { theme } from '../../ui/Theme';
-
-// Import global style
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 
 export default function HomeScreen({ navigation }) {
 

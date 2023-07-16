@@ -23,6 +23,7 @@ export default function ShopItemScreen({ route }) {
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(1);
+    const [total, setTotal] = useState(0);
     const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url } = product;
 
     // useEffect to retrive product data from API and set it to product state
@@ -50,6 +51,13 @@ export default function ShopItemScreen({ route }) {
     useEffect(() => {
         StatusBar.setBackgroundColor(color);
     }, [color]);
+
+    // Update total amount when amount changes by amount * tax %
+    useEffect(() => {
+        const taxAmount = amount.toFixed(2) * (tax / 100);
+        const totalAmount = amount + taxAmount;
+        setTotal(totalAmount.toFixed(2));
+    }, [amount]);
 
     if (!product) {
         return <Text>Loading...</Text>
@@ -106,7 +114,12 @@ export default function ShopItemScreen({ route }) {
                             autoCapitalize="none"
                             underlineColorAndroid="#f000"
                             blurOnSubmit={false}
-                            onChangeText={(amount) => setAmount(amount)}
+                            onChangeText={(amount) => {
+                                const number = parseFloat(amount);
+                                if (!isNaN(number)) {
+                                    setAmount(number);
+                                }
+                            }}
                         />
 
                         <Pressable onPress={increment}>
@@ -122,10 +135,12 @@ export default function ShopItemScreen({ route }) {
             </ScrollView>
 
             <View style={{ paddingHorizontal: 20 }}>
-                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
-                    <Text style={{ color: 'white' }}>ASD</Text>
-                    <Text style={{ color: 'white' }}>ASD</Text>
+
+                <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
+                    <Text style={{ color: 'white', fontSize: 20, fontFamily: 'Rubik-Bold' }}>$ {total}</Text>
                 </View>
+
                 <QPButton title="Comprar" onPress={handleBuy} />
             </View>
 

@@ -37,19 +37,19 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
 
 const styles = StyleSheet.create({
     badgeRating: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
         bottom: -8,
         alignSelf: 'center',
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     badge: {
-        flexDirection: 'row',
+        paddingTop: 1,
         borderRadius: 20,
-        paddingVertical: 3,
-        paddingHorizontal: 8,
-        backgroundColor: theme.darkColors.primary,
+        flexDirection: 'row',
         alignItems: 'center',
+        paddingHorizontal: 10,
+        backgroundColor: theme.darkColors.primary,
     },
     badgeRatingText: {
         fontSize: 14,

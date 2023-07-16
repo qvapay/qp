@@ -1,8 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-// Theme
 import { theme } from './Theme';
 
 export default function BottomBar({ state, descriptors, navigation }) {

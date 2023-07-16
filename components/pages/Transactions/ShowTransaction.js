@@ -7,14 +7,18 @@ import { getTransaction } from '../../../utils/QvaPayClient';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Theme
+import { theme } from '../../ui/Theme';
+
 export default function ShowTransaction({ route, navigation }) {
 
     const { uuid } = route.params;
     const [user, setUser] = useState({ uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' });
     const [transaction, setTransaction] = useState({ amount: 0, paid_by: { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' } });
 
-    const positive = "#28c76f";
-    const negative = "#ea5455";
+    const positive = theme.darkColors.success;
+    const negative = theme.darkColors.danger;
+
     const amountFloat = parseFloat(transaction.amount);
     const isNegative = transaction.paid_by.uuid === user.uuid;
     const color = isNegative ? negative : positive;

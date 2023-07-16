@@ -6,7 +6,7 @@ export default function Hero({ title = "", subTitle = "", actionText, onActionPr
 
     return (
         <View style={styles.container}>
-            <LinearGradient colors={['#006A4E', '#1B4D3E']} style={styles.gradient}>
+            <LinearGradient colors={['#6759EF', '#7BFFB1']} style={styles.gradient}>
 
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subTitle}>{subTitle}</Text>

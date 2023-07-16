@@ -20,7 +20,6 @@ export default function QPButton(props) {
 const styles = StyleSheet.create({
     buttonStyle: {
         height: 40,
-        borderWidth: 0,
         color: '#FFFFFF',
         borderRadius: 6,
         marginVertical: 20,
