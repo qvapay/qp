@@ -35,15 +35,16 @@ export default function FeaturedCard({ product }) {
         <Pressable style={styles.cardContainer} onPress={handlePress}>
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
 
-                <View style={[styles.circle1, circlePos.circle1]} />
-                <View style={[styles.circle2, circlePos.circle2]} />
-                <View style={[styles.circle3, circlePos.circle3]} />
-
                 <FastImage
                     style={styles.logo}
                     source={{ uri: `${logo_url}` }}
                     resizeMode={FastImage.resizeMode.contain}
                 />
+
+                <View style={[styles.circle1, circlePos.circle1]} />
+                <View style={[styles.circle2, circlePos.circle2]} />
+                <View style={[styles.circle3, circlePos.circle3]} />
+
 
                 <View style={{ flex: 1 }} />
 
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
         width: '50%',
         height: '90%',
         position: 'absolute',
+        zIndex: 4,
     },
     patternOverlay: {
         position: 'absolute',
@@ -107,29 +109,29 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 300,
         height: 300,
-        borderRadius: 150, // Este número puede variar dependiendo de las dimensiones exactas de tus círculos
+        borderRadius: 150,
         backgroundColor: 'white',
         opacity: 0.06,
         left: '-30%',
         top: '-30%',
-        zIndex: 1,
+        zIndex: 3,
     },
     circle2: {
         position: 'absolute',
         width: 300,
         height: 300,
-        borderRadius: 150, // Este número puede variar dependiendo de las dimensiones exactas de tus círculos
+        borderRadius: 150,
         backgroundColor: 'white',
         opacity: 0.07,
         right: '-20%',
         bottom: '-20%',
-        zIndex: 1,
+        zIndex: 2,
     },
     circle3: {
         position: 'absolute',
         width: 200,
         height: 200,
-        borderRadius: 100, // Este número puede variar dependiendo de las dimensiones exactas de tus círculos
+        borderRadius: 100,
         backgroundColor: 'white',
         opacity: 0.08,
         right: '-40%',
