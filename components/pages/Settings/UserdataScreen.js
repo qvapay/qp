@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { globalStyles } from '../../ui/Theme'
+import { globalStyles, theme } from '../../ui/Theme'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import QPButton from '../../ui/QPButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'

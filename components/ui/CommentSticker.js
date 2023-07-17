@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TextInput, Pressable, Image, FlatList } from 'react-native';
+import { theme } from '../ui/Theme';
 
 export default function CommentSticker({ setComment }) {
 

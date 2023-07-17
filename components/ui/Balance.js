@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { theme } from './Theme'
 
 export default function Balance({ navigation, me = { balance: 0 } }) {
 

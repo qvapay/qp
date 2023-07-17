@@ -6,6 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 
+// Theme
+import { theme } from '../../ui/Theme'
+
 export default function ShopIndexScreen() {
 
     // get navigation hook

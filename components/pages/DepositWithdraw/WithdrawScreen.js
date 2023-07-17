@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import OptionCard from '../../ui/OptionCard';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';

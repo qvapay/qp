@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, Text, View, Pressable, Alert, ActivityIndicator, Animated, Easing, StatusBar, Linking } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import { SvgUri } from 'react-native-svg';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { truncateWalletAddress } from '../../../utils/Helpers';
 import { getTopUpData, getCoinData, getTransaction } from '../../../utils/QvaPayClient';

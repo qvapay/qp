@@ -1,9 +1,8 @@
 import React, { useState, useContext, useRef } from 'react'
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, Text, View, Pressable, Alert, Animated } from 'react-native'
-import { theme } from '../../ui/Theme';
 
 export default function KeypadScreen({ navigation }) {
 

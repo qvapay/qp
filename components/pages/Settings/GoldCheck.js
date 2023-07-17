@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { Alert, Image, StyleSheet, ScrollView, Text, View } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Text, View } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';

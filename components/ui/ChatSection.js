@@ -4,8 +4,6 @@ import { AppContext } from '../../AppContext';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { sendP2pMessage } from '../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-// Theme
 import { theme } from './Theme';
 
 export default function ChatSection({ uuid }) {

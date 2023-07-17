@@ -1,8 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg';
-
-// Theme
 import { theme } from './Theme';
 
 const screenWidth = Dimensions.get('window').width;

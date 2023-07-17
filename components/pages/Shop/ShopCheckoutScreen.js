@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
-import FastImage from 'react-native-fast-image';
 import { getProductByUuid } from '../../../utils/QvaPayClient';
-import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
+import FastImage from 'react-native-fast-image';
+import QPButton from '../../ui/QPButton';
 
 export default function ShopCheckoutScreen({ route }) {
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, ActivityIndicator, FlatList, KeyboardAvoidingView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { getCoinData, sendWithdraw } from '../../../utils/QvaPayClient';
 
 export default function WithdrawInstructionsScreen({ route, navigation }) {
