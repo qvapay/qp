@@ -1,11 +1,10 @@
 import React, { useState, createRef } from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 
 export default function RegisterScreen({ navigation }) {

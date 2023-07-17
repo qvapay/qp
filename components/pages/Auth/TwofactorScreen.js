@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { checkTwoFactor } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
