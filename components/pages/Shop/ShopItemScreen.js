@@ -83,8 +83,8 @@ export default function ShopItemScreen({ route }) {
     const handleBuy = () => {
         navigation.navigate('ShopCheckoutScreen', {
             uuid,
-            value: parsedAmount,
-            amount: total,
+            value: total,
+            amount: parsedAmount,
         });
     }
 

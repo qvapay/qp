@@ -10,6 +10,7 @@ import SettingsStack from './pages/Settings/SettingsStack';
 
 // Screens
 import ScanScreen from './pages/ScanScreen';
+import ShopStack from './pages/Shop/ShopStack';
 import SplashScreen from './pages/SplashScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import AddScreen from './pages/DepositWithdraw/AddScreen';
@@ -23,7 +24,6 @@ import WithdrawInstructionsScreen from './pages/DepositWithdraw/WithdrawInstruct
 
 // Import Routes
 import {ROUTES} from './routes';
-import ShopStack from './pages/Shop/ShopStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +46,7 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
+        
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, TextInput, Text } from 'react-native'
+import { FlatList, StyleSheet, View, TextInput, StatusBar } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
-
-// Theme
 import { theme } from '../../ui/Theme'
 
 export default function ShopIndexScreen() {
 
     // get navigation hook
     const navigation = useNavigation();
-
     const [commonProducts, setCommonProducts] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);
+
+    // TODO: Set the notification bar color to color variable
+    useEffect(() => {
+        StatusBar.setBackgroundColor(theme.darkColors.background);
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {

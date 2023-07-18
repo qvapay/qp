@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
-import { getProductByUuid } from '../../../utils/QvaPayClient';
+import { getProductByUuid, buyProduct } from '../../../utils/QvaPayClient';
 import { AppContext } from '../../../AppContext';
 import FastImage from 'react-native-fast-image';
 import QPButton from '../../ui/QPButton';
@@ -18,6 +18,7 @@ export default function ShopCheckoutScreen({ route }) {
     // Get from params: uuid, amount to calculate total
     const { uuid, amount, value } = route.params;
     const [total, setTotal] = useState(0);
+    const [buying, setBuying] = useState(false);
     const [product, setProduct] = useState({});
     const { name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
 
@@ -46,10 +47,23 @@ export default function ShopCheckoutScreen({ route }) {
         });
     }, []);
 
-    const handleCheckout = () => {
-        console.log(uuid)
-        console.log(amount)
-        console.log(value)
+    const handleCheckout = async () => {
+
+        // set buying to true
+        setBuying(true);
+
+        console.log(uuid, amount, value)
+
+        // Send via buyProduct
+        const response = await buyProduct({ navigation, uuid, amount, value });
+
+        // Send to MainStack if success
+        if (response) {
+            navigation.navigate('MainStack', { screen: 'HomeScreen' });
+        }
+
+        // set buying to false
+        setBuying(false);
     }
 
     // Set the notification bar color to color variable
@@ -67,7 +81,7 @@ export default function ShopCheckoutScreen({ route }) {
             />
             <View style={styles.productData}>
                 <Text style={styles.productName}>{name}</Text>
-                <Text style={styles.productPrice}>{`$${price}`}</Text>
+                <Text style={styles.productPrice}>{`$${amount}`}</Text>
             </View>
         </View>
     )
@@ -75,19 +89,28 @@ export default function ShopCheckoutScreen({ route }) {
     return (
         <View style={globalStyles.container}>
 
-            <View style={styles.cartContainer}>
-                <ProductItem />
-            </View>
+            {
+                buying ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>Comprando...</Text>
+                    </View>
+                ) : (
+                    <>
+                        <View style={styles.cartContainer}>
+                            <ProductItem />
+                        </View>
 
-            <View style={{ paddingTop: 8 }}>
-                <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
-                    <Text style={{ color: 'white', fontSize: 20, fontFamily: 'Rubik-Bold' }}>$ {amount}</Text>
-                </View>
+                        <View style={{ paddingTop: 8 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
+                                <Text style={{ color: 'white', fontSize: 20, fontFamily: 'Rubik-Bold' }}>$ {value}</Text>
+                            </View>
 
-                <QPButton title="Finalizar Compra" onPress={handleCheckout} />
-            </View>
-
+                            <QPButton title="Finalizar Compra" onPress={handleCheckout} />
+                        </View>
+                    </>
+                )
+            }
         </View>
     )
 }

@@ -312,7 +312,19 @@ const getProductByUuid = async ({ navigation, uuid }) => {
 };
 
 // Send the buy product/service to the API
+const buyProduct = async ({ navigation, uuid, amount, value }) => {
+    try {
+        console.log(uuid, amount, value)
 
+        const url = `/store/buy`
+        const data = { amount, value, uuid }
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
+        return response;
+    } catch (error) {
+        console.error('Error buying product:', error);
+        return [];
+    }
+};
 
 export {
     qvaPayClient,
@@ -333,5 +345,6 @@ export {
     buyGoldCheck,
     updateUserData,
     getProducts,
-    getProductByUuid
+    getProductByUuid,
+    buyProduct
 };
