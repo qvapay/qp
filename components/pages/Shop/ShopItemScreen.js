@@ -56,16 +56,22 @@ export default function ShopItemScreen({ route }) {
 
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {
+
         let taxPercentage = tax;
-        if (parsedAmount >= 5 && parsedAmount < 50) {
+        if (parsedAmount >= 5 && parsedAmount < 25) {
             taxPercentage = tax * 2;
+        } else if (parsedAmount >= 25 && parsedAmount < 50) {
+            taxPercentage = tax * 1.5;
         } else if (parsedAmount >= 50 && parsedAmount < 200) {
             taxPercentage = tax;
-        } else if (parsedAmount >= 200 && parsedAmount < 1000) {
+        } else if (parsedAmount >= 200 && parsedAmount < 500) {
             taxPercentage = tax * 0.75;
+        } else if (parsedAmount >= 500 && parsedAmount < 1000) {
+            taxPercentage = tax * 0.625;
         } else if (parsedAmount >= 1000) {
             taxPercentage = tax * 0.5;
         }
+
         const taxAmount = parsedAmount.toFixed(2) * (taxPercentage / 100);
         const totalAmount = parsedAmount + taxAmount;
         setTotal(totalAmount.toFixed(2));
