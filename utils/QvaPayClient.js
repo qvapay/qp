@@ -1,4 +1,5 @@
 import axios from "axios";
+import Toast from 'react-native-toast-message';
 import EncryptedStorage from "react-native-encrypted-storage";
 
 /**
@@ -91,6 +92,15 @@ const onInvalidToken = async (navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidResponse = async (navigation) => {
+
+    // Send Toast message
+    Toast.show({
+        type: 'success',
+        text1: 'No es posible completar la operación',
+        position: 'bottom',
+        bottomOffset: 10,
+    });
+
     navigation.goBack();
 };
 
