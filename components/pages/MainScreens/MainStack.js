@@ -2,17 +2,14 @@ import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Pressable } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import EncryptedStorage from "react-native-encrypted-storage";
-
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
 import ShopScreen from './ShopScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
-
 import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 import { theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { useNavigation } from '@react-navigation/native';
@@ -24,8 +21,6 @@ export default function MainStack() {
 
     // get the navigation object from useNavigation hook
     const navigation = useNavigation();
-
-    // Get the user me object from AppContext
     const { me } = useContext(AppContext);
 
     // Check if there is a 2faRequired setting on EncryptedStorage

@@ -52,10 +52,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: 50,
+        height: 40,
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10,
+        marginVertical: 10,
         paddingHorizontal: 10,
         borderRadius: 10
     },

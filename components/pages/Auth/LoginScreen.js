@@ -112,7 +112,7 @@ export default function LoginScreen({ navigation }) {
                 // id not then redirect to MainStack
                 if (data.me.two_factor_secret) {
                     // set 2fa as required in storage
-                    EncryptedStorage.setItem('2faRequired', 'true');
+                    EncryptedStorage.setItem('2faRequired', 'true')
                     navigation.replace('MainStack', { screen: 'TwoFactorScreen' });
                     return;
                 }

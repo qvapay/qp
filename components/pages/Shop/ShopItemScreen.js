@@ -24,7 +24,7 @@ export default function ShopItemScreen({ route }) {
     const [amount, setAmount] = useState(0);
     const parsedAmount = parseFloat(amount);
     const [total, setTotal] = useState(0);
-    const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url } = product;
+    const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url, price_combos } = product;
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -116,31 +116,46 @@ export default function ShopItemScreen({ route }) {
                         <InfoContainer style={{ backgroundColor: theme.darkColors.success }}>{`${tax}%`}</InfoContainer>
                     </View>
 
-                    <View style={styles.amountSelector}>
-                        <Pressable onPress={decrement}>
-                            <FontAwesome5 name='minus' size={20} style={styles.counterIcons} />
-                        </Pressable>
-                        <TextInput
-                            style={styles.inputStyle}
-                            placeholder="$0.00"
-                            value={`${amount}`}
-                            placeholderTextColor="#7f8c8d"
-                            keyboardType="numeric"
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            underlineColorAndroid="#f000"
-                            blurOnSubmit={false}
-                            onChangeText={(amount) => {
-                                const number = parseFloat(amount);
-                                if (!isNaN(number)) {
-                                    setAmount(number);
+                    {
+                        // If price_combos is defined, map it and render the price combos else render teh amount selector
+                        price_combos ? (
+                            <View style={styles.amountSelector}>
+                                {
+                                    price_combos.map((combo, index) => (
+                                        <Pressable key={index} onPress={() => setAmount(parseFloat(combo.amount))}>
+                                            <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>{`$${combo.amount}`}</Text>
+                                        </Pressable>
+                                    ))
                                 }
-                            }}
-                        />
-                        <Pressable onPress={increment}>
-                            <FontAwesome5 name='plus' size={20} style={styles.counterIcons} />
-                        </Pressable>
-                    </View>
+                            </View>
+                        ) : (
+                            <View style={styles.amountSelector}>
+                                <Pressable onPress={decrement}>
+                                    <FontAwesome5 name='minus' size={20} style={styles.counterIcons} />
+                                </Pressable>
+                                <TextInput
+                                    style={styles.inputStyle}
+                                    placeholder="$0.00"
+                                    value={`${amount}`}
+                                    placeholderTextColor="#7f8c8d"
+                                    keyboardType="numeric"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    underlineColorAndroid="#f000"
+                                    blurOnSubmit={false}
+                                    onChangeText={(amount) => {
+                                        const number = parseFloat(amount);
+                                        if (!isNaN(number)) {
+                                            setAmount(number);
+                                        }
+                                    }}
+                                />
+                                <Pressable onPress={increment}>
+                                    <FontAwesome5 name='plus' size={20} style={styles.counterIcons} />
+                                </Pressable>
+                            </View>
+                        )
+                    }
 
                     <Text style={globalStyles.title}>{name}</Text>
                     <Text style={styles.descText}>{`${desc}`}</Text>

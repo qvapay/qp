@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, TextInput, StatusBar } from 'react-native'
+import { FlatList, StyleSheet, View, TextInput, StatusBar, RefreshControl } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
@@ -32,6 +32,7 @@ export default function ShopIndexScreen() {
     const [featuredProducts, setFeaturedProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         if (Platform.OS === 'android') {
@@ -40,16 +41,6 @@ export default function ShopIndexScreen() {
     }, []);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-
-            const fetchedProducts = await getProducts({ navigation });
-            const featuredProducts = fetchedProducts.filter(product => product.featured);
-            const commonProducts = fetchedProducts.filter(product => !product.featured);
-
-            setFetchedProducts(fetchedProducts);
-            setFeaturedProducts(featuredProducts);
-            setCommonProducts(commonProducts);
-        };
         fetchProducts();
     }, []);
 
@@ -64,6 +55,23 @@ export default function ShopIndexScreen() {
             setFilteredProducts(fetchedProducts);  // show all products when searchQuery is empty
         }
     }, [searchQuery, fetchedProducts]);
+
+    // Swipe to Refresh
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await fetchProducts();
+        setRefreshing(false);
+    };
+
+    // Fetch the products from QvaPayClient
+    const fetchProducts = async () => {
+        const fetchedProducts = await getProducts({ navigation });
+        const featuredProducts = fetchedProducts.filter(product => product.featured);
+        const commonProducts = fetchedProducts.filter(product => !product.featured);
+        setFetchedProducts(fetchedProducts);
+        setFeaturedProducts(featuredProducts);
+        setCommonProducts(commonProducts);
+    };
 
     const productCard = ({ item, index }) => (
         <View style={styles.cardContainer}>
@@ -84,6 +92,14 @@ export default function ShopIndexScreen() {
             renderItem={productCard}
             columnWrapperStyle={styles.twoCards}
             keyExtractor={(_, index) => index.toString()}
+            // Swipe to Refresh code
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    colors={['#9Bd35A', '#689F38']} // Multi-color loading indicators
+                />
+            }
         />
     )
 }
