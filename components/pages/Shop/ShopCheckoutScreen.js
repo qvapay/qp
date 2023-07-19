@@ -9,13 +9,8 @@ import QPButton from '../../ui/QPButton';
 
 export default function ShopCheckoutScreen({ route }) {
 
-    // navigation hook
     const navigation = useNavigation();
-
-    // Me Context
     const { me } = useContext(AppContext);
-
-    // Get from params: uuid, amount to calculate total
     const { uuid, amount, value } = route.params;
     const [total, setTotal] = useState(0);
     const [buying, setBuying] = useState(false);
@@ -47,29 +42,21 @@ export default function ShopCheckoutScreen({ route }) {
         });
     }, []);
 
-    const handleCheckout = async () => {
-
-        // set buying to true
-        setBuying(true);
-
-        console.log(uuid, amount, value)
-
-        // Send via buyProduct
-        const response = await buyProduct({ navigation, uuid, amount, value });
-
-        // Send to MainStack if success
-        if (response) {
-            navigation.navigate('MainStack', { screen: 'HomeScreen' });
-        }
-
-        // set buying to false
-        setBuying(false);
-    }
-
     // Set the notification bar color to color variable
     useEffect(() => {
         StatusBar.setBackgroundColor(theme.darkColors.background);
     }, [color]);
+
+    // Handle Checkout
+    const handleCheckout = async () => {
+        setBuying(true);
+        const response = await buyProduct({ navigation, uuid, amount, value });
+        console.log(response)
+        if (response) {
+            navigation.navigate('MainStack', { screen: 'HomeScreen' });
+        }
+        setBuying(false);
+    }
 
     // Product item snippet
     const ProductItem = () => (

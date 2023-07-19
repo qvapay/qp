@@ -25,6 +25,7 @@ export default function ShopItemScreen({ route }) {
     const parsedAmount = parseFloat(amount);
     const [total, setTotal] = useState(0);
     const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url, price_combos } = product;
+    const [parsedPriceCombos, setParsedPriceCombos] = useState([]);
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -33,6 +34,16 @@ export default function ShopItemScreen({ route }) {
             if (fetchedProduct) {
                 setProduct(fetchedProduct);
                 setAmount(parseFloat(fetchedProduct.price));
+                try {
+                    const combos = JSON.parse(fetchedProduct.price_combos);
+                    if (Array.isArray(combos)) {
+                        setParsedPriceCombos(combos);
+                    } else {
+                        console.warn("price_combos parsed but is not an array");
+                    }
+                } catch (e) {
+                    console.error("Failed to parse price_combos:", e);
+                }
             }
         };
         fetchProduct();
@@ -54,9 +65,9 @@ export default function ShopItemScreen({ route }) {
         }
     }, [color]);
 
+
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {
-
         let taxPercentage = tax;
         if (parsedAmount >= 5 && parsedAmount < 25) {
             taxPercentage = tax * 2;
@@ -118,13 +129,11 @@ export default function ShopItemScreen({ route }) {
 
                     {
                         // If price_combos is defined, map it and render the price combos else render teh amount selector
-                        price_combos ? (
-                            <View style={styles.amountSelector}>
+                        parsedPriceCombos.length > 0 ? (
+                            <View style={styles.comboSelector}>
                                 {
-                                    price_combos.map((combo, index) => (
-                                        <Pressable key={index} onPress={() => setAmount(parseFloat(combo.amount))}>
-                                            <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>{`$${combo.amount}`}</Text>
-                                        </Pressable>
+                                    parsedPriceCombos.map((combo, index) => (
+                                        <QPButton key={index} onPress={() => setAmount(parseFloat(combo.amount))} title={`$${combo.amount}`} />
                                     ))
                                 }
                             </View>
@@ -233,6 +242,13 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 10,
         flexDirection: 'row',
+    },
+    comboSelector: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     amountSelector: {
         marginVertical: 10,

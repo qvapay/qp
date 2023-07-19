@@ -314,8 +314,6 @@ const getProductByUuid = async ({ navigation, uuid }) => {
 // Send the buy product/service to the API
 const buyProduct = async ({ navigation, uuid, amount, value }) => {
     try {
-        console.log(uuid, amount, value)
-
         const url = `/store/buy`
         const data = { amount, value, uuid }
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
