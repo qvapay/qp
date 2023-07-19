@@ -25,7 +25,7 @@ export default function Card({ product }) {
                 <FastImage
                     style={styles.cover}
                     source={{
-                        uri: cover_url,
+                        uri: cover_url == "https://media.qvapay.com/services/default.png" ? logo_url : cover_url,
                         priority: FastImage.priority.normal,
                         cache: FastImage.cacheControl.immutable,
                     }}

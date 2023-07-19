@@ -5,7 +5,6 @@ import { getProductByUuid } from '../../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
-
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
@@ -22,7 +21,7 @@ export default function ShopItemScreen({ route }) {
 
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
-    const [amount, setAmount] = useState(1);
+    const [amount, setAmount] = useState(0);
     const parsedAmount = parseFloat(amount);
     const [total, setTotal] = useState(0);
     const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url } = product;
@@ -50,13 +49,14 @@ export default function ShopItemScreen({ route }) {
 
     // Set the notification bar color to color variable
     useEffect(() => {
-        StatusBar.setBackgroundColor(color);
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(color);
+        }
     }, [color]);
 
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {
         let taxPercentage = tax;
-
         if (parsedAmount >= 5 && parsedAmount < 50) {
             taxPercentage = tax * 2;
         } else if (parsedAmount >= 50 && parsedAmount < 200) {
@@ -66,7 +66,6 @@ export default function ShopItemScreen({ route }) {
         } else if (parsedAmount >= 1000) {
             taxPercentage = tax * 0.5;
         }
-
         const taxAmount = parsedAmount.toFixed(2) * (taxPercentage / 100);
         const totalAmount = parsedAmount + taxAmount;
         setTotal(totalAmount.toFixed(2));
@@ -112,11 +111,9 @@ export default function ShopItemScreen({ route }) {
                     </View>
 
                     <View style={styles.amountSelector}>
-
                         <Pressable onPress={decrement}>
                             <FontAwesome5 name='minus' size={20} style={styles.counterIcons} />
                         </Pressable>
-
                         <TextInput
                             style={styles.inputStyle}
                             placeholder="$0.00"
@@ -134,11 +131,9 @@ export default function ShopItemScreen({ route }) {
                                 }
                             }}
                         />
-
                         <Pressable onPress={increment}>
                             <FontAwesome5 name='plus' size={20} style={styles.counterIcons} />
                         </Pressable>
-
                     </View>
 
                     <Text style={globalStyles.title}>{name}</Text>
@@ -195,7 +190,7 @@ const styles = StyleSheet.create({
     },
     infoText: {
         fontSize: 13,
-        color: '#fff',
+        color: 'black',
         fontFamily: 'Rubik-Bold',
     },
     leadText: {
