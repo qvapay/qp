@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     actionButtons: {
         paddingBottom: 20,
         flexDirection: 'row',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         justifyContent: 'center',
         backgroundColor: theme.darkColors.background,
     },

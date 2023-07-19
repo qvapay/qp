@@ -172,23 +172,14 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingVertical: 5,
         textAlign: 'center',
-        paddingHorizontal: 20,
         fontFamily: 'Rubik-Black',
-    },
-    depositButton: {
-        padding: 10,
-        marginTop: 20,
-        borderRadius: 5,
-        alignItems: 'center',
-        backgroundColor: 'blue',
-        justifyContent: 'center',
     },
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
     },
     cardCenter: {
-        paddingHorizontal: 5,
+        paddingHorizontal: 3,
     },
     cardContainer: {
         flex: 1 / 3,

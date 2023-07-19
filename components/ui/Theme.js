@@ -89,7 +89,7 @@ const containerStyles = StyleSheet.create({
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         justifyContent: 'center',
         backgroundColor: colors.primary_bg,
     },

@@ -142,7 +142,7 @@ export default function ShopItemScreen({ route }) {
 
             </ScrollView>
 
-            <View style={{ paddingHorizontal: 20, paddingTop: 8 }}>
+            <View style={{ paddingHorizontal: 10, paddingTop: 8 }}>
 
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     productData: {
         flex: 1,
         marginTop: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     buyBottom: {
         flexDirection: 'row',

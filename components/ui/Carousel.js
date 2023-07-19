@@ -14,7 +14,7 @@ export default function Carousel({ featuredProducts = [] }) {
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => {
                 const newIndex = (prevIndex + 1) % intervals; // Loop back to start when we've reached the end
-                scrollViewRef.current.scrollTo({ x: newIndex * (width - 40), animated: true });
+                scrollViewRef.current.scrollTo({ x: newIndex * (width - 20), animated: true });
                 return newIndex;
             });
         }, 3000);

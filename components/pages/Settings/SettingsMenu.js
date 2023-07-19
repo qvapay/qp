@@ -258,13 +258,13 @@ const SettingsMenu = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         backgroundColor: theme.darkColors.background
     },
     box: {
         padding: 20,
         borderRadius: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         backgroundColor: theme.darkColors.elevation,
     },
     item: {

@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10,
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         backgroundColor: theme.darkColors.elevation
     },
     offerLabel: {

@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         backgroundColor: theme.darkColors.background,
     },
     sendingAmountContainer: {
