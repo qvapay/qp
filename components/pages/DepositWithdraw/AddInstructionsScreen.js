@@ -94,7 +94,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
                 const { transaction_id, value, wallet, note = "", memo = "", url = "" } = walletResponse;
 
-                // if isset url and isnt "" then open url witj Linking and also cancel the component load
+                // if isset url and isnt "" then open url with Linking and also cancel the component load
                 if (url !== "") {
                     Linking.openURL(url);
                     return;
@@ -302,7 +302,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                         {memo != "" && (
                             <View style={styles.itemColumn}>
                                 <Text style={styles.text}>Memo:</Text>
-                                <Pressable onPress={() => copyTextToClipboard(memo)}>
+                                <Pressable onPress={() => copyTextToClipboard(String(memo))}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Light', color: '#28c76f' }]}>{memo}</Text>
                                         <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />

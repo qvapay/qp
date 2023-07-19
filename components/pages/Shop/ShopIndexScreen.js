@@ -30,14 +30,12 @@ export default function ShopIndexScreen() {
     const [commonProducts, setCommonProducts] = useState([]);
     const [fetchedProducts, setFetchedProducts] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);
-
-    // Search logic
-    const [searchQuery, setSearchQuery] = useState('');  // For holding the search input value
-    const [filteredProducts, setFilteredProducts] = useState([]);  // For holding the filtered product list
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
         if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(color);
+            StatusBar.setBackgroundColor(theme.darkColors.background);
         }
     }, []);
 
