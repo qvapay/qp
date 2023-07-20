@@ -92,6 +92,7 @@ export default function ShopIndexScreen() {
             renderItem={productCard}
             columnWrapperStyle={styles.twoCards}
             keyExtractor={(_, index) => index.toString()}
+
             // Swipe to Refresh code
             refreshControl={
                 <RefreshControl

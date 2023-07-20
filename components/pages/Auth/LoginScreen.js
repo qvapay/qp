@@ -162,6 +162,7 @@ export default function LoginScreen({ navigation }) {
 
             <View style={styles.sectionStyle}>
                 <TextInput
+                    autoComplete="email"
                     style={styles.inputStyle}
                     onChangeText={(UserEmail) => setEmail(UserEmail)}
                     placeholder="Correo, username o teléfono"

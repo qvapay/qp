@@ -11,48 +11,41 @@ export default function Transactions({ navigation }) {
 
     const fetchTransactions = async () => {
         try {
-            const transactions = await getTransactions({ navigation });
-            setTransactions(transactions);
+            const fetchedTransactions = await getTransactions({ navigation });
+            setTransactions(fetchedTransactions);
         } catch (error) {
             console.error(error);
         }
     }
 
-    // Load transactions from API via useEffect using qvaPayClient
     useEffect(() => {
         fetchTransactions();
-    }, []);
-
-    // Query latest transactions every 120 seconds
-    useEffect(() => {
         const interval = setInterval(fetchTransactions, 120000);
         return () => clearInterval(interval);
     }, []);
 
-    const TransactionsList = () => {
-        if (transactions && transactions.length > 0) {
-            return transactions.map((transaction) => (
-                <Transaction
-                    key={transaction.uuid}
-                    transaction={transaction}
-                    navigation={navigation}
-                />
-            ));
-        }
-        return null;
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.transactionsDetails}>
-                <Text style={[styles.white, { marginBottom: 10 }]}>Transacciones:</Text>
+                <Text style={[styles.white, styles.marginBottom]}>Transacciones:</Text>
                 <Pressable onPress={() => navigation.navigate('TransactionStack', { screen: 'IndexTransaction' })}>
                     <Text style={styles.gray}>Más detalles <FontAwesome5 name='chevron-right' /></Text>
                 </Pressable>
             </View>
-            <TransactionsList />
+            <TransactionsList transactions={transactions} navigation={navigation} />
         </View>
-    )
+    );
+}
+
+function TransactionsList({ transactions, navigation }) {
+    if (transactions.length === 0) return null;
+    return transactions.map(({ uuid, ...props }) => (
+        <Transaction
+            key={uuid}
+            transaction={props}
+            navigation={navigation}
+        />
+    ));
 }
 
 const styles = StyleSheet.create({

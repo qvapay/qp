@@ -5,6 +5,21 @@ import Transaction from '../../ui/Transaction';
 import { getTransactions } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+const SearchTransactionBar = React.memo(({ searchQuery, setSearchQuery }) => (
+    <View style={styles.searchBarContainer}>
+        <View style={styles.searchBar}>
+            <FontAwesome5 name='search' size={12} color='#7f8c8d' />
+            <TextInput
+                placeholder="Buscar"
+                style={[styles.searchBarText, { paddingVertical: 6 }]}
+                placeholderTextColor="#7f8c8d"
+                value={searchQuery}
+                onChangeText={text => setSearchQuery(text)}
+            />
+        </View>
+    </View>
+));
+
 export default function IndexTransaction({ navigation }) {
 
     // Transactions state
@@ -40,31 +55,11 @@ export default function IndexTransaction({ navigation }) {
         return () => clearInterval(interval);
     }, []);
 
-    // Handle search query
-    const handleSearch = (text) => {
-        if (text.length > 4) {
-            setSearchQuery(text);
-        } else {
-            setSearchQuery('');
-        }
-    }
-
-    // Handle search status
-    const handleStatusSearch = (text) => {
-        setSearchStatus(text);
-    }
-
     return (
         <View style={globalStyles.container}>
-            <View style={styles.searchBar}>
-                <FontAwesome5 name='search' size={12} color='#7f8c8d' />
-                <TextInput
-                    placeholder="Buscar"
-                    style={styles.searchBarText}
-                    placeholderTextColor="#7f8c8d"
-                    onChangeText={handleSearch}
-                />
-            </View>
+
+            <SearchTransactionBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
             <FlatList
                 data={transactions}
                 showsVerticalScrollIndicator={false}
