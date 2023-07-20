@@ -16,8 +16,8 @@ export default function ShowTransaction({ route, navigation }) {
     const [user, setUser] = useState({ uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' });
     const [transaction, setTransaction] = useState({ amount: 0, paid_by: { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' } });
 
-    const positive = theme.darkColors.success;
     const negative = theme.darkColors.danger;
+    const positive = theme.darkColors.success;
 
     const amountFloat = parseFloat(transaction.amount);
     const isNegative = transaction.paid_by.uuid === user.uuid;

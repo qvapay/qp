@@ -93,6 +93,8 @@ export default function LoginScreen({ navigation }) {
         try {
             const data = await login(email, password);
 
+            console.log(data)
+
             if (data && data.accessToken && data.me) {
 
                 // set 2fa as required in storage
@@ -147,7 +149,6 @@ export default function LoginScreen({ navigation }) {
                 } else if (response.status !== 200) {
                     errorMessage = 'El código es incorrecto';
                 } else {
-                    //navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });                // Why Blows up here?
                     navigation.navigate('MainStack');
                 }
             } catch (error) {

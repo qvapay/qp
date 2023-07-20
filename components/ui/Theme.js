@@ -4,23 +4,17 @@ import { StyleSheet } from 'react-native';
 // colors:
 const colors = {
 
-    primary_bg: "#161d31",
-    secondary_bg: "#21415F",
-    main_bg: "#111626",
-
-    color: "#b4b7bd",
-
-    primary: "#6759EF",
-    secondary: "#21415F",
-    success: "#7BFFB1",
-    warning: "#ff9f43",
-    danger: "#DB253E",
-    light: "#f6f6f6",
-    dark: "#4b4b4b",
-
-    gray: "#D8D9DD",
-
-    elevated_dark_color: "#283046",
+    primary_bg: "#161d31",              // Dark BG
+    secondary_bg: "#21415F",            // Dark serious Blue
+    main_bg: "#111626",                 // Dark almost black
+    color: "#b4b7bd",                   // Gray like blue
+    primary: "#6759EF",                 // Primary Blue/Purple color
+    success: "#7BFFB1",                 // Intense Green
+    warning: "#ff9f43",                 // Orange pastel
+    danger: "#DB253E",                  // Red pastel
+    dark: "#4b4b4b",                    // Black like blue
+    gray: "#D8D9DD",                    // Gray like blue
+    elevated_dark_color: "#283046",     // Dark for elevation purlposes
 }
 
 const theme = createTheme({

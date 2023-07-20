@@ -8,12 +8,9 @@ export default function Transaction({ transaction, navigation }) {
 
     const { uuid, amount, description, owner, paid_by, updated_at } = transaction;
 
-    // convert into Date object the updated_at string
     const updatedDate = new Date(updated_at);
-
     const positive = theme.darkColors.success;
     const negative = theme.darkColors.danger;
-
     const amountFloat = parseFloat(amount);
     const isNegative = amountFloat < 0;
     const color = isNegative ? negative : positive;

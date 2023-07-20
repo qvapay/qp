@@ -7,7 +7,6 @@ import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
 const InfoContainer = ({ children, style }) => (
     <View style={[styles.infoContainer, style]}>
         <Text style={styles.infoText}>{children}</Text>
@@ -62,6 +61,10 @@ export default function ShopItemScreen({ route }) {
     useEffect(() => {
         if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor(color);
+        }
+        // Return to default color when unmounting
+        return () => {
+            StatusBar.setBackgroundColor(theme.darkColors.background);
         }
     }, [color]);
 
