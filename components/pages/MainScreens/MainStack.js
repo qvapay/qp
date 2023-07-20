@@ -23,6 +23,13 @@ export default function MainStack() {
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
 
+    // if {me} id undefined the go to Splash Screen
+    useEffect(() => {
+        if (!me) {
+            navigation.navigate('SplashScreen');
+        }
+    }, [me, navigation]);
+
     return (
         <Tab.Navigator
             initialRouteName="HomeScreen"
