@@ -3,7 +3,6 @@ import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
@@ -12,13 +11,11 @@ import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
-
 import * as Sentry from '@sentry/react-native';
 
 export default function LoginScreen({ navigation }) {
 
     const { me, setMe } = useContext(AppContext);
-
     const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -99,7 +96,7 @@ export default function LoginScreen({ navigation }) {
             if (data && data.accessToken && data.me) {
 
                 // set 2fa as required in storage
-                EncryptedStorage.setItem('2faRequired', 'false');
+                await EncryptedStorage.setItem('2faRequired', 'false');
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
@@ -109,11 +106,9 @@ export default function LoginScreen({ navigation }) {
                 setMe(data.me);
 
                 // if user has two_factor_secret == true then redirect to TwoFactorScreen
-                // id not then redirect to MainStack
                 if (data.me.two_factor_secret) {
-                    // set 2fa as required in storage
-                    EncryptedStorage.setItem('2faRequired', 'true')
-                    navigation.replace('MainStack', { screen: 'TwoFactorScreen' });
+                    await EncryptedStorage.setItem('2faRequired', 'true')
+                    navigation.replace('AuthStack', { screen: 'TwoFactorScreen' });
                     return;
                 }
 

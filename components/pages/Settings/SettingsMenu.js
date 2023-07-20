@@ -52,8 +52,11 @@ const SettingsMenu = () => {
     };
 
     const logout = async () => {
+        // Remove accessToken and 2faRequired data
         await EncryptedStorage.removeItem('accessToken');
-        navigation.replace('AuthStack');
+        await EncryptedStorage.removeItem('2faRequired');
+        // Go to Splash Screen
+        navigation.replace('SplashScreen');
     };
 
     const confirmLogout = () =>

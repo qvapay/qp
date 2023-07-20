@@ -23,7 +23,6 @@ export default function TwoFactorScreen({ navigation }) {
         let errorMessage = '';
 
         try {
-
             if (!twofactorcode.length) {
                 errorMessage = 'El código no puede estar vacío';
             } else if (twofactorcode.length !== 6) {
@@ -39,7 +38,6 @@ export default function TwoFactorScreen({ navigation }) {
                     navigation.replace('MainStack');
                 }
             }
-
         } catch (error) {
             console.error("Blow try: " + error);
         } finally {

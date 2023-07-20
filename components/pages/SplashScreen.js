@@ -21,19 +21,33 @@ const SplashScreen = () => {
                 Sentry.captureException(error);
             } finally {
                 if (userToken) {
+                    // Check 2faRequired status
+                    const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
+                    if (twoFactorRequired == 'true') {
+                        navigation.replace(ROUTES.AUTH_STACK, { screen: 'TwoFactorScreen' });
+                        return;
+                    }
                     navigation.replace(ROUTES.MAIN_STACK);
                 } else {
                     navigation.replace(ROUTES.AUTH_STACK);
                 }
             }
         }
-        verifyToken();
+
+        // Wrap verifyToken inside setTimeout
+        const splashTimeout = setTimeout(() => {
+            verifyToken();
+        }, 2000); // 2 seconds delay
+
+        // Clear timeout when component is unmounted to avoid potential memory leaks.
+        return () => clearTimeout(splashTimeout);
+
     }, [navigation]);
 
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../assets/images/qvapay-cover.png')}
+                source={require('../../assets/images/qvapay-cover2.png')}
                 style={styles.imageLogo}
             />
         </View>
