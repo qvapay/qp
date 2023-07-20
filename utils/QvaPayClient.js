@@ -26,6 +26,7 @@ const apiRequest = async (url, options = {}, navigation) => {
 
     // Check if accessToken !exists
     if (!accessToken) {
+        console.log("No accessToken")
         onInvalidToken(navigation);
         return null;
     }
@@ -43,12 +44,14 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         // Verifica si el token no es válido
         if (response.status === 401) {
+            console.log("Invalid Token")
             onInvalidToken(navigation);
             return null;
         }
 
         // Verifica si el token no es válido
         if (response.status === 422) {
+            console.log("Invalid Response")
             onInvalidResponse(navigation);
             return null;
         }
@@ -59,16 +62,19 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         // Network Error do nothing or 
         if (error.request && !error.response) {
+            console.log("Network Error")
             onNetworkError(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 401) {
+            console.log("Invalid Token")
             onInvalidToken(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 422) {
+            console.log("Invalid Response")
             onInvalidResponse(navigation);
             return null;
         }
@@ -83,7 +89,6 @@ const apiRequest = async (url, options = {}, navigation) => {
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
     try {
-        // Check if EncryptedStorage item 'accessToken' exists
         const accessToken = await EncryptedStorage.getItem("accessToken");
         if (!accessToken) {
             return;
@@ -92,7 +97,7 @@ const onInvalidToken = async (navigation) => {
     } catch (error) {
         console.error("onInvalidToken:" + error);
     }
-    navigation.reset({ index: 0, routes: [{ name: 'AuthStack' }] });
+    navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });             // Send to SplashScreen or AuthStack
 };
 
 // Borra accessToken y redirege a SplashScreen
@@ -121,6 +126,7 @@ const onNetworkError = (navigation) => {
 
 // Check the 2FA token and code, return true or false based on response token
 const checkTwoFactor = async ({ twofactorcode, navigation }) => {
+    console.log(twofactorcode)
     try {
         const url = `/auth/two-factor`;
         const data = { code: twofactorcode };

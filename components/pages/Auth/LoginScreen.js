@@ -9,7 +9,7 @@ import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
-import { qvaPayClient } from '../../../utils/QvaPayClient';
+import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
 
@@ -21,11 +21,14 @@ export default function LoginScreen({ navigation }) {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
+    const [show2faForm, setShow2faForm] = useState(false);
+    const [twofactorcode, setTwofactorcode] = useState('');
 
     // Biometric check
     const [errorMessage, setErrorMessage] = useState(null);
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
+
 
     // Check if devica can handle biometric auth
     useEffect(() => {
@@ -36,7 +39,6 @@ export default function LoginScreen({ navigation }) {
             .catch(error => {
                 setErrorMessage(error.message);
             });
-
         return () => {
             FingerprintScanner.release();
         };
@@ -94,7 +96,6 @@ export default function LoginScreen({ navigation }) {
             if (data && data.accessToken && data.me) {
 
                 // set 2fa as required in storage
-                await EncryptedStorage.setItem('2faRequired', 'false');
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
@@ -104,7 +105,13 @@ export default function LoginScreen({ navigation }) {
                 setMe(data.me);
 
                 setLoading(false);
-                navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+
+                // If me.2fa_required is true then show the 2fa form
+                if (data.me.two_factor_secret) {
+                    setShow2faForm(true);
+                } else {
+                    navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+                }
 
             } else {
                 setErrortext("Ocurrió un error al iniciar sesion, intente nuevamente");
@@ -118,6 +125,39 @@ export default function LoginScreen({ navigation }) {
             setLoading(false);
         }
     };
+
+    const validateCode = (code) => {
+        if (!code.length) return 'El código no puede estar vacío';
+        if (code.length !== 6) return 'El código debe tener 6 dígitos';
+        if (isNaN(code)) return 'El código debe ser un número';
+        return '';
+    }
+
+    // Handle 2FA
+    const handleTwoFactor = async () => {
+        setLoading(true);
+        let errorMessage = validateCode(twofactorcode);
+
+        if (!errorMessage) {
+            try {
+                const response = await checkTwoFactor({ navigation, twofactorcode });
+                console.log(response)
+                if (!response || !response.status) {
+                    errorMessage = 'Ha ocurrido un error, intente nuevamente';
+                } else if (response.status !== 200) {
+                    errorMessage = 'El código es incorrecto';
+                } else {
+                    //navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });                // Why Blows up here?
+                    navigation.navigate('MainStack');
+                }
+            } catch (error) {
+                errorMessage = 'Ha ocurrido un error inesperado, intente nuevamente';
+            }
+        }
+
+        setErrortext(errorMessage);
+        setLoading(false);
+    }
 
     const handleBiometricLogin = () => {
         FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
@@ -160,53 +200,83 @@ export default function LoginScreen({ navigation }) {
                 <QPLogo />
             </View>
 
-            <View style={styles.sectionStyle}>
-                <TextInput
-                    autoComplete="email"
-                    style={styles.inputStyle}
-                    onChangeText={(UserEmail) => setEmail(UserEmail)}
-                    placeholder="Correo, username o teléfono"
-                    placeholderTextColor="#7f8c8d"
-                    keyboardType="email-address"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
-                    underlineColorAndroid="#f000"
-                    blurOnSubmit={false}
-                />
-            </View>
+            {
+                show2faForm ? (
+                    <>
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(twofactorcode) => setTwofactorcode(twofactorcode)}
+                                placeholder="Código de autenticación"
+                                placeholderTextColor="#7f8c8d"
+                                keyboardType="numeric"
+                                returnKeyType="send"
+                                autoCapitalize="none"
+                                underlineColorAndroid="#f000"
+                                blurOnSubmit={false}
+                            />
+                        </View>
 
-            <View style={styles.sectionStyle}>
-                <TextInput
-                    style={styles.inputStyle}
-                    onChangeText={(UserPassword) => setPassword(UserPassword)}
-                    placeholder="Contraseña"
-                    placeholderTextColor="#7f8c8d"
-                    keyboardType="default"
-                    ref={passwordInputRef}
-                    onSubmitEditing={Keyboard.dismiss}
-                    blurOnSubmit={false}
-                    secureTextEntry={true}
-                    underlineColorAndroid="#f000"
-                    returnKeyType="next"
-                />
-            </View>
+                        {errortext != '' ? (
+                            <Text style={styles.errorTextStyle}>
+                                {errortext}
+                            </Text>
+                        ) : null}
 
-            {errortext != '' ? (
-                <Text style={styles.errorTextStyle}>
-                    {errortext}
-                </Text>
-            ) : null}
+                        <QPButton title="Comprobar código" onPress={handleTwoFactor} />
+                    </>
+                ) : (
+                    <>
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                autoComplete="email"
+                                style={styles.inputStyle}
+                                onChangeText={(UserEmail) => setEmail(UserEmail)}
+                                placeholder="Correo, username o teléfono"
+                                placeholderTextColor="#7f8c8d"
+                                keyboardType="email-address"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
+                                underlineColorAndroid="#f000"
+                                blurOnSubmit={false}
+                            />
+                        </View>
 
-            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserPassword) => setPassword(UserPassword)}
+                                placeholder="Contraseña"
+                                placeholderTextColor="#7f8c8d"
+                                keyboardType="default"
+                                ref={passwordInputRef}
+                                onSubmitEditing={Keyboard.dismiss}
+                                blurOnSubmit={false}
+                                secureTextEntry={true}
+                                underlineColorAndroid="#f000"
+                                returnKeyType="next"
+                            />
+                        </View>
 
-            <Text style={styles.registerTextStyle} onPress={() => navigation.navigate('RegisterScreen')}>
-                ¿No tienes cuenta? Regístrate
-            </Text>
+                        {errortext != '' ? (
+                            <Text style={styles.errorTextStyle}>
+                                {errortext}
+                            </Text>
+                        ) : null}
 
-            <View style={styles.biometricIcon}>
-                {biometricAvailable && <BiometricButton />}
-            </View>
+                        <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+
+                        <Text style={styles.registerTextStyle} onPress={() => navigation.navigate('RegisterScreen')}>
+                            ¿No tienes cuenta? Regístrate
+                        </Text>
+
+                        <View style={styles.biometricIcon}>
+                            {biometricAvailable && <BiometricButton />}
+                        </View>
+                    </>
+                )
+            }
 
         </KeyboardAwareScrollView>
     );
