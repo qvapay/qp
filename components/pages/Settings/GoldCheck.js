@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Alert, StyleSheet, ScrollView, Text, View } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
-
-// Import buyGoldCheck from QvaPayClient
 import { buyGoldCheck } from '../../../utils/QvaPayClient';
 
 export default function GoldCheck({ navigation }) {
@@ -14,6 +12,29 @@ export default function GoldCheck({ navigation }) {
     const { me } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(me.golden_check);
+    const [balanceError, setBalanceError] = useState(false);
+
+    // set headerRight with the Current Balance
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <View style={styles.balance}>
+                    <Text style={styles.balanceText}>
+                        $ {me.balance}
+                    </Text>
+                </View>
+            ),
+        });
+    }, []);
+
+    // if me.balance is less than total then disable the button and show {value} in red color, so create a state for truye or false
+    useEffect(() => {
+        if (me.balance < 5) {
+            setBalanceError(true);
+        } else {
+            setBalanceError(false);
+        }
+    }, []);
 
     const handleUpgrade = async () => {
         Alert.alert(
@@ -29,11 +50,9 @@ export default function GoldCheck({ navigation }) {
                             if (response.status === 201) {
                                 setStatus(true);
                             } else {
-                                // handle error here
                                 console.log(response)
                             }
                         } catch (error) {
-                            // handle error here
                             console.log(error)
                         }
                         setLoading(false);
@@ -108,10 +127,7 @@ export default function GoldCheck({ navigation }) {
 
             </ScrollView>
 
-            <QPButton
-                title={status ? "Extender Verificación Dorada" : "Solicitar Verificación Dorada"}
-                onPress={handleUpgrade}
-            />
+            <QPButton title={status ? "Extender Verificación Dorada" : "Solicitar Verificación Dorada"} onPress={handleUpgrade} disabled={balanceError} />
 
         </View>
     )
@@ -145,5 +161,21 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: 20,
         fontFamily: 'Rubik-Regular',
+    },
+    balance: {
+        borderRadius: 10,
+        paddingVertical: 5,
+        alignSelf: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        backgroundColor: theme.darkColors.elevation,
+    },
+    balanceText: {
+        color: '#fff',
+        fontSize: 12,
+        alignSelf: 'center',
+        fontFamily: "Rubik-Bold",
     },
 })
