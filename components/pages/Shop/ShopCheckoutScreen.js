@@ -16,6 +16,16 @@ export default function ShopCheckoutScreen({ route }) {
     const [buying, setBuying] = useState(false);
     const [product, setProduct] = useState({});
     const { name, lead, color, price, tax, desc, meta, category, logo_url, cover_url } = product;
+    const [balanceError, setBalanceError] = useState(false);
+
+    // if me.balance is less than total then disable the button and show {value} in red color, so create a state for truye or false
+    useEffect(() => {
+        if (me.balance < total) {
+            setBalanceError(true);
+        } else {
+            setBalanceError(false);
+        }
+    }, [total]);
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -44,7 +54,9 @@ export default function ShopCheckoutScreen({ route }) {
 
     // Set the notification bar color to color variable
     useEffect(() => {
-        StatusBar.setBackgroundColor(theme.darkColors.background);
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(theme.darkColors.background);
+        }
     }, [color]);
 
     // Handle Checkout
@@ -90,10 +102,10 @@ export default function ShopCheckoutScreen({ route }) {
                         <View style={{ paddingTop: 8 }}>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 5, alignContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: 'white', fontFamily: 'Rubik-Regular' }}>A pagar:</Text>
-                                <Text style={{ color: 'white', fontSize: 20, fontFamily: 'Rubik-Bold' }}>$ {value}</Text>
+                                <Text style={{ color: balanceError ? theme.darkColors.danger : theme.darkColors.success, fontSize: 20, fontFamily: 'Rubik-Bold' }}>$ {value}</Text>
                             </View>
 
-                            <QPButton title="Finalizar Compra" onPress={handleCheckout} />
+                            <QPButton title="Finalizar Compra" onPress={handleCheckout} disabled={balanceError} />
                         </View>
                     </>
                 )

@@ -70,7 +70,6 @@ export default function LoginScreen({ navigation }) {
 
     // handle submit form
     const handleLoginSubmit = async () => {
-
         setErrortext('');
         if (!email) {
             alert('Debe rellenar el usuario');
@@ -80,7 +79,6 @@ export default function LoginScreen({ navigation }) {
             alert('Debe rellenar la contraseña');
             return;
         }
-
         handleLogin(email, password)
     }
 
@@ -105,20 +103,8 @@ export default function LoginScreen({ navigation }) {
                 // Update the user global AppContext state
                 setMe(data.me);
 
-                // if user has two_factor_secret == true then redirect to TwoFactorScreen
-                if (data.me.two_factor_secret) {
-                    await EncryptedStorage.setItem('2faRequired', 'true')
-                    navigation.replace('AuthStack', { screen: 'TwoFactorScreen' });
-                    return;
-                }
-
                 setLoading(false);
-
-                // Redirect to main stack
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'MainStack' }],
-                });
+                navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
 
             } else {
                 setErrortext("Ocurrió un error al iniciar sesion, intente nuevamente");
@@ -134,7 +120,6 @@ export default function LoginScreen({ navigation }) {
     };
 
     const handleBiometricLogin = () => {
-
         FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
             .then(() => {
                 const getStoredCredentials = async () => {
@@ -150,7 +135,7 @@ export default function LoginScreen({ navigation }) {
                 getStoredCredentials();
             })
             .catch(error => {
-                console.error("Error")
+                console.error(error)
             });
     };
 

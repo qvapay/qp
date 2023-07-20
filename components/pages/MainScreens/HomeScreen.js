@@ -13,6 +13,13 @@ export default function HomeScreen({ navigation }) {
     const { me, setMe } = useContext(AppContext);
     const [refreshing, setRefreshing] = useState(false);
 
+    // Get the Me object from getMe on QvaPayClient and request it every 120 seconds
+    useEffect(() => {
+        fetchMe();
+        const interval = setInterval(fetchMe, 120000);
+        return () => clearInterval(interval);
+    }, []);
+
     // Get Me object from QvaPayClient and store on state
     const fetchMe = async () => {
         try {
@@ -25,13 +32,6 @@ export default function HomeScreen({ navigation }) {
             setRefreshing(false);
         }
     };
-
-    // Get the Me object from getMe on QvaPayClient and request it every 120 seconds
-    useEffect(() => {
-        fetchMe();
-        const interval = setInterval(fetchMe, 120000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <ScrollView style={styles.container}

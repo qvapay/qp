@@ -109,7 +109,7 @@ const SettingsMenu = () => {
                 },
                 {
                     title: 'Autenticación de dos factores',
-                    screen: 'TwoFactorScreen',
+                    screen: 'TwoFactorSettingsScreen',
                     enabled: true,
                 },
             ],

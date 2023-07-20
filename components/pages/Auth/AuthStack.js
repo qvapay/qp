@@ -1,10 +1,8 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { theme } from '../../ui/Theme';
-
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
-import TwoFactorScreen from './TwofactorScreen';
 import RecoverPasswordScreen from './RecoverPasswordScreen';
 
 // Stack Navigation
@@ -19,16 +17,6 @@ export default function AuthStack() {
                 name="LoginScreen"
                 component={LoginScreen}
                 options={{ 
-                    headerShown: false,
-                    animationDuration: 250,
-                    animation: 'slide_from_right',
-                }}
-            />
-
-            <Stack.Screen
-                name="TwoFactorScreen"
-                component={TwoFactorScreen}
-                options={{
                     headerShown: false,
                     animationDuration: 250,
                     animation: 'slide_from_right',

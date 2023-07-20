@@ -23,17 +23,6 @@ export default function MainStack() {
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
 
-    // Check if there is a 2faRequired setting on EncryptedStorage
-    useEffect(() => {
-        const check2faRequired = async () => {
-            const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
-            if (twoFactorRequired == 'true') {
-                navigation.navigate('MainStack', { screen: 'TwoFactorScreen' });
-            }
-        }
-        check2faRequired();
-    }, []);
-
     return (
         <Tab.Navigator
             initialRouteName="HomeScreen"

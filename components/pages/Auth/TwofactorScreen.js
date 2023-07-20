@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
@@ -17,33 +16,42 @@ export default function TwoFactorScreen({ navigation }) {
     const [errortext, setErrortext] = useState('');
     const [twofactorcode, setTwofactorcode] = useState('');
 
+    const validateCode = (code) => {
+        if (!code.length) return 'El código no puede estar vacío';
+        if (code.length !== 6) return 'El código debe tener 6 dígitos';
+        if (isNaN(code)) return 'El código debe ser un número';
+        return '';
+    }
+
+    // Lets create a useEffect to redirect to MainStack for debugging purposes
+    useEffect(() => {
+        navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+    }, []);
+
     const handleCodeSubmit = async () => {
-
         setLoading(true);
-        let errorMessage = '';
+        let errorMessage = validateCode(twofactorcode);
 
-        try {
-            if (!twofactorcode.length) {
-                errorMessage = 'El código no puede estar vacío';
-            } else if (twofactorcode.length !== 6) {
-                errorMessage = 'El código debe tener 6 dígitos';
-            } else if (isNaN(twofactorcode)) {
-                errorMessage = 'El código debe ser un número';
-            } else {
-                const { status } = await checkTwoFactor({ navigation, twofactorcode });
-                if (status !== 200) {
+        if (!errorMessage) {
+            try {
+                const response = await checkTwoFactor({ navigation, twofactorcode });
+
+                if (!response || !response.status) {
+                    errorMessage = 'Ha ocurrido un error, intente nuevamente';
+                } else if (response.status !== 200) {
                     errorMessage = 'El código es incorrecto';
                 } else {
                     await EncryptedStorage.setItem('2faRequired', 'false');
-                    navigation.replace('MainStack');
+                    navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
                 }
+            } catch (error) {
+                console.error("Blow try: " + error);
+                errorMessage = 'Ha ocurrido un error inesperado, intente nuevamente';
             }
-        } catch (error) {
-            console.error("Blow try: " + error);
-        } finally {
-            setErrortext(errorMessage);
-            setLoading(false);
         }
+
+        setErrortext(errorMessage);
+        setLoading(false);
     }
 
     return (

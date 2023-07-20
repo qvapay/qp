@@ -11,10 +11,10 @@ import SettingOption from './SettingOption';
 import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
 import LanguageScreen from './LanguageScreen';
-import TwoFactorScreen from './TwoFactorScreen';
 import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
+import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
 
 // Theme
 import { theme } from '../../ui/Theme';
@@ -167,8 +167,8 @@ export default function SettingsStack() {
             />
 
             <Stack.Screen
-                name="TwoFactorScreen"
-                component={TwoFactorScreen}
+                name="TwoFactorSettingsScreen"
+                component={TwoFactorSettingsScreen}
                 options={{
                     title: '',
                     animation: 'slide_from_right',

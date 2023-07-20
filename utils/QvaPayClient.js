@@ -83,11 +83,16 @@ const apiRequest = async (url, options = {}, navigation) => {
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
     try {
+        // Check if EncryptedStorage item 'accessToken' exists
+        const accessToken = await EncryptedStorage.getItem("accessToken");
+        if (!accessToken) {
+            return;
+        }
         await EncryptedStorage.removeItem('accessToken');
     } catch (error) {
         console.error("onInvalidToken:" + error);
     }
-    navigation.replace('AuthStack');
+    navigation.reset({ index: 0, routes: [{ name: 'AuthStack' }] });
 };
 
 // Borra accessToken y redirege a SplashScreen

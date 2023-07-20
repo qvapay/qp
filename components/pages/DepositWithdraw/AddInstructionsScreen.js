@@ -94,7 +94,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
                 const { transaction_id, value, wallet, note = "", memo = "", url = "" } = walletResponse;
 
-                // if isset url and isnt "" then open url with Linking and also cancel the component load
+                // if isset url and isn't "" then open url with Linking and also cancel the component load
                 if (url !== "") {
                     Linking.openURL(url);
                     return;

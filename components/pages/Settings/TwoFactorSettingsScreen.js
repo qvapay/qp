@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 
-export default function TwoFactorScreen() {
+export default function TwoFactorSettingsScreen() {
 
     return (
         <View style={[globalStyles.container, { alignItems: 'center' }]}>

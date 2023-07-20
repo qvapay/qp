@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
-
-// Theme
 import { theme } from '../ui/Theme';
 
 const SplashScreen = () => {
@@ -15,34 +13,21 @@ const SplashScreen = () => {
     useEffect(() => {
         const verifyToken = async () => {
             let userToken;
+            let navigateTo = ROUTES.AUTH_STACK;
             try {
                 userToken = await getMe(navigation);
+                if (userToken) {
+                    navigateTo = ROUTES.MAIN_STACK;
+                }
             } catch (error) {
                 Sentry.captureException(error);
             } finally {
-                if (userToken) {
-                    // Check 2faRequired status
-                    const twoFactorRequired = await EncryptedStorage.getItem('2faRequired');
-                    if (twoFactorRequired == 'true') {
-                        navigation.replace(ROUTES.AUTH_STACK, { screen: 'TwoFactorScreen' });
-                        return;
-                    }
-                    navigation.replace(ROUTES.MAIN_STACK);
-                } else {
-                    navigation.replace(ROUTES.AUTH_STACK);
-                }
+                navigation.replace(navigateTo);
             }
         }
-
-        // Wrap verifyToken inside setTimeout
-        const splashTimeout = setTimeout(() => {
-            verifyToken();
-        }, 2000); // 2 seconds delay
-
-        // Clear timeout when component is unmounted to avoid potential memory leaks.
+        const splashTimeout = setTimeout(verifyToken, 2000);
         return () => clearTimeout(splashTimeout);
-
-    }, [navigation]);
+    }, []);
 
     return (
         <View style={styles.container}>
