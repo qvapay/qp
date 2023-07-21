@@ -1,5 +1,4 @@
 import axios from "axios";
-import Toast from 'react-native-toast-message';
 import EncryptedStorage from "react-native-encrypted-storage";
 
 /**
@@ -22,7 +21,7 @@ const qvaPayClient = axios.create({
 // Create a generic function to make every request to the API
 const apiRequest = async (url, options = {}, navigation) => {
 
-    const accessToken = await EncryptedStorage.getItem("accessToken");
+    const accessToken = await EncryptedStorage.getItem("accessToken")
 
     // Check if accessToken !exists
     if (!accessToken) {
@@ -102,15 +101,6 @@ const onInvalidToken = async (navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidResponse = async (navigation) => {
-
-    // Send Toast message
-    Toast.show({
-        type: 'success',
-        text1: 'No es posible completar la operación',
-        position: 'bottom',
-        bottomOffset: 10,
-    });
-
     navigation.goBack();
 };
 
@@ -125,11 +115,10 @@ const onNetworkError = (navigation) => {
 }
 
 // Check the 2FA token and code, return true or false based on response token
-const checkTwoFactor = async ({ twofactorcode, navigation }) => {
-    console.log(twofactorcode)
+const checkTwoFactor = async ({ verifyCode, navigation }) => {
     try {
         const url = `/auth/two-factor`;
-        const data = { code: twofactorcode };
+        const data = { code: verifyCode };
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
         return response;
     } catch (error) { console.error(error) }

@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import { Pressable, StyleSheet, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
-
-// Theme
 import { theme } from '../ui/Theme';
 
 // Todo: 
@@ -59,7 +56,6 @@ export default function ScanScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-
             <View style={styles.rectangleContainer}>
                 <View style={[styles.cameraContainer, { borderColor: validQR }]}>
                     <QRCodeScanner
@@ -69,7 +65,6 @@ export default function ScanScreen({ navigation }) {
                     />
                 </View>
             </View>
-
         </View>
     );
 }

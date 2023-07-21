@@ -64,7 +64,9 @@ export default function ShopItemScreen({ route }) {
         }
         // Return to default color when unmounting
         return () => {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
+            if (Platform.OS === 'android') {
+                StatusBar.setBackgroundColor(theme.darkColors.background);
+            }
         }
     }, [color]);
 
@@ -136,7 +138,11 @@ export default function ShopItemScreen({ route }) {
                             <View style={styles.comboSelector}>
                                 {
                                     parsedPriceCombos.map((combo, index) => (
-                                        <QPButton key={index} onPress={() => setAmount(parseFloat(combo.amount))} title={`$${combo.amount}`} />
+                                        <QPButton
+                                            key={index}
+                                            onPress={() => setAmount(parseFloat(combo.amount))}
+                                            title={`${combo.label}`}
+                                        />
                                     ))
                                 }
                             </View>
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-between'
     },
     amountSelector: {
         marginVertical: 10,

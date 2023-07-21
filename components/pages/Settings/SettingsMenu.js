@@ -53,8 +53,15 @@ const SettingsMenu = () => {
 
     const logout = async () => {
         // Remove accessToken and 2faRequired data
-        await EncryptedStorage.removeItem('accessToken');
-        await EncryptedStorage.removeItem('2faRequired');
+        // Verigy first if the key exists
+        const accessToken = await EncryptedStorage.getItem("accessToken");
+        const twofaRequired = await EncryptedStorage.getItem("2faRequired");
+        if (accessToken) {
+            await EncryptedStorage.removeItem('accessToken');
+        }
+        if (twofaRequired) {
+            await EncryptedStorage.removeItem('2faRequired');
+        }
         // Go to Splash Screen
         navigation.replace('SplashScreen');
     };

@@ -41,6 +41,8 @@ const getShortDateTime = (date) => {
 // get a QR data and parse it, get the usernam, amount and transactionUUID
 const parseQRData = (data) => {
 
+    // Add a Bitcoin Lighning reader and a Bitcoin reader and a QP reader
+
     // Require qp:// as protocol
     if (!data.startsWith('qp://')) {
         return null;

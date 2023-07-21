@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef, useContext } from 'react';
+import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
 import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
@@ -12,8 +12,30 @@ import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function LoginScreen({ navigation }) {
+const CodeInput = React.forwardRef(({ updateValue, nextInput, ...props }, ref) => {
+    return (
+        <TextInput
+            {...props}
+            maxLength={1}
+            ref={ref}
+            style={{ ...styles.inputStyle2FA, width: 40 }}
+            keyboardType="numeric"
+            onChangeText={(text) => {
+                updateValue(text);
+                if (text && nextInput) {
+                    nextInput.current.focus();
+                }
+            }}
+        />
+    );
+});
+
+export default function LoginScreen() {
+
+    // get Navigation hook
+    const navigation = useNavigation();
 
     const { me, setMe } = useContext(AppContext);
     const passwordInputRef = createRef();
@@ -21,14 +43,16 @@ export default function LoginScreen({ navigation }) {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
-    const [show2faForm, setShow2faForm] = useState(false);
-    const [twofactorcode, setTwofactorcode] = useState('');
+    const [showtwofaForm, setShowtwofaForm] = useState(false);
+
+    // 2FA Form
+    const inputsRef = Array(6).fill().map(() => useRef(null));
+    const [twofactorcode, setTwofactorcode] = useState(Array(6).fill(''));
 
     // Biometric check
     const [errorMessage, setErrorMessage] = useState(null);
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
-
 
     // Check if devica can handle biometric auth
     useEffect(() => {
@@ -86,18 +110,11 @@ export default function LoginScreen({ navigation }) {
 
     // Handle the login process
     const handleLogin = async (email, password) => {
-
-        // Set loading and try to login
         setLoading(true);
-
         try {
             const data = await login(email, password);
-
-            console.log(data)
-
             if (data && data.accessToken && data.me) {
 
-                // set 2fa as required in storage
                 await EncryptedStorage.setItem('email', email);
                 await EncryptedStorage.setItem('password', password);
                 await EncryptedStorage.setItem('accessToken', data.accessToken);
@@ -105,12 +122,11 @@ export default function LoginScreen({ navigation }) {
 
                 // Update the user global AppContext state
                 setMe(data.me);
-
                 setLoading(false);
 
                 // If me.2fa_required is true then show the 2fa form
                 if (data.me.two_factor_secret) {
-                    setShow2faForm(true);
+                    setShowtwofaForm(true);
                 } else {
                     navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
                 }
@@ -128,36 +144,25 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
-    const validateCode = (code) => {
-        if (!code.length) return 'El código no puede estar vacío';
-        if (code.length !== 6) return 'El código debe tener 6 dígitos';
-        if (isNaN(code)) return 'El código debe ser un número';
-        return '';
-    }
-
     // Handle 2FA
     const handleTwoFactor = async () => {
         setLoading(true);
-        let errorMessage = validateCode(twofactorcode);
-
-        if (!errorMessage) {
-            try {
-                const response = await checkTwoFactor({ navigation, twofactorcode });
-                console.log(response)
-                if (!response || !response.status) {
-                    errorMessage = 'Ha ocurrido un error, intente nuevamente';
-                } else if (response.status !== 200) {
-                    errorMessage = 'El código es incorrecto';
-                } else {
-                    navigation.navigate('MainStack');
-                }
-            } catch (error) {
-                errorMessage = 'Ha ocurrido un error inesperado, intente nuevamente';
+        try {
+            const verifyCode = twofactorcode.join('')
+            const response = await checkTwoFactor({ navigation, verifyCode });
+            if (!response || !response.status) {
+                errorMessage = 'Ha ocurrido un error, intente nuevamente';
+            } else if (response.status !== 200) {
+                errorMessage = 'El código es incorrecto';
             }
+        } catch (error) {
+            setLoading(false);
+            setErrortext("No se ha podido iniciar sesion, intente nuevamente");
+            Sentry.captureException(error);
+        } finally {
+            setLoading(false);
+            navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
         }
-
-        setErrortext(errorMessage);
-        setLoading(false);
     }
 
     const handleBiometricLogin = () => {
@@ -202,23 +207,25 @@ export default function LoginScreen({ navigation }) {
             </View>
 
             {
-                show2faForm ? (
+                showtwofaForm ? (
                     <>
                         <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(twofactorcode) => setTwofactorcode(twofactorcode)}
-                                placeholder="Código de autenticación"
-                                placeholderTextColor="#7f8c8d"
-                                keyboardType="numeric"
-                                returnKeyType="send"
-                                autoCapitalize="none"
-                                underlineColorAndroid="#f000"
-                                blurOnSubmit={false}
-                            />
+                            {twofactorcode.map((digit, index) => (
+                                <CodeInput
+                                    key={index}
+                                    value={digit}
+                                    ref={inputsRef[index]}
+                                    updateValue={(text) => {
+                                        const newCode = [...twofactorcode];
+                                        newCode[index] = text;
+                                        setTwofactorcode(newCode);
+                                    }}
+                                    nextInput={inputsRef[index + 1]}
+                                />
+                            ))}
                         </View>
 
-                        {errortext != '' ? (
+                        {errortext !== '' ? (
                             <Text style={styles.errorTextStyle}>
                                 {errortext}
                             </Text>
@@ -295,6 +302,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 15,
         borderRadius: 10,
+        borderColor: theme.darkColors.elevation,
+        fontFamily: "Rubik-Regular",
+    },
+    inputStyle2FA: {
+        flex: 1,
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 28,
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
         borderColor: theme.darkColors.elevation,
         fontFamily: "Rubik-Regular",
     },
