@@ -398,8 +398,6 @@ PODS:
   - React-jsinspector (0.72.3)
   - React-logger (0.72.3):
     - glog
-  - react-native-blur (4.3.2):
-    - React-Core
   - react-native-camera (4.2.1):
     - React-Core
     - react-native-camera/RCT (= 4.2.1)
@@ -414,8 +412,6 @@ PODS:
     - React-Core
   - react-native-fingerprint-scanner (6.0.0):
     - React
-  - react-native-image-picker (5.6.0):
-    - React-Core
   - react-native-onesignal (4.5.1):
     - OneSignalXCFramework (= 3.12.4)
     - React (< 1.0.0, >= 0.13.0)
@@ -531,7 +527,7 @@ PODS:
     - React-jsi (= 0.72.3)
     - React-logger (= 0.72.3)
     - React-perflogger (= 0.72.3)
-  - RNCAsyncStorage (1.19.0):
+  - RNCAsyncStorage (1.19.1):
     - React-Core
   - RNCClipboard (1.11.2):
     - React-Core
@@ -621,12 +617,10 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
-  - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-device-brightness (from `../node_modules/@adrianso/react-native-device-brightness`)"
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
-  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -729,8 +723,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
-  react-native-blur:
-    :path: "../node_modules/@react-native-community/blur"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-device-brightness:
@@ -739,8 +731,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-encrypted-storage"
   react-native-fingerprint-scanner:
     :path: "../node_modules/react-native-fingerprint-scanner"
-  react-native-image-picker:
-    :path: "../node_modules/react-native-image-picker"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
@@ -840,12 +830,10 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 59d1eb03af7d30b7d66589c410f13151271e8006
   React-jsinspector: b511447170f561157547bc0bef3f169663860be7
   React-logger: c5b527272d5f22eaa09bb3c3a690fee8f237ae95
-  react-native-blur: cfdad7b3c01d725ab62a8a729f42ea463998afa2
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-device-brightness: 886cfbfb49a32b6de4ccfc1f720776dc5f381d24
   react-native-encrypted-storage: db300a3f2f0aba1e818417c1c0a6be549038deb7
   react-native-fingerprint-scanner: ac6656f18c8e45a7459302b84da41a44ad96dbbe
-  react-native-image-picker: db60857e03d63721f19b6f4027de20429ddd9cba
   react-native-onesignal: 7bd44dbd031d8d57110c0203836ffc37ddead526
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
   React-NativeModulesApple: c57f3efe0df288a6532b726ad2d0322a9bf38472
@@ -865,7 +853,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 837c1bebd2f84572db17698cd702ceaf585b0d9a
   React-utils: bcb57da67eec2711f8b353f6e3d33bd8e4b2efa3
   ReactCommon: 3ccb8fb14e6b3277e38c73b0ff5e4a1b8db017a9
-  RNCAsyncStorage: 4b98ac3c64efa4e35c1197cb0c5ca5e9f5d4c666
+  RNCAsyncStorage: f47fe18526970a69c34b548883e1aeceb115e3e1
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNDeviceInfo: 5795b418ed3451ebcaf39384e6cf51f60cb931c9
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8

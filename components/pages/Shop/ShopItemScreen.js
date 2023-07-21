@@ -23,8 +23,9 @@ export default function ShopItemScreen({ route }) {
     const [amount, setAmount] = useState(0);
     const parsedAmount = parseFloat(amount);
     const [total, setTotal] = useState(0);
-    const { name, lead, color = theme.darkColors.background, price, tax, desc, meta, category, logo_url, cover_url, price_combos } = product;
+    const { name, lead, color = theme.darkColors.background, price, tax = 0.0, desc, meta, category, logo_url, cover_url, price_combos } = product;
     const [parsedPriceCombos, setParsedPriceCombos] = useState([]);
+    const [taxText, setTaxText] = useState(`${tax}%`);
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -87,10 +88,10 @@ export default function ShopItemScreen({ route }) {
         } else if (parsedAmount >= 1000) {
             taxPercentage = tax * 0.5;
         }
-
         const taxAmount = parsedAmount.toFixed(2) * (taxPercentage / 100);
         const totalAmount = parsedAmount + taxAmount;
         setTotal(totalAmount.toFixed(2));
+        setTaxText(`${taxPercentage}%`);
     }, [amount]);
 
     if (!product) {
@@ -129,7 +130,7 @@ export default function ShopItemScreen({ route }) {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <InfoContainer style={{ backgroundColor: theme.darkColors.success }}>{lead}</InfoContainer>
-                        <InfoContainer style={{ backgroundColor: theme.darkColors.success }}>{`${tax}%`}</InfoContainer>
+                        <InfoContainer style={{ backgroundColor: theme.darkColors.success }}>{taxText}</InfoContainer>
                     </View>
 
                     {

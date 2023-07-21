@@ -27,38 +27,18 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-			<key>qvapay.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-		</dict>
+		<dict/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Necesitamos acceso a la cámara para poder escanear correctamente el QR</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>QvaPay requires FaceID access to allows you quick and secure access.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
 		<string>FontAwesome5_Brands.ttf</string>
 		<string>FontAwesome5_Regular.ttf</string>
 		<string>FontAwesome5_Solid.ttf</string>
-		<string>Nunito-Black.ttf</string>
-		<string>Nunito-Bold.ttf</string>
-		<string>Nunito-Light.ttf</string>
-		<string>Nunito-Medium.ttf</string>
-		<string>Nunito-Regular.ttf</string>
 		<string>Rubik-Black.ttf</string>
 		<string>Rubik-BlackItalic.ttf</string>
 		<string>Rubik-Bold.ttf</string>
