@@ -8,15 +8,15 @@ import CommentSticker from '../../ui/CommentSticker';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient';
-
-// Theme
+import { useNavigation } from '@react-navigation/native';
 import { theme } from '../../ui/Theme';
 
 Sound.setCategory('Playback');
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE);
 
-export default function ConfirmSendScreen({ route, navigation }) {
+export default function ConfirmSendScreen({ route }) {
 
+    const navigation = useNavigation();
     const [user, setUser] = useState({});
     const { destination = '' } = route.params;
     const [to] = useState(destination);
@@ -91,11 +91,13 @@ export default function ConfirmSendScreen({ route, navigation }) {
             return;
         }
 
-        // Set setSendingPayment to true
         setSendingPayment(true);
 
         // Now send balance via transferBalance method and check response
-        const response = await transferBalance(to, amount, comment);
+        const response = await transferBalance({ to, amount, comment, navigation });
+
+        console.log(response)
+        console.log(response.status)
 
         // If data status = paid and there is an uuid
         // Make a sound and change to payment completed animation
@@ -103,22 +105,18 @@ export default function ConfirmSendScreen({ route, navigation }) {
             playDone();
             setPaymentCompleted(true);
         } else {
-
             // If response.status is 422 theres no enough balance
             if (response.status === 422) {
                 alert('No tienes saldo suficiente');
             }
-
             // If response.status is 404 theres no user with that email
             if (response.status === 404) {
                 alert('No se encontró el usuario');
             }
-
             // If response.status is 400 theres no user with that email
             if (response.status === 400) {
                 alert('No se encontró el usuario');
             }
-
             // Go to KeyPad Screen
             navigation.navigate('KeypadScreen');
         }

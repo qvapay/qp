@@ -167,24 +167,14 @@ const checkUser = async ({ to, navigation }) => {
 };
 
 // transfer balance between users
-const transferBalance = async (to, amount, description) => {
-
-    const accessToken = await EncryptedStorage.getItem("accessToken");
+const transferBalance = async ({ to, amount, description, navigation }) => {
     const data = { to, amount, description, notify: true };
-
     try {
-        const response = await qvaPayClient.post("/transactions/transfer", data, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
-
-        if (response.data && response.data.uuid) {
-            return response;
-        } else {
-            throw new Error("No se pudo transferir correctamente");
-        }
+        const url = `/transactions/transfer`
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
+        return response;
     } catch (error) {
-        console.error(error.response);
-        return error.response;
+        console.error(error);
     }
 };
 

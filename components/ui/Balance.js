@@ -35,7 +35,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
     // Balance microcomponent
     const formatBalance = (balance) => {
-        return showBalance ? (balance % 1 === 0 ? balance + '.00' : balance) : '*****';
+        return showBalance ? parseFloat(balance).toFixed(2) : '*****';
     }
 
     return (

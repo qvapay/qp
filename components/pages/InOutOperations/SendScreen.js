@@ -6,8 +6,6 @@ import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUser } from '../../../utils/QvaPayClient';
-
-// Theme
 import { theme } from '../../ui/Theme';
 
 export default function SendScreen({ route, navigation }) {
@@ -70,7 +68,6 @@ export default function SendScreen({ route, navigation }) {
             return;
         }
 
-        // Surronud with try catch
         try {
             const response = await checkUser({ to: destination, navigation });
             if (response.user) {
