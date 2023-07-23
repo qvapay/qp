@@ -15,9 +15,7 @@ const InfoContainer = ({ children, style }) => (
 
 export default function ShopItemScreen({ route }) {
 
-    // navigation hook
     const navigation = useNavigation();
-
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(0);

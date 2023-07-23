@@ -7,13 +7,10 @@ import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 import { theme } from '../../ui/Theme'
 
-const SearchCartBar = React.memo(({ searchQuery, setSearchQuery }) => {
-
+const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases }) => {
     const [isSearchFocused, setIsSearchFocused] = useState(false);
-
     return (
         <View style={styles.searchBarContainer}>
-
             {isSearchFocused ? (
                 <>
                     <View style={styles.expandedSearchBar}>
@@ -28,7 +25,7 @@ const SearchCartBar = React.memo(({ searchQuery, setSearchQuery }) => {
                             autoFocus={true}
                         />
                     </View>
-                    <TouchableOpacity style={styles.myPurchasesButtonCollpased}>
+                    <TouchableOpacity style={styles.myPurchasesButtonCollpased} onPress={gotoMyPurchases}>
                         <FontAwesome5 style={{ marginHorizontal: 10, }} name='shopping-cart' size={14} color='white' />
                     </TouchableOpacity>
                 </>
@@ -39,13 +36,12 @@ const SearchCartBar = React.memo(({ searchQuery, setSearchQuery }) => {
                             <FontAwesome5 name='search' size={14} color='#7f8c8d' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.myPurchasesButton}>
+                    <TouchableOpacity style={styles.myPurchasesButton} onPress={gotoMyPurchases}>
                         <FontAwesome5 style={styles.cartIcon} name='shopping-cart' size={14} color='white' />
                         <Text style={styles.myPurchasesText}>Mis Compras</Text>
                     </TouchableOpacity>
                 </>
             )}
-
         </View>
     );
 });
@@ -106,11 +102,18 @@ export default function ShopIndexScreen() {
         </View>
     );
 
+    // Go to MyPurchasesScreen via navigation using ShopStack
+    const gotoMyPurchases = () => {
+        navigation.navigate('ShopStack', {
+            screen: 'MyPurchasesScreen'
+        });
+    };
+
     return (
         <FlatList
             ListHeaderComponent={
                 <>
-                    <SearchCartBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                    <SearchCartBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} gotoMyPurchases={gotoMyPurchases} />
                     <Carousel featuredProducts={featuredProducts} />
                 </>
             }
@@ -125,7 +128,7 @@ export default function ShopIndexScreen() {
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={onRefresh}
-                    colors={['#9Bd35A', '#689F38']} // Multi-color loading indicators
+                    colors={['#9Bd35A', '#689F38']}
                 />
             }
         />

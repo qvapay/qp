@@ -5,7 +5,7 @@ import ShopItemScreen from './ShopItemScreen';
 import ShopIndexScreen from './ShopIndexScreen';
 import ShopCartScreen from './ShopCartScreen';
 import ShopCheckoutScreen from './ShopCheckoutScreen';
-import BuyedItemsScreen from './BuyedItemsScreen';
+import MyPurchasesScreen from './MyPurchasesScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -23,8 +23,28 @@ export default function ShopStack() {
             }}
         >
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
-            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen}/>
-            <Stack.Screen name="BuyedItemsScreen" component={BuyedItemsScreen} />
+            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
+
+            <Stack.Screen
+                name="MyPurchasesScreen"
+                component={MyPurchasesScreen}
+                options={{
+                    title: 'Mis Compras',
+                    headerTitleAlign: 'center',
+                    headerShown: true,
+                    animationDuration: 250,
+                    animation: 'slide_from_right',
+                    headerTintColor: '#fff',
+                    headerStyle: {
+                        backgroundColor: '#161d31',
+                    },
+                    headerTitleStyle: {
+                        color: '#fff',
+                        fontFamily: 'Rubik-Regular',  // Cambia 'NombreDeTuFuente' por el nombre de tu fuente
+                    },
+                    headerShadowVisible: false,
+                }}
+            />
 
             <Stack.Screen
                 name="ShopItemScreen"
