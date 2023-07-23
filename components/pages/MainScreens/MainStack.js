@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
@@ -47,15 +47,24 @@ export default function MainStack() {
                     backgroundColor: theme.darkColors?.background,
                 },
                 headerLeft: () => (
-                    <FontAwesome5
-                        name={'qrcode'}
-                        style={styles.qrIconStyle}
-                        onPress={() => navigation.navigate('ScanScreen')}
-                    />
+                    <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
                 ),
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate("SettingsStack")} style={{ marginRight: 20 }}>
-                        <AvatarPicture size={28} source_uri={me.profile_photo_url} />
+                    <Pressable
+                        onPress={
+                            () => navigation.navigate("SettingsStack")
+                        }
+                        style={styles.headerRight}
+                        onLongPress={
+                            () => navigation.navigate('SettingsStack', {
+                                screen: 'UserdataScreen'
+                            })
+                        }>
+                        <View style={styles.headerWelcome}>
+                            <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
+                            <Text style={styles.handleText}>@{`${me.username}`}</Text>
+                        </View>
+                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
                     </Pressable>
                 ),
             })}
@@ -78,7 +87,28 @@ const styles = StyleSheet.create({
     },
     qrIconStyle: {
         color: '#fff',
-        fontSize: 24,
+        fontSize: 28,
         marginLeft: 20
+    },
+    headerRight: {
+        marginRight: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    headerWelcome: {
+        marginRight: 10,
+        alignItems: 'flex-end',
+    },
+    headerRightText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: 'bold',
+        fontFamily: 'Rubik-Regular'
+    },
+    handleText: {
+        color: '#fff',
+        fontSize: 13,
+        fontFamily: 'Rubik-Bold'
     },
 });
