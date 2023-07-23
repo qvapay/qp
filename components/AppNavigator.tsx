@@ -4,20 +4,21 @@ import {theme} from './ui/Theme';
 
 // Navigation Stacks
 import AuthStack from './pages/Auth/AuthStack';
+import ShopStack from './pages/Shop/ShopStack';
 import MainStack from './pages/MainScreens/MainStack';
 import PeerToPeerStack from './pages/P2P/PeerToPeerStack';
 import SettingsStack from './pages/Settings/SettingsStack';
+import TransactionStack from './pages/Transactions/TransactionStack';
 
 // Screens
 import ScanScreen from './pages/ScanScreen';
-import ShopStack from './pages/Shop/ShopStack';
 import SplashScreen from './pages/SplashScreen';
 import ProfileScreen from './pages/ProfileScreen';
+import WelcomeScreen from './pages/WelcomeScreen';
 import AddScreen from './pages/DepositWithdraw/AddScreen';
 import SendScreen from './pages/InOutOperations/SendScreen';
 import ReceiveScreen from './pages/InOutOperations/ReceiveScreen';
 import WithdrawScreen from './pages/DepositWithdraw/WithdrawScreen';
-import TransactionStack from './pages/Transactions/TransactionStack';
 import ConfirmSendScreen from './pages/InOutOperations/ConfirmSendScreen';
 import AddInstructionsScreen from './pages/DepositWithdraw/AddInstructionsScreen';
 import WithdrawInstructionsScreen from './pages/DepositWithdraw/WithdrawInstructionsScreen';
@@ -46,11 +47,17 @@ export default function AppNavigator() {
         },
         headerTitleAlign: 'center',
       }}>
-        
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
+        options={{headerShown: false}}
+      />
+
+      {/* SplashScreen which will come once for 2 Seconds */}
+      <Stack.Screen
+        name={ROUTES.WELCOME_SCREEN}
+        component={WelcomeScreen}
         options={{headerShown: false}}
       />
 
@@ -170,7 +177,7 @@ export default function AppNavigator() {
         options={{
           headerShown: false,
           animationDuration: 250,
-          animation: 'fade_from_bottom',
+          animation: 'slide_from_bottom',
         }}
       />
 

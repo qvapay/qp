@@ -1,6 +1,7 @@
 export const ROUTES = {
 
     SPLASH_SCREEN: "SplashScreen",
+    WELCOME_SCREEN: "WelcomeScreen",
 
     // Stacks
     AUTH_STACK: "AuthStack",

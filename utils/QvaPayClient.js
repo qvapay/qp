@@ -96,7 +96,7 @@ const onInvalidToken = async (navigation) => {
     } catch (error) {
         console.error("onInvalidToken:" + error);
     }
-    navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });             // Send to SplashScreen or AuthStack
+    navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
 };
 
 // Borra accessToken y redirege a SplashScreen
