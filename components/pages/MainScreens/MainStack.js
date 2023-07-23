@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Pressable } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EncryptedStorage from "react-native-encrypted-storage";
 import BottomBar from '../../ui/BottomBar';
 import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
@@ -34,7 +33,9 @@ export default function MainStack() {
         <Tab.Navigator
             initialRouteName="HomeScreen"
             backBehavior='initialRoute'
-            tabBar={props => <BottomBar {...props} />}
+            tabBar={
+                props => <BottomBar {...props} />
+            }
             screenOptions={({ navigation }) => ({
                 headerTitle: '',
                 headerShown: true,
@@ -64,7 +65,7 @@ export default function MainStack() {
             <Tab.Screen name="KeypadScreen" component={KeypadScreen} />
             <Tab.Screen name="LightningScreen" component={LightningScreen} />
             <Tab.Screen name="ShopScreen" component={ShopScreen} />
-            
+
         </Tab.Navigator>
     )
 }

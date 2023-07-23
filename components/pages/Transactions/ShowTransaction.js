@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#192034',
     },
     description: {
-        fontSize: 30,
+        fontSize: 20,
         color: '#9da3b4',
     },
 });

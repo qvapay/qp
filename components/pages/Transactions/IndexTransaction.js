@@ -5,7 +5,7 @@ import Transaction from '../../ui/Transaction';
 import { getTransactions } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const SearchTransactionBar = React.memo(({ searchQuery, setSearchQuery }) => (
+const SearchTransactionBar = (({ searchQuery, setSearchQuery }) => (
     <View style={styles.searchBarContainer}>
         <View style={styles.searchBar}>
             <FontAwesome5 name='search' size={12} color='#7f8c8d' />

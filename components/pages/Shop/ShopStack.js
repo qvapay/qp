@@ -22,25 +22,26 @@ export default function ShopStack() {
                 animation: 'slide_from_right',
             }}
         >
-            <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
             <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
+            
+            <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
 
             <Stack.Screen
                 name="MyPurchasesScreen"
                 component={MyPurchasesScreen}
                 options={{
-                    title: 'Mis Compras',
-                    headerTitleAlign: 'center',
                     headerShown: true,
-                    animationDuration: 250,
-                    animation: 'slide_from_right',
+                    title: 'Mis Compras',
                     headerTintColor: '#fff',
+                    animationDuration: 250,
+                    headerTitleAlign: 'center',
+                    animation: 'slide_from_right',
                     headerStyle: {
                         backgroundColor: '#161d31',
                     },
                     headerTitleStyle: {
                         color: '#fff',
-                        fontFamily: 'Rubik-Regular',  // Cambia 'NombreDeTuFuente' por el nombre de tu fuente
+                        fontFamily: 'Rubik-Regular',
                     },
                     headerShadowVisible: false,
                 }}

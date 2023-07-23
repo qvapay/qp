@@ -30,72 +30,72 @@ export default function BottomBar({ state, descriptors, navigation }) {
     ];
 
     return (
-        <View style={styles.BottomNav}>
+        <View style={styles.bottomNav}>
+            <View style={styles.bottomStyledNav}>
+                {
+                    // Map for the current defined routes
+                    state.routes.map((route, index) => {
 
-            {
-                // Map for the current defined routes
-                state.routes.map((route, index) => {
+                        const { options } = descriptors[route.key];
+                        const label = options.tabBarLabel !== undefined ? options.tabBarLabel : options.title !== undefined ? options.title : route.name;
+                        const isFocused = state.index === index;
 
-                    const { options } = descriptors[route.key];
-                    const label =
-                        options.tabBarLabel !== undefined
-                            ? options.tabBarLabel
-                            : options.title !== undefined
-                                ? options.title
-                                : route.name;
+                        const onPress = () => {
+                            const event = navigation.emit({
+                                type: 'tabPress',
+                                target: route.key,
+                                canPreventDefault: true,
+                            });
 
-                    const isFocused = state.index === index;
+                            if (!isFocused && !event.defaultPrevented) {
+                                navigation.navigate({ name: route.name, merge: true });
+                            }
+                        };
 
-                    const onPress = () => {
-                        const event = navigation.emit({
-                            type: 'tabPress',
-                            target: route.key,
-                            canPreventDefault: true,
-                        });
+                        const onLongPress = () => {
+                            navigation.emit({
+                                type: 'tabLongPress',
+                                target: route.key,
+                            });
+                        };
 
-                        if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate({ name: route.name, merge: true });
-                        }
-                    };
-
-                    const onLongPress = () => {
-                        navigation.emit({
-                            type: 'tabLongPress',
-                            target: route.key,
-                        });
-                    };
-
-                    return (
-                        <Pressable
-                            key={route.key}
-                            accessibilityRole="button"
-                            style={styles.pressableArea}
-                            accessibilityState={isFocused ? { selected: true } : {}}
-                            accessibilityLabel={options.tabBarAccessibilityLabel}
-                            onPress={onPress}
-                            onLongPress={onLongPress}
-                        >
-                            <View style={{ flex: 1 }}>
-                                <FontAwesome5
-                                    name={navItems[index].name}
-                                    style={isFocused ? styles.activeTab : styles.fa}
-                                />
-                            </View>
-                        </Pressable>
-                    );
-                })
-            }
+                        return (
+                            <Pressable
+                                key={route.key}
+                                accessibilityRole="button"
+                                style={styles.pressableArea}
+                                accessibilityState={isFocused ? { selected: true } : {}}
+                                accessibilityLabel={options.tabBarAccessibilityLabel}
+                                onPress={onPress}
+                                onLongPress={onLongPress}
+                            >
+                                <View style={{ flex: 1 }}>
+                                    <FontAwesome5
+                                        name={navItems[index].name}
+                                        style={isFocused ? styles.activeTab : styles.fa}
+                                    />
+                                </View>
+                            </Pressable>
+                        );
+                    })
+                }
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    BottomNav: {
+    bottomNav: {
         height: 50,
-        width: '100%',
-        flexDirection: 'row',
-        paddingVertical: 10,
         backgroundColor: theme.darkColors.background,
+    },
+    bottomStyledNav: {
+        flex: 1,
+        paddingVertical: 10,
+        flexDirection: 'row',
+        borderTopLeftRadius: 10,
+        backgroundColor: 'black',
+        borderTopRightRadius: 10,
         justifyContent: 'space-between',
     },
     pressableArea: {
