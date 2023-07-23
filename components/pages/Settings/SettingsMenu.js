@@ -16,8 +16,6 @@ const SettingsMenu = () => {
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
     const [isSubscribed, setIsSubscribed] = useState(false);
-
-    // APP Version data from build.gradle
     const version = DeviceInfo.getVersion();
     const buildNumber = DeviceInfo.getBuildNumber();
 
@@ -43,7 +41,6 @@ const SettingsMenu = () => {
         try {
             const deviceState = await OneSignal.getDeviceState();
             const { hasNotificationPermission, isSubscribed } = deviceState;
-
             OneSignal.setExternalUserId(uuid);
             OneSignal.setEmail(email);
         } catch (error) {
@@ -52,8 +49,6 @@ const SettingsMenu = () => {
     };
 
     const logout = async () => {
-        // Remove accessToken and 2faRequired data
-        // Verigy first if the key exists
         const accessToken = await EncryptedStorage.getItem("accessToken");
         const twofaRequired = await EncryptedStorage.getItem("2faRequired");
         if (accessToken) {
@@ -151,7 +146,7 @@ const SettingsMenu = () => {
     const SettingsItemSection = ({ section }) => {
         return (
             <View style={styles.box}>
-                <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>{section.title}</Text>
+                <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 18, marginBottom: 10 }}>{section.title}</Text>
                 {section.options.map((option, index) => (
                     <SettingsItemSectionItem
                         key={index}
@@ -166,7 +161,7 @@ const SettingsMenu = () => {
     const SettingsItemSectionItem = ({ title, onPress }) => {
         return (
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff' }}>{title}</Text>
+                <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 18 }}>{title}</Text>
                 <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
             </Pressable>
         );
@@ -278,10 +273,10 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     item: {
+        marginVertical: 6,
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 10,
+        justifyContent: 'space-between',
     },
     copyBottom: {
         marginTop: 10,

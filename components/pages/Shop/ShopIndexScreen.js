@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, TextInput, StatusBar, RefreshControl } from 'react-native'
+import { FlatList, StyleSheet, View, TextInput, StatusBar, RefreshControl, TouchableOpacity, Text } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
@@ -7,21 +7,48 @@ import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 import { theme } from '../../ui/Theme'
 
-const SearchCartBar = React.memo(({ searchQuery, setSearchQuery }) => (
-    <View style={styles.searchBarContainer}>
-        <View style={styles.searchBar}>
-            <FontAwesome5 name='search' size={12} color='#7f8c8d' />
-            <TextInput
-                placeholder="Buscar"
-                style={[styles.searchBarText, { paddingVertical: 6 }]}
-                placeholderTextColor="#7f8c8d"
-                value={searchQuery}
-                onChangeText={text => setSearchQuery(text)}
-            />
+const SearchCartBar = React.memo(({ searchQuery, setSearchQuery }) => {
+
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+    return (
+        <View style={styles.searchBarContainer}>
+
+            {isSearchFocused ? (
+                <>
+                    <View style={styles.expandedSearchBar}>
+                        <FontAwesome5 name='search' size={14} color='#7f8c8d' />
+                        <TextInput
+                            placeholder="Buscar"
+                            style={[styles.searchBarText, { paddingVertical: 6 }]}
+                            placeholderTextColor="#7f8c8d"
+                            value={searchQuery}
+                            onChangeText={text => setSearchQuery(text)}
+                            onBlur={() => setIsSearchFocused(false)}
+                            autoFocus={true}
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.myPurchasesButtonCollpased}>
+                        <FontAwesome5 style={{ marginHorizontal: 10, }} name='shopping-cart' size={14} color='white' />
+                    </TouchableOpacity>
+                </>
+            ) : (
+                <>
+                    <TouchableOpacity onPress={() => setIsSearchFocused(true)}>
+                        <View style={styles.iconSearchBar}>
+                            <FontAwesome5 name='search' size={14} color='#7f8c8d' />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.myPurchasesButton}>
+                        <FontAwesome5 style={styles.cartIcon} name='shopping-cart' size={14} color='white' />
+                        <Text style={styles.myPurchasesText}>Mis Compras</Text>
+                    </TouchableOpacity>
+                </>
+            )}
+
         </View>
-        <FontAwesome5 style={styles.cartIcon} name='shopping-cart' size={18} color='#7f8c8d' />
-    </View>
-));
+    );
+});
 
 export default function ShopIndexScreen() {
 
@@ -115,31 +142,59 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     searchBarContainer: {
-        flex: 1,
         flexDirection: 'row',
-        alignContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 10,
         marginVertical: 10,
+        paddingHorizontal: 5,
+        justifyContent: 'space-between',
     },
-    searchBar: {
+    expandedSearchBar: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 10,
         paddingHorizontal: 10,
-        backgroundColor: theme.darkColors.elevation
+        backgroundColor: theme.darkColors.elevation,
     },
-    cartIcon: {
-        marginLeft: 10,
+    iconSearchBar: {
+        padding: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     searchBarText: {
         flex: 1,
         fontSize: 14,
         color: '#7f8c8d',
-        paddingVertical: 0,
-        textTransform: 'none',
         paddingHorizontal: 10,
+        fontFamily: "Rubik-Regular",
+    },
+    cartIcon: {
+        marginRight: 10,
+    },
+    myPurchasesButton: {
+        flex: 1,
+        borderRadius: 10,
+        marginVertical: 2,
+        paddingVertical: 5,
+        alignSelf: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        backgroundColor: theme.darkColors.primary,
+    },
+    myPurchasesButtonCollpased: {
+        borderRadius: 10,
+        marginLeft: 10,
+        paddingVertical: 12,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: theme.darkColors.primary,
+    },
+    myPurchasesText: {
+        fontSize: 16,
+        color: 'white',
         fontFamily: "Rubik-Regular",
     },
 })

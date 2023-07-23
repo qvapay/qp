@@ -1,14 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Alert, StyleSheet, ScrollView, Text, View } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Loader from '../../ui/Loader';
 import { buyGoldCheck } from '../../../utils/QvaPayClient';
+import Loader from '../../ui/Loader';
+import { useNavigation } from '@react-navigation/native';
 
-export default function GoldCheck({ navigation }) {
+const GOLD_CHECK_PRICE = 5;
 
+export default function GoldCheck() {
+
+    const navigation = useNavigation();
     const { me } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(me.golden_check);
@@ -29,12 +33,12 @@ export default function GoldCheck({ navigation }) {
 
     // if me.balance is less than total then disable the button and show {value} in red color, so create a state for truye or false
     useEffect(() => {
-        if (me.balance < 5) {
+        if (me.balance < GOLD_CHECK_PRICE) {
             setBalanceError(true);
         } else {
             setBalanceError(false);
         }
-    }, []);
+    }, [me.balance]);
 
     const handleUpgrade = async () => {
         Alert.alert(
@@ -54,6 +58,12 @@ export default function GoldCheck({ navigation }) {
                             }
                         } catch (error) {
                             console.log(error)
+
+                            // Send a notification to the user
+                            Alert.alert(
+                                "Error",
+                                "No se pudo realizar la compra de la Verificación Dorada"
+                            );
                         }
                         setLoading(false);
                     }
@@ -70,6 +80,11 @@ export default function GoldCheck({ navigation }) {
             <ScrollView showsVerticalScrollIndicator={false}>
 
                 <View style={{ flex: 1 }}>
+
+                    <Image
+                        source={require('../../../assets/images/gold-check-hero.png')} // Asume que tienes una imagen llamada 'gold_check.png' en tu directorio 'assets'
+                        style={styles.goldCheckImage}
+                    />
 
                     <View style={styles.box}>
                         <Text style={styles.goldCheckBenefits}>
@@ -114,10 +129,9 @@ export default function GoldCheck({ navigation }) {
                     </View>
 
                     {
-                        status && (
+                        status == 1 && (
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-                                <Text style={styles.accountStatus}>Activo hasta:
-                                </Text>
+                                <Text style={styles.accountStatus}>Activo hasta:</Text>
                                 <Text style={styles.accountStatus}>{me.golden_expire}</Text>
                             </View>
                         )

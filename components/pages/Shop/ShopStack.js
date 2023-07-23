@@ -1,14 +1,11 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import ShopItemScreen from './ShopItemScreen';
 import ShopIndexScreen from './ShopIndexScreen';
 import ShopCartScreen from './ShopCartScreen';
 import ShopCheckoutScreen from './ShopCheckoutScreen';
-
-// theme
-import { theme } from '../../ui/Theme';
+import BuyedItemsScreen from './BuyedItemsScreen';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -26,7 +23,8 @@ export default function ShopStack() {
             }}
         >
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
-            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
+            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen}/>
+            <Stack.Screen name="BuyedItemsScreen" component={BuyedItemsScreen} />
 
             <Stack.Screen
                 name="ShopItemScreen"

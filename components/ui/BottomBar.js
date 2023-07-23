@@ -9,7 +9,7 @@ export default function BottomBar({ state, descriptors, navigation }) {
     const navItems = [
         {
             key: 'Home',
-            name: 'home'
+            name: 'wallet'
         },
         {
             key: 'P2p',
