@@ -16,9 +16,13 @@ export default function AuthStack() {
             <Stack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
-                options={{ 
-                    headerShown: false,
+                options={{
+                    title: '',
+                    headerStyle: {
+                        backgroundColor: theme.darkColors.background,
+                    },
                     animationDuration: 250,
+                    headerTintColor: '#fff',
                     animation: 'slide_from_right',
                 }}
             />
@@ -41,8 +45,10 @@ export default function AuthStack() {
                     headerStyle: {
                         backgroundColor: theme.darkColors.background,
                     },
+                    animationDuration: 250,
                     headerTintColor: '#fff',
                     headerShadowVisible: false,
+                    animation: 'slide_from_right',
                 }}
             />
 

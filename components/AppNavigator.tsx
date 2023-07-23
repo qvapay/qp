@@ -46,7 +46,9 @@ export default function AppNavigator() {
           fontFamily: 'Rubik-Regular',
         },
         headerTitleAlign: 'center',
+        animation: 'slide_from_right',
       }}>
+        
       {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
