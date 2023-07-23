@@ -45,7 +45,6 @@ export default function FeaturedCard({ product, showLead = true }) {
                 <View style={[styles.circle2, circlePos.circle2]} />
                 <View style={[styles.circle3, circlePos.circle3]} />
 
-
                 <View style={{ flex: 1 }} />
 
                 <LinearGradient colors={['transparent', 'rgba(0,0,0,0.5)']} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>

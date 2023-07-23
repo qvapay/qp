@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 
 // colors:
 const colors = {
-
     primary_bg: "#161d31",              // Dark BG
     secondary_bg: "#21415F",            // Dark serious Blue
     main_bg: "#111626",                 // Dark almost black

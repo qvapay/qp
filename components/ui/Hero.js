@@ -6,10 +6,12 @@ export default function Hero({ title = "", subTitle = "", actionText, onActionPr
 
     return (
         <View style={styles.container}>
-            <LinearGradient colors={['#6759EF', '#7BFFB1']} style={styles.gradient}>
+            <LinearGradient colors={['#6759EF', '#6759EF']} style={styles.gradient}>
 
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subTitle}>{subTitle}</Text>
+                <View style={{ flex: 1, marginVertical: 10 }}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subTitle}>{subTitle}</Text>
+                </View>
 
                 <Pressable onPress={onActionPress} style={styles.actionContainer}>
                     <View style={styles.actionButton}>
@@ -31,8 +33,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     gradient: {
-        paddingTop: 10,
         paddingLeft: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     title: {
         fontSize: 30,
@@ -45,7 +49,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Rubik-Light',
     },
     actionContainer: {
+        alignSelf: 'flex-end',
         alignItems: 'flex-end',
+        justifyContent: 'flex-end',
     },
     actionButton: {
         marginTop: 20,

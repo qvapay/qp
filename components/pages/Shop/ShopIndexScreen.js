@@ -3,13 +3,9 @@ import { FlatList, StyleSheet, View, TextInput, StatusBar, RefreshControl, Touch
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 import { theme } from '../../ui/Theme'
-
-// import featured Card from ui
 import FeaturedCard from '../../ui/FeaturedCard';
-
 
 const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases }) => {
     const [isSearchFocused, setIsSearchFocused] = useState(false);
