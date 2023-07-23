@@ -7,6 +7,10 @@ import Card from '../../ui/Card'
 import Carousel from '../../ui/Carousel'
 import { theme } from '../../ui/Theme'
 
+// import featured Card from ui
+import FeaturedCard from '../../ui/FeaturedCard';
+
+
 const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases }) => {
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     return (
@@ -98,7 +102,7 @@ export default function ShopIndexScreen() {
 
     const productCard = ({ item, index }) => (
         <View style={styles.cardContainer}>
-            <Card product={item} />
+            <FeaturedCard key={item.uuid} product={item} showLead={false} />
         </View>
     );
 
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         flex: 1,
-        marginHorizontal: 5,
+        marginVertical: 5,
     },
     searchBarContainer: {
         flexDirection: 'row',

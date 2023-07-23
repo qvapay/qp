@@ -35,10 +35,7 @@ export default function Carousel({ featuredProducts = [] }) {
                 pagingEnabled
             >
                 {featuredProducts.map((product, index) => (
-                    <FeaturedCard
-                        key={product.uuid}
-                        product={product}
-                    />
+                    <FeaturedCard key={product.uuid} product={product} />
                 ))}
             </ScrollView>
         </View>

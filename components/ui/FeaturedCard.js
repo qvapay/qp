@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
-export default function FeaturedCard({ product }) {
+export default function FeaturedCard({ product, showLead = true }) {
 
     const navigation = useNavigation();
 
@@ -48,9 +48,11 @@ export default function FeaturedCard({ product }) {
 
                 <View style={{ flex: 1 }} />
 
-                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.5)']} style={styles.bottomInfo}>
+                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.5)']} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
                     <Text style={styles.bottomNameText}>{name}</Text>
-                    <Text style={styles.bottomPriceText}>{lead}</Text>
+                    {
+                        showLead && <Text style={styles.bottomPriceText}>{lead}</Text>
+                    }
                 </LinearGradient>
 
             </View>
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     bottomNameText: {
         fontSize: 16,
         color: '#fff',
-        fontFamily: 'Rubik-Regular'
+        fontFamily: 'Rubik-Regular',
     },
     bottomPriceText: {
         fontSize: 12,
