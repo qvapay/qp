@@ -324,6 +324,18 @@ const buyProduct = async ({ navigation, uuid, amount, value }) => {
     }
 };
 
+// get my purchases 
+const getMyPurchases = async ({ navigation }) => {
+    try {
+        const url = `/store/my`
+        const response = await apiRequest(url, { method: 'GET' }, navigation);
+        return response;
+    } catch (error) {
+        console.error('Error fetching my purchases:', error);
+        return [];
+    }
+};
+
 export {
     qvaPayClient,
     checkTwoFactor,
@@ -344,5 +356,6 @@ export {
     updateUserData,
     getProducts,
     getProductByUuid,
-    buyProduct
+    buyProduct,
+    getMyPurchases
 };

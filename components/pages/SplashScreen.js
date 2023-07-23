@@ -6,6 +6,8 @@ import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
 import { globalStyles, theme } from '../ui/Theme';
 
+const WAITING_TIME = 1000;
+
 const SplashScreen = () => {
 
     const navigation = useNavigation();
@@ -21,7 +23,7 @@ const SplashScreen = () => {
             try {
                 const [tokenResponse] = await Promise.all([
                     getMe(navigation),
-                    new Promise(resolve => setTimeout(resolve, 2000))
+                    new Promise(resolve => setTimeout(resolve, WAITING_TIME))
                 ]);
                 userToken = tokenResponse;
                 if (userToken) {

@@ -38,6 +38,7 @@ export default function Transaction({ transaction, navigation }) {
                 </View>
                 <View style={styles.transactionValue}>
                     <Text style={[styles.transactionAmount, { color }]}>{amountSign}{amountFixed}</Text>
+                    <Text style={styles.transactionStatus}>Completado</Text>
                 </View>
             </View>
         </Pressable>
@@ -74,8 +75,18 @@ const styles = StyleSheet.create({
         color: '#9da3b4',
         fontFamily: "Rubik-Light",
     },
+    transactionValue: {
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
     transactionAmount: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: "Rubik-Bold",
+    },
+    transactionStatus: {
+        fontSize: 10,
+        color: '#9da3b4',
+        fontFamily: "Rubik-Light",
     },
 })
