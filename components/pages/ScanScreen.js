@@ -6,9 +6,8 @@ import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
 import { theme } from '../ui/Theme';
-
-// Todo: 
-// Add a button to light up the bulb
+ 
+// TODO Add a button to light up the bulb
 
 export default function ScanScreen({ navigation }) {
 

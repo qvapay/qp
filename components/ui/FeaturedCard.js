@@ -47,11 +47,9 @@ export default function FeaturedCard({ product, showLead = true }) {
 
                 <View style={{ flex: 1 }} />
 
-                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.5)']} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
+                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.75)']} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
                     <Text style={styles.bottomNameText}>{name}</Text>
-                    {
-                        showLead && <Text style={styles.bottomPriceText}>{lead}</Text>
-                    }
+                    { showLead && <Text style={styles.bottomPriceText}>{lead}</Text> }
                 </LinearGradient>
 
             </View>
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
     },
     bottomInfo: {
         width: '100%',
-        paddingVertical: 6,
+        paddingVertical: 5,
         paddingHorizontal: 10,
         flexDirection: 'row',
         alignItems: 'center',
