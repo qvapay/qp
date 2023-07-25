@@ -39,11 +39,7 @@ export default function SettingsStack() {
     const navigation = useNavigation();
 
     return (
-        <Stack.Navigator
-            name="SettingsStack"
-            initialRouteName="SettingsMenu"
-            screenOptions={defaultScreenOptions}
-        >
+        <Stack.Navigator name="SettingsStack" initialRouteName="SettingsMenu" screenOptions={defaultScreenOptions} >
 
             <Stack.Screen
                 name="SettingsMenu"

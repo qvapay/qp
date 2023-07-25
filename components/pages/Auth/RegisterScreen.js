@@ -63,16 +63,12 @@ export default function RegisterScreen({ navigation }) {
 
         try {
             const response = await qvaPayClient.post('/auth/register', dataToSend);
-
-            console.log(response)
-
             if (response.status === 201 && response.data.accessToken) {
                 setIsRegistraionSuccess(true);
             } else {
                 setErrortext(response.msg);
                 throw new Error("No se pudo registrar correctamente");
             }
-
         } catch (error) {
             setErrortext(error.response.data.error ? error.message : "Ha ocurrido un error");
             console.log(error)
@@ -88,11 +84,7 @@ export default function RegisterScreen({ navigation }) {
             <Loader loading={loading} />
 
             {isRegistraionSuccess ? (
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ alignItems: 'center' }}>
                         <QPLogo />
                     </View>

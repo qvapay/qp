@@ -6,6 +6,7 @@ import ShopIndexScreen from './ShopIndexScreen';
 import ShopCartScreen from './ShopCartScreen';
 import ShopCheckoutScreen from './ShopCheckoutScreen';
 import MyPurchasesScreen from './MyPurchasesScreen';
+import { theme } from '../../ui/Theme';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
@@ -23,8 +24,9 @@ export default function ShopStack() {
                 headerShadowVisible: false,
             }}
         >
+
             <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
-            
+
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
 
             <Stack.Screen
@@ -38,13 +40,12 @@ export default function ShopStack() {
                     headerTitleAlign: 'center',
                     animation: 'slide_from_right',
                     headerStyle: {
-                        backgroundColor: '#161d31',
+                        backgroundColor: theme.darkColors.background,
                     },
                     headerTitleStyle: {
-                        color: '#fff',
+                        color: 'white',
                         fontFamily: 'Rubik-Regular',
                     },
-                    headerShadowVisible: false,
                 }}
             />
 

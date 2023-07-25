@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
+
+import { theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
 import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
-import { theme } from '../../ui/Theme';
-
 import OneSignal from 'react-native-onesignal';
 import DeviceInfo from 'react-native-device-info';
 
@@ -57,7 +57,6 @@ const SettingsMenu = () => {
         if (twofaRequired) {
             await EncryptedStorage.removeItem('2faRequired');
         }
-        // Go to Splash Screen
         navigation.replace('SplashScreen');
     };
 

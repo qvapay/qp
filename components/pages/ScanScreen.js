@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import { Pressable, StyleSheet, View } from 'react-native'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import { RNCamera } from 'react-native-camera';
+import { globalStyles, theme } from '../ui/Theme';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { request, PERMISSIONS } from 'react-native-permissions';
-import { theme } from '../ui/Theme';
- 
+import { parseQRData, isValidQRData } from '../../utils/Helpers';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
+
 // TODO Add a button to light up the bulb
 
-export default function ScanScreen({ navigation }) {
+export default function ScanScreen() {
 
-    const [permissionResult, setPermissionResult] = useState(null);
+    const navigation = useNavigation();
     const [validQR, setValidQR] = useState('#fff');
+    const [torchOn, setTorchOn] = useState(false);
+    const [permissionResult, setPermissionResult] = useState(null);
 
     // Add the bulb icon to right side of the top bar
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Pressable style={styles.scanTopBar} onPress={() => { }}>
-                    <FontAwesome5 name='lightbulb' size={20} style={styles.faIcon} />
+                <Pressable
+                    onPress={() => { setTorchOn(!torchOn) }}>
+                    <FontAwesome5 name='lightbulb' size={20} style={{ color: torchOn ? theme.darkColors.success : 'white' }} />
                 </Pressable>
             ),
         });
-    }, [navigation]);
+    }, [navigation, torchOn]);
 
     // request permission with a useEffect
     useEffect(() => {
@@ -54,12 +59,12 @@ export default function ScanScreen({ navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
             <View style={styles.rectangleContainer}>
                 <View style={[styles.cameraContainer, { borderColor: validQR }]}>
                     <QRCodeScanner
                         onRead={onSuccess}
-                        flashMode={RNCamera.Constants.FlashMode.off}
+                        flashMode={torchOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
                         cameraStyle={styles.camera}
                     />
                 </View>
@@ -69,17 +74,6 @@ export default function ScanScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: theme.darkColors.background
-    },
-    scanTopBar: {
-        marginRight: 10,
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
     rectangleContainer: {
         flex: 1,
         alignItems: 'center',
@@ -88,16 +82,13 @@ const styles = StyleSheet.create({
     cameraContainer: {
         width: 280,
         height: 280,
-        borderWidth: 4,
-        borderRadius: 18,
+        borderWidth: 1,
+        borderRadius: 10,
         overflow: 'hidden',
         alignSelf: 'center',
     },
     camera: {
         height: '100%',
         width: '100%',
-    },
-    faIcon: {
-        color: '#fff',
     }
 });

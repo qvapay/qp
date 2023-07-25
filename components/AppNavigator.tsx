@@ -1,5 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import {theme} from './ui/Theme';
 
 // Navigation Stacks
@@ -49,36 +50,29 @@ export default function AppNavigator() {
         animation: 'slide_from_right',
       }}>
         
-      {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
         options={{headerShown: false}}
       />
 
-      {/* SplashScreen which will come once for 2 Seconds */}
       <Stack.Screen
         name={ROUTES.WELCOME_SCREEN}
         component={WelcomeScreen}
         options={{headerShown: false}}
       />
 
-      {/* Auth Navigator: Include Login and Signup */}
       <Stack.Screen
         name={ROUTES.AUTH_STACK}
         component={AuthStack}
-        options={{
-          headerShown: false,
-        }}
+        options={{headerShown: false}}
       />
 
       {/* Main Tabs Navigator */}
       <Stack.Screen
         name={ROUTES.MAIN_STACK}
         component={MainStack}
-        options={{
-          headerShown: false,
-        }}
+        options={{headerShown: false}}
       />
 
       {/* Transactions Stack */}
@@ -95,7 +89,7 @@ export default function AppNavigator() {
         name={ROUTES.SHOP_STACK}
         component={ShopStack}
         options={{
-          headerShown: false, // Use the Stack Navigator header
+          headerShown: false,
           animationDuration: 250,
           animation: 'slide_from_right',
         }}
@@ -160,6 +154,7 @@ export default function AppNavigator() {
         name={ROUTES.SCAN_SCREEN}
         component={ScanScreen}
         options={{
+          headerShown: true,
           animationDuration: 250,
           animation: 'slide_from_left',
         }}

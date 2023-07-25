@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, FlatList, Modal, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Modal, TouchableOpacity, TextInput } from 'react-native'
 import { getMyPurchases } from '../../../utils/QvaPayClient';
 import { globalStyles } from '../../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../../ui/Theme';
 import FastImage from 'react-native-fast-image';
 import { getShortDateTime } from '../../../utils/Helpers';
+import { HeaderBackButton } from '@react-navigation/elements';
 
 export default function MyPurchasesScreen() {
 
     const navigation = useNavigation();
     const [myPurchases, setMyPurchases] = useState([]);
-
-    const [isModalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [isModalVisible, setModalVisible] = useState(false);
 
     // useEffect fopr fetching the data
     useEffect(() => {
@@ -31,6 +31,20 @@ export default function MyPurchasesScreen() {
         }
         fetchMyPurchases();
     }, []);
+
+    // Add the bulb icon to right side of the top bar
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: (props) => (
+                <HeaderBackButton
+                    {...props}
+                    onPress={() => {
+                        props.onPress();
+                    }}
+                />
+            ),
+        });
+    }, [navigation]);
 
     const handleItemPress = (item) => {
         setSelectedItem(item);
@@ -77,7 +91,15 @@ export default function MyPurchasesScreen() {
                 <Modal visible={isModalVisible} transparent={true} animationType="fade" onRequestClose={closeModal}>
                     <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.8)' }} onPress={closeModal} activeOpacity={1}>
                         <View style={{ width: '80%', backgroundColor: theme.darkColors.elevation, padding: 20, borderRadius: 10 }}>
-                            <Text style={styles.itemTitle}>{selectedItem.service_data}</Text>
+                            {/* <TextInput style={styles.itemTitle}>{selectedItem.service_data}</TextInput> */}
+                            <TextInput
+                                value={selectedItem.service_data}
+                                style={[styles.itemTitle, { padding: 0, margin: 0 }]}
+                                editable={false}
+                                multiline
+                                underlineColorAndroid="transparent"
+                                selectTextOnFocus
+                            />
                         </View>
                     </TouchableOpacity>
                 </Modal>
@@ -98,7 +120,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         backgroundColor: theme.darkColors.elevation,
     },
     itemTitle: {
