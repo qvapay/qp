@@ -12,9 +12,9 @@ const qvaPayClient = axios.create({
         "Content-Type": "application/json",
         "X-QvaPay-Client": "QvaPayClient",
         "User-Agent": "QvaPayClient",
-        "X-QvaPay-Client-Version": "1.0.0",
+        "X-QvaPay-Client-Version": "1.8.1",
         "X-QvaPay-Client-Platform": "QvaPayClient",
-        "X-QvaPay-Client-Platform-Version": "1.0.0",
+        "X-QvaPay-Client-Platform-Version": "1.8.1",
     },
 });
 

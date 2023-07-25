@@ -36,18 +36,24 @@ export default function RegisterScreen({ navigation }) {
             alert('Please fill Password');
             return false;
         }
+        if (userPassword.length < 6) {
+            alert('Please fill Password with at least 6 characters');
+            return false;
+        }
+        if (!agree) {
+            alert('Please agree to the terms and conditions');
+            return false;
+        }
         return true;
     };
 
     const handleRegister = async () => {
 
-        // Validate form
         if (!validateFields()) { return }
 
-        //Show Loader
         setLoading(true);
 
-        var dataToSend = {
+        const dataToSend = {
             name: userName,
             email: userEmail,
             password: userPassword,
@@ -58,6 +64,8 @@ export default function RegisterScreen({ navigation }) {
         try {
             const response = await qvaPayClient.post('/auth/register', dataToSend);
 
+            console.log(response)
+
             if (response.status === 201 && response.data.accessToken) {
                 setIsRegistraionSuccess(true);
             } else {
@@ -67,6 +75,7 @@ export default function RegisterScreen({ navigation }) {
 
         } catch (error) {
             setErrortext(error.response.data.error ? error.message : "Ha ocurrido un error");
+            console.log(error)
             console.error(error.response.data.error);
         } finally {
             setLoading(false);
@@ -91,7 +100,7 @@ export default function RegisterScreen({ navigation }) {
                         Registro satisfactorio.
                     </Text>
                     <Text style={styles.successTextStyle}>
-                        Por favor, inicie sesión para continuar.
+                        Por favor, verifique su cuenta mediante el correo recibido para comenzar a usar QvaPay.
                     </Text>
                     <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
                 </View>
