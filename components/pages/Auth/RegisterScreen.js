@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 import QPLogo from '../../ui/QPLogo';
@@ -23,9 +23,7 @@ export default function RegisterScreen({ navigation }) {
 
     // Form Validation
     const validateFields = () => {
-
         setErrortext('');
-
         if (!userName) {
             alert('Please fill Name');
             return false;
@@ -38,16 +36,13 @@ export default function RegisterScreen({ navigation }) {
             alert('Please fill Password');
             return false;
         }
-
         return true;
     };
 
     const handleRegister = async () => {
 
         // Validate form
-        if (!validateFields()) {
-            return;
-        }
+        if (!validateFields()) { return }
 
         //Show Loader
         setLoading(true);
@@ -101,10 +96,12 @@ export default function RegisterScreen({ navigation }) {
                     <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
                 </View>
             ) : (
-                <>
+                <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+
                     <View style={{ alignItems: 'center' }}>
                         <QPLogo />
                     </View>
+
                     <View style={styles.sectionStyle}>
                         <TextInput
                             style={styles.inputStyle}
@@ -164,7 +161,7 @@ export default function RegisterScreen({ navigation }) {
                         </Text>
                     ) : null}
 
-                    <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', alignSelf: 'center', marginVertical: 20 }}>
+                    <View style={styles.checkBox}>
                         <BouncyCheckbox
                             size={20}
                             fillColor={theme.darkColors.primary}
@@ -184,7 +181,8 @@ export default function RegisterScreen({ navigation }) {
                     </View>
 
                     <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
-                </>
+
+                </ScrollView>
             )}
 
         </KeyboardAvoidingView>
@@ -194,7 +192,7 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
     sectionStyle: {
         height: 50,
-        marginTop: 10,
+        marginVertical: 5,
         flexDirection: 'row'
     },
     inputStyle: {
@@ -225,4 +223,11 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontFamily: "Rubik-Regular",
     },
+    checkBox: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    }
 })
