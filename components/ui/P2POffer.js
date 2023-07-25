@@ -74,11 +74,10 @@ export default function P2POffer({ offer, navigation }) {
 const styles = StyleSheet.create({
     offerItem: {
         flex: 1,
-        paddingVertical: 10,
+        paddingVertical: 6,
         alignItems: 'center',
         flexDirection: 'row',
         flexDirection: 'row',
-        marginHorizontal: 20,
         justifyContent: 'space-between',
     },
     coinSection: {

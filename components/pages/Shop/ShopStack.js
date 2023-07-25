@@ -20,6 +20,7 @@ export default function ShopStack() {
                 headerShown: true,
                 animationDuration: 250,
                 animation: 'slide_from_right',
+                headerShadowVisible: false,
             }}
         >
             <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />

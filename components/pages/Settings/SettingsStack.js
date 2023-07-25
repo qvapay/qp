@@ -15,14 +15,11 @@ import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
 import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
-
-// Theme
 import { theme } from '../../ui/Theme';
-
-// Import Routes
 import { ROUTES } from '../../routes';
 
 const defaultScreenOptions = {
+    headerShown: true,
     headerTitleStyle: {
         fontFamily: 'Rubik-Regular',
     },
@@ -32,7 +29,6 @@ const defaultScreenOptions = {
     headerTintColor: '#fff',
     headerTitleAlign: 'center',
     headerShadowVisible: false,
-    headerShown: true,
 };
 
 // Stack Navigation
@@ -46,7 +42,8 @@ export default function SettingsStack() {
         <Stack.Navigator
             name="SettingsStack"
             initialRouteName="SettingsMenu"
-            screenOptions={defaultScreenOptions}>
+            screenOptions={defaultScreenOptions}
+        >
 
             <Stack.Screen
                 name="SettingsMenu"

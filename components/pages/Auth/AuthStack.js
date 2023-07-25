@@ -1,17 +1,27 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 import { theme } from '../../ui/Theme';
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 import RecoverPasswordScreen from './RecoverPasswordScreen';
+import { HeaderBackButton } from '@react-navigation/elements';
 
 // Stack Navigation
 const Stack = createNativeStackNavigator();
 
 export default function AuthStack() {
 
+    const navigation = useNavigation();
+
     return (
-        <Stack.Navigator name="AuthStack" initialRouteName="LoginScreen">
+        <Stack.Navigator
+            name="AuthStack"
+            initialRouteName="LoginScreen"
+            screenOptions={{
+                headerShadowVisible: false,
+            }}
+        >
 
             <Stack.Screen
                 name="LoginScreen"
@@ -24,6 +34,14 @@ export default function AuthStack() {
                     animationDuration: 250,
                     headerTintColor: '#fff',
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 
@@ -49,6 +67,14 @@ export default function AuthStack() {
                     headerTintColor: '#fff',
                     headerShadowVisible: false,
                     animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    ),
                 }}
             />
 

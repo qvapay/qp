@@ -12,6 +12,9 @@ export default function TransactionStack() {
         <Stack.Navigator
             name="TransactionStack"
             initialRouteName="IndexTransaction"
+            screenOptions={{
+                headerShadowVisible: false,
+            }}
         >
 
             <Stack.Screen

@@ -4,6 +4,8 @@ import FeaturedCard from './FeaturedCard';
 
 const { width } = Dimensions.get('window');
 
+const SLIDER_SPEED = 5000;
+
 export default function Carousel({ featuredProducts = [] }) {
 
     const scrollViewRef = useRef();
@@ -17,7 +19,7 @@ export default function Carousel({ featuredProducts = [] }) {
                 scrollViewRef.current.scrollTo({ x: newIndex * (width - 20), animated: true });
                 return newIndex;
             });
-        }, 3000);
+        }, SLIDER_SPEED);
 
         // Clear the interval when the component is unmounted
         return () => clearInterval(timer);

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Pressable, Text } from 'react-native'
-
 import IndexP2p from '../P2P/IndexP2p'
 import { globalStyles } from '../../ui/Theme'
 import { getP2POffers } from '../../../utils/QvaPayClient'
-
-// Theme
 import { theme } from '../../ui/Theme'
 
 export default function P2pScreen({ navigation }) {
@@ -19,7 +16,6 @@ export default function P2pScreen({ navigation }) {
         const getOffers = async () => {
             const buyOffers = await getP2POffers({ type: 'buy', navigation });
             setBuyoffers(buyOffers);
-
             const sellOffers = await getP2POffers({ type: 'sell', navigation });
             setSelloffers(sellOffers);
         }
@@ -48,11 +44,8 @@ export default function P2pScreen({ navigation }) {
     );
 
     return (
-        <View style={[globalStyles.container, { paddingHorizontal: 0 }]}>
-            <OffersFilter
-                isSellEnabled={isSellEnabled}
-                onToggle={(value) => setIsSellEnabled(value)}
-            />
+        <View style={[globalStyles.container]}>
+            <OffersFilter isSellEnabled={isSellEnabled} onToggle={(value) => setIsSellEnabled(value)} />
             <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} navigation={navigation} />
         </View>
     )
@@ -63,7 +56,6 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 10,
         marginVertical: 10,
-        marginHorizontal: 20,
         alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: '#111626',
