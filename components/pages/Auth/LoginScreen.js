@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -198,7 +197,7 @@ export default function LoginScreen() {
     }
 
     return (
-        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
             <Loader loading={loading} />
 
@@ -286,7 +285,7 @@ export default function LoginScreen() {
                 )
             }
 
-        </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     );
 }
 

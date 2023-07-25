@@ -1,6 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
@@ -77,7 +76,7 @@ export default function RegisterScreen({ navigation }) {
     };
 
     return (
-        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
             <Loader loading={loading} />
 
@@ -165,7 +164,8 @@ export default function RegisterScreen({ navigation }) {
                     <QPButton title="Registrarme" onPress={handleRegister} />
                 </>
             )}
-        </KeyboardAwareScrollView>
+
+        </KeyboardAvoidingView>
     )
 }
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, ActivityIndicator, FlatList, KeyboardAvoidingView } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { getCoinData, sendWithdraw } from '../../../utils/QvaPayClient';
@@ -82,7 +81,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
     };
 
     return (
-        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
             {
                 loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
@@ -102,7 +101,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
                     )
                 )
             }
-        </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

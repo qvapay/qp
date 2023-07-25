@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react'
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native'
 import { globalStyles, theme } from '../../ui/Theme'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
 import QPButton from '../../ui/QPButton'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppContext } from '../../../AppContext';
 import { updateUserData } from '../../../utils/QvaPayClient'
 
@@ -31,7 +30,7 @@ export default function UserdataScreen({ navigation }) {
     }
 
     return (
-        <KeyboardAwareScrollView contentContainerStyle={[globalStyles.container, { justifyContent: 'center', flex: 1 }]} >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
             <View style={{ flex: 1 }}>
 
@@ -114,7 +113,7 @@ export default function UserdataScreen({ navigation }) {
 
             <QPButton title="Actualizar" onPress={updateData} />
 
-        </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

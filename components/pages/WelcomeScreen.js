@@ -40,7 +40,6 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
     welcome: {
         flex: 1,
-        marginTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
     },
