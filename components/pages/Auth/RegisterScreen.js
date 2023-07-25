@@ -1,5 +1,7 @@
 import React, { useState, createRef } from 'react';
 import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
@@ -14,6 +16,7 @@ export default function RegisterScreen({ navigation }) {
     const [errortext, setErrortext] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
+    const [agree, setAgree] = useState(false);
 
     const emailInputRef = createRef();
     const passwordInputRef = createRef();
@@ -161,7 +164,26 @@ export default function RegisterScreen({ navigation }) {
                         </Text>
                     ) : null}
 
-                    <QPButton title="Registrarme" onPress={handleRegister} />
+                    <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', alignSelf: 'center', marginVertical: 20 }}>
+                        <BouncyCheckbox
+                            size={20}
+                            fillColor={theme.darkColors.primary}
+                            unfillColor={theme.darkColors.background}
+                            text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
+                            iconStyle={{ borderColor: theme.darkColors.primary }}
+                            innerIconStyle={{ borderWidth: 1 }}
+                            textStyle={{
+                                fontFamily: "Rubik-Regular",
+                                textDecorationLine: 'none'
+                            }}
+                            onPress={(isChecked) => {
+                                console.log(isChecked)
+                                setAgree(isChecked)
+                            }}
+                        />
+                    </View>
+
+                    <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
                 </>
             )}
 
@@ -194,6 +216,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         textAlign: 'center',
+        fontFamily: "Rubik-Regular",
+    },
+    registerTextStyle: {
+        flex: 1,
+        fontSize: 14,
+        marginTop: 10,
+        color: '#FFFFFF',
         fontFamily: "Rubik-Regular",
     },
 })
