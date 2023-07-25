@@ -39,7 +39,7 @@ export default function MyPurchasesScreen() {
                 <HeaderBackButton
                     {...props}
                     onPress={() => {
-                        props.onPress();
+                        navigation.goBack();
                     }}
                 />
             ),

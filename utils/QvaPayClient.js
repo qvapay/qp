@@ -25,13 +25,11 @@ const apiRequest = async (url, options = {}, navigation) => {
 
     // Check if accessToken !exists
     if (!accessToken) {
-        console.log("No accessToken")
         onInvalidToken(navigation);
         return null;
     }
 
     try {
-
         const response = await qvaPayClient.request({
             url,
             headers: {
@@ -56,7 +54,6 @@ const apiRequest = async (url, options = {}, navigation) => {
         }
 
         return response.data;
-
     } catch (error) {
 
         // Network Error do nothing or 
@@ -87,21 +84,14 @@ const apiRequest = async (url, options = {}, navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
-    try {
-        const accessToken = await EncryptedStorage.getItem("accessToken");
-        if (!accessToken) {
-            return;
-        }
-        await EncryptedStorage.removeItem('accessToken');
-    } catch (error) {
-        console.error("onInvalidToken:" + error);
-    }
-    navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
+    return;
+    //navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
 };
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidResponse = async (navigation) => {
-    navigation.goBack();
+    return;
+    //navigation.goBack();
 };
 
 // Go to Splash Screen

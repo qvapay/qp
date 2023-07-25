@@ -1,15 +1,22 @@
 import React from 'react'
 import { Button } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
-
-// import global styles and theme
+import { StyleSheet, Vibration } from 'react-native';
 import { theme } from './Theme';
 
 export default function QPButton(props) {
 
+    // Define a gentle vibration pattern
+    const GENTLE_VIBRATION_PATTERN = [0, 50]; // wait for 0ms, vibrate for 50ms
+
+    const handlePress = () => {
+        Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
+        props.onPress && props.onPress();
+    };
+
     return (
         <Button
             {...props}
+            onPress={handlePress}
             titleStyle={[styles.titleStyle, props.titleStyle]}
             buttonStyle={[styles.buttonStyle, props.buttonStyle]}
             disabledStyle={[styles.disabledStyle, props.disabledStyle]}
