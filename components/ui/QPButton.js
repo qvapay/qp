@@ -3,10 +3,9 @@ import { Button } from '@rneui/themed';
 import { StyleSheet, Vibration } from 'react-native';
 import { theme } from './Theme';
 
-export default function QPButton(props) {
+const GENTLE_VIBRATION_PATTERN = [0, 50];
 
-    // Define a gentle vibration pattern
-    const GENTLE_VIBRATION_PATTERN = [0, 50]; // wait for 0ms, vibrate for 50ms
+export default function QPButton(props) {
 
     const handlePress = () => {
         Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
