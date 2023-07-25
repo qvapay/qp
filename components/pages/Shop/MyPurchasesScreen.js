@@ -91,7 +91,6 @@ export default function MyPurchasesScreen() {
                 <Modal visible={isModalVisible} transparent={true} animationType="fade" onRequestClose={closeModal}>
                     <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.8)' }} onPress={closeModal} activeOpacity={1}>
                         <View style={{ width: '80%', backgroundColor: theme.darkColors.elevation, padding: 20, borderRadius: 10 }}>
-                            {/* <TextInput style={styles.itemTitle}>{selectedItem.service_data}</TextInput> */}
                             <TextInput
                                 value={selectedItem.service_data}
                                 style={[styles.itemTitle, { padding: 0, margin: 0 }]}
