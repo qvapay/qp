@@ -2,11 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { globalStyles } from './Theme'
 import AvatarPicture from './AvatarPicture';
-
-// Theme
 import { theme } from './Theme';
 
-export default function ProfilePictureSection({ user = {}, negative = false }) {
+export default function ProfilePictureSection({ user = {}, negative = false, size = 150 }) {
 
     // Destructuring the user object
     const {
@@ -20,17 +18,17 @@ export default function ProfilePictureSection({ user = {}, negative = false }) {
     } = user;
 
     // const average_rating_number = parseFloat(average_rating);
-    const textColor = negative ? theme.darkColors.background : '#FFFFFF';
+    const textColor = negative ? theme.darkColors.background : 'white';
 
     return (
         <View style={globalStyles.profilePictureSection}>
 
             <AvatarPicture
-                size={150}
-                source_uri={profile_photo_url}
-                negative={negative}
+                size={size}
                 showBadge={true}
+                negative={negative}
                 rating={average_rating}
+                source_uri={profile_photo_url}
             />
 
             <View style={styles.fullNameView}>

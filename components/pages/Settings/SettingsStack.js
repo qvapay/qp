@@ -112,7 +112,7 @@ export default function SettingsStack() {
                 name="UserdataScreen"
                 component={UserdataScreen}
                 options={{
-                    title: '',
+                    title: 'Mi Perfil',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton

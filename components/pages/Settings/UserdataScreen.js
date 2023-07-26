@@ -1,9 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
 import { globalStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
 import { updateUserData } from '../../../utils/QvaPayClient'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ProfilePictureSection from '../../ui/ProfilePictureSection';
+import AvatarPicture from '../../ui/AvatarPicture';
 
 export default function UserdataScreen({ navigation }) {
 
@@ -32,10 +35,27 @@ export default function UserdataScreen({ navigation }) {
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
-            <View style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
 
-                <Text style={styles.inputLabelStyle}>Nombre de usuario:</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20 }}>
+                    <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={true} rating={me.average_rating} />
+                    <View style={{ flex: 1, marginLeft: 10 }}>
+                        <View style={styles.fullNameView}>
+                            <Text style={{ ...globalStyles.fullName }}>{name} {lastname}</Text>
+                            {me.golden_check == 1 && (
+                                <Image
+                                    source={require('../../../assets/images/gold-badge.png')}
+                                    style={{ marginLeft: 8, marginTop: 3 }}
+                                />
+                            )}
+                        </View>
+                        <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', marginLeft: 10 }}>@{me.username}</Text>
+                    </View>
+                </View>
+
+                <Text style={styles.inputLabelStyle}>Usuario:</Text>
                 <View style={styles.sectionStyle}>
+                    <FontAwesome5 name='lightbulb' size={20} style={{ color: 'white', marginRight: 10 }} />
                     <TextInput
                         style={styles.inputStyle}
                         onChangeText={(username) => setUsername(username)}
@@ -109,7 +129,7 @@ export default function UserdataScreen({ navigation }) {
                     />
                 </View>
 
-            </View>
+            </ScrollView>
 
             <QPButton title="Actualizar" onPress={updateData} />
 
@@ -122,6 +142,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 10,
         flexDirection: 'row',
+        alignItems: 'center',
     },
     inputStyle: {
         flex: 1,
@@ -149,5 +170,9 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
+    },
+    fullNameView: {
+        alignItems: 'center',
+        flexDirection: 'row',
     },
 })

@@ -50,22 +50,24 @@ export default function MainStack() {
                     <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
                 ),
                 headerRight: () => (
-                    <Pressable
-                        onPress={
-                            () => navigation.navigate("SettingsStack")
-                        }
-                        style={styles.headerRight}
-                        onLongPress={
-                            () => navigation.navigate('SettingsStack', {
-                                screen: 'UserdataScreen'
-                            })
-                        }>
-                        <View style={styles.headerWelcome}>
-                            <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
-                            <Text style={styles.handleText}>@{`${me.username}`}</Text>
-                        </View>
-                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
-                    </Pressable>
+                    me.name && me.username ? (
+                        <Pressable
+                            onPress={
+                                () => navigation.navigate("SettingsStack")
+                            }
+                            style={styles.headerRight}
+                            onLongPress={
+                                () => navigation.navigate('SettingsStack', {
+                                    screen: 'UserdataScreen'
+                                })
+                            }>
+                            <View style={styles.headerWelcome}>
+                                <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
+                                <Text style={styles.handleText}>@{`${me.username}`}</Text>
+                            </View>
+                            <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                        </Pressable>
+                    ) : null
                 ),
             })}
         >

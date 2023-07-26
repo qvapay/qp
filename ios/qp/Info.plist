@@ -33,6 +33,8 @@
 	<string>Necesitamos acceso a la cámara para poder escanear correctamente el QR</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>QvaPay requires FaceID access to allows you quick and secure access.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>QvaPay could suggest you the best business around to pay with your balance.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
