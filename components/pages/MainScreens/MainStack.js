@@ -22,6 +22,13 @@ export default function MainStack() {
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
 
+    // Set the status bar to light
+    useEffect(() => {
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(theme.darkColors.background);
+        }
+    }, []);
+
     // if {me} id undefined the go to Splash Screen
     useEffect(() => {
         if (!me) {

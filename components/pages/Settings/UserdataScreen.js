@@ -7,8 +7,6 @@ import { updateUserData } from '../../../utils/QvaPayClient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
-import PhoneVerify from '../../ui/PhoneVerify';
-
 
 export default function UserdataScreen() {
 

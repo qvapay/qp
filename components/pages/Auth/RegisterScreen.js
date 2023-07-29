@@ -175,7 +175,6 @@ export default function RegisterScreen({ navigation }) {
                                 textDecorationLine: 'none'
                             }}
                             onPress={(isChecked) => {
-                                console.log(isChecked)
                                 setAgree(isChecked)
                             }}
                         />
@@ -225,6 +224,7 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
     },
     checkBox: {
+        paddingHorizontal: 10,
         marginVertical: 10,
         flexDirection: 'row',
         alignContent: 'center',

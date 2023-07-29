@@ -49,11 +49,12 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
-        
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
 
       <Stack.Screen

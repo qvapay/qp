@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, View, ActivityIndicator, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
-import { globalStyles, theme } from '../ui/Theme';
+import { theme } from '../ui/Theme';
 
-const WAITING_TIME = 1000;
+const WAITING_TIME = 5000;
 
 const SplashScreen = () => {
 
@@ -15,10 +15,8 @@ const SplashScreen = () => {
 
     useEffect(() => {
         const verifyToken = async () => {
-
             let userToken;
             let navigateTo = ROUTES.WELCOME_SCREEN;
-
             setIsLoading(true);
             try {
                 const [tokenResponse] = await Promise.all([
@@ -36,18 +34,30 @@ const SplashScreen = () => {
                 navigation.replace(navigateTo);
             }
         }
+
+        // Set the status bar to light
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(theme.darkColors.primary);
+        }
+
         verifyToken();
     }, []);
 
     return (
-        <View style={globalStyles.container}>
-            <Image source={require('../../assets/images/qvapay-cover2.png')} style={styles.imageLogo} />
-            {isLoading && <ActivityIndicator color={theme.darkColors.success} size="small" />}
+        <View style={styles.container}>
+            <Image source={require('../../assets/images/qvapay-logo-white.png')} style={styles.imageLogo} />
+            {isLoading && <ActivityIndicator color={theme.darkColors.background} size="small" />}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        backgroundColor: theme.darkColors.primary,
+    },
     imageLogo: {
         width: 200,
         height: 200,
