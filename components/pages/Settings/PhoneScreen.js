@@ -1,11 +1,12 @@
 import React, { useState, useRef, useContext } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import PhoneInput from 'react-native-phone-number-input';
 import { useNavigation } from '@react-navigation/native';
 import { AppContext } from '../../../AppContext';
 import OtpCode from '../../ui/OtpCode';
+import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient';
 
 export default function PhoneScreen() {
 
@@ -41,7 +42,8 @@ export default function PhoneScreen() {
                 const { formattedNumber } = phoneInput.current.getNumberAfterPossiblyEliminatingZero();
                 try {
                     const response = await sendOTP({ navigation, phone: formattedNumber });
-                    if (response.status === 200) {
+                    console.log(response)
+                    if (response.status === 201) {
                         setOtpShow(true);
                     } else {
                         setErrorMessage('Número de Teléfono Inválido');
@@ -58,7 +60,15 @@ export default function PhoneScreen() {
     return (
         <View style={globalStyles.container}>
 
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={{ flex: 1 }}>
+
+                <View style={{ alignItems: 'center' }}>
+                    <Image
+                        source={require('../../../assets/images/phone-verify.png')}
+                        style={{ width: '100%', height: 250, resizeMode: 'contain', marginVertical: 20 }}
+                    />
+                </View>
+
                 {
                     otpShow ? (
                         <OtpCode setValidatedCode={setCode} />
@@ -75,10 +85,10 @@ export default function PhoneScreen() {
                             withShadow
                             autoFocus
                             textInputProps={{ selectionColor: 'white', placeholderTextColor: 'gray' }}
-                            containerStyle={[styles.inputStyle, { backgroundColor: theme.darkColors.background, paddingVertical: 2, paddingHorizontal: 0 }]}
+                            containerStyle={[styles.inputStyle, { backgroundColor: theme.darkColors.background }]}
                             textContainerStyle={{ backgroundColor: theme.darkColors.background, paddingVertical: 0, paddingHorizontal: 0 }}
-                            textInputStyle={{ flex: 1, color: 'white', fontFamily: 'Rubik-Regular', fontSize: 18, flexDirection: 'row' }}
-                            codeTextStyle={{ paddingVertical: 0, paddingHorizontal: 0, marginHorizontal: 0, color: 'white' }}
+                            textInputStyle={{ flex: 1, color: 'white', fontFamily: 'Rubik-Regular', fontSize: 20 }}
+                            codeTextStyle={{ paddingVertical: 0, paddingHorizontal: 0, marginHorizontal: 0, color: 'white', fontFamily: 'Rubik-Regular', fontSize: 20 }}
                             flagButtonStyle={{ backgroundColor: theme.darkColors.background }}
                             countryPickerButtonStyle={{ backgroundColor: theme.darkColors.background }}
                         />
@@ -104,7 +114,8 @@ const styles = StyleSheet.create({
         color: 'white',
         borderWidth: 1,
         borderRadius: 10,
-        paddingVertical: 8,
+        paddingVertical: 2,
+        paddingHorizontal: 0,
         fontFamily: "Rubik-Regular",
     },
 })
