@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // Import Screens
 import GoldCheck from './GoldCheck';
+import PhoneScreen from './PhoneScreen';
 import ThemeScreen from './ThemeScreen';
 import SettingsMenu from './SettingsMenu';
 import SettingOption from './SettingOption';
@@ -15,6 +16,7 @@ import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
 import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
+
 import { theme } from '../../ui/Theme';
 import { ROUTES } from '../../routes';
 
@@ -113,6 +115,23 @@ export default function SettingsStack() {
                 component={UserdataScreen}
                 options={{
                     title: 'Mi Perfil',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="PhoneScreen"
+                component={PhoneScreen}
+                options={{
+                    title: 'Verificar Celular',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton

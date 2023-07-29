@@ -94,6 +94,11 @@ const SettingsMenu = () => {
                     enabled: true,
                 },
                 {
+                    title: 'Verificar Celular',
+                    screen: 'PhoneScreen',
+                    enabled: true,
+                },
+                {
                     title: 'Idioma',
                     screen: 'LanguageScreen',
                     enabled: true,

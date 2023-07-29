@@ -16,13 +16,9 @@ export default function UserdataScreen() {
     const [lastname, setLastname] = useState(me.lastname)
     const [username, setUsername] = useState(me.username)
     const [bio, setBio] = useState(me.bio)
-    const [email, setEmail] = useState(me.email)
-    const [phone, setPhone] = useState(me.phone)
+    const [email] = useState(me.email)
     const [error, setError] = useState('')
     const [sending, setSending] = useState(false);
-    const { phone_verified } = me;
-
-    const [isModalVisible, setModalVisible] = useState(false);
 
     const updateData = async () => {
         setSending(true);
@@ -39,15 +35,6 @@ export default function UserdataScreen() {
             setSending(false);
         }
     }
-
-    // Show a Modal with the phone verification
-    const verifyPhone = () => {
-        setModalVisible(true);
-    }
-
-    const closeModal = () => {
-        setModalVisible(false);
-    };
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
@@ -129,27 +116,6 @@ export default function UserdataScreen() {
                                 placeholder="Apellido"
                                 placeholderTextColor="#7f8c8d"
                                 autoCapitalize="words"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='phone' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Celular:</Text>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                editable={false}
-                                value={phone}
-                                underlineColorAndroid="#f000"
-                                placeholder="+1 999 999 9999"
-                                placeholderTextColor="#7f8c8d"
                                 returnKeyType="next"
                                 blurOnSubmit={false}
                             />
