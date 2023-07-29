@@ -30,6 +30,11 @@ export default function UserdataScreen() {
         setSending(true);
         try {
             const response = await updateUserData({ data: { name, lastname, username, bio, phone }, navigation })
+            if (response.status === 200) {
+                // Toast.show('Datos Actualizados', Toast.LONG);
+            } else {
+                setError('Error al actualizar los datos');
+            }
         } catch (error) {
             console.error(`Error in Update: ${error}`);
         } finally {
@@ -49,7 +54,7 @@ export default function UserdataScreen() {
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20 }}>
                     <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={true} rating={me.average_rating} />
@@ -139,37 +144,18 @@ export default function UserdataScreen() {
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Celular:</Text>
-
-                        {
-                            phone_verified == 0 ? (
-                                <QPButton title="Verificar" onPress={verifyPhone} />
-                            ) : (
-                                <View style={styles.sectionStyle}>
-                                    <TextInput
-                                        style={styles.inputStyle}
-                                        editable={false}
-                                        value={phone}
-                                        underlineColorAndroid="#f000"
-                                        placeholder="+1 999 999 9999"
-                                        placeholderTextColor="#7f8c8d"
-                                        returnKeyType="next"
-                                        blurOnSubmit={false}
-                                    />
-                                </View>
-                            )
-                        }
-
-                        {
-                            isModalVisible && (
-                                <Modal
-                                    isVisible={isModalVisible}
-                                    onBackdropPress={() => setModalVisible(false)}
-                                >
-                                    <PhoneVerify userphone={phone} />
-                                </Modal>
-                            )
-                        }
-
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                editable={false}
+                                value={phone}
+                                underlineColorAndroid="#f000"
+                                placeholder="+1 999 999 9999"
+                                placeholderTextColor="#7f8c8d"
+                                returnKeyType="next"
+                                blurOnSubmit={false}
+                            />
+                        </View>
                     </View>
                 </View>
 
@@ -179,9 +165,9 @@ export default function UserdataScreen() {
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Bio:</Text>
-                        <View style={styles.sectionStyle}>
+                        <View style={[styles.sectionStyle, { height: 100, }]}>
                             <TextInput
-                                style={styles.inputStyle}
+                                style={[styles.inputStyle, { height: 100 }]}
                                 onChangeText={(bio) => setBio(bio)}
                                 underlineColorAndroid="#f000"
                                 value={bio}
