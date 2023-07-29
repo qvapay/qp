@@ -6,7 +6,7 @@ import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
 import { theme } from '../ui/Theme';
 
-const WAITING_TIME = 5000;
+const WAITING_TIME = 2000;
 
 const SplashScreen = () => {
 
