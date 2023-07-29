@@ -274,9 +274,10 @@ export default function LoginScreen() {
 
                         <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
 
-                        <Text style={styles.registerTextStyle} onPress={() => navigation.navigate('RegisterScreen')}>
-                            ¿No tienes cuenta? Regístrate
-                        </Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <Text style={styles.registerTextStyle}>¿No tienes cuenta?</Text>
+                            <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
+                        </View>
 
                         <View style={styles.biometricIcon}>
                             {biometricAvailable && <BiometricButton />}
@@ -317,16 +318,16 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
     },
     registerTextStyle: {
-        padding: 10,
         fontSize: 14,
-        color: '#FFFFFF',
+        color: 'white',
+        paddingVertical: 10,
         alignSelf: 'center',
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {
         fontSize: 14,
-        color: '#ea5455',
+        color: theme.darkColors.danger,
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
     },

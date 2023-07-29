@@ -61,7 +61,7 @@ const apiRequest = async (url, options = {}, navigation) => {
         }
 
         return response.data;
-        
+
     } catch (error) {
 
         // Network Error do nothing or 
@@ -85,6 +85,12 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         if (error.response && error.response.status === 429) {
             console.log("Too Many Requests")
+            onInvalidResponse(navigation);
+            return null;
+        }
+
+        if (error.response && error.response.status === 500) {
+            console.log("No se ha podido completar la solicitud")
             onInvalidResponse(navigation);
             return null;
         }
@@ -345,9 +351,6 @@ const sendOTP = async ({ navigation, phone }) => {
     try {
         const url = `/phone/otp`
         const data = { phone }
-
-        console.log(data)
-
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
         return response;
     } catch (error) {
@@ -360,7 +363,7 @@ const sendOTP = async ({ navigation, phone }) => {
 const verifyOTP = async ({ navigation, phone, code }) => {
     try {
         const url = `/phone/verify`
-        const data = { phone, code }
+        const data = { phone, otp: code }
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
         return response;
     } catch (error) {

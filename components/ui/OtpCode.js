@@ -47,7 +47,6 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
     const handleInputPaste = (event) => {
         const pastedCode = event.clipboardData.getData('text').slice(0, cols);
         setCode(pastedCode);
-        // Focus on the next input if there is any
         for (let i = 0; i < cols; i++) {
             if (inputs.current[i] && i < pastedCode.length - 1) {
                 inputs.current[i].focus();
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 35,
-        height: 43,
+        height: 56,
         fontSize: 22,
         color: 'white',
         textAlign: 'center',
