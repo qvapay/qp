@@ -40,6 +40,7 @@ export default function MyPurchasesScreen() {
                     {...props}
                     onPress={() => {
                         navigation.goBack();
+                        // navigation.navigate('ShopIndexScreen');
                     }}
                 />
             ),
@@ -90,7 +91,7 @@ export default function MyPurchasesScreen() {
             {selectedItem && (
                 <Modal visible={isModalVisible} transparent={true} animationType="fade" onRequestClose={closeModal}>
                     <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.8)' }} onPress={closeModal} activeOpacity={1}>
-                        <View style={{ width: '80%', backgroundColor: theme.darkColors.elevation, padding: 20, borderRadius: 10 }}>
+                        <View style={{ width: '90%', backgroundColor: theme.darkColors.elevation, padding: 20, borderRadius: 10 }}>
                             <TextInput
                                 value={selectedItem.service_data}
                                 style={[styles.itemTitle, { padding: 0, margin: 0 }]}

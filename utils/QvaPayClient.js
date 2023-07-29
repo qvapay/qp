@@ -53,7 +53,15 @@ const apiRequest = async (url, options = {}, navigation) => {
             return null;
         }
 
+        // Too Many requests
+        if (response.status === 429) {
+            console.log("Too Many Requests")
+            onInvalidResponse(navigation);
+            return null;
+        }
+
         return response.data;
+        
     } catch (error) {
 
         // Network Error do nothing or 
@@ -70,7 +78,13 @@ const apiRequest = async (url, options = {}, navigation) => {
         }
 
         if (error.response && error.response.status === 422) {
-            console.log("Invalid Response")
+            console.log("Unprocessable Entity")
+            onInvalidResponse(navigation);
+            return null;
+        }
+
+        if (error.response && error.response.status === 429) {
+            console.log("Too Many Requests")
             onInvalidResponse(navigation);
             return null;
         }
@@ -326,6 +340,35 @@ const getMyPurchases = async ({ navigation }) => {
     }
 };
 
+// send OTP to the API
+const sendOTP = async ({ navigation, phone }) => {
+    try {
+        const url = `/phone/otp`
+        const data = { phone }
+
+        console.log(data)
+
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
+        return response;
+    } catch (error) {
+        console.error('Error sending OTP:', error);
+        return [];
+    }
+};
+
+// verify OTP to the API
+const verifyOTP = async ({ navigation, phone, code }) => {
+    try {
+        const url = `/phone/verify`
+        const data = { phone, code }
+        const response = await apiRequest(url, { method: 'POST', data }, navigation);
+        return response;
+    } catch (error) {
+        console.error('Error verifying OTP:', error);
+        return [];
+    }
+};
+
 export {
     qvaPayClient,
     checkTwoFactor,
@@ -347,5 +390,7 @@ export {
     getProducts,
     getProductByUuid,
     buyProduct,
-    getMyPurchases
+    getMyPurchases,
+    sendOTP,
+    verifyOTP
 };

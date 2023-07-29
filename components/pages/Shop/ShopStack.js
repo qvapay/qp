@@ -25,7 +25,10 @@ export default function ShopStack() {
             }}
         >
 
-            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
+            <Stack.Screen
+                name="ShopIndexScreen"
+                component={ShopIndexScreen}
+            />
 
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
 

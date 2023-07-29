@@ -1,34 +1,50 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { globalStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
 import { updateUserData } from '../../../utils/QvaPayClient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import AvatarPicture from '../../ui/AvatarPicture';
+import { useNavigation } from '@react-navigation/native';
+import PhoneVerify from '../../ui/PhoneVerify';
+import Modal from "react-native-modal";
 
-export default function UserdataScreen({ navigation }) {
+export default function UserdataScreen() {
 
+    const navigation = useNavigation();
     const { me } = useContext(AppContext);
     const [name, setName] = useState(me.name)
     const [lastname, setLastname] = useState(me.lastname)
     const [username, setUsername] = useState(me.username)
     const [bio, setBio] = useState(me.bio)
     const [email, setEmail] = useState(me.email)
+    const [phone, setPhone] = useState(me.phone)
+    const [error, setError] = useState('')
     const [sending, setSending] = useState(false);
+    const { phone_verified } = me;
+
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const updateData = async () => {
         setSending(true);
         try {
-            const response = await updateUserData({ data: { name, lastname, username, bio }, navigation })
-            console.log(response)
+            const response = await updateUserData({ data: { name, lastname, username, bio, phone }, navigation })
         } catch (error) {
             console.error(`Error in Update: ${error}`);
         } finally {
             setSending(false);
         }
     }
+
+    // Show a Modal with the phone verification
+    const verifyPhone = () => {
+        setModalVisible(true);
+    }
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
@@ -53,7 +69,7 @@ export default function UserdataScreen({ navigation }) {
 
                 <View style={styles.inputContainer}>
                     <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='user' size={24} style={{ color: 'white', marginRight: 18 }} />
+                        <FontAwesome5 name='user' size={24} style={{ color: 'white' }} />
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Usuario:</Text>
@@ -75,7 +91,7 @@ export default function UserdataScreen({ navigation }) {
 
                 <View style={styles.inputContainer}>
                     <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='user-tag' size={24} style={{ color: 'white', marginRight: 18 }} />
+                        <FontAwesome5 name='user-tag' size={24} style={{ color: 'white' }} />
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Nombre:</Text>
@@ -97,7 +113,7 @@ export default function UserdataScreen({ navigation }) {
 
                 <View style={styles.inputContainer}>
                     <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='users' size={24} style={{ color: 'white', marginRight: 18 }} />
+                        <FontAwesome5 name='users' size={24} style={{ color: 'white' }} />
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Apellido:</Text>
@@ -119,7 +135,47 @@ export default function UserdataScreen({ navigation }) {
 
                 <View style={styles.inputContainer}>
                     <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='signature' size={24} style={{ color: 'white', marginRight: 18 }} />
+                        <FontAwesome5 name='phone' size={24} style={{ color: 'white' }} />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        <Text style={styles.inputLabelStyle}>Celular:</Text>
+
+                        {
+                            phone_verified == 0 ? (
+                                <QPButton title="Verificar" onPress={verifyPhone} />
+                            ) : (
+                                <View style={styles.sectionStyle}>
+                                    <TextInput
+                                        style={styles.inputStyle}
+                                        editable={false}
+                                        value={phone}
+                                        underlineColorAndroid="#f000"
+                                        placeholder="+1 999 999 9999"
+                                        placeholderTextColor="#7f8c8d"
+                                        returnKeyType="next"
+                                        blurOnSubmit={false}
+                                    />
+                                </View>
+                            )
+                        }
+
+                        {
+                            isModalVisible && (
+                                <Modal
+                                    isVisible={isModalVisible}
+                                    onBackdropPress={() => setModalVisible(false)}
+                                >
+                                    <PhoneVerify userphone={phone} />
+                                </Modal>
+                            )
+                        }
+
+                    </View>
+                </View>
+
+                <View style={styles.inputContainer}>
+                    <View style={{ width: 48, alignItems: 'center' }}>
+                        <FontAwesome5 name='signature' size={24} style={{ color: 'white' }} />
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Bio:</Text>
@@ -142,7 +198,7 @@ export default function UserdataScreen({ navigation }) {
 
                 <View style={styles.inputContainer}>
                     <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='envelope' size={24} style={{ color: 'white', marginRight: 18 }} />
+                        <FontAwesome5 name='envelope' size={24} style={{ color: 'white' }} />
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.inputLabelStyle}>Email:</Text>
@@ -172,7 +228,7 @@ export default function UserdataScreen({ navigation }) {
 const styles = StyleSheet.create({
     inputContainer: {
         flex: 1,
-        padding: 10,
+        paddingVertical: 10,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -187,8 +243,8 @@ const styles = StyleSheet.create({
         color: 'white',
         borderWidth: 1,
         borderRadius: 10,
-        paddingVertical: 5,
-        paddingHorizontal: 15,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
         borderColor: theme.darkColors.elevation,
         fontFamily: "Rubik-Regular",
     },
