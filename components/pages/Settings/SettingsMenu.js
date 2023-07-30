@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
 
 import { theme } from '../../ui/Theme';
@@ -11,11 +11,12 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import OneSignal from 'react-native-onesignal';
 import DeviceInfo from 'react-native-device-info';
 
+import { Badge } from '@rneui/themed';
+
 const SettingsMenu = () => {
 
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const version = DeviceInfo.getVersion();
     const buildNumber = DeviceInfo.getBuildNumber();
 
@@ -23,14 +24,15 @@ const SettingsMenu = () => {
     const {
         uuid = "",
         email = "",
-        profile_photo_url = 'https://qvapay.com/android-chrome-192x192.png',
+        kyc = 0,
         name = "",
+        phone = "",
         lastname = "",
         username = "",
-        kyc = 0,
-        phone = "",
         golden_check = 0,
+        phone_verified = 0,
         average_rating = "0.0",
+        profile_photo_url = 'https://qvapay.com/android-chrome-192x192.png',
     } = me;
 
     useEffect(() => {
@@ -82,6 +84,7 @@ const SettingsMenu = () => {
                     title: 'Tema',
                     screen: 'ThemeScreen',
                     enabled: true,
+                    notifications: 0,
                 },
             ],
         },
@@ -92,16 +95,19 @@ const SettingsMenu = () => {
                     title: 'Datos personales',
                     screen: 'UserdataScreen',
                     enabled: true,
+                    notifications: 0,
                 },
                 {
                     title: 'Verificar Celular',
                     screen: 'PhoneScreen',
                     enabled: true,
+                    notifications: me.phone_verified ? 0 : 1
                 },
                 {
                     title: 'Idioma',
                     screen: 'LanguageScreen',
                     enabled: true,
+                    notifications: 0,
                 },
             ],
         },
@@ -112,11 +118,13 @@ const SettingsMenu = () => {
                     title: 'Cambiar contraseña',
                     screen: 'PasswordScreen',
                     enabled: true,
+                    notifications: 0,
                 },
                 {
                     title: 'Autenticación de dos factores',
                     screen: 'TwoFactorSettingsScreen',
                     enabled: true,
+                    notifications: 0,
                 },
             ],
         },
@@ -127,6 +135,7 @@ const SettingsMenu = () => {
                     title: 'Configuración de notificaciones',
                     screen: 'NotificationScreen',
                     enabled: true,
+                    notifications: 0,
                 },
             ],
         },
@@ -137,11 +146,13 @@ const SettingsMenu = () => {
                     title: 'Métodos de pago',
                     screen: 'PaymewntMethodsScreen',
                     enabled: true,
+                    notifications: 0,
                 },
                 {
                     title: 'Contactos favoritos',
                     screen: 'FavoriteContactsScreen',
                     enabled: true,
+                    notifications: 0,
                 },
             ],
         }
@@ -155,6 +166,7 @@ const SettingsMenu = () => {
                     <SettingsItemSectionItem
                         key={index}
                         title={option.title}
+                        notifications={option.notifications}
                         onPress={option.enabled ? () => navigation.navigate(option.screen) : () => { }}
                     />
                 ))}
@@ -162,10 +174,15 @@ const SettingsMenu = () => {
         );
     };
 
-    const SettingsItemSectionItem = ({ title, onPress }) => {
+    const SettingsItemSectionItem = ({ title, notifications, onPress }) => {
         return (
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 18 }}>{title}</Text>
+                <Text style={{ flex: 1, fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 18 }}>{title}</Text>
+                {
+                    notifications > 0
+                        ? <Badge badgeStyle={{ marginRight: 10, borderColor: theme.darkColors.primary }} value="1" status="primary" />
+                        : null
+                }
                 <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
             </Pressable>
         );
