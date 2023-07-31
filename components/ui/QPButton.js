@@ -25,14 +25,14 @@ export default function QPButton(props) {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        height: 40,
         color: 'white',
-        borderRadius: 6,
+        borderRadius: 10,
         marginVertical: 10,
         alignItems: 'center',
         backgroundColor: theme.darkColors.primary,
     },
     titleStyle: {
+        fontSize: 22,
         fontFamily: 'Rubik-SemiBold'
     },
     disabledStyle: {
