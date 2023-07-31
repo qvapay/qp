@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 14,
         marginTop: 10,
-        color: 'whiteFFF',
+        color: 'white',
         fontFamily: "Rubik-Regular",
     },
     checkBox: {

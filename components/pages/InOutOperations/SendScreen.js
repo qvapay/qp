@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         height: 40,
         borderWidth: 0,
-        color: 'whiteFFF',
+        color: 'white',
         borderRadius: 10,
         marginVertical: 10,
         alignItems: 'center',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     },
     buttonTextStyle: {
         fontSize: 16,
-        color: 'whiteFFF',
+        color: 'white',
         fontWeight: 'bold',
         paddingVertical: 10,
         fontFamily: "Rubik-Regular",

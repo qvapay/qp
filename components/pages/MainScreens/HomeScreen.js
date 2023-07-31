@@ -53,7 +53,7 @@ export default function HomeScreen({ navigation }) {
                     onRefresh={fetchMe}
                     tintColor={theme.darkColors.primary}
                     progressBackgroundColor={theme.darkColors.background}
-                    colors={['whiteFFF', '#28c76f']}
+                    colors={['white', '#28c76f']}
                 />
             }>
 
