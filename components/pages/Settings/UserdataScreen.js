@@ -25,7 +25,7 @@ export default function UserdataScreen() {
         try {
             const response = await updateUserData({ data: { name, lastname, username, bio, phone }, navigation })
             if (response.status === 200) {
-                // Toast.show('Datos Actualizados', Toast.LONG);
+                // TODO Toast.show('Datos Actualizados', Toast.LONG);
             } else {
                 setError('Error al actualizar los datos');
             }

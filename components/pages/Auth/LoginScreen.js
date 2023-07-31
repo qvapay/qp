@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image, StatusBar } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
-import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme, textStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
@@ -12,24 +11,7 @@ import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
 import { useNavigation } from '@react-navigation/native';
-
-const CodeInput = React.forwardRef(({ updateValue, nextInput, ...props }, ref) => {
-    return (
-        <TextInput
-            {...props}
-            maxLength={1}
-            ref={ref}
-            style={{ ...styles.inputStyle2FA, width: 40 }}
-            keyboardType="numeric"
-            onChangeText={(text) => {
-                updateValue(text);
-                if (text && nextInput) {
-                    nextInput.current.focus();
-                }
-            }}
-        />
-    );
-});
+import OtpCode from '../../ui/OtpCode';
 
 export default function LoginScreen() {
 
@@ -42,16 +24,19 @@ export default function LoginScreen() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
-    const [showtwofaForm, setShowtwofaForm] = useState(false);
 
     // 2FA Form
-    const inputsRef = Array(6).fill().map(() => useRef(null));
-    const [twofactorcode, setTwofactorcode] = useState(Array(6).fill(''));
+    const [twofactorcode, setTwofactorcode] = useState(0);
+    const [showtwofaForm, setShowtwofaForm] = useState(false);
 
     // Biometric check
     const [errorMessage, setErrorMessage] = useState(null);
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
+
+    useEffect(() => {
+        StatusBar.setBackgroundColor(theme.darkColors.background);
+    }, []);
 
     // Check if devica can handle biometric auth
     useEffect(() => {
@@ -125,6 +110,8 @@ export default function LoginScreen() {
 
                 // If me.2fa_required is true then show the 2fa form
                 if (data.me.two_factor_secret) {
+                    await EncryptedStorage.setItem('twoFactorSecret', 'true');
+                    console.log("Set 2FA to True")
                     setShowtwofaForm(true);
                 } else {
                     navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
@@ -147,11 +134,13 @@ export default function LoginScreen() {
     const handleTwoFactor = async () => {
         setLoading(true);
         try {
-            const verifyCode = twofactorcode.join('')
-            const response = await checkTwoFactor({ navigation, verifyCode });
-            if (!response || !response.status) {
-                errorMessage = 'Ha ocurrido un error, intente nuevamente';
-            } else if (response.status !== 200) {
+            const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode });
+            console.log(response)
+            if (response.status == 200) {
+                await EncryptedStorage.setItem('twoFactorSecret', 'false');
+                console.log("Set 2FA to False")
+                navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+            } else {
                 errorMessage = 'El código es incorrecto';
             }
         } catch (error) {
@@ -160,7 +149,6 @@ export default function LoginScreen() {
             Sentry.captureException(error);
         } finally {
             setLoading(false);
-            navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
         }
     }
 
@@ -170,7 +158,6 @@ export default function LoginScreen() {
                 const getStoredCredentials = async () => {
                     const email = await EncryptedStorage.getItem('email');
                     const password = await EncryptedStorage.getItem('password');
-
                     if (email && password) {
                         setEmail(email);
                         setPassword(password);
@@ -197,37 +184,25 @@ export default function LoginScreen() {
     }
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
             <Loader loading={loading} />
 
             {
                 showtwofaForm ? (
                     <>
-                        <View>
+                        <View style={{ marginHorizontal: 40 }}>
                             <Image
-                                source={require('../../../assets/images/auth/login.png')}
+                                source={require('../../../assets/images/auth/twofactor.png')}
                                 style={{ width: '100%', height: 250, resizeMode: 'contain' }}
                             />
-                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                                <Text style={textStyles.h1}>Código 2FA:</Text>
-                            </View>
+                        </View>
+                        <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                            <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
 
-                        <View style={styles.sectionStyle}>
-                            {twofactorcode.map((digit, index) => (
-                                <CodeInput
-                                    key={index}
-                                    value={digit}
-                                    ref={inputsRef[index]}
-                                    updateValue={(text) => {
-                                        const newCode = [...twofactorcode];
-                                        newCode[index] = text;
-                                        setTwofactorcode(newCode);
-                                    }}
-                                    nextInput={inputsRef[index + 1]}
-                                />
-                            ))}
+                        <View style={{ marginVertical: 30 }}>
+                            <OtpCode setValidatedCode={setTwofactorcode} />
                         </View>
 
                         {errortext !== '' ? (
@@ -240,14 +215,14 @@ export default function LoginScreen() {
                     </>
                 ) : (
                     <>
-                        <View>
+                        <View style={{ marginHorizontal: 40 }}>
                             <Image
                                 source={require('../../../assets/images/auth/login.png')}
                                 style={{ width: '100%', height: 250, resizeMode: 'contain' }}
                             />
-                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                                <Text style={textStyles.h1}>Iniciar Sesión:</Text>
-                            </View>
+                        </View>
+                        <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                            <Text style={textStyles.h1}>Iniciar Sesión:</Text>
                         </View>
 
                         <View style={{ flex: 1 }}>
@@ -289,9 +264,9 @@ export default function LoginScreen() {
                                 </Text>
                             ) : null}
 
-                            <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
+                            {/* <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text> */}
 
-                            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+                            <QPButton title="Acceder" onPress={handleLoginSubmit} />
 
                             <View style={styles.biometricIcon}>
                                 {biometricAvailable && <BiometricButton />}

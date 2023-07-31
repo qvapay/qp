@@ -52,7 +52,7 @@ const textStyles = StyleSheet.create({
         fontFamily: 'Rubik-Bold'
     },
     h1: {
-        fontSize: 28,
+        fontSize: 32,
         color: 'white',
         textAlign: 'left',
         fontFamily: 'Rubik-Bold',

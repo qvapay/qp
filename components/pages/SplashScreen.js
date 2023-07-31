@@ -5,8 +5,10 @@ import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
 import { theme } from '../ui/Theme';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-const WAITING_TIME = 2000;
+// Splashscreen waiting time
+const WAITING_TIME = 2500;
 
 const SplashScreen = () => {
 
@@ -25,13 +27,19 @@ const SplashScreen = () => {
                 ]);
                 userToken = tokenResponse;
                 if (userToken) {
-                    navigateTo = ROUTES.MAIN_STACK;
+                    const twoFactorSecret = await EncryptedStorage.getItem('twoFactorSecret')
+                    if (twoFactorSecret == 'true') {
+                        navigateTo = ROUTES.WELCOME_SCREEN;
+                    } else {
+                        navigateTo = ROUTES.MAIN_STACK;
+                    }
                 }
             } catch (error) {
                 Sentry.captureException(error);
             } finally {
                 setIsLoading(false);
-                navigation.replace(navigateTo);
+                navigation.navigate(navigateTo);
+                return;
             }
         }
 
