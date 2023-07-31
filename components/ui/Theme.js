@@ -17,15 +17,9 @@ const colors = {
 }
 
 const theme = createTheme({
-    lightColors: {
-        primary: colors.primary,
-        background: colors.primary_bg,
-        success: colors.success,
-        danger: colors.danger,
-        elevation: colors.elevated_dark_color,
-    },
     darkColors: {
         primary: colors.primary,
+        secondary: colors.secondary_bg,
         background: colors.primary_bg,
         success: colors.success,
         danger: colors.danger,

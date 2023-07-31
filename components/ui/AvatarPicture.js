@@ -2,27 +2,43 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Badge } from '@rneui/themed';
 import { theme } from './Theme';
+import LinearGradient from 'react-native-linear-gradient';
 
-export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false, showBadge = false, rating = 0.0 }) {
+const AvatarImage = ({ source_uri, size, borderWidth, borderColor }) => (
+    <FastImage
+        source={{
+            uri: source_uri,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+        style={{ width: size, height: size, borderRadius: size / 2, borderWidth, borderColor }}
+    />
+);
+
+export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false, showBadge = false, rating = 0.0, stories = false }) {
 
     // Dynamic borderWidth based on size
     const badgeSize = size / 10;
-    const borderWidth = size / 24;
-    const borderColor = negative ? theme.darkColors.background : 'white';
+    const borderWidth = size / 28;
+    const borderStories = size / 20;
+    const borderColor = negative ? 'white' : theme.darkColors.background;
+
+    // Define your gradient colors here
+    const gradientColors = [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success];
 
     return (
         <View>
-            <FastImage
-                source={{
-                    uri: source_uri,
-                    priority: FastImage.priority.normal,
-                    cache: FastImage.cacheControl.immutable,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-                style={{ width: size, height: size, borderRadius: size / 2, borderWidth, borderColor }}
-            />
+            
+            {stories ? (
+                <LinearGradient colors={gradientColors} style={{ padding: borderStories, borderRadius: size }}>
+                    <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
+                </LinearGradient>
+            ) : (
+                <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
+            )}
+
             {showBadge && (
                 <View style={styles.badgeRating}>
                     <View style={styles.badge}>

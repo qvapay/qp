@@ -200,11 +200,7 @@ const SettingsMenu = () => {
                     <ProfilePictureSection user={me} />
                 </View>
                 <View>
-                    <QPButton
-                        title="Editar Perfil"
-                        buttonStyle={{ marginBottom: 0 }}
-                        onPress={() => navigation.navigate('UserdataScreen')}
-                    />
+                    <QPButton title="Editar Perfil" buttonStyle={{ marginBottom: 0 }} onPress={() => navigation.navigate('UserdataScreen')} />
                 </View>
             </View>
 
