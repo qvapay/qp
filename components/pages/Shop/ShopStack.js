@@ -38,7 +38,7 @@ export default function ShopStack() {
                 options={{
                     headerShown: true,
                     title: 'Mis Compras',
-                    headerTintColor: '#fff',
+                    headerTintColor: 'white',
                     animationDuration: 250,
                     headerTitleAlign: 'center',
                     animation: 'slide_from_right',
@@ -72,12 +72,12 @@ export default function ShopStack() {
                     headerShown: true,
                     animationDuration: 250,
                     animation: 'slide_from_right',
-                    headerTintColor: '#fff',
+                    headerTintColor: 'white',
                     headerStyle: {
                         backgroundColor: '#161d31',
                     },
                     headerTitleStyle: {
-                        color: '#fff',
+                        color: 'white',
                         fontFamily: 'Rubik-Regular',  // Cambia 'NombreDeTuFuente' por el nombre de tu fuente
                     },
                     headerShadowVisible: false,

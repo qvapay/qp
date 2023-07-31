@@ -28,7 +28,7 @@ const defaultScreenOptions = {
     headerStyle: {
         backgroundColor: theme.darkColors.background,
     },
-    headerTintColor: '#fff',
+    headerTintColor: 'white',
     headerTitleAlign: 'center',
     headerShadowVisible: false,
 };

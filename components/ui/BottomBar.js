@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     },
     activeTab: {
         fontSize: 24,
-        color: '#fff',
+        color: 'white',
     },
     absolute: {
         position: "absolute",

@@ -59,13 +59,13 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={() => add()}>
                     <Text style={styles.actionButtonLabel}>
-                        <FontAwesome5 name='arrow-down' size={16} color='#fff' /> Depositar
+                        <FontAwesome5 name='arrow-down' size={16} color='white' /> Depositar
                     </Text>
                 </Pressable>
                 <View style={{ width: 3 }}></View>
                 <Pressable style={styles.actionButton2} onPress={() => withdraw()}>
                     <Text style={styles.actionButtonLabel}>
-                        <FontAwesome5 name='arrow-up' size={16} color='#fff' /> Extraer
+                        <FontAwesome5 name='arrow-up' size={16} color='white' /> Extraer
                     </Text>
                 </Pressable>
             </View>
@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
     },
     balanceAmount: {
         fontSize: 40,
-        color: '#fff',
+        color: 'white',
         alignSelf: 'flex-start',
         fontFamily: "Rubik-Black",
     },
     satsAmount: {
         fontSize: 20,
-        color: '#fff',
+        color: 'white',
         fontFamily: "Rubik-Bold",
     },
     actionButtons: {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
     },
     actionButtonLabel: {
-        color: '#fff',
+        color: 'white',
         fontSize: 16,
         textAlign: 'center',
         fontFamily: "Rubik-Bold",

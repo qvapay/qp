@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     balanceText: {
-        color: '#fff',
+        color: 'white',
         fontSize: 12,
         alignSelf: 'center',
         fontFamily: "Rubik-Bold",

@@ -22,7 +22,7 @@ export default function KeypadScreen({ navigation }) {
     const renderKey = (key, index) => (
         <Pressable key={index} onPress={() => keyPressed(key)} style={styles.pressable}>
             {key === '<' ? (
-                <FontAwesome5 name="backspace" size={18} color="#fff" />
+                <FontAwesome5 name="backspace" size={18} color="white" />
             ) : (
                 <Text style={styles.padText}>{key}</Text>
             )}
@@ -140,11 +140,11 @@ export default function KeypadScreen({ navigation }) {
 
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={receiveAmount} >
-                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-down' size={16} color='#fff' /> Recibir</Text>
+                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-down' size={16} color='white' /> Recibir</Text>
                 </Pressable>
                 <View style={{ width: 3 }}></View>
                 <Pressable style={styles.actionButton2} onPress={sendAmount} >
-                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-up' size={16} color='#fff' /> Enviar</Text>
+                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-up' size={16} color='white' /> Enviar</Text>
                 </Pressable>
             </View>
         </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     amount: {
         fontSize: 60,
-        color: '#fff',
+        color: 'white',
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
     },
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     balanceText: {
-        color: '#fff',
+        color: 'white',
         fontSize: 13,
         alignSelf: 'center',
         fontFamily: "Rubik-Bold",
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     },
     padText: {
         fontSize: 35,
-        color: '#fff',
+        color: 'white',
         fontFamily: "Rubik-Regular",
     },
     actionButtons: {
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     },
     actionButtonLabel: {
         fontSize: 20,
-        color: '#fff',
+        color: 'white',
         textAlign: 'center',
         fontFamily: "Rubik-Bold",
     }

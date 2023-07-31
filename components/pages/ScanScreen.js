@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ScanScreen() {
 
     const navigation = useNavigation();
-    const [validQR, setValidQR] = useState('#fff');
+    const [validQR, setValidQR] = useState('white');
     const [torchOn, setTorchOn] = useState(false);
     const [permissionResult, setPermissionResult] = useState(null);
 

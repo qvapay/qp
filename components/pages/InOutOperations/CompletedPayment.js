@@ -34,7 +34,7 @@ export default function CompletedPayment() {
         <View style={styles.container}>
             <StatusBar hidden={true} />
             <Animated.View style={[styles.checkmarkContainer, { opacity, transform: [{ scale }, { rotate }] }]}>
-                <FontAwesome5 name="check" size={60} color="#fff" />
+                <FontAwesome5 name="check" size={60} color="white" />
             </Animated.View>
             <Text style={styles.text}>Pago completado</Text>
         </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 24,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Regular',
     },
 });  

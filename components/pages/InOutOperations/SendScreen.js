@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     sendingLabel: {
         alignSelf: 'center',
         fontSize: 13,
-        color: '#fff',
+        color: 'white',
         fontFamily: "Rubik-Regular",
     },
     amount: {
         fontSize: 30,
-        color: '#fff',
+        color: 'white',
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
     },
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         height: 40,
         borderWidth: 0,
-        color: '#FFFFFF',
+        color: 'whiteFFF',
         borderRadius: 10,
         marginVertical: 10,
         alignItems: 'center',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     },
     buttonTextStyle: {
         fontSize: 16,
-        color: '#FFFFFF',
+        color: 'whiteFFF',
         fontWeight: 'bold',
         paddingVertical: 10,
         fontFamily: "Rubik-Regular",
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     contactName: {
-        color: '#fff',
+        color: 'white',
         fontSize: 16,
         fontFamily: "Rubik-Regular",
     },

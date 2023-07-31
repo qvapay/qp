@@ -95,31 +95,31 @@ export default function GoldCheck() {
 
                     <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
                         <View style={{ marginRight: 20 }}>
-                            <FontAwesome5 name="percent" size={24} style={{ color: '#fff' }} />
+                            <FontAwesome5 name="percent" size={24} style={{ color: 'white' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>0% FEES EN EL P2P</Text>
-                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>No cobramos comisiones en el P2P</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>0% FEES EN EL P2P</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>No cobramos comisiones en el P2P</Text>
                         </View>
                     </View>
 
                     <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
                         <View style={{ marginRight: 16 }}>
-                            <FontAwesome5 name="comments-dollar" size={24} style={{ color: '#fff' }} />
+                            <FontAwesome5 name="comments-dollar" size={24} style={{ color: 'white' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>MÁS OPERACIONES</Text>
-                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Podrás realizar más operaciones diarias</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>MÁS OPERACIONES</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>Podrás realizar más operaciones diarias</Text>
                         </View>
                     </View>
 
                     <View style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]} >
                         <View style={{ marginRight: 20 }}>
-                            <FontAwesome5 name="check" size={24} style={{ color: '#fff' }} />
+                            <FontAwesome5 name="check" size={24} style={{ color: 'white' }} />
                         </View>
                         <View>
-                            <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>CHECK DORADO</Text>
-                            <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Tu cuenta aparece con un check dorado</Text>
+                            <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>CHECK DORADO</Text>
+                            <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>Tu cuenta aparece con un check dorado</Text>
                         </View>
                     </View>
 
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     balanceText: {
-        color: '#fff',
+        color: 'white',
         fontSize: 12,
         alignSelf: 'center',
         fontFamily: "Rubik-Bold",

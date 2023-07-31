@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
     },
     bottomNameText: {
         fontSize: 16,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Regular',
     },
     bottomPriceText: {
         fontSize: 12,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Bold'
     },
     circle1: {

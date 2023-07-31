@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 12,
         marginTop: 4,
-        color: '#fff',
+        color: 'white',
         textAlign: 'center',
         fontFamily: "Rubik-Light",
     },

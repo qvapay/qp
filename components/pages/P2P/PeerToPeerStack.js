@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors?.background,
     },
     qrIconStyle: {
-        color: '#fff',
+        color: 'white',
         fontSize: 24,
     },
 });

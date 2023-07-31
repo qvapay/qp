@@ -40,12 +40,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Black',
     },
     subTitle: {
         fontSize: 16,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Light',
     },
     actionContainer: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingVertical: 10,
         paddingHorizontal: 10,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         borderTopStartRadius: 10,
         borderBottomEndRadius: 10,
     },

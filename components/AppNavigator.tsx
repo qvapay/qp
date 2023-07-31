@@ -42,7 +42,7 @@ export default function AppNavigator() {
         headerStyle: {
           backgroundColor: theme.darkColors?.background,
         },
-        headerTintColor: '#fff',
+        headerTintColor: 'white',
         headerTitleStyle: {
           fontFamily: 'Rubik-Regular',
         },

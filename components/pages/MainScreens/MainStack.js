@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors?.background,
     },
     qrIconStyle: {
-        color: '#fff',
+        color: 'white',
         fontSize: 28,
         marginLeft: 20
     },
@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     headerRightText: {
-        color: '#fff',
+        color: 'white',
         fontSize: 14,
         fontWeight: 'bold',
         fontFamily: 'Rubik-Regular'
     },
     handleText: {
-        color: '#fff',
+        color: 'white',
         fontSize: 13,
         fontFamily: 'Rubik-Bold'
     },

@@ -161,7 +161,7 @@ const SettingsMenu = () => {
     const SettingsItemSection = ({ section }) => {
         return (
             <View style={styles.box}>
-                <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 18, marginBottom: 10 }}>{section.title}</Text>
+                <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 18, marginBottom: 10 }}>{section.title}</Text>
                 {section.options.map((option, index) => (
                     <SettingsItemSectionItem
                         key={index}
@@ -177,13 +177,13 @@ const SettingsMenu = () => {
     const SettingsItemSectionItem = ({ title, notifications, onPress }) => {
         return (
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={{ flex: 1, fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 18 }}>{title}</Text>
+                <Text style={{ flex: 1, fontFamily: 'Rubik-Regular', color: 'white', fontSize: 18 }}>{title}</Text>
                 {
                     notifications > 0
                         ? <Badge badgeStyle={{ marginRight: 10, borderColor: theme.darkColors.primary }} value="1" status="primary" />
                         : null
                 }
-                <FontAwesome5 name="angle-right" size={16} style={{ color: '#fff' }} />
+                <FontAwesome5 name="angle-right" size={16} style={{ color: 'white' }} />
             </Pressable>
         );
     };
@@ -193,8 +193,8 @@ const SettingsMenu = () => {
 
             <View style={styles.box}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <FontAwesome5 name="qrcode" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ScanScreen')} />
-                    <FontAwesome5 name="share-square" size={14} style={{ color: '#fff' }} onPress={() => navigation.navigate('ReceiveScreen')} />
+                    <FontAwesome5 name="qrcode" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ScanScreen')} />
+                    <FontAwesome5 name="share-square" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ReceiveScreen')} />
                 </View>
                 <View>
                     <ProfilePictureSection user={me} />
@@ -221,11 +221,11 @@ const SettingsMenu = () => {
                     />
                 </View>
                 <View>
-                    <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>GOLD CHECK</Text>
+                    <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>GOLD CHECK</Text>
                     {
                         golden_check == 1
-                            ? <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Ver mi suscripción</Text>
-                            : <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Comprar GOLD Check</Text>
+                            ? <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>Ver mi suscripción</Text>
+                            : <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>Comprar GOLD Check</Text>
                     }
                 </View>
             </Pressable>
@@ -236,11 +236,11 @@ const SettingsMenu = () => {
                 onPress={() => navigation.navigate('ReferalInvitation')}
             >
                 <View style={{ marginRight: 20 }}>
-                    <FontAwesome5 name="gift" size={24} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="gift" size={24} style={{ color: 'white' }} />
                 </View>
                 <View>
-                    <Text style={{ fontFamily: 'Rubik-Bold', color: '#fff', fontSize: 16 }}>INVITAR AMIGOS</Text>
-                    <Text style={{ fontFamily: 'Rubik-Regular', color: '#fff', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
+                    <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>INVITAR AMIGOS</Text>
+                    <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize: 14 }}>Invita a tus amigos y gana dinero</Text>
                 </View>
             </Pressable>
 
@@ -255,19 +255,19 @@ const SettingsMenu = () => {
             {/* Github, Twitter and Instagram accounts */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginVertical: 20 }}>
                 <Pressable onPress={() => Linking.openURL('https://github.com/qvapay/qp')}>
-                    <FontAwesome5 name="github" size={24} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="github" size={24} style={{ color: 'white' }} />
                 </Pressable>
 
                 <Pressable onPress={() => Linking.openURL('https://twitter.com/qvapay')}>
-                    <FontAwesome5 name="twitter" size={24} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="twitter" size={24} style={{ color: 'white' }} />
                 </Pressable>
 
                 <Pressable onPress={() => Linking.openURL('https://instagram.com/qvapay')}>
-                    <FontAwesome5 name="instagram" size={24} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="instagram" size={24} style={{ color: 'white' }} />
                 </Pressable>
 
                 <Pressable onPress={() => Linking.openURL('https://qvapay.raiseaticket.com')}>
-                    <FontAwesome5 name="headset" size={24} style={{ color: '#fff' }} />
+                    <FontAwesome5 name="headset" size={24} style={{ color: 'white' }} />
                 </Pressable>
             </View>
 

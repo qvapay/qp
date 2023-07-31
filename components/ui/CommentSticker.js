@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
     },
     tabText: {
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Regular',
     },
     commentBar: {

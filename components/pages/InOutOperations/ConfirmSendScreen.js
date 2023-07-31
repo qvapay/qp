@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     },
     sendingLabel: {
         fontSize: 13,
-        color: '#fff',
+        color: 'white',
         alignSelf: 'center',
         fontFamily: "Rubik-Regular",
     },

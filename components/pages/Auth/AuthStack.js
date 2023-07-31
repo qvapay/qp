@@ -32,7 +32,7 @@ export default function AuthStack() {
                         backgroundColor: theme.darkColors.background,
                     },
                     animationDuration: 250,
-                    headerTintColor: '#fff',
+                    headerTintColor: 'white',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -64,7 +64,7 @@ export default function AuthStack() {
                         backgroundColor: theme.darkColors.background,
                     },
                     animationDuration: 250,
-                    headerTintColor: '#fff',
+                    headerTintColor: 'white',
                     headerShadowVisible: false,
                     animation: 'slide_from_right',
                     headerLeft: (props) => (

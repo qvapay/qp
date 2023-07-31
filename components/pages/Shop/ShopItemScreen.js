@@ -233,17 +233,17 @@ const styles = StyleSheet.create({
     },
     leadText: {
         fontSize: 13,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Bold',
     },
     taxText: {
         fontSize: 13,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-ExtraBold',
     },
     descText: {
         fontSize: 16,
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Rubik-Regular',
     },
     inputSectionStyle: {
