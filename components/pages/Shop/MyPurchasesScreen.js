@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, FlatList, Modal, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import { getMyPurchases } from '../../../utils/QvaPayClient';
 import { globalStyles } from '../../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import { theme } from '../../ui/Theme';
 import FastImage from 'react-native-fast-image';
 import { getShortDateTime } from '../../../utils/Helpers';
 import { HeaderBackButton } from '@react-navigation/elements';
+import Modal from "react-native-modal";
+import QPButton from '../../ui/QPButton';
 
 export default function MyPurchasesScreen() {
 
@@ -52,9 +54,9 @@ export default function MyPurchasesScreen() {
         setModalVisible(true);
     };
 
-    const closeModal = () => {
-        setModalVisible(false);
-        setSelectedItem(null);
+    // Toggle Modal Visibility
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
     };
 
     return (
@@ -89,22 +91,27 @@ export default function MyPurchasesScreen() {
             />
 
             {selectedItem && (
-                <Modal visible={isModalVisible} transparent={true} animationType="fade" onRequestClose={closeModal}>
-                    <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.8)' }} onPress={closeModal} activeOpacity={1}>
-                        <View style={{ width: '90%', backgroundColor: theme.darkColors.elevation, padding: 20, borderRadius: 10 }}>
-                            <TextInput
-                                value={selectedItem.service_data}
-                                style={[styles.itemTitle, { padding: 0, margin: 0 }]}
-                                editable={false}
-                                multiline
-                                underlineColorAndroid="transparent"
-                                selectTextOnFocus
-                            />
-                        </View>
-                    </TouchableOpacity>
+                <Modal
+                    isVisible={isModalVisible}
+                    animationIn={'slideInUp'}
+                    onBackdropPress={() => setModalVisible(false)}
+                    onSwipeComplete={() => setModalVisible(false)}
+                    swipeDirection={['down']}
+                    style={styles.modalview}
+                >
+                    <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                        
+                        <TextInput
+                            value={selectedItem.service_data}
+                            style={[styles.itemTitle, { padding: 0, margin: 0 }]}
+                            editable={false}
+                            multiline
+                            underlineColorAndroid="transparent"
+                            selectTextOnFocus
+                        />
+                    </View>
                 </Modal>
             )}
-
         </View>
     )
 }
@@ -139,5 +146,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Rubik-Regular',
         color: theme.darkColors.success,
+    },
+    modalview: {
+        justifyContent: 'flex-end',
+        margin: 0,
     },
 })
