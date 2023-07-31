@@ -19,8 +19,7 @@ export default function PhoneScreen() {
     const [otpShow, setOtpShow] = useState(false);
     const [code, setCode] = useState('');
     const [boldMessage, setBoldMessage] = useState('Coloca tu número de teléfono celular:')
-
-    console.log(me.phone_verified)
+    const [verified, setVerified] = useState(me.phone_verified);
 
     // useEffect for the main label
     useEffect(() => {
@@ -33,24 +32,18 @@ export default function PhoneScreen() {
 
     // Handle OTP
     const handleOTP = async () => {
-
-        // Verify OTP
         if (otpShow) {
-
             try {
                 const response = await verifyOTP({ navigation, phone: formattedValue, code });
                 if (response.status === 201) {
-                    // TODO Show congratulations and fulfill the user data
-                    console.log("YEY")
+                    setVerified(true)
                 } else {
                     setErrorMessage('Código Inválido');
                 }
             } catch (error) {
                 setErrorMessage('Código Inválido');
             }
-
         } else {
-
             if (phoneInput.current.isValidNumber(phone)) {
                 const { formattedNumber } = phoneInput.current.getNumberAfterPossiblyEliminatingZero();
                 try {
@@ -75,7 +68,7 @@ export default function PhoneScreen() {
             <View style={{ flex: 1 }}>
 
                 {
-                    me.phone_verified ? (
+                    verified ? (
                         <View style={{ alignItems: 'center' }}>
                             <Image
                                 source={require('../../../assets/images/phone-verify.png')}
@@ -83,7 +76,7 @@ export default function PhoneScreen() {
                             />
                             <View style={{ paddingHorizontal: 10, marginTop: 30, marginBottom: 10 }}>
                                 <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 28, color: 'white', textAlign: 'center' }}>Su número ya está verificado. 👍</Text>
-                                <Text style={{ fontFamily: 'Rubik-Reguular', color: theme.darkColors.primary, fontSize: 36, textAlign: 'center' }}>{`${phone}`}</Text>
+                                <Text style={{ fontFamily: 'Rubik-Reguular', color: theme.darkColors.primary, fontSize: 36, textAlign: 'center' }}>{`${formattedValue}`}</Text>
                             </View>
                         </View>
                     ) : (
@@ -94,8 +87,8 @@ export default function PhoneScreen() {
                                 {
                                     otpShow && (
                                         <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ fontFamily: 'Rubik-Regular', fontSize: 14, color: 'white', textAlign: 'left', }}>Hacia el número </Text>
-                                            <Text style={{ color: theme.darkColors.primary }}>{`${phone}`}</Text>
+                                            <Text style={{ fontFamily: 'Rubik-Regular', fontSize: 14, color: 'white', textAlign: 'left' }}>Hacia el número </Text>
+                                            <Text style={{ color: theme.darkColors.primary }}>{`${formattedValue}`}</Text>
                                         </View>
                                     )
                                 }

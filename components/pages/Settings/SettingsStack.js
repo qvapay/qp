@@ -81,7 +81,9 @@ export default function SettingsStack() {
                 name="GoldCheck"
                 component={GoldCheck}
                 options={{
-                    title: '',
+                    title: 'Check Dorado',
+                    animationDuration: 250,
+                    animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
                             {...props}

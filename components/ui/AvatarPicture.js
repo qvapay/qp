@@ -24,7 +24,7 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
     const borderWidth = size / 36;
     const borderStories = size / 20;
     const borderColor = negative ? 'white' : theme.darkColors.background;
-    const gradientColors = stories ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : negative ? [theme.darkColors.background, theme.darkColors.background] : ['#fff', '#fff'];
+    const gradientColors = stories ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : negative ? [theme.darkColors.background, theme.darkColors.background] : ['#ffffff', '#ffffff'];
 
     return (
         <View>
