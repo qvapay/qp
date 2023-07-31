@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
 import QPLogo from '../../ui/QPLogo';
 import QPButton from '../../ui/QPButton';
-import { globalStyles, theme } from '../../ui/Theme';
+import { globalStyles, theme, textStyles } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { storeData } from '../../../utils/AsyncStorage';
 import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
@@ -201,13 +201,19 @@ export default function LoginScreen() {
 
             <Loader loading={loading} />
 
-            <View style={{ alignItems: 'center' }}>
-                <QPLogo />
-            </View>
-
             {
                 showtwofaForm ? (
                     <>
+                        <View>
+                            <Image
+                                source={require('../../../assets/images/auth/login.png')}
+                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
+                            />
+                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                                <Text style={textStyles.h1}>Código 2FA:</Text>
+                            </View>
+                        </View>
+
                         <View style={styles.sectionStyle}>
                             {twofactorcode.map((digit, index) => (
                                 <CodeInput
@@ -234,53 +240,67 @@ export default function LoginScreen() {
                     </>
                 ) : (
                     <>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                autoComplete="email"
-                                style={styles.inputStyle}
-                                onChangeText={(UserEmail) => setEmail(UserEmail)}
-                                placeholder="Correo, username o teléfono"
-                                placeholderTextColor="#7f8c8d"
-                                keyboardType="email-address"
-                                returnKeyType="next"
-                                autoCapitalize="none"
-                                onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
-                                underlineColorAndroid="#f000"
-                                blurOnSubmit={false}
+                        <View>
+                            <Image
+                                source={require('../../../assets/images/auth/login.png')}
+                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
                             />
+                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                                <Text style={textStyles.h1}>Iniciar Sesión:</Text>
+                            </View>
                         </View>
 
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserPassword) => setPassword(UserPassword)}
-                                placeholder="Contraseña"
-                                placeholderTextColor="#7f8c8d"
-                                keyboardType="default"
-                                ref={passwordInputRef}
-                                onSubmitEditing={Keyboard.dismiss}
-                                blurOnSubmit={false}
-                                secureTextEntry={true}
-                                underlineColorAndroid="#f000"
-                                returnKeyType="next"
-                            />
+                        <View style={{ flex: 1 }}>
+                            <View style={styles.sectionStyle}>
+                                <TextInput
+                                    autoComplete="email"
+                                    style={styles.inputStyle}
+                                    onChangeText={(UserEmail) => setEmail(UserEmail)}
+                                    placeholder="Correo, username o teléfono"
+                                    placeholderTextColor="#7f8c8d"
+                                    keyboardType="email-address"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
+                                    underlineColorAndroid="#f000"
+                                    blurOnSubmit={false}
+                                />
+                            </View>
+
+                            <View style={styles.sectionStyle}>
+                                <TextInput
+                                    style={styles.inputStyle}
+                                    onChangeText={(UserPassword) => setPassword(UserPassword)}
+                                    placeholder="Contraseña"
+                                    placeholderTextColor="#7f8c8d"
+                                    keyboardType="default"
+                                    ref={passwordInputRef}
+                                    onSubmitEditing={Keyboard.dismiss}
+                                    blurOnSubmit={false}
+                                    secureTextEntry={true}
+                                    underlineColorAndroid="#f000"
+                                    returnKeyType="next"
+                                />
+                            </View>
+
+                            {errortext != '' ? (
+                                <Text style={styles.errorTextStyle}>
+                                    {errortext}
+                                </Text>
+                            ) : null}
+
+                            <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
+
+                            <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
+
+                            <View style={styles.biometricIcon}>
+                                {biometricAvailable && <BiometricButton />}
+                            </View>
                         </View>
-
-                        {errortext != '' ? (
-                            <Text style={styles.errorTextStyle}>
-                                {errortext}
-                            </Text>
-                        ) : null}
-
-                        <QPButton title="Iniciar Sesión" onPress={handleLoginSubmit} />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta?</Text>
                             <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
-                        </View>
-
-                        <View style={styles.biometricIcon}>
-                            {biometricAvailable && <BiometricButton />}
                         </View>
                     </>
                 )
@@ -323,6 +343,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         alignSelf: 'center',
         textAlign: 'center',
+        fontFamily: "Rubik-Regular",
+    },
+    forgotTextStyle: {
+        fontSize: 14,
+        color: theme.darkColors.primary,
+        marginVertical: 10,
+        textAlign: 'right',
         fontFamily: "Rubik-Regular",
     },
     errorTextStyle: {

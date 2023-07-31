@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AppContext } from '../../../AppContext';
 import OtpCode from '../../ui/OtpCode';
 import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient';
+import { textStyles } from '../../ui/Theme';
 
 export default function PhoneScreen() {
 
@@ -83,7 +84,7 @@ export default function PhoneScreen() {
                         <>
                             <View style={{ paddingHorizontal: 10, marginTop: 30, marginBottom: 10 }}>
                                 <Text style={{ fontFamily: 'Rubik-Regular', fontSize: 16, color: 'white', textAlign: 'left' }}>Vamos a verificarte {`${me.name}`} 🎉</Text>
-                                <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 28, color: 'white', textAlign: 'left', }}>{boldMessage}</Text>
+                                <Text style={textStyles.h1}>{boldMessage}</Text>
                                 {
                                     otpShow && (
                                         <View style={{ flexDirection: 'row' }}>

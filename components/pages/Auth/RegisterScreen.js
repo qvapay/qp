@@ -1,11 +1,10 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, ScrollView, Image } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
-import { globalStyles, theme } from '../../ui/Theme';
+import { globalStyles, theme, textStyles } from '../../ui/Theme';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 
 export default function RegisterScreen({ navigation }) {
@@ -97,92 +96,106 @@ export default function RegisterScreen({ navigation }) {
                     <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
                 </View>
             ) : (
-                <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+                <>
+                    <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'flex-start' }}>
 
-                    <View style={{ alignItems: 'center' }}>
-                        <QPLogo />
+                        <View>
+                            <Image
+                                source={require('../../../assets/images/auth/register.png')}
+                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
+                            />
+                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                                <Text style={textStyles.h1}>Registra tu cuenta:</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserName) => setUserName(UserName)}
+                                underlineColorAndroid="#f000"
+                                placeholder="Nombre"
+                                placeholderTextColor="#7f8c8d"
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    emailInputRef.current && emailInputRef.current.focus()
+                                }
+                                blurOnSubmit={false}
+                            />
+                        </View>
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+                                underlineColorAndroid="#f000"
+                                placeholder="Email"
+                                placeholderTextColor="#7f8c8d"
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                ref={emailInputRef}
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInputRef.current &&
+                                    passwordInputRef.current.focus()
+                                }
+                                blurOnSubmit={false}
+                            />
+                        </View>
+                        <View style={styles.sectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserPassword) =>
+                                    setUserPassword(UserPassword)
+                                }
+                                underlineColorAndroid="#f000"
+                                placeholder="Contraseña"
+                                autoCapitalize="none"
+                                placeholderTextColor="#7f8c8d"
+                                ref={passwordInputRef}
+                                returnKeyType="next"
+                                secureTextEntry={true}
+                                onSubmitEditing={() =>
+                                    ageInputRef.current &&
+                                    ageInputRef.current.focus()
+                                }
+                                blurOnSubmit={false}
+                            />
+                        </View>
+
+                        {errortext != '' ? (
+                            <Text style={styles.errorTextStyle}>
+                                {errortext}
+                            </Text>
+                        ) : null}
+
+                        <View style={styles.checkBox}>
+                            <BouncyCheckbox
+                                size={20}
+                                fillColor={theme.darkColors.primary}
+                                unfillColor={theme.darkColors.background}
+                                text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
+                                iconStyle={{ borderColor: theme.darkColors.primary }}
+                                innerIconStyle={{ borderWidth: 1 }}
+                                textStyle={{
+                                    fontFamily: "Rubik-Regular",
+                                    textDecorationLine: 'none'
+                                }}
+                                onPress={(isChecked) => {
+                                    setAgree(isChecked)
+                                }}
+                            />
+                        </View>
+
+                        <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
+
+
+                    </ScrollView>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text style={styles.loginTextStyle}>¿Ya tienes cuenta?</Text>
+                        <Text style={[styles.loginTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('LoginScreen')}>Iniciar Sesión</Text>
                     </View>
-
-                    <View style={styles.sectionStyle}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            onChangeText={(UserName) => setUserName(UserName)}
-                            underlineColorAndroid="#f000"
-                            placeholder="Nombre"
-                            placeholderTextColor="#7f8c8d"
-                            returnKeyType="next"
-                            onSubmitEditing={() =>
-                                emailInputRef.current && emailInputRef.current.focus()
-                            }
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <View style={styles.sectionStyle}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                            underlineColorAndroid="#f000"
-                            placeholder="Email"
-                            placeholderTextColor="#7f8c8d"
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            ref={emailInputRef}
-                            returnKeyType="next"
-                            onSubmitEditing={() =>
-                                passwordInputRef.current &&
-                                passwordInputRef.current.focus()
-                            }
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <View style={styles.sectionStyle}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            onChangeText={(UserPassword) =>
-                                setUserPassword(UserPassword)
-                            }
-                            underlineColorAndroid="#f000"
-                            placeholder="Contraseña"
-                            autoCapitalize="none"
-                            placeholderTextColor="#7f8c8d"
-                            ref={passwordInputRef}
-                            returnKeyType="next"
-                            secureTextEntry={true}
-                            onSubmitEditing={() =>
-                                ageInputRef.current &&
-                                ageInputRef.current.focus()
-                            }
-                            blurOnSubmit={false}
-                        />
-                    </View>
-
-                    {errortext != '' ? (
-                        <Text style={styles.errorTextStyle}>
-                            {errortext}
-                        </Text>
-                    ) : null}
-
-                    <View style={styles.checkBox}>
-                        <BouncyCheckbox
-                            size={20}
-                            fillColor={theme.darkColors.primary}
-                            unfillColor={theme.darkColors.background}
-                            text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
-                            iconStyle={{ borderColor: theme.darkColors.primary }}
-                            innerIconStyle={{ borderWidth: 1 }}
-                            textStyle={{
-                                fontFamily: "Rubik-Regular",
-                                textDecorationLine: 'none'
-                            }}
-                            onPress={(isChecked) => {
-                                setAgree(isChecked)
-                            }}
-                        />
-                    </View>
-
-                    <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
-
-                </ScrollView>
+                </>
             )}
 
         </KeyboardAvoidingView>
@@ -216,15 +229,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
     },
-    registerTextStyle: {
-        flex: 1,
+    loginTextStyle: {
         fontSize: 14,
-        marginTop: 10,
         color: 'white',
+        paddingVertical: 10,
+        alignSelf: 'center',
+        textAlign: 'center',
         fontFamily: "Rubik-Regular",
     },
     checkBox: {
-        paddingHorizontal: 10,
+        paddingLeft: 10,
+        marginRight: 100,                   // TODO no idea why this works
         marginVertical: 10,
         flexDirection: 'row',
         alignContent: 'center',

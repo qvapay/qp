@@ -50,6 +50,12 @@ const textStyles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         fontFamily: 'Rubik-Bold'
+    },
+    h1: {
+        fontSize: 28,
+        color: 'white',
+        textAlign: 'left',
+        fontFamily: 'Rubik-Bold',
     }
 });
 
