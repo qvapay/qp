@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -21,24 +21,16 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
 
     // Dynamic borderWidth based on size
     const badgeSize = size / 10;
-    const borderWidth = size / 28;
+    const borderWidth = size / 36;
     const borderStories = size / 20;
     const borderColor = negative ? 'white' : theme.darkColors.background;
-
-    // Define your gradient colors here
-    const gradientColors = [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success];
+    const gradientColors = stories ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : negative ? [theme.darkColors.background, theme.darkColors.background] : ['#fff', '#fff'];
 
     return (
         <View>
-            
-            {stories ? (
-                <LinearGradient colors={gradientColors} style={{ padding: borderStories, borderRadius: size }}>
-                    <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
-                </LinearGradient>
-            ) : (
+            <LinearGradient colors={gradientColors} style={{ padding: borderStories, borderRadius: size }}>
                 <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
-            )}
-
+            </LinearGradient>
             {showBadge && (
                 <View style={styles.badgeRating}>
                     <View style={styles.badge}>
