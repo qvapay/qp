@@ -33,9 +33,6 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
-# Custom Gradle wrapper properties
-*gradle-7.5.1-all.zip
-*gradle-8.0.2-all.zip
 
 # node.js
 #

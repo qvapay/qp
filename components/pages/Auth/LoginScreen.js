@@ -135,8 +135,7 @@ export default function LoginScreen() {
         setLoading(true);
         try {
             const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode });
-            console.log(response)
-            if (response.status == 200) {
+            if (response && response.status == 200) {
                 await EncryptedStorage.setItem('twoFactorSecret', 'false');
                 console.log("Set 2FA to False")
                 navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
