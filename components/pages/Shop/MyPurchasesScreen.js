@@ -8,7 +8,6 @@ import FastImage from 'react-native-fast-image';
 import { getShortDateTime } from '../../../utils/Helpers';
 import { HeaderBackButton } from '@react-navigation/elements';
 import Modal from "react-native-modal";
-import QPButton from '../../ui/QPButton';
 
 export default function MyPurchasesScreen() {
 
@@ -100,7 +99,7 @@ export default function MyPurchasesScreen() {
                     style={styles.modalview}
                 >
                     <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
-                        
+
                         <TextInput
                             value={selectedItem.service_data}
                             style={[styles.itemTitle, { padding: 0, margin: 0 }]}
