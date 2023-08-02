@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard';
 
 export default function OtpCode({ cols = 6, setValidatedCode }) {
 
@@ -24,12 +25,9 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
     const handleInputChange = (index, value) => {
         const newCode = code.slice(0, index) + value + code.slice(index + 1);
         setCode(newCode);
-        // Move to the next input automatically
-        if (value !== '') {
-            const nextIndex = index + 1;
-            if (inputs.current[nextIndex]) {
-                inputs.current[nextIndex].focus();
-            }
+        // Move to the next input automatically if the current input is not empty and the next input exists
+        if (value !== '' && inputs.current[index + 1]) {
+            inputs.current[index + 1].focus();
         }
     };
 
@@ -44,13 +42,13 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
     };
 
     // Handle the paste event
-    const handleInputPaste = (event) => {
-        const pastedCode = event.clipboardData.getData('text').slice(0, cols);
+    const handleInputPaste = async (event) => {
+        const clipboardContent = await Clipboard.getString();
+        const pastedCode = clipboardContent.slice(0, cols);
         setCode(pastedCode);
-        for (let i = 0; i < cols; i++) {
-            if (inputs.current[i] && i < pastedCode.length - 1) {
-                inputs.current[i].focus();
-            }
+        
+        if (inputs.current[pastedCode.length - 1]) {
+            inputs.current[pastedCode.length - 1].focus();
         }
     };
 

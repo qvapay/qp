@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import { StyleSheet, ScrollView, Linking, RefreshControl, View } from 'react-native'
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
@@ -15,11 +15,24 @@ export default function HomeScreen({ navigation }) {
     const [refreshing, setRefreshing] = useState(false);
     const [featuredProducts, setFeaturedProducts] = useState([]);
 
-    // Get the Me object from getMe on QvaPayClient and request it every 120 seconds
+    // Create a flag to know if the component is mounted
+    const isMounted = useRef(true);
+
+    // Get the Me object from getMe on QvaPayClient and request it every 120 seconds if component is mounted
     useEffect(() => {
+        isMounted.current = true;
         fetchMe();
-        const interval = setInterval(fetchMe, 120000);
-        return () => clearInterval(interval);
+
+        const interval = setInterval(() => {
+            if (isMounted.current) {
+                fetchMe();
+            }
+        }, 60000);
+        
+        return () => {
+            isMounted.current = false;
+            clearInterval(interval);
+        };
     }, []);
 
     // Get Me object from QvaPayClient and store on state

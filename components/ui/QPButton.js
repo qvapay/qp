@@ -16,7 +16,7 @@ export default function QPButton(props) {
     const { danger, disabled } = props;
 
     return (
-        <Pressable onPress={handlePress} style={[disabled ? styles.disabledStyle : styles.buttonStyle, { backgroundColor: danger ? theme.darkColors.danger : theme.darkColors.primary }, {...props.style}]}>
+        <Pressable onPress={handlePress} style={[disabled ? styles.disabledStyle : styles.buttonStyle, { backgroundColor: danger ? theme.darkColors.danger : theme.darkColors.primary }, { ...props.style }]}>
             <Text style={styles.titleStyle}>{props.title}</Text>
         </Pressable>
     )
@@ -27,17 +27,17 @@ const styles = StyleSheet.create({
         color: 'white',
         borderRadius: 10,
         marginVertical: 10,
-        paddingVertical: 10,
+        paddingVertical: 15,
         alignItems: 'center'
     },
     titleStyle: {
-        fontSize: 20,
+        fontSize: 18,
         color: 'white',
-        fontFamily: 'Rubik-SemiBold'
+        fontFamily: 'Rubik-Medium'
     },
     disabledStyle: {
         opacity: 0.5,
-        fontSize: 20,
+        fontSize: 18,
         color: 'white',
         borderRadius: 10,
         marginVertical: 10,

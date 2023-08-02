@@ -17,7 +17,7 @@ export default function LoginScreen() {
 
     // get Navigation hook
     const navigation = useNavigation();
-    const { me, setMe } = useContext(AppContext);
+    const { setMe } = useContext(AppContext);
     const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -186,10 +186,7 @@ export default function LoginScreen() {
                 showtwofaForm ? (
                     <>
                         <View style={{ marginHorizontal: 40 }}>
-                            <Image
-                                source={require('../../../assets/images/auth/twofactor.png')}
-                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
-                            />
+                            <Image source={require('../../../assets/images/auth/twofactor.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
                         </View>
                         <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
@@ -210,10 +207,7 @@ export default function LoginScreen() {
                 ) : (
                     <>
                         <View style={{ marginHorizontal: 40 }}>
-                            <Image
-                                source={require('../../../assets/images/auth/login.png')}
-                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
-                            />
+                            <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
                         </View>
                         <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Iniciar Sesión:</Text>
@@ -258,8 +252,6 @@ export default function LoginScreen() {
                                 </Text>
                             ) : null}
 
-                            {/* <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text> */}
-
                             <QPButton title="Acceder" onPress={handleLoginSubmit} />
 
                             <View style={styles.biometricIcon}>
@@ -268,7 +260,7 @@ export default function LoginScreen() {
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={styles.registerTextStyle}>¿No tienes cuenta?</Text>
+                            <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
                             <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
                         </View>
                     </>

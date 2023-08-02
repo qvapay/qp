@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, Text, Pressable, View } from 'react-native'
 import Transaction from './Transaction'
 import { getTransactions } from '../../utils/QvaPayClient';
@@ -6,8 +6,28 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function Transactions({ navigation }) {
 
-    // transactions State
+    // Transactions State
     const [transactions, setTransactions] = useState([]);
+
+    // Create a flag to know if the component is mounted
+    const isMounted = useRef(true);
+
+    // Query latest transactions every 120 seconds
+    useEffect(() => {
+        isMounted.current = true;
+        fetchTransactions();
+        
+        const interval = setInterval(() => {
+            if (isMounted.current) {
+                fetchTransactions();
+            }
+        }, 120000);
+
+        return () => {
+            isMounted.current = false;
+            clearInterval(interval);
+        };
+    }, []);
 
     const fetchTransactions = async () => {
         try {
@@ -17,17 +37,6 @@ export default function Transactions({ navigation }) {
             console.error(error);
         }
     }
-
-    // Load transactions from API via useEffect using qvaPayClient
-    useEffect(() => {
-        fetchTransactions();
-    }, []);
-
-    // Query latest transactions every 120 seconds
-    useEffect(() => {
-        const interval = setInterval(fetchTransactions, 120000);
-        return () => clearInterval(interval);
-    }, []);
 
     const TransactionsList = () => {
         if (transactions && transactions.length > 0) {
