@@ -13,7 +13,7 @@ export const AppProvider = ({ children }) => {
     };
 
     const [me, setMe] = useState(defaultMe);
-    const [backgroundColor, setBackgroundColor] = useState(theme.darkColors.primary_bg); // Agregar el estado del color de fondo
+    const [backgroundColor, setBackgroundColor] = useState(theme.darkColors.background); // Agregar el estado del color de fondo
     const value = { me, setMe, backgroundColor, setBackgroundColor };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
