@@ -96,15 +96,15 @@ const globalStyles = StyleSheet.create({
     },
     profilePictureSection: {
         flex: 1,
-        marginTop: 25,
+        marginTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
     },
     fullName: {
-        fontSize: 20,
+        fontSize: 22,
         marginLeft: 10,
         color: 'white',
-        fontFamily: 'Rubik-Regular'
+        fontFamily: 'Rubik-Bold'
     },
     amount: {
         fontSize: 60,
@@ -124,6 +124,13 @@ const globalStyles = StyleSheet.create({
         color: 'white',
         fontFamily: 'Rubik-Regular'
     },
+    bio: {
+        fontSize: 16,
+        color: 'white',
+        marginVertical: 10,
+        textAlign: 'center',
+        fontFamily: 'Rubik-Regular'
+    }
 });
 
 export { theme, globalStyles, textStyles, containerStyles };

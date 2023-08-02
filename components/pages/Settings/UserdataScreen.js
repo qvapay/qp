@@ -46,14 +46,9 @@ export default function UserdataScreen() {
                     <View style={{ flex: 1, marginLeft: 10 }}>
                         <View style={styles.fullNameView}>
                             <Text style={{ ...globalStyles.fullName }}>{name} {lastname}</Text>
-                            {me.golden_check == 1 && (
-                                <Image
-                                    source={require('../../../assets/images/gold-badge.png')}
-                                    style={{ marginLeft: 8, marginTop: 3 }}
-                                />
-                            )}
+                            {me.golden_check == 1 && (<Image source={require('../../../assets/images/gold-badge.png')} style={{ marginLeft: 8, marginTop: 3 }} />)}
                         </View>
-                        <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', marginLeft: 10 }}>@{me.username}</Text>
+                        <Text style={styles.usernameText}>@{me.username}</Text>
                     </View>
                 </View>
 
@@ -219,4 +214,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
     },
+    usernameText: {
+        fontSize: 16,
+        color: 'white',
+        marginLeft: 10,
+        fontFamily: 'Rubik-Medium',
+    }
 })

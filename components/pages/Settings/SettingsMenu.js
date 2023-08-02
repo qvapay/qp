@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
 
-import { theme } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
 import { useNavigation } from '@react-navigation/native';
@@ -22,6 +22,7 @@ const SettingsMenu = () => {
     const {
         uuid = "",
         email = "",
+        bio = "",
         kyc = 0,
         name = "",
         phone = "",
@@ -197,10 +198,15 @@ const SettingsMenu = () => {
                 </View>
 
                 <View style={{ marginBottom: 10 }}>
-                    <ProfilePictureSection user={me} />
+                    <ProfilePictureSection user={me} size={120} />
+                    <Text style={globalStyles.bio}>{bio}</Text>
                 </View>
 
-                <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} />
+                    <View style={{ width: 10 }}></View>
+                    <QPButton title="Analíticas" onPress={() => navigation.navigate('UserdataScreen')} />
+                </View>
             </View>
 
             {/* GoldenCheck Card */}

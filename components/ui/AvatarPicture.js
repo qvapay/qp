@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     badge: {
-        paddingTop: 1,
+        paddingVertical: 2,
         borderRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',

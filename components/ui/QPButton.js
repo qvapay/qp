@@ -25,6 +25,7 @@ export default function QPButton(props) {
 
 const styles = StyleSheet.create({
     buttonStyle: {
+        flex: 1,
         color: 'white',
         borderRadius: 10,
         marginVertical: 10,
