@@ -18,7 +18,6 @@ import ProfileScreen from './pages/ProfileScreen';
 import WelcomeScreen from './pages/WelcomeScreen';
 import AddScreen from './pages/DepositWithdraw/AddScreen';
 import SendScreen from './pages/InOutOperations/SendScreen';
-import ReceiveScreen from './pages/InOutOperations/ReceiveScreen';
 import WithdrawScreen from './pages/DepositWithdraw/WithdrawScreen';
 import ConfirmSendScreen from './pages/InOutOperations/ConfirmSendScreen';
 import AddInstructionsScreen from './pages/DepositWithdraw/AddInstructionsScreen';
@@ -30,7 +29,6 @@ import {ROUTES} from './routes';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-
   return (
     <Stack.Navigator
       initialRouteName={ROUTES.SPLASH_SCREEN}
@@ -50,7 +48,6 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
-        
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
@@ -182,7 +179,7 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
-      <Stack.Screen name={ROUTES.RECEIVE_SCREEN} component={ReceiveScreen} />
+
     </Stack.Navigator>
   );
 }

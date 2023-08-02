@@ -27,7 +27,6 @@ export const ROUTES = {
     SCAN_SCREEN: "ScanScreen",
     SEND_SCREEN: "SendScreen",
     CONFIRM_SEND_SCREEN: "ConfirmSendScreen",
-    RECEIVE_SCREEN: "ReceiveScreen",
 
     // In out Screens
     TRANSACTION_SCREEN: "TransactionScreen",

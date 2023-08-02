@@ -92,6 +92,7 @@ export default function ShowTransaction({ route }) {
                 style={styles.modalview}
             >
                 <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                    <Text style={{ fontSize: 20, color: 'white', fontFamily: 'Rubik-Regular' }}>Más detalles:</Text>
                     {
                         transaction.p2p && (
                             <Text>P2P</Text>

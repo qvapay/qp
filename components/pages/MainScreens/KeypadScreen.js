@@ -89,7 +89,7 @@ export default function KeypadScreen({ navigation }) {
 
     // Receive Navigation 
     const receiveAmount = () => {
-        navigation.navigate('ReceiveScreen', { amount });
+        navigation.navigate('ProfileScreen', { amount });
     }
 
     // Set the max balance to the amount wen pressed

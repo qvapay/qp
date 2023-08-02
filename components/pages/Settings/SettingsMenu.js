@@ -200,7 +200,7 @@ const SettingsMenu = () => {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} style={{ flex: 1 }} />
                     <View style={{ width: 10 }}></View>
-                    <QPButton title="Mi Perfil" onPress={() => navigation.navigate('ReceiveScreen')} style={{ flex: 1 }} />
+                    <QPButton title="Ver Perfil" onPress={() => navigation.navigate('ProfileScreen')} style={{ flex: 1 }} />
                 </View>
             </View>
 

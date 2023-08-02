@@ -9,9 +9,10 @@ import DeviceBrightness from '@adrianso/react-native-device-brightness';
 // Theme
 import { theme } from '../ui/Theme';
 
-export default function ProfileScreen({ amount = 0 }) {
-
+export default function ProfileScreen({ route }) {
+    
     const { me } = useContext(AppContext);
+    const amount = route.params?.amount || 0;
     const { qrData = `qp://u:${me.username}:a:${amount}` } = me;
     const [initialBrightness, setInitialBrightness] = useState(null);
 
