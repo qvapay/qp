@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
-import { AppContext } from '../../AppContext';
-import ProfilePictureSection from '../ui/ProfilePictureSection';
-import DeviceBrightness from '@adrianso/react-native-device-brightness';
-import { theme } from '../ui/Theme';
+import { View, StyleSheet, Text, Pressable, Share } from 'react-native';
 import QR from '../ui/QR';
+import { theme } from '../ui/Theme';
+import { AppContext } from '../../AppContext';
 import { useNavigation } from '@react-navigation/native';
+import ProfilePictureSection from '../ui/ProfilePictureSection';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
 export default function ProfileScreen({ route }) {
 
@@ -40,10 +40,30 @@ export default function ProfileScreen({ route }) {
         };
     }, [initialBrightness]);
 
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                // url: `https://qvapay.com/payme/username${me.username}`,
+                title: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
+                message: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            Alert.alert(error.message);
+        }
+    };
+
     return (
         <>
             <Pressable style={styles.container} onPress={() => navigation.goBack()}>
-
                 <ProfilePictureSection user={me} negative={true} />
                 <Text style={{ textAlign: 'center' }}>{me.bio}</Text>
 
@@ -53,7 +73,7 @@ export default function ProfileScreen({ route }) {
                 </View>
             </Pressable>
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: 'white', }}>
-                <FontAwesome5 name="share" size={30} color={theme.darkColors.background} />
+                <FontAwesome5 name="share" size={30} color={theme.darkColors.background} onPress={onShare} />
             </View>
         </>
     )
