@@ -26,6 +26,7 @@ export default function ProfilePictureSection({ user = {}, negative = false, siz
             <AvatarPicture
                 size={size}
                 showBadge={true}
+                stories={negative}
                 negative={negative}
                 rating={average_rating}
                 source_uri={profile_photo_url}

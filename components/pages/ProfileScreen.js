@@ -1,23 +1,29 @@
-
 import React, { useContext, useEffect, useState } from 'react';
-import QR from '../ui/QR';
+import { View, StyleSheet, Text, Pressable } from 'react-native';
 import { AppContext } from '../../AppContext';
-import { View, StyleSheet, Text } from 'react-native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
-
-// Theme
 import { theme } from '../ui/Theme';
+import QR from '../ui/QR';
+import { useNavigation } from '@react-navigation/native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function ProfileScreen({ route }) {
-    
-    const { me } = useContext(AppContext);
+
+    const { me, setBackgroundColor } = useContext(AppContext);
     const amount = route.params?.amount || 0;
     const { qrData = `qp://u:${me.username}:a:${amount}` } = me;
     const [initialBrightness, setInitialBrightness] = useState(null);
+    const navigation = useNavigation();
 
     // Set the max brightness on screen
     useEffect(() => {
+
+        // setBackgroundColor to white
+        setTimeout(() => {
+            setBackgroundColor('white');
+        }, 150);
+
         // Guardar el brillo actual para poder restaurarlo luego
         DeviceBrightness.getBrightnessLevel().then((brightness) => {
             setInitialBrightness(brightness);
@@ -26,6 +32,8 @@ export default function ProfileScreen({ route }) {
 
         // Limpiar la función de efecto para que se ejecute solo una vez
         return () => {
+            // return the setBackgroundColor to primary
+            setBackgroundColor(theme.darkColors.background);
             if (initialBrightness !== null) {
                 DeviceBrightness.setBrightnessLevel(initialBrightness);
             }
@@ -33,16 +41,21 @@ export default function ProfileScreen({ route }) {
     }, [initialBrightness]);
 
     return (
-        <View style={styles.container}>
+        <>
+            <Pressable style={styles.container} onPress={() => navigation.goBack()}>
 
-            <ProfilePictureSection user={me} negative={true} />
+                <ProfilePictureSection user={me} negative={true} />
+                <Text style={{ textAlign: 'center' }}>{me.bio}</Text>
 
-            <View style={styles.qrSection}>
-                <QR qrData={qrData} />
-                {amount > 0 && <Text style={styles.receivingAmount}>Recibir: ${amount}</Text>}
+                <View style={styles.qrSection}>
+                    <QR qrData={qrData} />
+                    {amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>}
+                </View>
+            </Pressable>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: 'white', }}>
+                <FontAwesome5 name="share" size={30} color={theme.darkColors.background} />
             </View>
-
-        </View>
+        </>
     )
 }
 
@@ -59,9 +72,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     receivingAmount: {
-        color: theme.darkColors.background,
-        fontSize: 20,
+        fontSize: 26,
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
+        color: theme.darkColors.background,
     }
 })

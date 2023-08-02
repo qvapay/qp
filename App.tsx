@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StatusBar, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {AppProvider, AppContext} from './AppContext';
@@ -30,6 +30,11 @@ function App(): JSX.Element {
 function MainApp(): JSX.Element {
   
   const {backgroundColor} = useContext(AppContext);
+
+  // if Android, set the status bar to background color
+  if (Platform.OS === 'android') {
+    StatusBar.setBackgroundColor(backgroundColor);
+  }
 
   return (
     <SafeAreaView style={{...containerStyles.container, backgroundColor}}>
