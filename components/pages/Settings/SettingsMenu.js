@@ -190,12 +190,7 @@ const SettingsMenu = () => {
     return (
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
-            <View style={[styles.box, { paddingBottom: 10 }]}>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <FontAwesome5 name="qrcode" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ScanScreen')} />
-                    <FontAwesome5 name="share-square" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ReceiveScreen')} />
-                </View>
+            <View style={[styles.box, { paddingBottom: 10, marginTop: 0 }]}>
 
                 <View style={{ marginBottom: 10 }}>
                     <ProfilePictureSection user={me} size={120} />
@@ -203,9 +198,9 @@ const SettingsMenu = () => {
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} />
+                    <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} style={{ flex: 1 }} />
                     <View style={{ width: 10 }}></View>
-                    <QPButton title="Analíticas" onPress={() => navigation.navigate('UserdataScreen')} />
+                    <QPButton title="Mi Perfil" onPress={() => navigation.navigate('ReceiveScreen')} style={{ flex: 1 }} />
                 </View>
             </View>
 
