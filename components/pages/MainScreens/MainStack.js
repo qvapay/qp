@@ -24,9 +24,7 @@ export default function MainStack() {
 
     // Set the status bar to light
     useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
-        }
+        setBackgroundColor(theme.darkColors?.primary_bg);
     }, []);
 
     // if {me} id undefined the go to Splash Screen

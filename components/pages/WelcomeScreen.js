@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Image, StatusBar } from 'react-native'
+import React, { useEffect, useContext } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { globalStyles, theme } from '../ui/Theme';
-import QPButton from '../ui/QPButton';
 import { useNavigation } from '@react-navigation/native';
+import QPButton from '../ui/QPButton';
+import { AppContext } from '../../AppContext';
 
 export default function WelcomeScreen() {
 
     const navigation = useNavigation();
+    const { setBackgroundColor } = useContext(AppContext);
 
-    // Set the status bar to light
     useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
-        }
+        setBackgroundColor(theme.darkColors?.background);
     }, []);
 
     return (

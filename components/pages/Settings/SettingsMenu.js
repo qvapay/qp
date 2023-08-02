@@ -11,8 +11,6 @@ import ProfilePictureSection from '../../ui/ProfilePictureSection';
 import OneSignal from 'react-native-onesignal';
 import DeviceInfo from 'react-native-device-info';
 
-import { Badge } from '@rneui/themed';
-
 const SettingsMenu = () => {
 
     const navigation = useNavigation();
@@ -180,7 +178,7 @@ const SettingsMenu = () => {
                 <Text style={{ flex: 1, fontFamily: 'Rubik-Regular', color: 'white', fontSize: 18 }}>{title}</Text>
                 {
                     notifications > 0
-                        ? <Badge badgeStyle={{ marginRight: 10, borderColor: theme.darkColors.primary }} value="1" status="primary" />
+                        ? <Text style={{ marginRight: 10, borderColor: theme.darkColors.primary }}>1</Text>
                         : null
                 }
                 <FontAwesome5 name="angle-right" size={16} style={{ color: 'white' }} />

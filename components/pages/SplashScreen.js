@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Image, StyleSheet, View, ActivityIndicator, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
 import { theme } from '../ui/Theme';
+import { AppContext } from '../../AppContext';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
 // Splashscreen waiting time
@@ -14,8 +15,13 @@ const SplashScreen = () => {
 
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(true);
+    const { setBackgroundColor } = useContext(AppContext);
 
     useEffect(() => {
+
+        // Set the background to the pretty primary color
+        setBackgroundColor(theme.darkColors.primary);
+
         const verifyToken = async () => {
             let userToken;
             let navigateTo = ROUTES.WELCOME_SCREEN;

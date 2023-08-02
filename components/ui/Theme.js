@@ -1,4 +1,3 @@
-import { createTheme } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 
 // colors:
@@ -16,7 +15,7 @@ const colors = {
     elevated_dark_color: "#283046",     // Dark for elevation purlposes
 }
 
-const theme = createTheme({
+const theme = {
     darkColors: {
         primary: colors.primary,
         secondary: colors.secondary_bg,
@@ -26,7 +25,7 @@ const theme = createTheme({
         elevation: colors.elevated_dark_color,
     },
     mode: 'dark',
-});
+}
 
 const textStyles = StyleSheet.create({
     text: {

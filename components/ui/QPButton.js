@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@rneui/themed';
+import { Button, Pressable, Text } from 'react-native'
 import { StyleSheet, Vibration } from 'react-native';
 import { theme } from './Theme';
 
@@ -13,13 +13,9 @@ export default function QPButton(props) {
     };
 
     return (
-        <Button
-            {...props}
-            onPress={handlePress}
-            titleStyle={[styles.titleStyle, props.titleStyle]}
-            buttonStyle={[styles.buttonStyle, props.buttonStyle]}
-            disabledStyle={[styles.disabledStyle, props.disabledStyle]}
-        />
+        <Pressable {...props} onPress={handlePress} style={styles.buttonStyle}>
+            <Text style={styles.titleStyle}>{props.title}</Text>
+        </Pressable>
     )
 }
 
@@ -28,11 +24,13 @@ const styles = StyleSheet.create({
         color: 'white',
         borderRadius: 10,
         marginVertical: 10,
+        paddingVertical: 10,
         alignItems: 'center',
         backgroundColor: theme.darkColors.primary,
     },
     titleStyle: {
         fontSize: 22,
+        color: 'white',
         fontFamily: 'Rubik-SemiBold'
     },
     disabledStyle: {

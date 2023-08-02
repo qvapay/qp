@@ -17,7 +17,6 @@ export default function LoginScreen() {
 
     // get Navigation hook
     const navigation = useNavigation();
-
     const { me, setMe } = useContext(AppContext);
     const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
@@ -35,7 +34,9 @@ export default function LoginScreen() {
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
 
     useEffect(() => {
-        StatusBar.setBackgroundColor(theme.darkColors.background);
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(theme.darkColors.background);
+        }
     }, []);
 
     // Check if devica can handle biometric auth
@@ -118,7 +119,7 @@ export default function LoginScreen() {
                 }
 
             } else {
-                setErrortext("Ocurrió un error al iniciar sesion, intente nuevamente");
+                setErrortext("No es posible iniciar sesión, intente nuevamente");
             }
 
         } catch (error) {

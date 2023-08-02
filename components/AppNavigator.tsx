@@ -30,6 +30,7 @@ import {ROUTES} from './routes';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
+
   return (
     <Stack.Navigator
       initialRouteName={ROUTES.SPLASH_SCREEN}
@@ -49,6 +50,7 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
+        
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}

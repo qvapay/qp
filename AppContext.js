@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import { theme } from './components/ui/Theme'
 
 export const AppContext = createContext();
 
@@ -12,8 +13,8 @@ export const AppProvider = ({ children }) => {
     };
 
     const [me, setMe] = useState(defaultMe);
-
-    const value = { me, setMe };
+    const [backgroundColor, setBackgroundColor] = useState(theme.darkColors.primary_bg); // Agregar el estado del color de fondo
+    const value = { me, setMe, backgroundColor, setBackgroundColor };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
