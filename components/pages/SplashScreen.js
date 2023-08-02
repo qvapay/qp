@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Image, StyleSheet, View, ActivityIndicator, StatusBar } from 'react-native';
+import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ROUTES } from '../routes';
 import { getMe } from '../../utils/QvaPayClient';
@@ -47,11 +47,6 @@ const SplashScreen = () => {
                 navigation.navigate(navigateTo);
                 return;
             }
-        }
-
-        // Set the status bar to light
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.primary);
         }
 
         verifyToken();

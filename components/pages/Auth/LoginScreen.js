@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image, StatusBar } from 'react-native';
+import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -32,12 +32,6 @@ export default function LoginScreen() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
-
-    useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
-        }
-    }, []);
 
     // Check if devica can handle biometric auth
     useEffect(() => {

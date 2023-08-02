@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
 import { getProductByUuid, buyProduct } from '../../../utils/QvaPayClient';
@@ -51,13 +51,6 @@ export default function ShopCheckoutScreen({ route }) {
             ),
         });
     }, []);
-
-    // Set the notification bar color to color variable
-    useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
-        }
-    }, [color]);
 
     // Handle Checkout
     const handleCheckout = async () => {

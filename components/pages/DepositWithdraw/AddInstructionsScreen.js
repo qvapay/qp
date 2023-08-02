@@ -333,9 +333,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
 
                     </View>
 
-                    <View>
-                        <QPButton onPress={openWalletApp} title="Abrir wallet externa" />
-                    </View>
+                    <QPButton onPress={openWalletApp} title="Abrir wallet externa" />
                 </>
             )}
 

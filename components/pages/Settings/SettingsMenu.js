@@ -189,17 +189,18 @@ const SettingsMenu = () => {
     return (
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }} >
 
-            <View style={styles.box}>
+            <View style={[styles.box, { paddingBottom: 10 }]}>
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <FontAwesome5 name="qrcode" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ScanScreen')} />
                     <FontAwesome5 name="share-square" size={14} style={{ color: 'white' }} onPress={() => navigation.navigate('ReceiveScreen')} />
                 </View>
-                <View>
+
+                <View style={{ marginBottom: 10 }}>
                     <ProfilePictureSection user={me} />
                 </View>
-                <View>
-                    <QPButton title="Editar Perfil" buttonStyle={{ marginBottom: 0 }} onPress={() => navigation.navigate('UserdataScreen')} />
-                </View>
+
+                <QPButton title="Editar Perfil" onPress={() => navigation.navigate('UserdataScreen')} />
             </View>
 
             {/* GoldenCheck Card */}
@@ -242,9 +243,7 @@ const SettingsMenu = () => {
                 <SettingsItemSection key={index} section={section} />
             ))}
 
-            <QPButton title={'Cerrar sesión'} onPress={confirmLogout} danger={true}>
-                <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
-            </QPButton>
+            <QPButton title={'Cerrar sesión'} onPress={confirmLogout} danger={true} />
 
             {/* Github, Twitter and Instagram accounts */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginVertical: 20 }}>

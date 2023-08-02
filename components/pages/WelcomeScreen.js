@@ -16,28 +16,16 @@ export default function WelcomeScreen() {
 
     return (
         <View style={globalStyles.container}>
+            
             <View style={styles.welcome}>
                 <Image source={require('../../assets/images/qvapay-cover2.png')} style={styles.imageLogo} />
                 <Text style={globalStyles.title}>Bienvenido a QvaPay</Text>
                 <Text style={globalStyles.subtitle}>La forma más fácil de recibir y enviar dinero</Text>
             </View>
+
             <View style={styles.accessButtons}>
-                <QPButton
-                    title="Iniciar Sesión"
-                    onPress={() => {
-                        navigation.navigate('AuthStack', {
-                            screen: 'LoginScreen'
-                        })
-                    }}
-                />
-                <QPButton
-                    title="Registrarse"
-                    onPress={() => {
-                        navigation.navigate('AuthStack', {
-                            screen: 'RegisterScreen'
-                        })
-                    }}
-                />
+                <QPButton title="Iniciar Sesión" onPress={() => { navigation.navigate('AuthStack', { screen: 'LoginScreen' }) }} />
+                <QPButton title="Registrarse" onPress={() => { navigation.navigate('AuthStack', { screen: 'RegisterScreen' }) }} />
             </View>
         </View>
     )

@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     },
     disabledStyle: {
         opacity: 0.5,
+        fontSize: 20,
+        color: 'white',
+        borderRadius: 10,
+        marginVertical: 10,
+        paddingVertical: 10,
+        alignItems: 'center',
         backgroundColor: theme.darkColors.primary,
     },
 })

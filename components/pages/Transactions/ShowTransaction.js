@@ -79,10 +79,7 @@ export default function ShowTransaction({ route }) {
             </View>
 
             <View style={{ justifyContent: 'flex-end' }}>
-                <QPButton title="Más detalles" onPress={() => {
-                    console.log(transaction)
-                    setModalVisible(true)
-                }} />
+                <QPButton title="Más detalles" onPress={() => { setModalVisible(true) }} />
             </View>
 
             {/** Modal with more Details */}

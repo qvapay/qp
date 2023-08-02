@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, Text, View, TextInput, Pressable, StatusBar } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import { getProductByUuid } from '../../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,8 @@ const InfoContainer = ({ children, style }) => (
 )
 
 export default function ShopItemScreen({ route }) {
+
+    // Try to hack the StatusBar rference
 
     const navigation = useNavigation();
     const { uuid } = route.params;
@@ -55,20 +57,6 @@ export default function ShopItemScreen({ route }) {
             },
         });
     }, [color]);
-
-    // Set the notification bar color to color variable
-    useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(color);
-        }
-        // Return to default color when unmounting
-        return () => {
-            if (Platform.OS === 'android') {
-                StatusBar.setBackgroundColor(theme.darkColors.background);
-            }
-        }
-    }, [color]);
-
 
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {
@@ -137,11 +125,7 @@ export default function ShopItemScreen({ route }) {
                             <View style={styles.comboSelector}>
                                 {
                                     parsedPriceCombos.map((combo, index) => (
-                                        <QPButton
-                                            key={index}
-                                            onPress={() => setAmount(parseFloat(combo.amount))}
-                                            title={`${combo.label}`}
-                                        />
+                                        <QPButton key={index} onPress={() => setAmount(parseFloat(combo.amount))} title={`${combo.label}`} />
                                     ))
                                 }
                             </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, TextInput, StatusBar, RefreshControl, TouchableOpacity, Text } from 'react-native'
+import { FlatList, StyleSheet, View, TextInput, RefreshControl, TouchableOpacity, Text } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
@@ -56,12 +56,6 @@ export default function ShopIndexScreen() {
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-
-    useEffect(() => {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(theme.darkColors.background);
-        }
-    }, []);
 
     useEffect(() => {
         fetchProducts();

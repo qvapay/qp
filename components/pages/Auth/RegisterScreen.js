@@ -188,7 +188,6 @@ export default function RegisterScreen({ navigation }) {
 
                         <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
 
-
                     </ScrollView>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
