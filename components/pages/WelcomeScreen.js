@@ -17,10 +17,14 @@ export default function WelcomeScreen() {
     return (
         <View style={globalStyles.container}>
 
-            <View style={styles.welcome}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Image source={require('../../assets/images/qvapay-cover2.png')} style={styles.imageLogo} />
+            </View>
+
+            <View style={styles.welcome}>
                 <Text style={textStyles.h1}>Bienvenido a QvaPay</Text>
-                <Text style={globalStyles.subtitle}>La forma más fácil de recibir y enviar dinero</Text>
+                <Text style={globalStyles.subtitle}>La forma más fácil de recibir y enviar dinero.</Text>
+                <Text style={globalStyles.subtitle}>Comienza a recibir pagos a nivel mundial. 🌎</Text>
             </View>
 
             <View style={styles.accessButtons}>
@@ -37,7 +41,6 @@ export default function WelcomeScreen() {
 
 const styles = StyleSheet.create({
     welcome: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },

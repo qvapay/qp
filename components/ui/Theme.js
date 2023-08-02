@@ -53,6 +53,7 @@ const textStyles = StyleSheet.create({
         fontSize: 32,
         color: 'white',
         textAlign: 'left',
+        marginVertical: 10,
         fontFamily: 'Rubik-Bold',
     },
     h6: {
