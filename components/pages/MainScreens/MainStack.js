@@ -19,12 +19,12 @@ const Tab = createBottomTabNavigator();
 export default function MainStack() {
 
     // get the navigation object from useNavigation hook
+    const { me, setBackgroundColor } = useContext(AppContext);
     const navigation = useNavigation();
-    const { me } = useContext(AppContext);
 
     // Set the status bar to light
     useEffect(() => {
-        setBackgroundColor(theme.darkColors?.primary_bg);
+        setBackgroundColor(theme.darkColors?.background);
     }, []);
 
     // if {me} id undefined the go to Splash Screen

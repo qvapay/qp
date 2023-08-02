@@ -12,8 +12,12 @@ export default function QPButton(props) {
         props.onPress && props.onPress();
     };
 
+    // Get the disabled prop from the props object, could be undefined
+    const { danger, disabled } = props;
+
+
     return (
-        <Pressable {...props} onPress={handlePress} style={styles.buttonStyle}>
+        <Pressable onPress={handlePress} style={[disabled ? styles.disabledStyle : styles.buttonStyle, { backgroundColor: danger ? theme.darkColors.danger : theme.darkColors.primary }]}>
             <Text style={styles.titleStyle}>{props.title}</Text>
         </Pressable>
     )
@@ -25,11 +29,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginVertical: 10,
         paddingVertical: 10,
-        alignItems: 'center',
-        backgroundColor: theme.darkColors.primary,
+        alignItems: 'center'
     },
     titleStyle: {
-        fontSize: 22,
+        fontSize: 20,
         color: 'white',
         fontFamily: 'Rubik-SemiBold'
     },

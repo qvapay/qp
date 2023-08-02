@@ -242,7 +242,7 @@ const SettingsMenu = () => {
                 <SettingsItemSection key={index} section={section} />
             ))}
 
-            <QPButton buttonStyle={{ backgroundColor: '#ea5455' }} onPress={confirmLogout} >
+            <QPButton title={'Cerrar sesión'} onPress={confirmLogout} danger={true}>
                 <Text style={{ fontFamily: 'Rubik-Bold', fontSize: 16 }}>Cerrar Sesión</Text>
             </QPButton>
 
