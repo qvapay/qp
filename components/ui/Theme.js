@@ -54,7 +54,13 @@ const textStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'left',
         fontFamily: 'Rubik-Bold',
-    }
+    },
+    h6: {
+        fontSize: 16,
+        color: 'white',
+        textAlign: 'left',
+        fontFamily: 'Rubik-Regular',
+    },
 });
 
 const containerStyles = StyleSheet.create({

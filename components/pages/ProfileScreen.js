@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Pressable, Share } from 'react-native';
 import QR from '../ui/QR';
-import { theme } from '../ui/Theme';
+import { textStyles, theme } from '../ui/Theme';
 import { AppContext } from '../../AppContext';
 import { useNavigation } from '@react-navigation/native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
@@ -65,7 +65,21 @@ export default function ProfileScreen({ route }) {
         <>
             <Pressable style={styles.container} onPress={() => navigation.goBack()}>
                 <ProfilePictureSection user={me} negative={true} />
-                <Text style={{ textAlign: 'center' }}>{me.bio}</Text>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 40 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>0</Text>
+                        <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>P2P</Text>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>1000</Text>
+                        <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ranking</Text>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>0</Text>
+                        <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ventas</Text>
+                    </View>
+                </View>
 
                 <View style={styles.qrSection}>
                     <QR qrData={qrData} />
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     qrSection: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'space-around',
     },
