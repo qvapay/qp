@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
-import { globalStyles, textStyles, theme } from '../../ui/Theme'
+import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
+import { globalStyles, textStyles } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
 import { updateUserData } from '../../../utils/QvaPayClient'
@@ -64,9 +64,9 @@ export default function UserdataScreen() {
 
                     <QPInput prefixIconName='user' placeholder='Nombre de Usuario' value={username} onChangeText={(username) => setUsername(username)} />
 
-                    <QPInput prefixIconName='name' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
+                    <QPInput prefixIconName='id-card' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
 
-                    <QPInput prefixIconName='users' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
+                    <QPInput prefixIconName='id-card' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
 
                     <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} multiline />
 

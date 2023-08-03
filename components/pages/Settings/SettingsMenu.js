@@ -102,12 +102,6 @@ const SettingsMenu = () => {
                     enabled: true,
                     notifications: me.phone_verified ? 0 : 1
                 },
-                {
-                    title: 'Idioma',
-                    screen: 'LanguageScreen',
-                    enabled: true,
-                    notifications: 0,
-                },
             ],
         },
         security: {

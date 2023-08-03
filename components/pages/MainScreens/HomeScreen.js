@@ -22,13 +22,11 @@ export default function HomeScreen({ navigation }) {
     useEffect(() => {
         isMounted.current = true;
         fetchMe();
-
         const interval = setInterval(() => {
             if (isMounted.current) {
                 fetchMe();
             }
         }, 60000);
-        
         return () => {
             isMounted.current = false;
             clearInterval(interval);

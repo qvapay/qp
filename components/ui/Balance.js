@@ -9,14 +9,6 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
     // QvaPay Balance state
     const [showBalance, setShowBalance] = useState(true);
 
-    const add = () => {
-        navigation.navigate('AddScreen');
-    }
-
-    const withdraw = () => {
-        navigation.navigate('WithdrawScreen');
-    }
-
     // showBalance state persistence
     useEffect(() => {
         const storeBalance = async () => {
@@ -28,23 +20,19 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
         storeBalance();
     }, [showBalance]);
 
-    // Toggle for the pressable show real balance or just *****
-    const toggleShowBalance = () => {
-        setShowBalance(!showBalance);
-    };
 
-    // Balance microcomponent
-    const formatBalance = (balance) => {
-        return showBalance ? parseFloat(balance).toFixed(2) : '*****';
-    }
+    const add = () => { navigation.navigate('AddScreen') }
+    const withdraw = () => { navigation.navigate('WithdrawScreen') }
+
+    // Toggle for the pressable show real balance or just *****
+    const toggleShowBalance = () => { setShowBalance(!showBalance) };
+    const formatBalance = (balance) => { return showBalance ? parseFloat(balance).toFixed(2) : '*****' }
 
     return (
         <View style={styles.container}>
-
             <View style={styles.topLabels}>
                 <Text style={styles.white}>Balance QvaPay:</Text>
             </View>
-
             <View style={styles.topLabels}>
                 <Pressable onPress={toggleShowBalance}>
                     <View>
@@ -55,7 +43,6 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
                     <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='yellow' /> {me.satoshis}</Text>
                 </View>
             </View>
-
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={() => add()}>
                     <Text style={styles.actionButtonLabel}>
