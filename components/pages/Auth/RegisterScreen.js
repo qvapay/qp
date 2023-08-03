@@ -6,6 +6,7 @@ import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme, textStyles } from '../../ui/Theme';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
+import QPInput from '../../ui/QPInput';
 
 export default function RegisterScreen({ navigation }) {
 
@@ -109,58 +110,42 @@ export default function RegisterScreen({ navigation }) {
                             </View>
                         </View>
 
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserName) => setUserName(UserName)}
-                                underlineColorAndroid="#f000"
-                                placeholder="Nombre"
-                                placeholderTextColor="#7f8c8d"
-                                returnKeyType="next"
-                                onSubmitEditing={() =>
-                                    emailInputRef.current && emailInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                                underlineColorAndroid="#f000"
-                                placeholder="Email"
-                                placeholderTextColor="#7f8c8d"
-                                keyboardType="email-address"
-                                autoCapitalize="none"
-                                ref={emailInputRef}
-                                returnKeyType="next"
-                                onSubmitEditing={() =>
-                                    passwordInputRef.current &&
-                                    passwordInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(UserPassword) =>
-                                    setUserPassword(UserPassword)
-                                }
-                                underlineColorAndroid="#f000"
-                                placeholder="Contraseña"
-                                autoCapitalize="none"
-                                placeholderTextColor="#7f8c8d"
-                                ref={passwordInputRef}
-                                returnKeyType="next"
-                                secureTextEntry={true}
-                                onSubmitEditing={() =>
-                                    ageInputRef.current &&
-                                    ageInputRef.current.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
+                        <QPInput
+                            prefixIconName="user"
+                            placeholder="Nombre"
+                            onChangeText={(name) => setUserName(name)}
+                            returnKeyType="next"
+                            blurOnSubmit={false}
+                        />
+
+                        <QPInput
+                            prefixIconName="envelope"
+                            placeholder="Email"
+                            onChangeText={(email) => setUserEmail(email)}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            ref={emailInputRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() =>
+                                passwordInputRef.current &&
+                                passwordInputRef.current.focus()
+                            }
+                            blurOnSubmit={false}
+                        />
+
+                        <QPInput
+                            prefixIconName="lock"
+                            placeholder="Contraseña"
+                            onChangeText={(password) => setUserPassword(password)}
+                            secureTextEntry={true}
+                            ref={passwordInputRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() =>
+                                ageInputRef.current &&
+                                ageInputRef.current.focus()
+                            }
+                            blurOnSubmit={false}
+                        />
 
                         {errortext != '' ? (
                             <Text style={styles.errorTextStyle}>

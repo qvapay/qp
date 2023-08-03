@@ -22,7 +22,7 @@ export default function WelcomeScreen() {
             </View>
 
             <View style={styles.welcome}>
-                <Text style={textStyles.h1}>Bienvenido a QvaPay</Text>
+                <Text style={textStyles.h1}>Bienvenid@ a QvaPay</Text>
                 <Text style={globalStyles.subtitle}>La forma más fácil de recibir y enviar dinero.</Text>
                 <Text style={globalStyles.subtitle}>Comienza a recibir pagos a nivel mundial. 🌎</Text>
             </View>
@@ -33,7 +33,7 @@ export default function WelcomeScreen() {
 
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <Text style={styles.registerText}>¿No tienes cuenta aún?</Text>
-                <Text style={[styles.registerText, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
+                <Text style={[styles.registerText, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => { navigation.navigate('AuthStack', { screen: 'RegisterScreen' }) }}>Regístrate</Text>
             </View>
         </View>
     )

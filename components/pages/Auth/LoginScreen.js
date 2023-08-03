@@ -12,6 +12,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
 import { useNavigation } from '@react-navigation/native';
 import OtpCode from '../../ui/OtpCode';
+import QPInput from '../../ui/QPInput';
 
 export default function LoginScreen() {
 
@@ -132,17 +133,15 @@ export default function LoginScreen() {
             const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode });
             if (response && response.status == 200) {
                 await EncryptedStorage.setItem('twoFactorSecret', 'false');
-                console.log("Set 2FA to False")
                 navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
             } else {
+                setLoading(false);
                 errorMessage = 'El código es incorrecto';
             }
         } catch (error) {
             setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);
-        } finally {
-            setLoading(false);
         }
     }
 
@@ -210,41 +209,29 @@ export default function LoginScreen() {
                             <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
                         </View>
                         <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                            <Text style={textStyles.h1}>Iniciar Sesión:</Text>
+                            <Text style={textStyles.h1}>Iniciar sesión:</Text>
                         </View>
 
                         <View style={{ flex: 1 }}>
-                            <View style={styles.sectionStyle}>
-                                <TextInput
-                                    autoComplete="email"
-                                    style={styles.inputStyle}
-                                    onChangeText={(UserEmail) => setEmail(UserEmail)}
-                                    placeholder="Correo, username o teléfono"
-                                    placeholderTextColor="#7f8c8d"
-                                    keyboardType="email-address"
-                                    returnKeyType="next"
-                                    autoCapitalize="none"
-                                    onSubmitEditing={() => passwordInputRef.current && passwordInputRef.current.focus()}
-                                    underlineColorAndroid="#f000"
-                                    blurOnSubmit={false}
-                                />
-                            </View>
 
-                            <View style={styles.sectionStyle}>
-                                <TextInput
-                                    style={styles.inputStyle}
-                                    onChangeText={(UserPassword) => setPassword(UserPassword)}
-                                    placeholder="Contraseña"
-                                    placeholderTextColor="#7f8c8d"
-                                    keyboardType="default"
-                                    ref={passwordInputRef}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    blurOnSubmit={false}
-                                    secureTextEntry={true}
-                                    underlineColorAndroid="#f000"
-                                    returnKeyType="next"
-                                />
-                            </View>
+                            <QPInput
+                                prefixIconName="envelope"
+                                placeholder="Correo, username o teléfono"
+                                keyboardType="email-address"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                onChangeText={(email) => setEmail(email)}
+                            />
+
+                            <QPInput
+                                prefixIconName="lock"
+                                placeholder="Contraseña"
+                                keyboardType="default"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                secureTextEntry={true}
+                                onChangeText={(password) => setPassword(password)}
+                            />
 
                             {errortext != '' ? (
                                 <Text style={styles.errorTextStyle}>

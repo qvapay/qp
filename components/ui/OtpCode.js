@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Clipboard from '@react-native-clipboard/clipboard';
+import QPInput from './QPInput';
 
 export default function OtpCode({ cols = 6, setValidatedCode }) {
 
@@ -46,7 +47,6 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
         const clipboardContent = await Clipboard.getString();
         const pastedCode = clipboardContent.slice(0, cols);
         setCode(pastedCode);
-        
         if (inputs.current[pastedCode.length - 1]) {
             inputs.current[pastedCode.length - 1].focus();
         }
@@ -60,10 +60,10 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
     return (
         <View style={styles.container}>
             {[...Array(cols)].map((_, index) => (
-                <TextInput
+                <QPInput
                     key={index}
                     ref={(input) => (inputs.current[index] = input)}
-                    style={[styles.input, { borderColor: code[index] ? '#6759EF' : 'white' }]}
+                    style={{ width: 45, fontSize: 22, textAlign: 'center', fontFamily: 'Rubik-Bold' }}
                     onChangeText={(value) => handleInputChange(index, value)}
                     onKeyPress={(event) => handleInputKeyPress(event, index)}
                     value={code[index] || ''}
@@ -81,15 +81,6 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-    },
-    input: {
-        width: 35,
-        height: 56,
-        fontSize: 22,
-        color: 'white',
-        textAlign: 'center',
-        borderBottomWidth: 2,
-        fontFamily: 'Rubik-Bold',
+        justifyContent: 'space-between',
     },
 })  

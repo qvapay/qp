@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 // colors:
 const colors = {
-    primary_bg: "#111626",              // Dark BG
+    primary_bg: "#101020",              // Dark BG
     secondary_bg: "#21415F",            // Dark serious Blue
     color: "#b4b7bd",                   // Gray like blue
     primary: "#6759EF",                 // Primary Blue/Purple color
@@ -12,6 +12,7 @@ const colors = {
     dark: "#4b4b4b",                    // Black like blue
     gray: "#D8D9DD",                    // Gray like blue
     elevated_dark_color: "#222440",     // Dark for elevation purlposes
+    placeholder: "#b4b7bd",             // Gray like blue
 }
 
 const theme = {
@@ -22,6 +23,7 @@ const theme = {
         success: colors.success,
         danger: colors.danger,
         elevation: colors.elevated_dark_color,
+        placeholder: colors.placeholder,
     },
     mode: 'dark',
 }
