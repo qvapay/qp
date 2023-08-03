@@ -5,6 +5,8 @@ import { theme } from './Theme';
 
 export default QPInput = forwardRef((props, ref) => {
 
+    const { style, multiline } = props;
+
     // check if the props has a suffix and prefix FontAwesome icons names
     const hasPrefix = props.prefixIconName !== undefined;
     const hasSuffix = props.suffixIconName !== undefined;
@@ -14,12 +16,7 @@ export default QPInput = forwardRef((props, ref) => {
 
             {hasPrefix && (
                 <View style={styles.suffixContainer}>
-                    <FontAwesome5
-                        size={18}
-                        color="white"
-                        name={props.prefixIconName}
-                        style={styles.suffixIcon}
-                    />
+                    <FontAwesome5 size={18} color="white" name={props.prefixIconName} style={styles.suffixIcon} />
                 </View>
             )}
 
@@ -28,17 +25,12 @@ export default QPInput = forwardRef((props, ref) => {
                 {...props}
                 placeholderStyle={{ fontFamily: 'Rubik-Regular' }}
                 placeholderTextColor={theme.darkColors.placeholder}
-                style={{ ...styles.input, ...props.style }}
+                style={{ ...styles.input, ...style, height: multiline ? 100 : 50 }}
             />
 
             {hasSuffix && (
                 <View style={styles.suffixContainer}>
-                    <FontAwesome5
-                        size={18}
-                        color="white"
-                        name={props.suffixIconName}
-                        style={styles.suffixIcon}
-                    />
+                    <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
                 </View>
             )}
 
@@ -49,7 +41,7 @@ export default QPInput = forwardRef((props, ref) => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
@@ -68,7 +60,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     input: {
-        height: 50,
         fontSize: 16,
         width: '100%',
         color: 'white',

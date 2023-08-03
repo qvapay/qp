@@ -68,7 +68,7 @@ export default function UserdataScreen() {
 
                     <QPInput prefixIconName='users' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
 
-                    <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} />
+                    <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} multiline />
 
                     <QPInput prefixIconName='envelope' placeholder='Correo Electrónico' value={email} editable={false} />
                 </View>

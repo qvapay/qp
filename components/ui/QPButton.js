@@ -8,10 +8,10 @@ const GENTLE_VIBRATION_PATTERN = [0, 50];
 export default function QPButton(props) {
 
     const { danger, disabled, title, onPress, style } = props;
-    const gradientColors = danger ? ['#FF4D4D', theme.darkColors.danger] : [theme.darkColors.primary, '#4537D1'];
+    const gradientColors = danger ? [theme.darkColors.danger, '#C82030'] : [theme.darkColors.primary, '#6153E0'];
 
     const handlePress = () => {
-        Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
+        //Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
         onPress && onPress();
     };
 
