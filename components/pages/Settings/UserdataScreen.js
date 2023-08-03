@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
-import { globalStyles, theme } from '../../ui/Theme'
+import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
 import { updateUserData } from '../../../utils/QvaPayClient'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import QPInput from '../../ui/QPInput';
 
 export default function UserdataScreen() {
 
@@ -24,8 +25,13 @@ export default function UserdataScreen() {
         setSending(true);
         try {
             const response = await updateUserData({ data: { name, lastname, username, bio, phone }, navigation })
-            if (response.status === 200) {
-                // TODO Toast.show('Datos Actualizados', Toast.LONG);
+            if (response.status === 201) {
+                Toast.show({
+                    type: 'success',
+                    text1: 'Datos actualizados correctamente',
+                    position: 'bottom',
+                    bottomOffset: 10,
+                });
             } else {
                 setError('Error al actualizar los datos');
             }
@@ -41,7 +47,7 @@ export default function UserdataScreen() {
 
             <ScrollView>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20 }}>
+                <View style={styles.userDataSection}>
                     <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={true} rating={me.average_rating} />
                     <View style={{ flex: 1, marginLeft: 10 }}>
                         <View style={styles.fullNameView}>
@@ -52,114 +58,19 @@ export default function UserdataScreen() {
                     </View>
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='user' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Usuario:</Text>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(username) => setUsername(username)}
-                                underlineColorAndroid="#f000"
-                                value={username}
-                                placeholder="Nombre de Usuario"
-                                placeholderTextColor="#7f8c8d"
-                                autoCapitalize="words"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
-                </View>
+                <View style={{ marginVertical: 20 }}>
 
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='user-tag' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Nombre:</Text>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(name) => setName(name)}
-                                underlineColorAndroid="#f000"
-                                value={name}
-                                placeholder="Nombre"
-                                placeholderTextColor="#7f8c8d"
-                                autoCapitalize="words"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
-                </View>
+                    <Text style={textStyles.h1}>Datos de usuario:</Text>
 
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='users' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Apellido:</Text>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                onChangeText={(lastname) => setLastname(lastname)}
-                                underlineColorAndroid="#f000"
-                                value={lastname}
-                                placeholder="Apellido"
-                                placeholderTextColor="#7f8c8d"
-                                autoCapitalize="words"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
-                </View>
+                    <QPInput prefixIconName='user' placeholder='Nombre de Usuario' value={username} onChangeText={(username) => setUsername(username)} />
 
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='signature' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Bio:</Text>
-                        <View style={[styles.sectionStyle, { height: 100, }]}>
-                            <TextInput
-                                style={[styles.inputStyle, { height: 100 }]}
-                                onChangeText={(bio) => setBio(bio)}
-                                underlineColorAndroid="#f000"
-                                value={bio}
-                                multiline={true}
-                                numberOfLines={4}
-                                placeholder="Bio de su perfil"
-                                placeholderTextColor="#7f8c8d"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
-                </View>
+                    <QPInput prefixIconName='name' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
 
-                <View style={styles.inputContainer}>
-                    <View style={{ width: 48, alignItems: 'center' }}>
-                        <FontAwesome5 name='envelope' size={24} style={{ color: 'white' }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.inputLabelStyle}>Email:</Text>
-                        <View style={styles.sectionStyle}>
-                            <TextInput
-                                style={styles.inputStyle}
-                                editable={false}
-                                value={email}
-                                underlineColorAndroid="#f000"
-                                placeholder="Correo Electrónico"
-                                placeholderTextColor="#7f8c8d"
-                                returnKeyType="next"
-                                blurOnSubmit={false}
-                            />
-                        </View>
-                    </View>
+                    <QPInput prefixIconName='users' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
+
+                    <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} />
+
+                    <QPInput prefixIconName='envelope' placeholder='Correo Electrónico' value={email} editable={false} />
                 </View>
 
             </ScrollView>
@@ -171,44 +82,10 @@ export default function UserdataScreen() {
 }
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        flex: 1,
-        paddingVertical: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    sectionStyle: {
-        flex: 1,
-        height: 40,
+    userDataSection: {
+        padding: 10,
         alignItems: 'center',
         flexDirection: 'row',
-    },
-    inputStyle: {
-        flex: 1,
-        color: 'white',
-        borderWidth: 1,
-        borderRadius: 10,
-        paddingVertical: 8,
-        paddingHorizontal: 10,
-        borderColor: theme.darkColors.elevation,
-        fontFamily: "Rubik-Regular",
-    },
-    inputLabelStyle: {
-        fontSize: 14,
-        color: '#7f8c8d',
-        fontFamily: "Rubik-Regular",
-    },
-    errorTextStyle: {
-        fontSize: 14,
-        color: '#ea5455',
-        textAlign: 'center',
-        fontFamily: "Rubik-Regular",
-    },
-    successTextStyle: {
-        fontSize: 14,
-        color: 'white',
-        textAlign: 'center',
-        fontFamily: "Rubik-Regular",
     },
     fullNameView: {
         alignItems: 'center',

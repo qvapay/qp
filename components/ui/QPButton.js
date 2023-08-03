@@ -1,33 +1,38 @@
 import React from 'react'
-import { Pressable, Text } from 'react-native'
-import { StyleSheet, Vibration } from 'react-native';
+import { Pressable, Text, StyleSheet, Vibration } from 'react-native'
+
 import { theme } from './Theme';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GENTLE_VIBRATION_PATTERN = [0, 50];
 
 export default function QPButton(props) {
 
-    const { danger, disabled } = props;
+    const { danger, disabled, title, onPress, style } = props;
 
     const handlePress = () => {
         Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
-        props.onPress && props.onPress();
+        onPress && onPress();
     };
 
     return (
-        <Pressable onPress={handlePress} style={[disabled ? styles.disabledStyle : styles.buttonStyle, { backgroundColor: danger ? theme.darkColors.danger : theme.darkColors.primary }, { ...props.style }]}>
-            <Text style={styles.titleStyle}>{props.title}</Text>
+        <Pressable onPress={handlePress} style={({ pressed }) => [disabled ? styles.disabledStyle : styles.buttonStyle, { backgroundColor: danger ? theme.darkColors.danger : theme.darkColors.primary }, { transform: [{ scale: pressed ? 0.96 : 1 }] }, { ...style }]}>
+            <LinearGradient colors={['#6759EF', '#4537D1']} style={styles.gradient}>
+                <Text style={styles.titleStyle}>{title}</Text>
+            </LinearGradient>
         </Pressable>
     )
 }
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        color: 'white',
+        height: 50,
+        width: '100%',
         borderRadius: 10,
         marginVertical: 10,
         paddingVertical: 15,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     titleStyle: {
         fontSize: 18,
@@ -35,6 +40,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Rubik-Medium'
     },
     disabledStyle: {
+        height: 50,
         opacity: 0.5,
         fontSize: 18,
         color: 'white',
@@ -42,6 +48,13 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingVertical: 15,
         alignItems: 'center',
-        backgroundColor: theme.darkColors.primary,
+        justifyContent: 'center'
     },
+    gradient: {
+        height: 50,
+        width: '100%',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 })
