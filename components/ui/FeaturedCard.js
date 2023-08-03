@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { theme } from './Theme';
 
 export default function FeaturedCard({ product, showLead = true }) {
 
@@ -14,6 +15,7 @@ export default function FeaturedCard({ product, showLead = true }) {
         circle2: { bottom: 0, right: 0 },
         circle3: { bottom: 0, right: 0 },
     });
+    const gradientEndColor = getRGBAFromHex(theme.darkColors.background, 0.75);
 
     useEffect(() => {
         setCirclePos({
@@ -31,15 +33,16 @@ export default function FeaturedCard({ product, showLead = true }) {
         });
     };
 
+    function getRGBAFromHex(hexColor, alpha) {
+        const r = parseInt(hexColor.slice(1, 3), 16);
+        const g = parseInt(hexColor.slice(3, 5), 16);
+        const b = parseInt(hexColor.slice(5, 7), 16);
+        return `rgba(${r},${g},${b},${alpha})`;
+    }
+
     return (
         <Pressable style={styles.cardContainer} onPress={handlePress}>
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
-
-                <FastImage
-                    style={styles.logo}
-                    source={{ uri: `${logo_url}` }}
-                    resizeMode={FastImage.resizeMode.contain}
-                />
 
                 <View style={[styles.circle1, circlePos.circle1]} />
                 <View style={[styles.circle2, circlePos.circle2]} />
@@ -47,10 +50,12 @@ export default function FeaturedCard({ product, showLead = true }) {
 
                 <View style={{ flex: 1 }} />
 
-                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.75)']} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
+                <LinearGradient colors={['transparent', gradientEndColor]} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
                     <Text style={styles.bottomNameText}>{name}</Text>
-                    { showLead && <Text style={styles.bottomPriceText}>{lead}</Text> }
+                    {showLead && <Text style={styles.bottomPriceText}>{lead}</Text>}
                 </LinearGradient>
+
+                <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />
 
             </View>
         </Pressable>
@@ -87,6 +92,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     bottomInfo: {
+        zIndex: 5,
         width: '100%',
         paddingVertical: 5,
         paddingHorizontal: 10,
