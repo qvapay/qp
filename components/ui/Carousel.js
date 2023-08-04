@@ -20,8 +20,6 @@ export default function Carousel({ featuredProducts = [], widthPadding = 0 }) {
                 return newIndex;
             });
         }, SLIDER_SPEED);
-
-        // Clear the interval when the component is unmounted
         return () => clearInterval(timer);
     }, [featuredProducts]);
 
