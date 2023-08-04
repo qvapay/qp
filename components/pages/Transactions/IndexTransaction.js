@@ -3,22 +3,7 @@ import { StyleSheet, View, FlatList, TextInput } from 'react-native'
 import { globalStyles } from '../../ui/Theme';
 import Transaction from '../../ui/Transaction';
 import { getTransactions } from '../../../utils/QvaPayClient';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-const SearchTransactionBar = (({ searchQuery, setSearchQuery }) => (
-    <View style={styles.searchBarContainer}>
-        <View style={styles.searchBar}>
-            <FontAwesome5 name='search' size={12} color='#7f8c8d' />
-            <TextInput
-                placeholder="Buscar"
-                style={[styles.searchBarText, { paddingVertical: 6 }]}
-                placeholderTextColor="#7f8c8d"
-                value={searchQuery}
-                onChangeText={text => setSearchQuery(text)}
-            />
-        </View>
-    </View>
-));
+import QPSearchBar from '../../ui/QPSearchBar';
 
 export default function IndexTransaction({ navigation }) {
 
@@ -58,7 +43,7 @@ export default function IndexTransaction({ navigation }) {
     return (
         <View style={globalStyles.container}>
 
-            <SearchTransactionBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
             <FlatList
                 data={transactions}
