@@ -21,6 +21,10 @@ export default function ShopStack() {
                 headerShown: false,
                 animationDuration: 250,
                 animation: 'slide_from_right',
+                headerTintColor: 'white',
+                headerStyle: {
+                    backgroundColor: theme.darkColors.background,
+                },
                 headerShadowVisible: false,
             }}
         >
@@ -36,9 +40,8 @@ export default function ShopStack() {
                 name="MyPurchasesScreen"
                 component={MyPurchasesScreen}
                 options={{
-                    headerShown: false,
-                    animationDuration: 250,
-                    animation: 'slide_from_right',
+                    title: '',
+                    headerShown: true,
                 }}
             />
 
@@ -47,7 +50,6 @@ export default function ShopStack() {
                 component={ShopItemScreen}
                 options={{
                     headerTitle: '',
-                    headerShown: false,
                     animationDuration: 250,
                     animation: 'slide_from_right',
                 }}

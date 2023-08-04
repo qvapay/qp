@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import { getMyPurchases } from '../../../utils/QvaPayClient';
-import { globalStyles } from '../../ui/Theme';
+import { globalStyles, textStyles } from '../../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../../ui/Theme';
 import FastImage from 'react-native-fast-image';
@@ -60,6 +60,9 @@ export default function MyPurchasesScreen() {
 
     return (
         <View style={globalStyles.container}>
+
+            <Text style={textStyles.h1}>Mis compras:</Text>
+
             <FlatList
                 data={myPurchases}
                 renderItem={({ item }) => (

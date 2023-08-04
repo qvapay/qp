@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, TextInput, RefreshControl, TouchableOpacity, Text } from 'react-native'
+import { FlatList, StyleSheet, View, RefreshControl } from 'react-native'
 import { getProducts } from '../../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
 import Carousel from '../../ui/Carousel'
@@ -17,6 +17,7 @@ export default function ShopIndexScreen() {
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [showSearchBar, setShowSearchBar] = useState(false);
 
     useEffect(() => {
         fetchProducts();
@@ -36,6 +37,7 @@ export default function ShopIndexScreen() {
 
     // Swipe to Refresh
     const onRefresh = async () => {
+        setShowSearchBar(true);
         setRefreshing(true);
         await fetchProducts();
         setRefreshing(false);
@@ -61,7 +63,7 @@ export default function ShopIndexScreen() {
         <FlatList
             ListHeaderComponent={
                 <>
-                    <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                    {showSearchBar && <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />}
                     <Carousel featuredProducts={featuredProducts} />
                 </>
             }
@@ -71,8 +73,6 @@ export default function ShopIndexScreen() {
             columnWrapperStyle={styles.twoCards}
             keyExtractor={(_, index) => index.toString()}
             style={{ backgroundColor: theme.darkColors.background }}
-
-            // Swipe to Refresh code
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#9Bd35A', '#689F38']} />}
         />
     )

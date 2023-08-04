@@ -1,22 +1,25 @@
 import React from 'react'
-import { StyleSheet, TextInput, View } from 'react-native'
+import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
 
-export default function QPSearchBar({ searchQuery, setSearchQuery }) {
+export default function QPSearchBar({ searchQuery, setSearchQuery, autoFocus, onClose }) {
 
     return (
         <View style={styles.searchBarContainer}>
             <View style={styles.expandedSearchBar}>
-                <FontAwesome5 name='search' size={14} color='#7f8c8d' />
+                <FontAwesome5 name='search' size={14} color={theme.darkColors.placeholder} />
                 <TextInput
                     placeholder="Buscar"
                     style={[styles.searchBarText, { paddingVertical: 6 }]}
-                    placeholderTextColor="#7f8c8d"
+                    placeholderTextColor={theme.darkColors.placeholder}
                     value={searchQuery}
                     onChangeText={text => setSearchQuery(text)}
-                    // autoFocus={true}
+                    autoFocus={autoFocus}
                 />
+                <Pressable onPress={onClose} style={{ marginRight: 5 }}>
+                    <FontAwesome5 name='times' size={14} color={theme.darkColors.placeholder} />
+                </Pressable>
             </View>
         </View>
     )
@@ -40,8 +43,8 @@ const styles = StyleSheet.create({
     },
     searchBarText: {
         flex: 1,
-        fontSize: 14,
-        color: '#7f8c8d',
+        fontSize: 16,
+        color: 'white',
         paddingHorizontal: 10,
         fontFamily: "Rubik-Regular",
     },
