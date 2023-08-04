@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 
 const SLIDER_SPEED = 5000;
 
-export default function Carousel({ featuredProducts = [] }) {
+export default function Carousel({ featuredProducts = [], widthPadding = 0 }) {
 
     const scrollViewRef = useRef();
     const intervals = featuredProducts.length;
@@ -16,7 +16,7 @@ export default function Carousel({ featuredProducts = [] }) {
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => {
                 const newIndex = (prevIndex + 1) % intervals; // Loop back to start when we've reached the end
-                scrollViewRef.current.scrollTo({ x: newIndex * (width - 20), animated: true });
+                scrollViewRef.current.scrollTo({ x: newIndex * (width - widthPadding), animated: true });
                 return newIndex;
             });
         }, SLIDER_SPEED);

@@ -18,7 +18,7 @@ export default function ShopStack() {
             name="ShopStack"
             initialRouteName="ShopIndexScreen"
             screenOptions={{
-                headerShown: true,
+                headerShown: false,
                 animationDuration: 250,
                 animation: 'slide_from_right',
                 headerShadowVisible: false,
@@ -36,19 +36,9 @@ export default function ShopStack() {
                 name="MyPurchasesScreen"
                 component={MyPurchasesScreen}
                 options={{
-                    headerShown: true,
-                    title: 'Mis Compras',
-                    headerTintColor: 'white',
+                    headerShown: false,
                     animationDuration: 250,
-                    headerTitleAlign: 'center',
                     animation: 'slide_from_right',
-                    headerStyle: {
-                        backgroundColor: theme.darkColors.background,
-                    },
-                    headerTitleStyle: {
-                        color: 'white',
-                        fontFamily: 'Rubik-Regular',
-                    },
                 }}
             />
 

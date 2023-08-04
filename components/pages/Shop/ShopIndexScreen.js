@@ -8,7 +8,9 @@ import { theme } from '../../ui/Theme'
 import FeaturedCard from '../../ui/FeaturedCard';
 
 const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases }) => {
+
     const [isSearchFocused, setIsSearchFocused] = useState(false);
+
     return (
         <View style={styles.searchBarContainer}>
             {isSearchFocused ? (
@@ -116,14 +118,11 @@ export default function ShopIndexScreen() {
             renderItem={productCard}
             columnWrapperStyle={styles.twoCards}
             keyExtractor={(_, index) => index.toString()}
+            style={{ backgroundColor: theme.darkColors.background }}
 
             // Swipe to Refresh code
             refreshControl={
-                <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    colors={['#9Bd35A', '#689F38']}
-                />
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#9Bd35A', '#689F38']} />
             }
         />
     )
