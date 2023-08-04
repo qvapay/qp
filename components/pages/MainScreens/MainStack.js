@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // ShopStack
 import ShopStack from '../Shop/ShopStack';
+import QPRoundButton from '../../ui/QPRoundButton';
 
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
@@ -34,6 +35,12 @@ export default function MainStack() {
             navigation.navigate('SplashScreen');
         }
     }, [me, navigation]);
+
+
+    // Go to MyPurchasesScreen via navigation using ShopStack
+    const gotoMyPurchases = () => {
+        navigation.navigate('ShopStack', { screen: 'MyPurchasesScreen' });
+    };
 
     return (
         <Tab.Navigator
@@ -92,24 +99,16 @@ export default function MainStack() {
                         <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
                     ),
                     headerRight: () => (
-                        me.name && me.username ? (
-                            <Pressable
-                                onPress={
-                                    () => navigation.navigate("SettingsStack")
-                                }
-                                style={styles.headerRight}
-                                onLongPress={
-                                    () => navigation.navigate('SettingsStack', {
-                                        screen: 'UserdataScreen'
-                                    })
-                                }>
-                                {/* <View style={styles.headerWelcome}>
-                                    <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
-                                    <Text style={styles.handleText}>@{`${me.username}`}</Text>
-                                </View> */}
-                                <AvatarPicture size={32} source_uri={me.profile_photo_url} />
-                            </Pressable>
-                        ) : null
+                        <View style={styles.headerRight}>
+                            <QPRoundButton size={14} icon={'shopping-cart'} style={{ marginRight: 10 }} onPress={gotoMyPurchases} />
+                            {
+                                me.name && me.username ? (
+                                    <Pressable onPress={() => navigation.navigate("SettingsStack")} >
+                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                                    </Pressable>
+                                ) : null
+                            }
+                        </View>
                     ),
                 }}
             />

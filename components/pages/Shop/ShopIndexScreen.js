@@ -27,9 +27,6 @@ const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases
                             autoFocus={true}
                         />
                     </View>
-                    <TouchableOpacity style={styles.myPurchasesButtonCollpased} onPress={gotoMyPurchases}>
-                        <FontAwesome5 style={{ marginHorizontal: 10, }} name='shopping-cart' size={14} color='white' />
-                    </TouchableOpacity>
                 </>
             ) : (
                 <>
@@ -37,10 +34,6 @@ const SearchCartBar = React.memo(({ searchQuery, setSearchQuery, gotoMyPurchases
                         <View style={styles.iconSearchBar}>
                             <FontAwesome5 name='search' size={14} color='#7f8c8d' />
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.myPurchasesButton} onPress={gotoMyPurchases}>
-                        <FontAwesome5 style={styles.cartIcon} name='shopping-cart' size={14} color='white' />
-                        <Text style={styles.myPurchasesText}>Mis Compras</Text>
                     </TouchableOpacity>
                 </>
             )}
@@ -98,18 +91,11 @@ export default function ShopIndexScreen() {
         </View>
     );
 
-    // Go to MyPurchasesScreen via navigation using ShopStack
-    const gotoMyPurchases = () => {
-        navigation.navigate('ShopStack', {
-            screen: 'MyPurchasesScreen'
-        });
-    };
-
     return (
         <FlatList
             ListHeaderComponent={
                 <>
-                    <SearchCartBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} gotoMyPurchases={gotoMyPurchases} />
+                    <SearchCartBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     <Carousel featuredProducts={featuredProducts} />
                 </>
             }
