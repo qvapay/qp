@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { ScrollView, StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image';
 import { getProductByUuid } from '../../../utils/QvaPayClient';
@@ -7,6 +7,7 @@ import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import QPTag from '../../ui/QPTag';
+import { AppContext } from '../../../AppContext';
 
 const InfoContainer = ({ children, style }) => (
     <View style={[styles.infoContainer, style]}>
@@ -15,8 +16,6 @@ const InfoContainer = ({ children, style }) => (
 )
 
 export default function ShopItemScreen({ route }) {
-
-    // Try to hack the StatusBar rference
 
     const navigation = useNavigation();
     const { uuid } = route.params;
@@ -27,6 +26,7 @@ export default function ShopItemScreen({ route }) {
     const { name, lead, color = theme.darkColors.background, price, tax = 0.0, desc, meta, category, logo_url, cover_url, price_combos } = product;
     const [parsedPriceCombos, setParsedPriceCombos] = useState([]);
     const [taxText, setTaxText] = useState(`${tax}%`);
+    const { setBackgroundColor } = useContext(AppContext);
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -90,6 +90,12 @@ export default function ShopItemScreen({ route }) {
     const decrement = () => setAmount(parsedAmount > 1 ? parsedAmount - 1 : 1);
 
     const handleBuy = () => {
+        // Verify the minimal amount is fetchedProduct.price
+        if (parsedAmount < parseFloat(price)) {
+            alert(`El monto mínimo es de $${price}`);
+            return;
+        }
+
         navigation.navigate('ShopCheckoutScreen', {
             uuid,
             value: total,
@@ -106,11 +112,7 @@ export default function ShopItemScreen({ route }) {
                     <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
                         <FontAwesome5 name='arrow-left' size={20} style={styles.faIcon} />
                     </Pressable>
-                    <FastImage
-                        style={styles.logo}
-                        source={{ uri: `${logo_url}` }}
-                        resizeMode={FastImage.resizeMode.contain}
-                    />
+                    <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />
                 </View>
 
                 <View style={styles.productData}>
