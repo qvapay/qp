@@ -1,15 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { theme } from './Theme';
 
 export default function QPTag(props) {
 
-    const { title, style } = props;
+    const { title, style, onPress } = props;
 
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={onPress}>
             <Text style={styles.text}>{title}</Text>
-        </View>
+        </Pressable>
     )
 }
 
