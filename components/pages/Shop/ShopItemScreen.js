@@ -18,6 +18,8 @@ const InfoContainer = ({ children, style }) => (
 export default function ShopItemScreen({ route }) {
 
     const navigation = useNavigation();
+    const { setBackgroundColor } = useContext(AppContext);
+
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(0);
@@ -26,7 +28,6 @@ export default function ShopItemScreen({ route }) {
     const { name, lead, color = theme.darkColors.background, price, tax = 0.0, desc, meta, category, logo_url, cover_url, price_combos } = product;
     const [parsedPriceCombos, setParsedPriceCombos] = useState([]);
     const [taxText, setTaxText] = useState(`${tax}%`);
-    const { setBackgroundColor } = useContext(AppContext);
 
     // useEffect to retrive product data from API and set it to product state
     useEffect(() => {
@@ -52,11 +53,9 @@ export default function ShopItemScreen({ route }) {
 
     // Set the ShopItemScreen heade background color to color variable and no shadow
     useEffect(() => {
-        navigation.setOptions({
-            headerStyle: {
-                backgroundColor: color,
-            },
-        });
+        setBackgroundColor(color);
+        // Return to the default background color when unmount
+        return () => setBackgroundColor(theme.darkColors.background);
     }, [color]);
 
     // Update total amount when amount changes by amount * tax %
