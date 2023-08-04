@@ -374,6 +374,7 @@ const verifyOTP = async ({ navigation, phone, code }) => {
 
 export {
     qvaPayClient,
+    apiRequest,
     checkTwoFactor,
     transferBalance,
     getTransaction,

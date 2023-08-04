@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import QPTag from '../../ui/QPTag';
 
 const InfoContainer = ({ children, style }) => (
     <View style={[styles.infoContainer, style]}>
@@ -120,12 +121,12 @@ export default function ShopItemScreen({ route }) {
                     </View>
 
                     {
-                        // If price_combos is defined, map it and render the price combos else render teh amount selector
+                        // If price_combos is defined, map it and render the price combos else render the amount selector
                         parsedPriceCombos.length > 0 ? (
                             <View style={styles.comboSelector}>
                                 {
                                     parsedPriceCombos.map((combo, index) => (
-                                        <QPButton key={index} onPress={() => setAmount(parseFloat(combo.amount))} title={`${combo.label}`} />
+                                        <QPTag key={index} onPress={() => setAmount(parseFloat(combo.amount))} title={`${combo.label}`} />
                                     ))
                                 }
                             </View>

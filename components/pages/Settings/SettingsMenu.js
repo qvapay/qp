@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
-
 import { globalStyles, theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
 import { AppContext } from '../../../AppContext';
@@ -65,7 +64,7 @@ const SettingsMenu = () => {
         Alert.alert('Cerrar sesión', '¿Estás seguro de que quieres cerrar sesión?', [
             {
                 text: 'Cancelar',
-                onPress: () => console.log('Cancel Pressed'),
+                onPress: () => { },
                 style: 'cancel',
             },
             {

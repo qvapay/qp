@@ -4,8 +4,9 @@ import { globalStyles, textStyles } from '../../ui/Theme'
 import { useNavigation } from '@react-navigation/native';
 import QPInput from '../../ui/QPInput';
 import QPButton from '../../ui/QPButton';
-import apiRequest from '../../../utils/QvaPayClient'
-import Toast from 'react-native-toast-message';
+import Loader from '../../ui/Loader';
+import { apiRequest } from '../../../utils/QvaPayClient'
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 export default function PasswordScreen() {
 
@@ -13,6 +14,8 @@ export default function PasswordScreen() {
     const [userPassword, setUserPassword] = useState('');
     const [newUserPassword, setNewUserPassword] = useState('');
     const [newUserPassword2, setNewUserPassword2] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errortext, setErrortext] = useState('');
 
     const updatePassword = async () => {
 
@@ -46,24 +49,25 @@ export default function PasswordScreen() {
             return;
         }
 
+        setLoading(true);
+
         // Send the request to the API
         try {
             const response = await updatePasswordRequest();
+            console.log(response)
             if (response.status === 201) {
-                Toast.show({
-                    type: 'success',
-                    text1: 'Contraseña actualizada correctamente',
-                    position: 'bottom',
-                    bottomOffset: 10,
-                });
+                await logout();
+            } else {
+                setErrortext("No se ha podico cambiar la contraseña")
             }
         } catch (error) {
+            setLoading(false);
             console.error(error);
         } finally {
-            // Clear the password fields
             setUserPassword('');
             setNewUserPassword('');
             setNewUserPassword2('');
+            setLoading(false);
         }
     }
 
@@ -80,8 +84,22 @@ export default function PasswordScreen() {
         }
     }
 
+    const logout = async () => {
+        const accessToken = await EncryptedStorage.getItem("accessToken");
+        const twofaRequired = await EncryptedStorage.getItem("2faRequired");
+        if (accessToken) {
+            await EncryptedStorage.removeItem('accessToken');
+        }
+        if (twofaRequired) {
+            await EncryptedStorage.removeItem('2faRequired');
+        }
+        navigation.replace('SplashScreen');
+    };
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
+
+            <Loader loading={loading} />
 
             <ScrollView>
 
@@ -111,6 +129,12 @@ export default function PasswordScreen() {
                         onChangeText={(new_password2) => setNewUserPassword2(new_password2)}
                         secureTextEntry={true}
                     />
+
+                    {errortext != '' ? (
+                        <Text style={styles.errorTextStyle}>
+                            {errortext}
+                        </Text>
+                    ) : null}
 
                 </View>
 

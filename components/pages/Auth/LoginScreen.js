@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, TextInput, View, Text, Keyboard, KeyboardAvoidingView, Image } from 'react-native';
+import React, { useEffect, useState, createRef, useContext } from 'react';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Image } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -107,7 +107,6 @@ export default function LoginScreen() {
                 // If me.2fa_required is true then show the 2fa form
                 if (data.me.two_factor_secret) {
                     await EncryptedStorage.setItem('twoFactorSecret', 'true');
-                    console.log("Set 2FA to True")
                     setShowtwofaForm(true);
                 } else {
                     navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
@@ -121,8 +120,6 @@ export default function LoginScreen() {
             setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);
-        } finally {
-            setLoading(false);
         }
     };
 
