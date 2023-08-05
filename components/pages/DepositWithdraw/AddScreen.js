@@ -10,20 +10,18 @@ import QPCoinRow from '../../ui/QPCoinRow';
 export default function AddScreen({ navigation }) {
 
     const [amount, setAmount] = useState('$');
-    
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
+    const [selectedCoin, setSelectedCoin] = useState(0);
     const categories = [
         { title: 'Cripto:', data: cryptoCurrencies },
         { title: 'Bancos:', data: banks },
         { title: 'Monederos:', data: eWallets },
     ];
 
-    const [selectedCoin, setSelectedCoin] = useState(null);
-
     // Asistant steps
-    const [step, setStep] = useState(2);                                // Set this to 1 to test the first step
+    const [step, setStep] = useState(1);
     const [stepTwoDisabled, setStepTwoDisabled] = useState(true);
 
     // Get the coins from the API and filter them
@@ -41,10 +39,7 @@ export default function AddScreen({ navigation }) {
     // Always keep the $ before the amount (step 1)
     const handleAmountChange = (text) => {
         const inputText = text.replace(/^\$/, '');
-
-        // No more than 5 digits
         if (inputText.length > 5) { return }
-
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
@@ -103,7 +98,7 @@ export default function AddScreen({ navigation }) {
 
                         </ScrollView>
 
-                        <QPButton onPress={onAddPress} title="Depositar" disabled={stepTwoDisabled} />
+                        <QPButton onPress={onAddPress} title="Depositar" disabled={!selectedCoin} />
                     </>
                 )
             }
