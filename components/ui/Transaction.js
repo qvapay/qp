@@ -20,26 +20,21 @@ export default function Transaction({ transaction, navigation }) {
 
     // Navigation function to ShowTransaction screen
     const navigateToTransaction = () => {
-        navigation.navigate('TransactionStack', {
-            screen: 'ShowTransaction',
-            params: { uuid },
-        })
+        navigation.navigate('TransactionStack', { screen: 'ShowTransaction', params: { uuid } })
     }
 
     return (
-        <Pressable onPress={navigateToTransaction}>
-            <View style={styles.container}>
-                <View style={styles.transactionLogo}>
-                    <AvatarPicture source_uri={sourceUri} />
-                </View>
-                <View style={styles.transactionData}>
-                    <Text style={styles.transactionDescription}>{reduceString(description)}</Text>
-                    <Text style={styles.transactionDescription2}>{`Hace: ${timeSince(updatedDate)}`}</Text>
-                </View>
-                <View style={styles.transactionValue}>
-                    <Text style={[styles.transactionAmount, { color }]}>{amountSign}{amountFixed}</Text>
-                    <Text style={styles.transactionStatus}>Completado</Text>
-                </View>
+        <Pressable onPress={navigateToTransaction} style={styles.container}>
+            <View style={styles.transactionLogo}>
+                <AvatarPicture source_uri={sourceUri} />
+            </View>
+            <View style={styles.transactionData}>
+                <Text style={styles.transactionDescription}>{reduceString(description)}</Text>
+                <Text style={styles.transactionDescription2}>{`Hace: ${timeSince(updatedDate)}`}</Text>
+            </View>
+            <View style={styles.transactionValue}>
+                <Text style={[styles.transactionAmount, { color }]}>{amountSign}{amountFixed}</Text>
+                <Text style={styles.transactionStatus}>Completado</Text>
             </View>
         </Pressable>
     )

@@ -1,4 +1,3 @@
-
 // Calculate time since data
 const timeSince = (date) => {
 
@@ -41,7 +40,7 @@ const getShortDateTime = (date) => {
 // get a QR data and parse it, get the usernam, amount and transactionUUID
 const parseQRData = (data) => {
 
-    // Add a Bitcoin Lighning reader and a Bitcoin reader and a QP reader
+    // Add a Bitcoin Lighning reader, a Bitcoin reader and a QP reader
 
     // Require qp:// as protocol
     if (!data.startsWith('qp://')) {
@@ -109,12 +108,12 @@ const filterCoins = ({ coins, in_out_p2p = "IN" }) => {
         return [];
     };
 
-    const filteredBankOptions = filterCategoryCoins('Bank');
+    const filteredBanks = filterCategoryCoins('Bank');
     const filteredCryptoCurrencies = filterCategoryCoins('Criptomonedas');
     const filteredEWallets = filterCategoryCoins('E-Wallet');
 
     return {
-        bankOptions: filteredBankOptions,
+        banks: filteredBanks,
         cryptoCurrencies: filteredCryptoCurrencies,
         eWallets: filteredEWallets,
     };
@@ -128,6 +127,32 @@ const truncateWalletAddress = (address) => {
     return address;
 };
 
+const adjustNumber = (value) => {
+    const numValue = parseFloat(value);
+
+    // Si no es un número válido, retornar el valor original
+    if (isNaN(numValue)) {
+        return value.toString();
+    }
+
+    // Si el valor es superior a 1, retornar con dos decimales
+    if (numValue > 1) {
+        return numValue.toFixed(2);
+    }
+
+    // Si el valor está entre 0 y 0.0001, convertir a notación exponencial
+    if (numValue > 0 && numValue < 0.0001) {
+        let exponentValue = numValue.toExponential();
+        let [mantissa, exponent] = exponentValue.split('e');
+        // Asegurarse de que la mantisa tenga solo un decimal
+        mantissa = parseFloat(mantissa).toFixed(1);
+        return `${mantissa}e${exponent}`;
+    }
+
+    // Si no se cumplen las condiciones anteriores, retornar el valor como está
+    return numValue.toFixed(8);
+}
+
 // export timeSince function
 export {
     timeSince,
@@ -136,5 +161,6 @@ export {
     parseQRData,
     isValidQRData,
     filterCoins,
-    truncateWalletAddress
+    truncateWalletAddress,
+    adjustNumber
 };

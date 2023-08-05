@@ -1,176 +1,127 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, FlatList } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import OptionCard from '../../ui/OptionCard';
-import { globalStyles } from '../../ui/Theme';
-import Collapsible from 'react-native-collapsible';
+import { globalStyles, textStyles } from '../../ui/Theme';
 import { filterCoins } from '../../../utils/Helpers';
 import { getCoins } from '../../../utils/QvaPayClient';
-import ScrollableFlatList from '../../ui/ScrollableFlatList';
+import QPSearchBar from '../../ui/QPSearchBar';
+import QPCoinRow from '../../ui/QPCoinRow';
 
 export default function AddScreen({ navigation }) {
 
     const [amount, setAmount] = useState('$');
+    
     const [eWallets, setEWallets] = useState([]);
-    const [bankOptions, setBankOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
+    const categories = [
+        { title: 'Cripto:', data: cryptoCurrencies },
+        { title: 'Bancos:', data: banks },
+        { title: 'Monederos:', data: eWallets },
+    ];
 
-    const [eWalletsOpen, setEWalletsOpen] = useState(false);
-    const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
-    const [cryptoCurrenciesOpen, setCryptoCurrenciesOpen] = useState(true);
-    const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
+    const [selectedCoin, setSelectedCoin] = useState(null);
 
+    // Asistant steps
+    const [step, setStep] = useState(2);                                // Set this to 1 to test the first step
+    const [stepTwoDisabled, setStepTwoDisabled] = useState(true);
+
+    // Get the coins from the API and filter them
     useEffect(() => {
         const getOptions = async () => {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "IN" });
+            setBanks(filteredCoins.banks);
             setEWallets(filteredCoins.eWallets);
-            setBankOptions(filteredCoins.bankOptions);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
         getOptions();
     }, []);
 
-    // Always keep the $ before the amount
+    // Always keep the $ before the amount (step 1)
     const handleAmountChange = (text) => {
-        // Remove the $ before validating and processing the text
         const inputText = text.replace(/^\$/, '');
 
-        // Set max limit to 10k
+        // No more than 5 digits
         if (inputText.length > 5) { return }
 
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
-            setIsDepositButtonDisabled(!(numericValue >= 5 && selectedOption !== null));
+            setStepTwoDisabled(!(numericValue >= 5));
         }
     };
 
-    // Funciones para controlar la apertura y cierre de cada categoría
-    const toggleCryptoCurrencies = () => {
-        setCryptoCurrenciesOpen(!cryptoCurrenciesOpen);
-        setBankOptionsOpen(false);
-        setEWalletsOpen(false);
-    };
-    const toggleBankOptions = () => {
-        setBankOptionsOpen(!bankOptionsOpen);
-        setCryptoCurrenciesOpen(false);
-        setEWalletsOpen(false);
-    };
-    const toggleEWallets = () => {
-        setEWalletsOpen(!eWalletsOpen);
-        setCryptoCurrenciesOpen(false);
-        setBankOptionsOpen(false);
-    };
-
-    // Renderizado de cada acordeón
-    const renderCryptoCurrencies = () => (
-        <Collapsible collapsed={!cryptoCurrenciesOpen} >
-            <ScrollableFlatList
-                data={cryptoCurrencies}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-
-    const renderBankOptions = () => (
-        <Collapsible collapsed={!bankOptionsOpen}>
-            <ScrollableFlatList
-                data={bankOptions}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-
-    const renderEWallets = () => (
-        <Collapsible collapsed={!eWalletsOpen}>
-            <ScrollableFlatList
-                data={eWallets}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-
-    const RenderItem = ({ item, index }) => (
-        <View style={[styles.cardContainer, index % 3 === 1 ? styles.cardCenter : null]}>
-            <OptionCard
-                item={item}
-                onPress={() => {
-                    setSelectedOption(item.id);
-                    const numericValue = parseFloat(amount.substring(1));
-                    setIsDepositButtonDisabled(!(numericValue >= item.min_in && numericValue <= item.max_in));
-                }}
-                selected={selectedOption === item.id}
-                in_out_p2p="IN"
-            />
-        </View>
-    );
-
     // Navigate to AddInstructionsScreen
     const onAddPress = () => {
-        navigation.navigate('AddInstructionsScreen', {
-            amount: amount.substring(1),
-            coin: selectedOption,
-        });
+        navigation.navigate('AddInstructionsScreen', { amount: amount.substring(1), coin: selectedCoin });
     };
 
     return (
         <View style={globalStyles.container}>
 
-            <Text style={styles.title}>Cantidad a depositar:</Text>
-            <TextInput
-                value={amount}
-                style={styles.input}
-                keyboardType="numeric"
-                onChangeText={handleAmountChange}
-            />
+            {
+                step === 1 && (
+                    <>
+                        <View style={{ flex: 1 }}>
+                            <Text style={textStyles.h1}>Depositar balance:</Text>
+                            <Text style={globalStyles.subtitle}>Determine la cantidad a depositar en su cuenta de QvaPay para comprar e intercambiar con otros.</Text>
+                            <TextInput
+                                value={amount}
+                                autoFocus={true}
+                                style={styles.amount}
+                                keyboardType="numeric"
+                                onChangeText={handleAmountChange}
+                                cursorColor='white'
+                            />
+                            {/** A Tag Selector of $5, $10, $50, $100 etc */}
+                        </View>
 
-            <View style={{ flex: 1 }}>
-                <Pressable onPress={toggleCryptoCurrencies}>
-                    <Text style={styles.title}>Criptomonedas:</Text>
-                </Pressable>
-                {renderCryptoCurrencies()}
+                        <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
+                    </>
+                )
+            }
+            {
+                step === 2 && (
+                    <>
+                        <ScrollView style={{ flex: 1 }}>
+                            <Text style={textStyles.h1}>Tipo de moneda:</Text>
+                            <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, seleccion el de su preferencia.</Text>
 
-                <Pressable onPress={toggleBankOptions}>
-                    <Text style={styles.title}>Banco:</Text>
-                </Pressable>
-                {renderBankOptions()}
+                            <QPSearchBar style={{ paddingHorizontal: 0 }} />
 
-                <Pressable onPress={toggleEWallets}>
-                    <Text style={styles.title}>E-Wallets:</Text>
-                </Pressable>
-                {renderEWallets()}
-            </View>
+                            {categories.map((category, index) => (
+                                <View key={index}>
+                                    <Text style={textStyles.h3}>{category.title}</Text>
+                                    <FlatList
+                                        data={category.data}
+                                        renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
+                                        keyExtractor={item => item.id}
+                                    />
+                                </View>
+                            ))}
 
-            <QPButton onPress={onAddPress} title="Depositar" disabled={isDepositButtonDisabled} />
+                        </ScrollView>
 
+                        <QPButton onPress={onAddPress} title="Depositar" disabled={stepTwoDisabled} />
+                    </>
+                )
+            }
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 10,
-    },
     title: {
         fontSize: 18,
         color: 'white',
         marginVertical: 10,
         fontFamily: 'Rubik-Regular'
     },
-    input: {
-        fontSize: 30,
+    amount: {
+        fontSize: 60,
         color: 'white',
         marginVertical: 10,
-        paddingVertical: 5,
         textAlign: 'center',
         fontFamily: 'Rubik-Black',
     },

@@ -6,7 +6,6 @@ import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
-import ScrollableFlatList from '../../ui/ScrollableFlatList';
 import { filterCoins } from '../../../utils/Helpers';
 import { useNavigation } from '@react-navigation/native';
 
@@ -77,54 +76,7 @@ export default function WithdrawScreen() {
         setCryptoCurrenciesOpen(false);
         setBankOptionsOpen(false);
     };
-
-    // Renderizado de cada acordeón
-    const renderCryptoCurrencies = () => (
-        <Collapsible collapsed={!cryptoCurrenciesOpen} >
-            <ScrollableFlatList
-                data={cryptoCurrencies}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-    const renderBankOptions = () => (
-        <Collapsible collapsed={!bankOptionsOpen}>
-            <ScrollableFlatList
-                data={bankOptions}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-    const renderEWallets = () => (
-        <Collapsible collapsed={!eWalletsOpen}>
-            <ScrollableFlatList
-                data={eWallets}
-                renderItem={({ item, index }) => RenderItem({ item, index })}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-            />
-        </Collapsible>
-    );
-
-    const RenderItem = ({ item, index }) => (
-        <View style={[styles.cardContainer, index % 3 === 1 ? styles.cardCenter : null]}>
-            <OptionCard
-                item={item}
-                onPress={() => {
-                    setSelectedOption(item.id);
-                    const numericValue = parseFloat(amount.substring(1));
-                    setIsWithdrawButtonDisabled(!(numericValue >= item.min_out));
-                }}
-                selected={selectedOption === item.id}
-                in_out_p2p="OUT"
-            />
-        </View>
-    );
-
+    
     // Dont allow the user to type on ampunt input more than me.balance value
     const handleAmountChange = (text) => {
         const numericValue = parseFloat(text.substring(1));

@@ -3,10 +3,10 @@ import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
 
-export default function QPSearchBar({ searchQuery, setSearchQuery, autoFocus, onClose }) {
+export default function QPSearchBar({ searchQuery, setSearchQuery, autoFocus, onClose, style }) {
 
     return (
-        <View style={styles.searchBarContainer}>
+        <View style={[styles.searchBarContainer, {...style}]}>
             <View style={styles.expandedSearchBar}>
                 <FontAwesome5 name='search' size={14} color={theme.darkColors.placeholder} />
                 <TextInput

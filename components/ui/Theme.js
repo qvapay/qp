@@ -58,6 +58,19 @@ const textStyles = StyleSheet.create({
         marginVertical: 10,
         fontFamily: 'Rubik-Bold',
     },
+    h2: {
+        fontSize: 24,
+        color: 'white',
+        textAlign: 'left',
+        marginVertical: 5,
+        fontFamily: 'Rubik-Medium',
+    },
+    h3: {
+        fontSize: 18,
+        color: 'white',
+        textAlign: 'left',
+        fontFamily: 'Rubik-Regular',
+    },
     h6: {
         fontSize: 16,
         color: 'white',

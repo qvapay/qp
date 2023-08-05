@@ -47,7 +47,6 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
-        
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
@@ -110,10 +109,7 @@ export default function AppNavigator() {
         name={ROUTES.ADD_SCREEN}
         component={AddScreen}
         options={{
-          title: 'Depositar fondos',
-          headerTitleStyle: {
-            fontFamily: 'Rubik-Regular',
-          },
+          title: '',
         }}
       />
 
@@ -122,9 +118,6 @@ export default function AppNavigator() {
         component={AddInstructionsScreen}
         options={{
           title: 'Finalizar depósito',
-          headerTitleStyle: {
-            fontFamily: 'Rubik-Regular',
-          },
         }}
       />
 
@@ -133,9 +126,6 @@ export default function AppNavigator() {
         component={WithdrawScreen}
         options={{
           title: 'Extraer fondos',
-          headerTitleStyle: {
-            fontFamily: 'Rubik-Regular',
-          },
         }}
       />
 
@@ -144,9 +134,6 @@ export default function AppNavigator() {
         component={WithdrawInstructionsScreen}
         options={{
           title: 'Finalizar extracción',
-          headerTitleStyle: {
-            fontFamily: 'Rubik-Regular',
-          },
         }}
       />
 
@@ -179,7 +166,6 @@ export default function AppNavigator() {
       />
 
       <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
-
     </Stack.Navigator>
   );
 }
