@@ -41,8 +41,9 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
     return (
         <Pressable
             style={[styles.container, {
-                borderColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation,
-                borderWidth: 3,
+                backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation,
+                // borderColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation,
+                // borderWidth: 3,
             }]}
             onPress={handlePress}
         >
@@ -86,13 +87,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     coinName: {
-        fontSize: 18,
+        fontSize: 20,
         color: 'white',
-        fontFamily: "Rubik-Regular",
+        fontFamily: "Rubik-SemiBold",
     },
     coinTick: {
         fontSize: 16,
-        fontFamily: "Rubik-SemiBold",
+        fontFamily: "Rubik-Medium",
         color: theme.darkColors.placeholder,
     },
     coinValues: {

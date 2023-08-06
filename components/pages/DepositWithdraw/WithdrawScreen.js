@@ -36,7 +36,7 @@ export default function WithdrawScreen() {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "OUT" });
             setEWallets(filteredCoins.eWallets);
-            setBankOptions(filteredCoins.bankOptions);
+            setBanks(filteredCoins.banks);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
         getOptions();
