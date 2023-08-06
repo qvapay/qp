@@ -272,10 +272,11 @@ export default function AddInstructionsScreen({ route, navigation }) {
                         <View style={styles.itemRow}>
                             <Text style={styles.text}>Moneda:</Text>
                             <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-                                <Text style={styles.text}>{tick}</Text>
+                                <Text style={styles.coinTick}>{tick}</Text>
                                 <Text style={[styles.text, { fontSize: 14, fontFamily: 'Rubik-Light' }]}>$ {price}</Text>
                             </View>
                         </View>
+
                         <View style={styles.itemRow}>
                             <Text style={styles.text}>Valor:</Text>
                             <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
@@ -283,17 +284,18 @@ export default function AddInstructionsScreen({ route, navigation }) {
                                 <Pressable onPress={() => copyTextToClipboard(value.toString())}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Bold' }]}>{value}</Text>
-                                        <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
+                                        <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 4 }} />
                                     </View>
                                 </Pressable>
                             </View>
                         </View>
+
                         <View style={styles.itemColumn}>
                             <Text style={styles.text}>Wallet:</Text>
                             <Pressable onPress={() => copyTextToClipboard(wallet)}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={[styles.text, { fontSize: 16, fontFamily: 'Rubik-Light', color: '#28c76f' }]}>{truncateWalletAddress(wallet)}</Text>
-                                    <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 2 }} />
+                                    <FontAwesome5 name="copy" solid size={14} color="#28c76f" style={{ marginLeft: 8, marginTop: 3 }} />
                                 </View>
                             </Pressable>
                         </View>
@@ -397,5 +399,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#4cd964',
         justifyContent: 'center',
+    },
+    coinTick: {
+        fontSize: 16,
+        fontFamily: "Rubik-SemiBold",
+        color: theme.darkColors.placeholder,
     },
 })

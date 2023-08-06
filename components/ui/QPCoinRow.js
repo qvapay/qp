@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     coinPrice: {
         fontSize: 16,
         color: 'white',
-        fontFamily: "Rubik-Bold",
+        fontFamily: "Rubik-Light",
     },
     coinLimits: {
         fontSize: 14,
