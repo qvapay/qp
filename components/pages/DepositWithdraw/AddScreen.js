@@ -10,6 +10,7 @@ import QPCoinRow from '../../ui/QPCoinRow';
 export default function AddScreen({ navigation }) {
 
     const [amount, setAmount] = useState('$');
+
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
@@ -26,7 +27,6 @@ export default function AddScreen({ navigation }) {
 
     // setSearchQuery state
     const [searchQuery, setSearchQuery] = useState('');
-    console.log(searchQuery)
 
     // Get the coins from the API and filter them
     useEffect(() => {
@@ -58,7 +58,6 @@ export default function AddScreen({ navigation }) {
 
     return (
         <View style={globalStyles.container}>
-
             {
                 step === 1 && (
                     <>

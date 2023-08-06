@@ -125,7 +125,7 @@ export default function AppNavigator() {
         name={ROUTES.WITHDRAW_SCREEN}
         component={WithdrawScreen}
         options={{
-          title: 'Extraer fondos',
+          title: '',
         }}
       />
 

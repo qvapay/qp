@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import OptionCard from '../../ui/OptionCard';
-import { globalStyles, theme } from '../../ui/Theme';
+import { globalStyles, textStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
-import Collapsible from 'react-native-collapsible';
 import { getCoins } from '../../../utils/QvaPayClient';
 import { filterCoins } from '../../../utils/Helpers';
 import { useNavigation } from '@react-navigation/native';
@@ -12,19 +10,26 @@ import { useNavigation } from '@react-navigation/native';
 export default function WithdrawScreen() {
 
     const navigation = useNavigation();
-
     const { me } = useContext(AppContext);
     const [amount, setAmount] = useState('$');
 
     // Collapsible options
     const [eWallets, setEWallets] = useState([]);
-    const [bankOptions, setBankOptions] = useState([]);
+    const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [eWalletsOpen, setEWalletsOpen] = useState(false);
-    const [bankOptionsOpen, setBankOptionsOpen] = useState(false);
-    const [cryptoCurrenciesOpen, setCryptoCurrenciesOpen] = useState(true);
-    const [isWithdrawButtonDisabled, setIsWithdrawButtonDisabled] = useState(true);
+    const [selectedCoin, setSelectedCoin] = useState(0);
+    const categories = [
+        { title: 'Cripto:', data: cryptoCurrencies },
+        { title: 'Bancos:', data: banks },
+        { title: 'Monederos:', data: eWallets },
+    ];
+
+    // Asistant steps
+    const [step, setStep] = useState(1);
+    const [stepTwoDisabled, setStepTwoDisabled] = useState(true);
+
+    // setSearchQuery state
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const getOptions = async () => {
@@ -52,43 +57,41 @@ export default function WithdrawScreen() {
         });
     }, []);
 
-    // Navigate to WithdrawInstructionsScreen
-    const onWithdrawPress = () => {
-        navigation.navigate('WithdrawInstructionsScreen', {
-            amount: amount.substring(1),
-            coin: selectedOption,
-        });
-    };
-
-    // Funciones para controlar la apertura y cierre de cada categoría
-    const toggleCryptoCurrencies = () => {
-        setCryptoCurrenciesOpen(!cryptoCurrenciesOpen);
-        setBankOptionsOpen(false);
-        setEWalletsOpen(false);
-    };
-    const toggleBankOptions = () => {
-        setBankOptionsOpen(!bankOptionsOpen);
-        setCryptoCurrenciesOpen(false);
-        setEWalletsOpen(false);
-    };
-    const toggleEWallets = () => {
-        setEWalletsOpen(!eWalletsOpen);
-        setCryptoCurrenciesOpen(false);
-        setBankOptionsOpen(false);
-    };
-    
-    // Dont allow the user to type on ampunt input more than me.balance value
+    // Always keep the $ before the amount (step 1)
     const handleAmountChange = (text) => {
-        const numericValue = parseFloat(text.substring(1));
-        if (numericValue > me.balance) { return }
-        if (numericValue > 10000) { return }
-        setAmount(text);
+        const inputText = text.replace(/^\$/, '');
+        if (inputText.length > 5) { return }
+        if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
+            setAmount('$' + inputText);
+            const numericValue = parseFloat(inputText);
+            setStepTwoDisabled(!(numericValue >= 5));
+        }
     };
 
     return (
         <View style={globalStyles.container}>
+            {
+                step === 1 && (
+                    <>
+                        <View style={{ flex: 1 }}>
+                            <Text style={textStyles.h1}>Extraer balance:</Text>
+                            <Text style={globalStyles.subtitle}>Seleccione la cantidad de balance que desea extraer desde su cuenta de QvaPay.</Text>
+                            <TextInput
+                                value={amount}
+                                autoFocus={true}
+                                style={styles.amount}
+                                keyboardType="numeric"
+                                onChangeText={handleAmountChange}
+                                cursorColor='white'
+                            />
+                            {/** A Tag Selector of $5, $10, $50, $100 etc */}
+                        </View>
 
-            <Text style={styles.label}>Cantidad a extraer:</Text>
+                        <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
+                    </>
+                )
+            }
+            {/* <Text style={styles.label}>Cantidad a extraer:</Text>
             <TextInput style={styles.input} keyboardType="numeric" value={amount} onChangeText={handleAmountChange} />
 
             <View style={{ flex: 1 }}>
@@ -108,7 +111,7 @@ export default function WithdrawScreen() {
                 {renderEWallets()}
             </View>
 
-            <QPButton onPress={onWithdrawPress} title="Extraer Balance" disabled={isWithdrawButtonDisabled} />
+            <QPButton onPress={onWithdrawPress} title="Extraer Balance" disabled={isWithdrawButtonDisabled} /> */}
 
         </View>
     );
@@ -221,5 +224,12 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1 / 3,
         paddingVertical: 2.5,
+    },
+    amount: {
+        fontSize: 60,
+        color: 'white',
+        marginVertical: 10,
+        textAlign: 'center',
+        fontFamily: 'Rubik-Black',
     },
 })
