@@ -24,6 +24,10 @@ export default function AddScreen({ navigation }) {
     const [step, setStep] = useState(1);
     const [stepTwoDisabled, setStepTwoDisabled] = useState(true);
 
+    // setSearchQuery state
+    const [searchQuery, setSearchQuery] = useState('');
+    console.log(searchQuery)
+
     // Get the coins from the API and filter them
     useEffect(() => {
         const getOptions = async () => {
@@ -83,13 +87,14 @@ export default function AddScreen({ navigation }) {
                             <Text style={textStyles.h1}>Tipo de moneda:</Text>
                             <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, seleccion el de su preferencia.</Text>
 
-                            <QPSearchBar style={{ paddingHorizontal: 0 }} />
+                            <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
 
                             {categories.map((category, index) => (
                                 <View key={index}>
                                     <Text style={textStyles.h3}>{category.title}</Text>
                                     <FlatList
-                                        data={category.data}
+                                        // data={category.data}
+                                        data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
                                         renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
                                         keyExtractor={item => item.id}
                                     />

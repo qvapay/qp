@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     coinTick: {
         fontSize: 16,
-        fontFamily: "Rubik-Medium",
+        fontFamily: "Rubik-SemiBold",
         color: theme.darkColors.placeholder,
     },
     coinValues: {
@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     coinPrice: {
         fontSize: 16,
         color: 'white',
-        fontFamily: "Rubik-Black",
+        fontFamily: "Rubik-Bold",
     },
     coinLimits: {
         fontSize: 14,
-        color: theme.darkColors.placeholder,
         fontFamily: "Rubik-Regular",
+        color: theme.darkColors.placeholder,
     }
 })
