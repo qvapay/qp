@@ -11,7 +11,6 @@ import SettingsMenu from './SettingsMenu';
 import SettingOption from './SettingOption';
 import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
-import LanguageScreen from './LanguageScreen';
 import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
@@ -19,6 +18,7 @@ import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
 
 import { theme } from '../../ui/Theme';
 import { ROUTES } from '../../routes';
+import KYCAsistantScreen from './KYC/KYCAsistantScreen';
 
 const defaultScreenOptions = {
     headerShown: true,
@@ -47,7 +47,7 @@ export default function SettingsStack() {
                 name="SettingsMenu"
                 component={SettingsMenu}
                 options={{
-                    title: 'Ajustes de su Cuenta',
+                    title: 'Ajustes de mi Cuenta',
                     headerLeft: (props) => (
                         <HeaderBackButton
                             {...props}
@@ -63,7 +63,7 @@ export default function SettingsStack() {
                 name="SettingOption"
                 component={SettingOption}
                 options={{
-                    title: 'Ajustes de su Cuenta',
+                    title: 'Ajustes de mi Cuenta',
                     animationDuration: 250,
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
@@ -116,7 +116,7 @@ export default function SettingsStack() {
                 name="UserdataScreen"
                 component={UserdataScreen}
                 options={{
-                    title: 'Mi Perfil',
+                    title: '',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -134,23 +134,6 @@ export default function SettingsStack() {
                 component={PhoneScreen}
                 options={{
                     title: 'Verificar Celular',
-                    animation: 'slide_from_right',
-                    headerLeft: (props) => (
-                        <HeaderBackButton
-                            {...props}
-                            onPress={() => {
-                                navigation.navigate(ROUTES.SETTINGS_MENU);
-                            }}
-                        />
-                    ),
-                }}
-            />
-
-            <Stack.Screen
-                name="LanguageScreen"
-                component={LanguageScreen}
-                options={{
-                    title: '',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -183,6 +166,23 @@ export default function SettingsStack() {
             <Stack.Screen
                 name="TwoFactorSettingsScreen"
                 component={TwoFactorSettingsScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="KYCAsistantScreen"
+                component={KYCAsistantScreen}
                 options={{
                     title: '',
                     animation: 'slide_from_right',

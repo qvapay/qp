@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { theme } from './Theme';
 import { SvgUri } from 'react-native-svg';

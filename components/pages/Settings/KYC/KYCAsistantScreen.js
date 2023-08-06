@@ -1,9 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { globalStyles } from '../../ui/Theme'
+import { globalStyles } from '../../../ui/Theme'
 
-export default function LanguageScreen() {
-
+export default function KYCAsistantScreen() {
     return (
         <View style={[globalStyles.container, { alignItems: 'center' }]}>
             <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
