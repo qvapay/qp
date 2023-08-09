@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Image } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platform } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -172,9 +172,7 @@ export default function LoginScreen() {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
-
             <Loader loading={loading} />
-
             {
                 showtwofaForm ? (
                     <>
@@ -247,7 +245,6 @@ export default function LoginScreen() {
                     </>
                 )
             }
-
         </KeyboardAvoidingView>
     );
 }

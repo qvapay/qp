@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, ScrollView, FlatList, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, textStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
@@ -75,55 +75,60 @@ export default function WithdrawScreen() {
     };
 
     return (
-        <View style={globalStyles.container}>
-            {
-                step === 1 && (
-                    <>
-                        <View style={{ flex: 1 }}>
-                            <Text style={textStyles.h1}>Extraer balance:</Text>
-                            <Text style={globalStyles.subtitle}>Seleccione la cantidad de balance que desea extraer desde su cuenta de QvaPay.</Text>
-                            <TextInput
-                                value={amount}
-                                autoFocus={true}
-                                style={styles.amount}
-                                keyboardType="numeric"
-                                onChangeText={handleAmountChange}
-                                cursorColor='white'
-                            />
-                            {/** A Tag Selector of $5, $10, $50, $100 etc */}
-                        </View>
-                        <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
-                    </>
-                )
-            }
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={[globalStyles.container, { justifyContent: 'flex-start' }]}
+            >
+                {
+                    step === 1 && (
+                        <>
+                            <View style={{ flex: 1 }}>
+                                <Text style={textStyles.h1}>Extraer balance:</Text>
+                                <Text style={globalStyles.subtitle}>Seleccione la cantidad de balance que desea extraer desde su cuenta de QvaPay.</Text>
+                                <TextInput
+                                    value={amount}
+                                    autoFocus={true}
+                                    style={styles.amount}
+                                    keyboardType="numeric"
+                                    onChangeText={handleAmountChange}
+                                    cursorColor='white'
+                                />
+                                {/** A Tag Selector of $5, $10, $50, $100 etc */}
+                            </View>
+                            <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
+                        </>
+                    )
+                }
 
-            {
-                step === 2 && (
-                    <>
-                        <ScrollView style={{ flex: 1 }}>
-                            <Text style={textStyles.h1}>Tipo de moneda:</Text>
-                            <Text style={globalStyles.subtitle}>Seleccione la moneda con la cual desea extraer su balance de QvaPay.</Text>
+                {
+                    step === 2 && (
+                        <>
+                            <ScrollView style={{ flex: 1 }}>
+                                <Text style={textStyles.h1}>Tipo de moneda:</Text>
+                                <Text style={globalStyles.subtitle}>Seleccione la moneda con la cual desea extraer su balance de QvaPay.</Text>
 
-                            <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
+                                <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
 
-                            {categories.map((category, index) => (
-                                <View key={index}>
-                                    <Text style={textStyles.h3}>{category.title}</Text>
-                                    <FlatList
-                                        data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                        renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
-                                        keyExtractor={item => item.id}
-                                    />
-                                </View>
-                            ))}
+                                {categories.map((category, index) => (
+                                    <View key={index}>
+                                        <Text style={textStyles.h3}>{category.title}</Text>
+                                        <FlatList
+                                            data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
+                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
+                                            keyExtractor={item => item.id}
+                                        />
+                                    </View>
+                                ))}
 
-                        </ScrollView>
+                            </ScrollView>
 
-                        <QPButton onPress={() => setStep(2)} title={`Extraer ${amount}`} disabled={!selectedCoin} />
-                    </>
-                )
-            }
-        </View>
+                            <QPButton onPress={() => setStep(2)} title={`Extraer ${amount}`} disabled={!selectedCoin} />
+                        </>
+                    )
+                }
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 }
 
