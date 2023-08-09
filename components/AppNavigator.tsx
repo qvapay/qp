@@ -84,15 +84,7 @@ export default function AppNavigator() {
       <Stack.Screen name={ROUTES.P2P_STACK} component={PeerToPeerStack} />
 
       {/* Shop Stack */}
-      <Stack.Screen
-        name={ROUTES.SHOP_STACK}
-        component={ShopStack}
-        options={{
-          headerShown: false,
-          animationDuration: 250,
-          animation: 'slide_from_right',
-        }}
-      />
+      <Stack.Screen name={ROUTES.SHOP_STACK} component={ShopStack} />
 
       {/* Settings Stack */}
       <Stack.Screen

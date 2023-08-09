@@ -113,9 +113,9 @@ export default function LoginScreen() {
                 }
 
             } else {
+                setLoading(false);
                 setErrortext("No es posible iniciar sesión, intente nuevamente");
             }
-
         } catch (error) {
             setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
@@ -125,18 +125,15 @@ export default function LoginScreen() {
 
     // Handle 2FA
     const handleTwoFactor = async () => {
-        setLoading(true);
         try {
             const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode });
-            if (response && response.status == 200) {
+            if (response && response.status === 200) {
                 await EncryptedStorage.setItem('twoFactorSecret', 'false');
                 navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
             } else {
-                setLoading(false);
-                errorMessage = 'El código es incorrecto';
+                setErrorMessage('El código es incorrecto');
             }
         } catch (error) {
-            setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);
         }

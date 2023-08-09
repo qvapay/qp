@@ -52,11 +52,11 @@ export default function ShopItemScreen({ route }) {
     }, []);
 
     // Set the ShopItemScreen heade background color to color variable and no shadow
-    useEffect(() => {
-        setBackgroundColor(color);
-        // Return to the default background color when unmount
-        return () => setBackgroundColor(theme.darkColors.background);
-    }, [color]);
+    // useEffect(() => {
+    //     setBackgroundColor(color);
+    //     // Return to the default background color when unmount
+    //     return () => setBackgroundColor(theme.darkColors.background);
+    // }, [color]);
 
     // Update total amount when amount changes by amount * tax %
     useEffect(() => {

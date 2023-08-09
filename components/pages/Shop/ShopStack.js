@@ -40,8 +40,7 @@ export default function ShopStack() {
                 name="MyPurchasesScreen"
                 component={MyPurchasesScreen}
                 options={{
-                    title: '',
-                    headerShown: true,
+                    headerShown: false,
                 }}
             />
 

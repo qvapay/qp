@@ -18,8 +18,6 @@ export default function ProfileScreen({ route }) {
 
     // Set the max brightness on screen
     useEffect(() => {
-
-        // setBackgroundColor to white
         setTimeout(() => {
             setBackgroundColor('white');
         }, 150);
@@ -38,6 +36,7 @@ export default function ProfileScreen({ route }) {
                 DeviceBrightness.setBrightnessLevel(initialBrightness);
             }
         };
+        
     }, [initialBrightness]);
 
     const onShare = async () => {
@@ -68,15 +67,15 @@ export default function ProfileScreen({ route }) {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 40 }}>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>0</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>0</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>P2P</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>1000</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>1000</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ranking</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center' }]}>0</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>0</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ventas</Text>
                     </View>
                 </View>

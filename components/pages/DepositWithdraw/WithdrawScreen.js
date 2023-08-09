@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, ScrollView, FlatList } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, textStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
 import { getCoins } from '../../../utils/QvaPayClient';
 import { filterCoins } from '../../../utils/Helpers';
 import { useNavigation } from '@react-navigation/native';
+import QPSearchBar from '../../ui/QPSearchBar';
+import QPCoinRow from '../../ui/QPCoinRow';
 
 export default function WithdrawScreen() {
 
@@ -60,7 +62,11 @@ export default function WithdrawScreen() {
     // Always keep the $ before the amount (step 1)
     const handleAmountChange = (text) => {
         const inputText = text.replace(/^\$/, '');
+        // Max amount must not exeed the me.balance
+        if (parseFloat(inputText) > parseFloat(me.balance)) { return }
+
         if (inputText.length > 5) { return }
+
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
@@ -86,33 +92,37 @@ export default function WithdrawScreen() {
                             />
                             {/** A Tag Selector of $5, $10, $50, $100 etc */}
                         </View>
-
                         <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
                     </>
                 )
             }
-            {/* <Text style={styles.label}>Cantidad a extraer:</Text>
-            <TextInput style={styles.input} keyboardType="numeric" value={amount} onChangeText={handleAmountChange} />
 
-            <View style={{ flex: 1 }}>
-                <Pressable onPress={toggleCryptoCurrencies}>
-                    <Text style={styles.title}>Criptomonedas:</Text>
-                </Pressable>
-                {renderCryptoCurrencies()}
+            {
+                step === 2 && (
+                    <>
+                        <ScrollView style={{ flex: 1 }}>
+                            <Text style={textStyles.h1}>Tipo de moneda:</Text>
+                            <Text style={globalStyles.subtitle}>Seleccione la moneda con la cual desea extraer su balance de QvaPay.</Text>
 
-                <Pressable onPress={toggleBankOptions}>
-                    <Text style={styles.title}>Banco:</Text>
-                </Pressable>
-                {renderBankOptions()}
+                            <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
 
-                <Pressable onPress={toggleEWallets}>
-                    <Text style={styles.title}>E-Wallets:</Text>
-                </Pressable>
-                {renderEWallets()}
-            </View>
+                            {categories.map((category, index) => (
+                                <View key={index}>
+                                    <Text style={textStyles.h3}>{category.title}</Text>
+                                    <FlatList
+                                        data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
+                                        renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
+                                        keyExtractor={item => item.id}
+                                    />
+                                </View>
+                            ))}
 
-            <QPButton onPress={onWithdrawPress} title="Extraer Balance" disabled={isWithdrawButtonDisabled} /> */}
+                        </ScrollView>
 
+                        <QPButton onPress={() => setStep(2)} title={`Extraer ${amount}`} disabled={!selectedCoin} />
+                    </>
+                )
+            }
         </View>
     );
 }
