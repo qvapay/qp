@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation }) {
     // Get the Me object from getMe on QvaPayClient and request it every 120 seconds if component is mounted
     useEffect(() => {
         isMounted.current = true;
-        // fetchMe();
+        fetchMe();
         const interval = setInterval(() => {
             if (isMounted.current) {
                 fetchMe();

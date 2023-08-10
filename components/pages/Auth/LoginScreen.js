@@ -207,7 +207,7 @@ export default function LoginScreen() {
                         <View style={{ flex: 1 }}>
 
                             <QPInput
-                                prefixIconName="envelope"
+                                prefixIconName="at"
                                 placeholder="Correo, username o teléfono"
                                 keyboardType="email-address"
                                 returnKeyType="next"

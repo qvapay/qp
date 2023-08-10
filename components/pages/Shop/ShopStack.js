@@ -69,7 +69,7 @@ export default function ShopStack() {
                     },
                     headerTitleStyle: {
                         color: 'white',
-                        fontFamily: 'Rubik-Regular',  // Cambia 'NombreDeTuFuente' por el nombre de tu fuente
+                        fontFamily: 'Rubik-Regular',
                     },
                     headerShadowVisible: false,
                 }}

@@ -70,7 +70,7 @@ export default function UserdataScreen() {
 
                     <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} multiline />
 
-                    <QPInput prefixIconName='envelope' placeholder='Correo Electrónico' value={email} editable={false} />
+                    <QPInput prefixIconName='at' placeholder='Correo Electrónico' value={email} editable={false} />
                 </View>
 
             </ScrollView>

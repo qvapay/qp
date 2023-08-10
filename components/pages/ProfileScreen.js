@@ -7,14 +7,16 @@ import { useNavigation } from '@react-navigation/native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
+import { apiRequest } from '../../utils/QvaPayClient';
 
 export default function ProfileScreen({ route }) {
 
+    const navigation = useNavigation();
     const { me, setBackgroundColor } = useContext(AppContext);
     const amount = route.params?.amount || 0;
     const { qrData = `qp://u:${me.username}:a:${amount}` } = me;
     const [initialBrightness, setInitialBrightness] = useState(null);
-    const navigation = useNavigation();
+    const [extendedMe, setExtendedMe] = useState({ completed_p2p: 0, ranking_position: 10000 });
 
     // Set the max brightness on screen
     useEffect(() => {
@@ -36,8 +38,24 @@ export default function ProfileScreen({ route }) {
                 DeviceBrightness.setBrightnessLevel(initialBrightness);
             }
         };
-        
+
     }, [initialBrightness]);
+
+    // Now lets get more extended data from the API
+    useEffect(() => {
+        const getExtendedData = async () => {
+            try {
+                const url = `/user/extended`
+                const response = await apiRequest(url, { method: 'GET' }, navigation);
+                setExtendedMe(response);
+                return response;
+            } catch (error) {
+                console.error('Error verifying OTP:', error);
+                return {};
+            }
+        };
+        getExtendedData();
+    }, []);
 
     const onShare = async () => {
         try {
@@ -63,19 +81,22 @@ export default function ProfileScreen({ route }) {
     return (
         <>
             <Pressable style={styles.container} onPress={() => navigation.goBack()}>
-                <ProfilePictureSection user={me} negative={true} />
+
+                <View style={{ marginVertical: 20 }}>
+                    <ProfilePictureSection user={me} negative={true} size={100} />
+                </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 40 }}>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>0</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>{extendedMe.completed_p2p}</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>P2P</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>1000</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>{extendedMe.ranking_position}</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ranking</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>0</Text>
+                        <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>{extendedMe.sales}</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>Ventas</Text>
                     </View>
                 </View>
@@ -85,6 +106,7 @@ export default function ProfileScreen({ route }) {
                     {amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>}
                 </View>
             </Pressable>
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: 'white', }}>
                 <FontAwesome5 name="share" size={30} color={theme.darkColors.background} onPress={onShare} />
             </View>

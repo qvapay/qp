@@ -18,8 +18,7 @@ const InfoContainer = ({ children, style }) => (
 export default function ShopItemScreen({ route }) {
 
     const navigation = useNavigation();
-    const { setBackgroundColor } = useContext(AppContext);
-
+    // const { setBackgroundColor } = useContext(AppContext);
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(0);
@@ -102,13 +101,18 @@ export default function ShopItemScreen({ route }) {
         });
     }
 
+    // handle go to IndexScreen
+    const handleGoBack = () => {
+        navigation.navigate('ShopIndexScreen');
+    }
+
     return (
         <View style={styles.container}>
 
             <ScrollView>
 
                 <View style={[styles.featuredCard, { backgroundColor: color }]}>
-                    <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+                    <Pressable style={styles.backButton} onPress={handleGoBack}>
                         <FontAwesome5 name='arrow-left' size={20} style={styles.faIcon} />
                     </Pressable>
                     <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />

@@ -117,8 +117,6 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     profilePictureSection: {
-        flex: 1,
-        marginTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
     },

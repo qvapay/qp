@@ -119,7 +119,7 @@ export default function RegisterScreen({ navigation }) {
                         />
 
                         <QPInput
-                            prefixIconName="envelope"
+                            prefixIconName="at"
                             placeholder="Email"
                             onChangeText={(email) => setUserEmail(email)}
                             keyboardType="email-address"
