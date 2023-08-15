@@ -98,7 +98,7 @@ export default function RegisterScreen({ navigation }) {
                 </View>
             ) : (
                 <>
-                    <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'flex-start' }}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
 
                         <View>
                             <Image

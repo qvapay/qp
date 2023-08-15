@@ -1,5 +1,5 @@
-import React, { useEffect, useState, createRef, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platform } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platfor, ScrollView } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -19,7 +19,6 @@ export default function LoginScreen() {
     // get Navigation hook
     const navigation = useNavigation();
     const { setMe } = useContext(AppContext);
-    const passwordInputRef = createRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -30,7 +29,6 @@ export default function LoginScreen() {
     const [showtwofaForm, setShowtwofaForm] = useState(false);
 
     // Biometric check
-    const [errorMessage, setErrorMessage] = useState(null);
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
 
@@ -41,7 +39,7 @@ export default function LoginScreen() {
                 setBiometricAvailable(true);
             })
             .catch(error => {
-                setErrorMessage(error.message);
+                // setErrortext(error.message); 
             });
         return () => {
             FingerprintScanner.release();
@@ -131,7 +129,7 @@ export default function LoginScreen() {
                 await EncryptedStorage.setItem('twoFactorSecret', 'false');
                 navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
             } else {
-                setErrorMessage('El código es incorrecto');
+                setErrortext('El código es incorrecto');
             }
         } catch (error) {
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
@@ -172,7 +170,9 @@ export default function LoginScreen() {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
+
             <Loader loading={loading} />
+
             {
                 showtwofaForm ? (
                     <>
@@ -196,7 +196,8 @@ export default function LoginScreen() {
                         <QPButton title="Comprobar código" onPress={handleTwoFactor} />
                     </>
                 ) : (
-                    <>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+
                         <View style={{ marginHorizontal: 40 }}>
                             <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
                         </View>
@@ -242,7 +243,8 @@ export default function LoginScreen() {
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
                             <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
                         </View>
-                    </>
+
+                    </ScrollView>
                 )
             }
         </KeyboardAvoidingView>

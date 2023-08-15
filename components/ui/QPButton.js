@@ -19,7 +19,7 @@ export default function QPButton(props) {
         <Pressable
             onPress={handlePress}
             style={({ pressed }) => [disabled ? styles.disabledStyle : styles.buttonStyle,
-            { transform: [{ scale: pressed ? 0.96 : 1 }] },
+            { transform: [{ scale: pressed ? 0.98 : 1 }] },
             { ...style }]}
         >
             <LinearGradient colors={gradientColors} style={styles.gradient}>
