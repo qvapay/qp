@@ -19,7 +19,21 @@ export default function AuthStack() {
             name="AuthStack"
             initialRouteName="LoginScreen"
             screenOptions={{
+                title: '',
+                headerTintColor: 'white',
                 headerShadowVisible: false,
+                animation: 'slide_from_right',
+                headerStyle: {
+                    backgroundColor: theme.darkColors.background,
+                },
+                headerLeft: (props) => (
+                    <HeaderBackButton
+                        {...props}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                    />
+                ),
             }}
         >
 
@@ -27,21 +41,6 @@ export default function AuthStack() {
                 name="LoginScreen"
                 component={LoginScreen}
                 options={{
-                    title: '',
-                    headerStyle: {
-                        backgroundColor: theme.darkColors.background,
-                    },
-                    animationDuration: 250,
-                    headerTintColor: 'white',
-                    animation: 'slide_from_right',
-                    headerLeft: (props) => (
-                        <HeaderBackButton
-                            {...props}
-                            onPress={() => {
-                                navigation.goBack();
-                            }}
-                        />
-                    ),
                 }}
             />
 
@@ -49,9 +48,6 @@ export default function AuthStack() {
                 name="RecoverPasswordScreen"
                 component={RecoverPasswordScreen}
                 options={{
-                    headerShown: false,
-                    animationDuration: 250,
-                    animation: 'slide_from_right',
                 }}
             />
 
@@ -59,22 +55,6 @@ export default function AuthStack() {
                 name="RegisterScreen"
                 component={RegisterScreen}
                 options={{
-                    title: '',
-                    headerStyle: {
-                        backgroundColor: theme.darkColors.background,
-                    },
-                    animationDuration: 250,
-                    headerTintColor: 'white',
-                    headerShadowVisible: false,
-                    animation: 'slide_from_right',
-                    headerLeft: (props) => (
-                        <HeaderBackButton
-                            {...props}
-                            onPress={() => {
-                                navigation.goBack();
-                            }}
-                        />
-                    ),
                 }}
             />
 

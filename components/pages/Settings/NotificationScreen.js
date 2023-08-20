@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 
 export default function NotificationScreen() {
-    
+
+    // Check Onesignal notificatrion subscriptions
+
     return (
         <View style={[globalStyles.container, { alignItems: 'center' }]}>
             <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
@@ -11,4 +13,6 @@ export default function NotificationScreen() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    
+})

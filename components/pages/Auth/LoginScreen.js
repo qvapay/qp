@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platfor, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platform, ScrollView } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../ui/Loader';
@@ -16,7 +16,6 @@ import QPInput from '../../ui/QPInput';
 
 export default function LoginScreen() {
 
-    // get Navigation hook
     const navigation = useNavigation();
     const { setMe } = useContext(AppContext);
     const [email, setEmail] = useState('');
@@ -196,55 +195,60 @@ export default function LoginScreen() {
                         <QPButton title="Comprobar código" onPress={handleTwoFactor} />
                     </>
                 ) : (
-                    <ScrollView showsVerticalScrollIndicator={false}>
+                    <>
+                        <ScrollView showsVerticalScrollIndicator={false}>
 
-                        <View style={{ marginHorizontal: 40 }}>
-                            <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
-                        </View>
-                        <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                            <Text style={textStyles.h1}>Iniciar sesión:</Text>
-                        </View>
-
-                        <View style={{ flex: 1 }}>
-
-                            <QPInput
-                                prefixIconName="at"
-                                placeholder="Correo, username o teléfono"
-                                keyboardType="email-address"
-                                returnKeyType="next"
-                                autoCapitalize="none"
-                                onChangeText={(email) => setEmail(email)}
-                            />
-
-                            <QPInput
-                                prefixIconName="lock"
-                                placeholder="Contraseña"
-                                keyboardType="default"
-                                returnKeyType="next"
-                                autoCapitalize="none"
-                                secureTextEntry={true}
-                                onChangeText={(password) => setPassword(password)}
-                            />
-
-                            {errortext != '' ? (
-                                <Text style={styles.errorTextStyle}>
-                                    {errortext}
-                                </Text>
-                            ) : null}
-
-                            <QPButton title="Acceder" onPress={handleLoginSubmit} />
-
-                            <View style={styles.biometricIcon}>
-                                {biometricAvailable && <BiometricButton />}
+                            <View style={{ marginHorizontal: 40 }}>
+                                <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
                             </View>
-                        </View>
+                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                                <Text style={textStyles.h1}>Iniciar sesión:</Text>
+                            </View>
+
+                            <View style={{ flex: 1 }}>
+
+                                <QPInput
+                                    prefixIconName="at"
+                                    placeholder="Correo, username o teléfono"
+                                    keyboardType="email-address"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    onChangeText={(email) => setEmail(email)}
+                                />
+
+                                <QPInput
+                                    prefixIconName="lock"
+                                    placeholder="Contraseña"
+                                    keyboardType="default"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    secureTextEntry={true}
+                                    onChangeText={(password) => setPassword(password)}
+                                />
+
+                                <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
+
+                                {errortext != '' ? (
+                                    <Text style={styles.errorTextStyle}>
+                                        {errortext}
+                                    </Text>
+                                ) : null}
+
+                                <QPButton title="Acceder" onPress={handleLoginSubmit} />
+
+                                <View style={styles.biometricIcon}>
+                                    {biometricAvailable && <BiometricButton />}
+                                </View>
+                            </View>
+
+
+                        </ScrollView>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
                             <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
                         </View>
-
-                    </ScrollView>
+                    </>
                 )
             }
         </KeyboardAvoidingView>

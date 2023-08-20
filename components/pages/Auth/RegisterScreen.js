@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, ScrollView, Image } from 'react-native';
+import { StyleSheet, TextInput, View, Text, KeyboardAvoidingView, ScrollView, Image, Platform } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import QPLogo from '../../ui/QPLogo';
 import Loader from '../../ui/Loader';
@@ -140,10 +140,6 @@ export default function RegisterScreen({ navigation }) {
                             secureTextEntry={true}
                             ref={passwordInputRef}
                             returnKeyType="next"
-                            onSubmitEditing={() =>
-                                ageInputRef.current &&
-                                ageInputRef.current.focus()
-                            }
                             blurOnSubmit={false}
                         />
 

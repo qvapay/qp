@@ -126,10 +126,10 @@ const styles = StyleSheet.create({
     qrIconStyle: {
         color: 'white',
         fontSize: 28,
-        marginLeft: 20
+        marginLeft: 10
     },
     headerRight: {
-        marginRight: 20,
+        marginRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

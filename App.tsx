@@ -17,6 +17,7 @@ Sentry.init({
 });
 
 function App(): JSX.Element {
+  
   // OneSignal Initialization
   OneSignal.setAppId('30020a75-2a03-4d6d-a3e0-70efae81c1a8');
 
