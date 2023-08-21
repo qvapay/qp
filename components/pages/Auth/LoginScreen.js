@@ -241,7 +241,6 @@ export default function LoginScreen() {
                                 </View>
                             </View>
 
-
                         </ScrollView>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>

@@ -13,7 +13,7 @@ export default function RecoverPasswordScreen() {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [errortext, setErrortext] = useState('');
-    const [success, setSuccess] = useState(true);
+    const [success, setSuccess] = useState(false);
 
     // Handle Recover Password
     const handleRecoverPassword = async () => {
