@@ -4,7 +4,7 @@ import { theme } from './Theme';
 import { SvgUri } from 'react-native-svg';
 import { adjustNumber } from '../../utils/Helpers';
 
-export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setSelectedCoin }) {
+export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setSelectedCoin, amount }) {
 
     const {
         id,
@@ -39,24 +39,20 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
     }
 
     return (
-        <Pressable
-            style={[styles.container, {
-                backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation,
-                // borderColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation,
-                // borderWidth: 3,
-            }]}
-            onPress={handlePress}
-        >
+        <Pressable style={[styles.container, { backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation }]} onPress={handlePress}>
             <View style={styles.coinLogo}>
                 <SvgUri width="48" height="48" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
             </View>
             <View style={styles.coinData}>
                 <Text style={styles.coinName}>{name}</Text>
-                <Text style={styles.coinTick}>{tick}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.coinTick}>{tick}</Text>
+                    <Text style={styles.coinLimits}>{fee()}%</Text>
+                </View>
             </View>
             <View style={styles.coinValues}>
+                <Text style={styles.coinLimits}>~ {adjustNumber(amount / price)}</Text>
                 <Text style={[styles.coinPrice]}>$ {adjustNumber(price)}</Text>
-                <Text style={styles.coinLimits}>{fee()}%</Text>
             </View>
         </Pressable>
     )
@@ -103,10 +99,11 @@ const styles = StyleSheet.create({
     coinPrice: {
         fontSize: 16,
         color: 'white',
-        fontFamily: "Rubik-Light",
+        fontFamily: "Rubik-Medium",
     },
     coinLimits: {
-        fontSize: 14,
+        fontSize: 12,
+        marginLeft: 10,
         fontFamily: "Rubik-Regular",
         color: theme.darkColors.placeholder,
     }

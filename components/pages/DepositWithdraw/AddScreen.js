@@ -10,7 +10,6 @@ import QPCoinRow from '../../ui/QPCoinRow';
 export default function AddScreen({ navigation }) {
 
     const [amount, setAmount] = useState('$');
-
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
@@ -97,7 +96,7 @@ export default function AddScreen({ navigation }) {
                                         <Text style={textStyles.h3}>{category.title}</Text>
                                         <FlatList
                                             data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
+                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" amount={amount.substring(1)} />}
                                             keyExtractor={item => item.id}
                                         />
                                     </View>

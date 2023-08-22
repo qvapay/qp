@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ProfilePictureSection from '../../ui/ProfilePictureSection';
-import OneSignal from 'react-native-onesignal';
+import { OneSignal } from 'react-native-onesignal';
 import DeviceInfo from 'react-native-device-info';
 
 const SettingsMenu = () => {
@@ -39,24 +39,30 @@ const SettingsMenu = () => {
 
     const getNotificationsState = async () => {
         try {
-            const deviceState = await OneSignal.getDeviceState();
-            const { hasNotificationPermission, isSubscribed } = deviceState;
-            OneSignal.setExternalUserId(uuid);
-            OneSignal.setEmail(email);
+            // const deviceState = await OneSignal.getDeviceState();
+            // const { hasNotificationPermission, isSubscribed } = deviceState;
         } catch (error) {
             console.error('Error al obtener el estado de las notificaciones:', error);
         }
     };
 
+    // Logout APP
     const logout = async () => {
+
         const accessToken = await EncryptedStorage.getItem("accessToken");
         const twofaRequired = await EncryptedStorage.getItem("2faRequired");
+
         if (accessToken) {
             await EncryptedStorage.removeItem('accessToken');
         }
+
         if (twofaRequired) {
             await EncryptedStorage.removeItem('2faRequired');
         }
+
+        // Logout the user from OneSignal
+        OneSignal.logout();
+
         navigation.replace('SplashScreen');
     };
 

@@ -8,6 +8,7 @@ import { AppContext } from '../../../AppContext';
 import OtpCode from '../../ui/OtpCode';
 import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient';
 import { textStyles } from '../../ui/Theme';
+import { OneSignal } from 'react-native-onesignal';
 
 export default function PhoneScreen() {
 
@@ -38,6 +39,8 @@ export default function PhoneScreen() {
                 const response = await verifyOTP({ navigation, phone: formattedValue, code });
                 if (response.status === 201) {
                     setVerified(true)
+                    // Suscribe to OneSignal SMS
+                    OneSignal.User.addSms(formattedValue);
                 } else {
                     setErrorMessage('Código Inválido');
                 }
@@ -133,6 +136,7 @@ export default function PhoneScreen() {
                                     <Text style={{ color: theme.darkColors.danger, textAlign: 'center' }}>{errorMessage}</Text>
                                 )
                             }
+
                             <QPButton title={otpShow ? "Verificar Código" : "Enviar Código"} onPress={handleOTP} />
                         </>
                     )

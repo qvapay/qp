@@ -21,6 +21,8 @@ export default function UserdataScreen() {
     const [error, setError] = useState('')
     const [sending, setSending] = useState(false);
 
+    console.log(me.uuid)
+
     const updateData = async () => {
         setSending(true);
         try {
@@ -59,17 +61,11 @@ export default function UserdataScreen() {
                 </View>
 
                 <View style={{ marginVertical: 20 }}>
-
                     <Text style={textStyles.h1}>Datos de usuario:</Text>
-
                     <QPInput prefixIconName='user' placeholder='Nombre de Usuario' value={username} onChangeText={(username) => setUsername(username)} />
-
                     <QPInput prefixIconName='id-card' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
-
                     <QPInput prefixIconName='id-card' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
-
                     <QPInput prefixIconName='signature' placeholder='Bio' value={bio} onChangeText={(bio) => setBio(bio)} multiline />
-
                     <QPInput prefixIconName='at' placeholder='Correo Electrónico' value={email} editable={false} />
                 </View>
 

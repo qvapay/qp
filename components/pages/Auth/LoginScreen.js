@@ -13,6 +13,7 @@ import * as Sentry from '@sentry/react-native';
 import { useNavigation } from '@react-navigation/native';
 import OtpCode from '../../ui/OtpCode';
 import QPInput from '../../ui/QPInput';
+import { OneSignal } from 'react-native-onesignal';
 
 export default function LoginScreen() {
 
@@ -101,6 +102,10 @@ export default function LoginScreen() {
                 setMe(data.me);
                 setLoading(false);
 
+                // Suscribe to OneSignal Notifications
+                OneSignal.login(data.me.uuid);
+                OneSignal.User.addEmail(email);
+
                 // If me.2fa_required is true then show the 2fa form
                 if (data.me.two_factor_secret) {
                     await EncryptedStorage.setItem('twoFactorSecret', 'true');
@@ -114,6 +119,7 @@ export default function LoginScreen() {
                 setErrortext("No es posible iniciar sesión, intente nuevamente");
             }
         } catch (error) {
+            console.log(error)
             setLoading(false);
             setErrortext("No se ha podido iniciar sesion, intente nuevamente");
             Sentry.captureException(error);

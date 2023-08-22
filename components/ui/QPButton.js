@@ -3,15 +3,12 @@ import { Pressable, Text, StyleSheet, Vibration } from 'react-native'
 import { theme } from './Theme';
 import LinearGradient from 'react-native-linear-gradient';
 
-const GENTLE_VIBRATION_PATTERN = [0, 50];
-
 export default function QPButton(props) {
 
     const { danger, disabled, title, onPress, style } = props;
     const gradientColors = danger ? [theme.darkColors.danger, '#C82030'] : [theme.darkColors.primary, '#6153E0'];
 
     const handlePress = () => {
-        //Vibration.vibrate(GENTLE_VIBRATION_PATTERN);
         onPress && onPress();
     };
 
@@ -40,14 +37,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     titleStyle: {
-        fontSize: 18,
+        fontSize: 17,
         color: 'white',
         fontFamily: 'Rubik-Medium'
     },
     disabledStyle: {
         height: 50,
         opacity: 0.5,
-        fontSize: 18,
         color: 'white',
         borderRadius: 10,
         marginVertical: 10,
