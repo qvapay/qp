@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { globalStyles, textStyles } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
@@ -8,6 +8,9 @@ import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import QPInput from '../../ui/QPInput';
+
+// Image selector
+import { launchImageLibrary } from 'react-native-image-picker';
 
 export default function UserdataScreen() {
 
@@ -20,6 +23,9 @@ export default function UserdataScreen() {
     const [email] = useState(me.email)
     const [error, setError] = useState('')
     const [sending, setSending] = useState(false);
+
+    // Avatar Update
+    const [avatarSource, setAvatarSource] = useState(null);
 
     console.log(me.uuid)
 
@@ -44,13 +50,43 @@ export default function UserdataScreen() {
         }
     }
 
+    // Image picker from gallery
+    const updatePicture = async () => {
+        const options = {
+            title: 'Seleccionar foto de perfil',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            mediaType: 'photo', // selecciona sólo fotos (sin videos)
+        };
+
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('Usuario canceló la selección de imagen.');
+            } else if (response.errorMessage) {
+                console.log('Error al seleccionar la imagen: ', response.errorMessage);
+            } else {
+                const source = { uri: response.assets[0].uri };
+                setAvatarSource(source);
+
+                // Aquí puedes enviar la imagen al servidor si es necesario
+                // uploadImage(response.assets[0].uri, ...);
+            }
+        });
+    }
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
             <ScrollView>
 
                 <View style={styles.userDataSection}>
-                    <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={true} rating={me.average_rating} />
+
+                    <TouchableOpacity onPress={updatePicture}>
+                        <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} />
+                    </TouchableOpacity>
+
                     <View style={{ flex: 1, marginLeft: 10 }}>
                         <View style={styles.fullNameView}>
                             <Text style={{ ...globalStyles.fullName }}>{name} {lastname}</Text>
