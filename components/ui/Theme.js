@@ -10,7 +10,7 @@ const colors = {
     warning: "#ff9f43",                 // Orange pastel
     danger: "#DB253E",                  // Red pastel
     dark: "#4b4b4b",                    // Black like blue
-    gray: "#D8D9DD",                    // Gray like blue
+    gray: "#f3f3f3",                    // Gray like white
     elevated_dark_color: "#222440",     // Dark for elevation purlposes
     placeholder: "#b4b7bd",             // Gray like blue
 }
@@ -24,6 +24,7 @@ const theme = {
         danger: colors.danger,
         elevation: colors.elevated_dark_color,
         placeholder: colors.placeholder,
+        elevation_light: colors.gray,
     },
     mode: 'dark',
 }

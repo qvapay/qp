@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Pressable, Share } from 'react-native';
+
 import QR from '../ui/QR';
-import { textStyles, theme } from '../ui/Theme';
 import { AppContext } from '../../AppContext';
+import { textStyles, theme } from '../ui/Theme';
+import { apiRequest } from '../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
-import { apiRequest } from '../../utils/QvaPayClient';
 
 export default function ProfileScreen({ route }) {
 
@@ -82,11 +83,9 @@ export default function ProfileScreen({ route }) {
         <>
             <Pressable style={styles.container} onPress={() => navigation.goBack()}>
 
-                <View style={{ marginVertical: 20 }}>
-                    <ProfilePictureSection user={me} negative={true} size={100} />
-                </View>
+                <ProfilePictureSection user={me} negative={true} size={100} />
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 40 }}>
+                <View style={styles.statsContainer}>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={[textStyles.h1, { color: 'black', textAlign: 'center', marginVertical: 0 }]}>{extendedMe.completed_p2p}</Text>
                         <Text style={[textStyles.h6, { color: 'black', textAlign: 'center' }]}>P2P</Text>
@@ -101,15 +100,17 @@ export default function ProfileScreen({ route }) {
                     </View>
                 </View>
 
+                <View style={styles.sharingContainer}>
+                    <FontAwesome5 name='info' size={30} color={theme.darkColors.primary} />
+                    <FontAwesome5 name='share-alt' size={30} color={theme.darkColors.primary} onPress={onShare} />
+                </View>
+
                 <View style={styles.qrSection}>
                     <QR qrData={qrData} />
                     {amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>}
                 </View>
-            </Pressable>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: 'white', }}>
-                <FontAwesome5 name="share" size={30} color={theme.darkColors.background} onPress={onShare} />
-            </View>
+            </Pressable>
         </>
     )
 }
@@ -121,10 +122,29 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'space-between',
     },
+    statsContainer: {
+        borderRadius: 10,
+        flexDirection: 'row',
+        paddingVertical: 10,
+        paddingHorizontal: 40,
+        justifyContent: 'space-between',
+        backgroundColor: theme.darkColors.elevation_light,
+    },
+    sharingContainer: {
+        borderRadius: 10,
+        marginVertical: 10,
+        flexDirection: 'row',
+        paddingVertical: 10,
+        paddingHorizontal: 50,
+        justifyContent: 'space-between',
+        backgroundColor: theme.darkColors.elevation_light,
+    },
     qrSection: {
         flex: 1,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'space-around',
+        backgroundColor: theme.darkColors.elevation_light,
     },
     receivingAmount: {
         fontSize: 26,

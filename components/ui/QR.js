@@ -9,10 +9,10 @@ export default function QR({ qrData }) {
             data={qrData}
             pieceSize={10}
             color={theme.darkColors.background}
-            backgroundColor={'white'}
+            backgroundColor={theme.darkColors.elevation_light}
             pieceCornerType={'rounded'}
             logoBackgroundColor={'transparent'}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: theme.darkColors.elevation_light }}
             pieceBorderRadius={5}
             isPiecesGlued={true}
             padding={20}
