@@ -47,6 +47,13 @@ const apiRequest = async (url, options = {}, navigation) => {
         }
 
         // Verifica si el token no es válido
+        if (response.status === 403) {
+            console.log("Forbiden Access")
+            onInvalidToken(navigation);
+            return null;
+        }
+
+        // Verifica si el token no es válido
         if (response.status === 422) {
             console.log("Invalid Response")
             onInvalidResponse(navigation);
@@ -372,6 +379,37 @@ const verifyOTP = async ({ navigation, phone, code }) => {
     }
 };
 
+// Profile upload picture
+const uploadProfilePicture = async ({ navigation, imageUri }) => {
+
+    const formData = new FormData();
+
+    // Convertir la imagen en un blob/binary data
+    let fileName = imageUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(fileName);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    formData.append('avatar', {
+        uri: imageUri,
+        type: type,
+        name: fileName,
+    });
+
+    try {
+        const accessToken = await EncryptedStorage.getItem("accessToken")
+        const url = `/user/avatar`
+        const headers = {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        }
+        const response = await qvaPayClient.post(url, formData, { headers });
+        return response;
+    } catch (error) {
+        console.error('Error uploading profile picture:', error);
+        return [];
+    }
+};
+
 export {
     qvaPayClient,
     apiRequest,
@@ -396,5 +434,6 @@ export {
     buyProduct,
     getMyPurchases,
     sendOTP,
-    verifyOTP
+    verifyOTP,
+    uploadProfilePicture
 };

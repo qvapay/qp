@@ -8,9 +8,8 @@ import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import QPInput from '../../ui/QPInput';
-
-// Image selector
 import { launchImageLibrary } from 'react-native-image-picker';
+import { uploadProfilePicture } from '../../../utils/QvaPayClient';
 
 export default function UserdataScreen() {
 
@@ -23,11 +22,7 @@ export default function UserdataScreen() {
     const [email] = useState(me.email)
     const [error, setError] = useState('')
     const [sending, setSending] = useState(false);
-
-    // Avatar Update
-    const [avatarSource, setAvatarSource] = useState(null);
-
-    console.log(me.uuid)
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
     const updateData = async () => {
         setSending(true);
@@ -58,20 +53,32 @@ export default function UserdataScreen() {
                 skipBackup: true,
                 path: 'images',
             },
-            mediaType: 'photo', // selecciona sólo fotos (sin videos)
+            mediaType: 'photo',
         };
-
         launchImageLibrary(options, (response) => {
             if (response.didCancel) {
                 console.log('Usuario canceló la selección de imagen.');
             } else if (response.errorMessage) {
                 console.log('Error al seleccionar la imagen: ', response.errorMessage);
             } else {
+                setUploadingAvatar(true);
                 const source = { uri: response.assets[0].uri };
-                setAvatarSource(source);
-
-                // Aquí puedes enviar la imagen al servidor si es necesario
-                // uploadImage(response.assets[0].uri, ...);
+                uploadProfilePicture({ imageUri: source.uri, navigation }).then((result) => {
+                    if (result && result.status === 201) {
+                        Toast.show({
+                            type: 'success',
+                            text1: 'Foto de perfil actualizada correctamente',
+                            position: 'bottom',
+                            bottomOffset: 10,
+                        });
+                    } else {
+                        setError('Error al actualizar la foto de perfil');
+                    }
+                }).catch((error) => {
+                    console.error(`Error in Update: ${error}`);
+                }).finally(() => {
+                    setUploadingAvatar(false);
+                });
             }
         });
     }
