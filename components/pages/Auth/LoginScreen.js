@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import OtpCode from '../../ui/OtpCode';
 import QPInput from '../../ui/QPInput';
 import { OneSignal } from 'react-native-onesignal';
-import LottieView from "lottie-react-native";
+
 
 export default function LoginScreen() {
 

@@ -6,6 +6,7 @@ import Loader from '../../ui/Loader';
 import QPButton from '../../ui/QPButton';
 import { qvaPayClient } from '../../../utils/QvaPayClient';
 import * as Sentry from '@sentry/react-native';
+import LottieView from "lottie-react-native";
 
 export default function RecoverPasswordScreen() {
 
@@ -50,7 +51,6 @@ export default function RecoverPasswordScreen() {
             {
                 success ? (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        {/* <Image source={require('../../../assets/images/undraw_forgot_password_gi2d.png')} style={{ width: 300, height: 300 }} /> */}
                         <Text style={[textStyles.h1, { textAlign: 'center' }]}>¡Listo!</Text>
                         <Text style={[textStyles.h3, { textAlign: 'center' }]}>Te hemos enviado un correo con las instrucciones para recuperar tu contraseña.</Text>
                     </View>
@@ -58,6 +58,9 @@ export default function RecoverPasswordScreen() {
                     <>
                         <ScrollView showsVerticalScrollIndicator={false}>
 
+                            <View style={{ marginHorizontal: 40 }}>
+                                <LottieView source={require('../../../assets/lotties/forgot.json')} autoPlay loop style={styles.lottie} />
+                            </View>
                             <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Recuperar contraseña:</Text>
                             </View>
@@ -107,5 +110,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
+    },
+    lottie: {
+        width: 250,
+        height: 250,
+        alignSelf: 'center',
     },
 })
