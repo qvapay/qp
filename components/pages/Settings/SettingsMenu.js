@@ -216,10 +216,7 @@ const SettingsMenu = () => {
             >
 
                 <View style={{ marginRight: 20 }}>
-                    <Image
-                        source={require('../../../assets/images/gold-badge.png')}
-                        style={{ width: 28, height: 28 }}
-                    />
+                    <Image source={require('../../../assets/images/gold-badge.png')} style={{ width: 28, height: 28 }} />
                 </View>
                 <View>
                     <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>GOLD CHECK</Text>

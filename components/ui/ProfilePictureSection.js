@@ -34,7 +34,7 @@ export default function ProfilePictureSection({ user = {}, negative = false, siz
 
             <View style={styles.fullNameView}>
                 <Text style={{ ...globalStyles.fullName, color: textColor }}>{name} {lastname}</Text>
-                {golden_check == 1 && (<Image source={require('../../assets/images/gold-badge.png')} style={{ marginLeft: 8, marginTop: 3 }} />)}
+                {golden_check == 1 && (<Image source={require('../../assets/images/gold-badge.png')} style={{ marginLeft: 8, height: 20, width: 20 }} />)}
             </View>
             <Text style={[styles.usernameText, { color: textColor }]}>@{username}</Text>
         </View>

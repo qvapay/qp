@@ -105,7 +105,7 @@ export default function UserdataScreen() {
                     <View style={{ flex: 1, marginLeft: 10 }}>
                         <View style={styles.fullNameView}>
                             <Text style={{ ...globalStyles.fullName }}>{name} {lastname}</Text>
-                            {me.golden_check == 1 && (<Image source={require('../../../assets/images/gold-badge.png')} style={{ marginLeft: 8, marginTop: 3 }} />)}
+                            {me.golden_check == 1 && (<Image source={require('../../../assets/images/gold-badge.png')} style={{ marginLeft: 8, height: 20, width: 20 }} />)}
                         </View>
                         <Text style={styles.usernameText}>@{me.username}</Text>
                     </View>
