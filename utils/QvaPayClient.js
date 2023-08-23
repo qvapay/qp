@@ -285,10 +285,10 @@ const sendWithdraw = async ({ amount, coin, details, navigation }) => {
 };
 
 // Buy or extend the Gold Check status
-const buyGoldCheck = async ({ navigation }) => {
+const buyGoldCheck = async ({ tier, navigation }) => {
     try {
         const url = `/gold`
-        const data = { csrf: 'csrf' }
+        const data = { csrf: 'csrf', tier }
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
         return response;
     } catch (error) {

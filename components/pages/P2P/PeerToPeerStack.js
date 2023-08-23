@@ -2,7 +2,6 @@ import React from 'react'
 import ShowP2p from './ShowP2p';
 import CreateP2p from './CreateP2p';
 import { theme } from '../../ui/Theme';
-import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Stack Navigation
@@ -25,14 +24,3 @@ export default function PeerToPeerStack() {
         </Stack.Navigator>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: theme.darkColors?.background,
-    },
-    qrIconStyle: {
-        color: 'white',
-        fontSize: 24,
-    },
-});

@@ -114,6 +114,7 @@ export default function MyPurchasesScreen() {
                     </View>
                 </Modal>
             )}
+            
         </View>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Alert, StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Text, View, Image, Pressable } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { AppContext } from '../../../AppContext';
@@ -7,8 +7,12 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { buyGoldCheck } from '../../../utils/QvaPayClient';
 import Loader from '../../ui/Loader';
 import { useNavigation } from '@react-navigation/native';
+import Modal from "react-native-modal";
+import TabSelector from '../../ui/TabSelector';
 
-const GOLD_CHECK_PRICE = 5;
+const GOLD_CHECK_PRICE_MONTHLY = 5;
+const GOLD_CHECK_PRICE_SEMESTER = 28;
+const GOLD_CHECK_PRICE_YEARLY = 50;
 
 export default function GoldCheck() {
 
@@ -17,6 +21,30 @@ export default function GoldCheck() {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(me.golden_check);
     const [balanceError, setBalanceError] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    // Pricing Selector
+    const [selected, setSelected] = useState(0);
+    const pricingTiers = [
+        {
+            id: 1,
+            label: "Intro",
+            name: "1 mes",
+            price: GOLD_CHECK_PRICE_MONTHLY,
+        },
+        {
+            id: 2,
+            label: "Negocio",
+            name: "6 meses",
+            price: GOLD_CHECK_PRICE_SEMESTER,
+        },
+        {
+            id: 3,
+            label: "Experto",
+            name: "12 meses",
+            price: GOLD_CHECK_PRICE_YEARLY,
+        },
+    ];
 
     // set headerRight with the Current Balance
     useEffect(() => {
@@ -33,7 +61,7 @@ export default function GoldCheck() {
 
     // if me.balance is less than total then disable the button and show {value} in red color, so create a state for truye or false
     useEffect(() => {
-        if (me.balance < GOLD_CHECK_PRICE) {
+        if (me.balance < GOLD_CHECK_PRICE_MONTHLY) {
             setBalanceError(true);
         } else {
             setBalanceError(false);
@@ -43,14 +71,14 @@ export default function GoldCheck() {
     const handleUpgrade = async () => {
         Alert.alert(
             "Compra de Verificación Dorada",
-            "¿Quieres adquirir la Verificación Dorada por $5?",
+            `¿Quieres adquirir la Verificación Dorada por $${pricingTiers[selected - 1].price}?`,
             [
                 { text: "Cancelar", style: "cancel" },
                 {
                     text: "Aceptar", onPress: async () => {
                         setLoading(true);
                         try {
-                            const response = await buyGoldCheck({ navigation });
+                            const response = await buyGoldCheck({ tier: pricingTiers[selected - 1].price, navigation });
                             if (response.status === 201) {
                                 setStatus(true);
                             } else {
@@ -141,8 +169,24 @@ export default function GoldCheck() {
 
             </ScrollView>
 
-            <QPButton title={status ? "Extender Verificación Dorada" : "Solicitar Verificación Dorada"} onPress={handleUpgrade} disabled={balanceError} />
+            <QPButton title={status ? "Extender Verificación Dorada" : "Pagar Verificación Dorada"} onPress={() => setModalVisible(true)} disabled={balanceError} />
 
+            {isModalVisible && (
+                <Modal
+                    isVisible={isModalVisible}
+                    animationIn={'slideInUp'}
+                    onBackdropPress={() => setModalVisible(false)}
+                    onSwipeComplete={() => setModalVisible(false)}
+                    swipeDirection={['down']}
+                    style={styles.modalview}
+                >
+                    <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                        <Text style={{ fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 16, textAlign: 'center' }}>Selecciona el plan que deseas adquirir:</Text>
+                        <TabSelector selected={selected} setSelected={setSelected} pricingTiers={pricingTiers} />
+                        <QPButton title="Comprar Plan GOLD" onPress={() => handleUpgrade()} disabled={selected == 0 ? true : false} />
+                    </View>
+                </Modal>
+            )}
         </View>
     )
 }
@@ -191,5 +235,9 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: 'center',
         fontFamily: "Rubik-Bold",
+    },
+    modalview: {
+        justifyContent: 'flex-end',
+        margin: 0,
     },
 })
