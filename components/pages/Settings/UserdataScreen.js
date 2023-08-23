@@ -11,8 +11,6 @@ import QPInput from '../../ui/QPInput';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { uploadProfilePicture } from '../../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import { theme } from '../../ui/Theme';
-
 import LottieView from "lottie-react-native";
 
 export default function UserdataScreen() {

@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import OtpCode from '../../ui/OtpCode';
 import QPInput from '../../ui/QPInput';
 import { OneSignal } from 'react-native-onesignal';
+import LottieView from "lottie-react-native";
 
 export default function LoginScreen() {
 
@@ -183,6 +184,7 @@ export default function LoginScreen() {
                     <>
                         <View style={{ marginHorizontal: 40 }}>
                             <Image source={require('../../../assets/images/auth/twofactor.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
+                            {/* <LottieView source={require('../../../assets/lotties/login.json')} autoPlay loop style={styles.lottie} /> */}
                         </View>
                         <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
@@ -206,6 +208,7 @@ export default function LoginScreen() {
 
                             <View style={{ marginHorizontal: 40 }}>
                                 <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
+                                {/* <LottieView source={require('../../../assets/lotties/login.json')} autoPlay loop style={styles.lottie} /> */}
                             </View>
                             <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Iniciar sesión:</Text>
@@ -311,5 +314,10 @@ const styles = StyleSheet.create({
     biometricIcon: {
         alignSelf: 'center',
         marginTop: 20,
-    }
+    },
+    lottie: {
+        width: 300,
+        height: 300,
+        alignSelf: 'center',
+    },
 })
