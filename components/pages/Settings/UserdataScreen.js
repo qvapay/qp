@@ -10,6 +10,10 @@ import Toast from 'react-native-toast-message';
 import QPInput from '../../ui/QPInput';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { uploadProfilePicture } from '../../../utils/QvaPayClient';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+// import { theme } from '../../ui/Theme';
+
+import LottieView from "lottie-react-native";
 
 export default function UserdataScreen() {
 
@@ -71,6 +75,8 @@ export default function UserdataScreen() {
                             position: 'bottom',
                             bottomOffset: 10,
                         });
+                        // Update teh new profile picture in the context
+                        me.profile_photo_url = "https://media.qvapay.com/" + result.data.path;
                     } else {
                         setError('Error al actualizar la foto de perfil');
                     }
@@ -90,8 +96,12 @@ export default function UserdataScreen() {
 
                 <View style={styles.userDataSection}>
 
-                    <TouchableOpacity onPress={updatePicture}>
-                        <AvatarPicture size={75} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} />
+                    <TouchableOpacity onPress={updatePicture} style={styles.avatarContainer}>
+                        <AvatarPicture size={76} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} />
+                        {uploadingAvatar && <LottieView source={require('../../../assets/lotties/spiner.json')} autoPlay loop style={styles.loadingAnimation} />}
+                        <View style={[styles.editIcon, { width: 84, height: 84, backgroundColor: '#FFFFFF20', borderRadius: 42 }]}>
+                            <FontAwesome5 name="camera" size={30} color="#FFFFFFC0" style={{ position: 'absolute', bottom: 26, right: 26 }} />
+                        </View>
                     </TouchableOpacity>
 
                     <View style={{ flex: 1, marginLeft: 10 }}>
@@ -135,5 +145,20 @@ const styles = StyleSheet.create({
         color: 'white',
         marginLeft: 10,
         fontFamily: 'Rubik-Medium',
+    },
+    avatarContainer: {
+        position: 'relative',
+    },
+    editIcon: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+    },
+    loadingAnimation: {
+        position: 'absolute',
+        width: 250,
+        height: 250,
+        bottom: -83,
+        right: -83,
     }
 })
