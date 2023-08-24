@@ -68,17 +68,21 @@ export default function GoldCheck() {
         }
     }, [me.balance]);
 
+    // Buy the Gold Check
     const handleUpgrade = async () => {
+
+        const tier = pricingTiers[selected - 1].price;
+
         Alert.alert(
             "Compra de Verificación Dorada",
-            `¿Quieres adquirir la Verificación Dorada por $${pricingTiers[selected - 1].price}?`,
+            `¿Quieres adquirir la Verificación Dorada por $${tier}?`,
             [
                 { text: "Cancelar", style: "cancel" },
                 {
                     text: "Aceptar", onPress: async () => {
                         setLoading(true);
                         try {
-                            const response = await buyGoldCheck({ tier: pricingTiers[selected - 1].price, navigation });
+                            const response = await buyGoldCheck({ tier, navigation });
                             if (response.status === 201) {
                                 setStatus(true);
                             } else {
@@ -183,7 +187,7 @@ export default function GoldCheck() {
                     <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
                         <Text style={{ fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 16, textAlign: 'center' }}>Selecciona el plan que deseas adquirir:</Text>
                         <TabSelector selected={selected} setSelected={setSelected} pricingTiers={pricingTiers} />
-                        <QPButton title="Comprar Plan GOLD" onPress={() => handleUpgrade()} disabled={selected == 0 ? true : false} />
+                        <QPButton title="Comprar Plan GOLD" onPress={handleUpgrade} disabled={selected == 0 ? true : false} />
                     </View>
                 </Modal>
             )}

@@ -1,20 +1,23 @@
 import axios from "axios";
 import EncryptedStorage from "react-native-encrypted-storage";
+import DeviceInfo from 'react-native-device-info';
 
-/**
- * QvaPay SDK from https://documenter.getpostman.com/view/8765260/TzzHnDGw
- */
+const version = DeviceInfo.getVersion();
+const buildNumber = DeviceInfo.getBuildNumber();
+const deviceName = DeviceInfo.getDeviceName();
 
+
+// QvaPay SDK from https://documenter.getpostman.com/view/8765260/TzzHnDGw
 // Create the Axios Client
 const qvaPayClient = axios.create({
     baseURL: "https://qvapay.com/api",
     headers: {
         "Content-Type": "application/json",
-        "X-QvaPay-Client": "QvaPayClient",
+        "X-QvaPay-Client": "QvaPayAPP",
         "User-Agent": "QvaPayClient",
-        "X-QvaPay-Client-Version": "1.8.1",
-        "X-QvaPay-Client-Platform": "QvaPayClient",
-        "X-QvaPay-Client-Platform-Version": "1.8.1",
+        "X-QvaPay-Client-Version": { version },
+        "X-QvaPay-Client-Platform": { deviceName },
+        "X-QvaPay-Client-Platform-Version": { buildNumber },
     },
 });
 
