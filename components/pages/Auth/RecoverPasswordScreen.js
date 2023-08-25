@@ -61,6 +61,7 @@ export default function RecoverPasswordScreen() {
                             <View style={{ marginHorizontal: 40 }}>
                                 <LottieView source={require('../../../assets/lotties/forgot.json')} autoPlay loop style={styles.lottie} />
                             </View>
+                            
                             <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Recuperar contraseña:</Text>
                             </View>

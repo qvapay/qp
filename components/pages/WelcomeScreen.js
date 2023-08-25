@@ -4,6 +4,7 @@ import { globalStyles, textStyles, theme } from '../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
 import QPButton from '../ui/QPButton';
 import { AppContext } from '../../AppContext';
+import LottieView from "lottie-react-native";
 
 export default function WelcomeScreen() {
 
@@ -17,14 +18,14 @@ export default function WelcomeScreen() {
     return (
         <View style={globalStyles.container}>
 
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Image source={require('../../assets/images/qvapay-cover2.png')} style={styles.imageLogo} />
-            </View>
-
             <View style={styles.welcome}>
                 <Text style={textStyles.h1}>Bienvenid@ a QvaPay</Text>
                 <Text style={globalStyles.subtitle}>La forma más fácil de recibir y enviar dinero.</Text>
                 <Text style={globalStyles.subtitle}>Comienza a recibir pagos a nivel mundial. 🌎</Text>
+            </View>
+
+            <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 40 }}>
+                <LottieView source={require('../../assets/lotties/welcome1.json')} autoPlay loop style={styles.lottie} />
             </View>
 
             <View style={styles.accessButtons}>
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     welcome: {
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 20,
     },
     imageLogo: {
         width: 200,
@@ -58,5 +60,10 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular',
-    }
+    },
+    lottie: {
+        height: 250,
+        width: '100%',
+        alignSelf: 'center',
+    },
 })
