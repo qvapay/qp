@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, Text, StyleSheet, Vibration } from 'react-native'
+import { Pressable, Text, StyleSheet } from 'react-native'
 import { theme } from './Theme';
 import LinearGradient from 'react-native-linear-gradient';
 

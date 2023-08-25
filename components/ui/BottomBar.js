@@ -1,9 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Pressable, Vibration } from 'react-native'
+import { StyleSheet, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
-
-const SMOOTH_VIBRATION_PATTERN = [0, 75];
 
 export default function BottomBar({ state, descriptors, navigation }) {
 
@@ -42,10 +40,6 @@ export default function BottomBar({ state, descriptors, navigation }) {
                     const isFocused = state.index === index;
 
                     const onPress = () => {
-
-                        // Smooth vibration
-                        Vibration.vibrate(SMOOTH_VIBRATION_PATTERN);
-
                         const event = navigation.emit({
                             type: 'tabPress',
                             target: route.key,

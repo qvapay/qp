@@ -14,7 +14,7 @@ export default function TabSelector({ selected, setSelected, pricingTiers }) {
                 >
                     <View>
                         <Text style={styles.tabButtonLabel}>{tier.label}</Text>
-                        <Text style={styles.tabButtonText}>{tier.name}</Text>
+                        <Text style={styles.tabButtonText}>{tier.name} {tier.price == 50 ? <View style={{ backgroundColor: "#7BFFB190", borderRadius: 5 }}><Text style={{ paddingHorizontal: 3, fontFamily: 'Rubik-Regular', fontSize: 12, }}>-10%</Text></View> : null}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
                         <Text style={styles.tabButtonPrice}>${tier.price} </Text>
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
     tabButtonPrice: {
         fontSize: 24,
         color: 'white',
-        fontFamily: 'Rubik-Medium',
+        fontFamily: 'Rubik-Bold',
     },
 })

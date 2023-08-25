@@ -9,7 +9,7 @@ export default function KYCAsistantScreen() {
 
     return (
         <View style={[globalStyles.container, { alignItems: 'center' }]}>
-            <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
+            <Text style={globalStyles.title}>KYC... ⚡️</Text>
         </View>
     )
 }
