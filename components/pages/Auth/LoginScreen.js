@@ -26,6 +26,7 @@ export default function LoginScreen() {
     const [errortext, setErrortext] = useState('');
 
     // 2FA Form
+    const numDigits2FA = 6;
     const [twofactorcode, setTwofactorcode] = useState(0);
     const [showtwofaForm, setShowtwofaForm] = useState(false);
 
@@ -58,6 +59,13 @@ export default function LoginScreen() {
         }
         checkStoredCredentialsForBiometricLogin();
     }, []);
+
+    // useEffect for twofactorcode change if it's numDigits2FA length
+    useEffect(() => {
+        if (twofactorcode.toString().length === numDigits2FA) {
+            handleTwoFactor();
+        }
+    }, [twofactorcode]);
 
     // Login Method from QvaPayClient
     const login = async (email, password) => {
@@ -190,7 +198,7 @@ export default function LoginScreen() {
                         </View>
 
                         <View style={{ marginVertical: 30 }}>
-                            <OtpCode setValidatedCode={setTwofactorcode} />
+                            <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
                         </View>
 
                         {errortext !== '' ? (
@@ -199,7 +207,6 @@ export default function LoginScreen() {
                             </Text>
                         ) : null}
 
-                        <QPButton title="Comprobar código" onPress={handleTwoFactor} />
                     </ScrollView>
                 ) : (
                     <>

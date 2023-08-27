@@ -14,4 +14,8 @@ export default function KYCAsistantScreen() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    
+    
+
+})
