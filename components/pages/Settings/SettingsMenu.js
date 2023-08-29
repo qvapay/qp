@@ -126,7 +126,7 @@ const SettingsMenu = () => {
                 },
                 {
                     title: 'Verificación de identidad',
-                    screen: 'KYCAsistantScreen',
+                    screen: 'KYCStack',
                     enabled: true,
                     notifications: me.kyc ? 0 : 1
                 },

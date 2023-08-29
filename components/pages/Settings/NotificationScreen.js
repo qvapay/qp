@@ -99,7 +99,7 @@ export default function NotificationScreen() {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={globalStyles.container}>
 
             <ScrollView>
-                <Text style={textStyles.h1}>Notificaciones:</Text>
+                <Text style={textStyles.h1}>Notificaciones</Text>
 
                 <View style={styles.box}>
                     <View style={styles.settingPair}>

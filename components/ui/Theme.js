@@ -53,7 +53,7 @@ const textStyles = StyleSheet.create({
         fontFamily: 'Rubik-Bold'
     },
     h1: {
-        fontSize: 32,
+        fontSize: 30,
         color: 'white',
         textAlign: 'left',
         marginVertical: 10,
@@ -64,10 +64,16 @@ const textStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'left',
         marginVertical: 5,
-        fontFamily: 'Rubik-Medium',
+        fontFamily: 'Rubik-SemiBold',
     },
     h3: {
         fontSize: 18,
+        color: 'white',
+        textAlign: 'left',
+        fontFamily: 'Rubik-Medium',
+    },
+    h4: {
+        fontSize: 17,
         color: 'white',
         textAlign: 'left',
         fontFamily: 'Rubik-Regular',
@@ -76,7 +82,7 @@ const textStyles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
         textAlign: 'left',
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'Rubik-Light',
     },
 });
 

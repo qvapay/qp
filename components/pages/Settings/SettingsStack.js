@@ -18,7 +18,7 @@ import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
 
 import { theme } from '../../ui/Theme';
 import { ROUTES } from '../../routes';
-import KYCAsistantScreen from './KYC/KYCAsistantScreen';
+import KYCStack from './KYC/KYCStack';
 
 const defaultScreenOptions = {
     headerShown: true,
@@ -181,19 +181,12 @@ export default function SettingsStack() {
             />
 
             <Stack.Screen
-                name="KYCAsistantScreen"
-                component={KYCAsistantScreen}
+                name="KYCStack"
+                component={KYCStack}
                 options={{
                     title: '',
                     animation: 'slide_from_right',
-                    headerLeft: (props) => (
-                        <HeaderBackButton
-                            {...props}
-                            onPress={() => {
-                                navigation.navigate(ROUTES.SETTINGS_MENU);
-                            }}
-                        />
-                    ),
+                    headerShown: false,
                 }}
             />
 

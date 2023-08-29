@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, ScrollView, FlatList, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, FlatList, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Button } from 'react-native';
 import QPButton from '../../ui/QPButton';
 import { globalStyles, textStyles } from '../../ui/Theme';
 import { filterCoins } from '../../../utils/Helpers';
@@ -22,10 +22,8 @@ export default function AddScreen({ navigation }) {
 
     // Asistant steps
     const [step, setStep] = useState(1);
-    const [stepTwoDisabled, setStepTwoDisabled] = useState(true);
-
-    // setSearchQuery state
     const [searchQuery, setSearchQuery] = useState('');
+    const [stepTwoDisabled, setStepTwoDisabled] = useState(1);
 
     // Get the coins from the API and filter them
     useEffect(() => {
@@ -57,15 +55,12 @@ export default function AddScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={[globalStyles.container, { justifyContent: 'flex-start' }]}
-            >
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
                 {
                     step === 1 && (
                         <>
                             <View style={{ flex: 1 }}>
-                                <Text style={textStyles.h1}>Depositar balance:</Text>
+                                <Text style={textStyles.h1}>Depositar balance</Text>
                                 <Text style={globalStyles.subtitle}>Determine la cantidad a depositar en su cuenta de QvaPay para comprar e intercambiar con otros.</Text>
                                 <TextInput
                                     value={amount}
@@ -86,7 +81,7 @@ export default function AddScreen({ navigation }) {
                     step === 2 && (
                         <>
                             <ScrollView style={{ flex: 1 }}>
-                                <Text style={textStyles.h1}>Tipo de moneda:</Text>
+                                <Text style={textStyles.h1}>Tipo de moneda</Text>
                                 <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, seleccion el de su preferencia.</Text>
 
                                 <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />

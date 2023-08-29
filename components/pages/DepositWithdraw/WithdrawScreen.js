@@ -48,13 +48,11 @@ export default function WithdrawScreen() {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={styles.balance}>
-                    <Pressable onPress={() => setAmount('$' + me.balance)}>
-                        <Text style={styles.balanceText}>
-                            $ {me.balance}
-                        </Text>
-                    </Pressable>
-                </View>
+                <Pressable onPress={() => setAmount('$' + me.balance)} style={styles.balance}>
+                    <Text style={styles.balanceText}>
+                        $ {me.balance}
+                    </Text>
+                </Pressable>
             ),
         });
     }, []);
@@ -62,11 +60,8 @@ export default function WithdrawScreen() {
     // Always keep the $ before the amount (step 1)
     const handleAmountChange = (text) => {
         const inputText = text.replace(/^\$/, '');
-        // Max amount must not exeed the me.balance
         if (parseFloat(inputText) > parseFloat(me.balance)) { return }
-
         if (inputText.length > 5) { return }
-
         if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
             setAmount('$' + inputText);
             const numericValue = parseFloat(inputText);
@@ -76,10 +71,7 @@ export default function WithdrawScreen() {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={[globalStyles.container, { justifyContent: 'flex-start' }]}
-            >
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
                 {
                     step === 1 && (
                         <>
@@ -96,11 +88,11 @@ export default function WithdrawScreen() {
                                 />
                                 {/** A Tag Selector of $5, $10, $50, $100 etc */}
                             </View>
+
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
                         </>
                     )
                 }
-
                 {
                     step === 2 && (
                         <>
