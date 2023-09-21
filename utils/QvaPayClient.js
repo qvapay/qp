@@ -6,7 +6,6 @@ const version = DeviceInfo.getVersion();
 const buildNumber = DeviceInfo.getBuildNumber();
 const deviceName = DeviceInfo.getDeviceName();
 
-
 // QvaPay SDK from https://documenter.getpostman.com/view/8765260/TzzHnDGw
 // Create the Axios Client
 const qvaPayClient = axios.create({
@@ -383,7 +382,7 @@ const verifyOTP = async ({ navigation, phone, code }) => {
 };
 
 // Profile upload picture
-const uploadProfilePicture = async ({ navigation, imageUri }) => {
+const uploadProfilePicture = async ({ imageUri }) => {
 
     const formData = new FormData();
 
@@ -392,11 +391,7 @@ const uploadProfilePicture = async ({ navigation, imageUri }) => {
     let match = /\.(\w+)$/.exec(fileName);
     let type = match ? `image/${match[1]}` : `image`;
 
-    formData.append('avatar', {
-        uri: imageUri,
-        type: type,
-        name: fileName,
-    });
+    formData.append('avatar', { uri: imageUri, type: type, name: fileName });
 
     try {
         const accessToken = await EncryptedStorage.getItem("accessToken")
@@ -412,6 +407,33 @@ const uploadProfilePicture = async ({ navigation, imageUri }) => {
         return [];
     }
 };
+
+const uploadKYCItem = async ({ imageUri, documentType }) => {
+
+    const formData = new FormData();
+
+    // Convertir la imagen en un blob/binary data
+    let fileName = imageUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(fileName);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    formData.append('picture_type', documentType || 'document')
+    formData.append('image', { uri: imageUri, type: type, name: fileName });
+
+    try {
+        const accessToken = await EncryptedStorage.getItem("accessToken")
+        const url = `/user/kyc/upload`
+        const headers = {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        }
+        const response = await qvaPayClient.post(url, formData, { headers });
+        return response;
+    } catch (error) {
+        console.error('Error uploading profile picture:', error);
+        return [];
+    }
+}
 
 export {
     qvaPayClient,
@@ -438,5 +460,6 @@ export {
     getMyPurchases,
     sendOTP,
     verifyOTP,
-    uploadProfilePicture
+    uploadProfilePicture,
+    uploadKYCItem
 };

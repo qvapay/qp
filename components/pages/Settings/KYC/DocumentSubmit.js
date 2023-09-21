@@ -1,17 +1,23 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import React, { useEffect, useState, useContext, useRef } from 'react'
+import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import { request, PERMISSIONS } from 'react-native-permissions'
-import { AppContext } from '../../../../AppContext'
 import { globalStyles, textStyles } from '../../../ui/Theme'
 import { useNavigation } from '@react-navigation/native'
 import QPButton from '../../../ui/QPButton'
+import { uploadKYCItem } from '../../../../utils/QvaPayClient';
+import Toast from 'react-native-toast-message';
 
 const { width } = Dimensions.get('window')
 
 export default function DocumentSubmit() {
 
+  const cameraRef = useRef(null);
   const navigation = useNavigation()
+
+  const [img, setImg] = useState(null);
+  const [takingPic, setTakingPic] = useState(false)
+  const [uploadingDocument, setUploadingDocument] = useState(false);
   const [permissionResult, setPermissionResult] = useState(null)
 
   // request permission with a useEffect
@@ -26,11 +32,57 @@ export default function DocumentSubmit() {
   }, []);
 
   // handle the Scan button
-  const handleScan = () => {
-    // Try to send the image to the server API
-    // Awaits for the response
-    // If the response is OK, then navigate to the next screen
-    // If the response is not OK, then show an error message
+  const handleScan = async () => {
+    if (cameraRef && permissionResult === 'granted' && !takingPic) {
+
+      try {
+
+        setTakingPic(true);
+
+        const options = { quality: 0.8, exif: true, writeExif: true };
+        const data = await cameraRef.current.takePictureAsync(options);
+        setImg(data.uri);
+        console.log(data.uri);
+
+        try {
+
+          // Now send the image to the server
+          if (data.uri) {
+
+            setUploadingDocument(true);
+
+            uploadKYCItem({ imageUri: data.uri }).then((result) => {
+              if (result && result.status === 201) {
+                Toast.show({
+                  type: 'success',
+                  text1: 'Foto de documents enviado correctamente',
+                  position: 'bottom',
+                  bottomOffset: 10,
+                });
+              } else {
+                console.log('Error al actualizar la foto de perfil');
+              }
+            }).catch((error) => {
+              console.error(`Error in Update: ${error}`);
+            }).finally(() => {
+              setUploadingDocument(false);
+            });
+          }
+
+        } catch (error) {
+          Alert.alert('Error', 'Sending: ' + (error.message || error));
+        }
+
+      } catch (error) {
+        Alert.alert('Error', 'Failed to take picture: ' + (error.message || error));
+        return;
+      } finally {
+        setTakingPic(false);
+      }
+
+    } else {
+      console.log("No se ha autorizado la camara")
+    }
   }
 
   return (
@@ -43,7 +95,7 @@ export default function DocumentSubmit() {
         {
           permissionResult === 'granted' ? (
             <View style={styles.cameraContainer}>
-              <RNCamera style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.back} captureAudio={false} />
+              <RNCamera ref={cameraRef} style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.back} captureAudio={false} />
 
               <View style={styles.maskOverlay}>
                 <View style={styles.maskCutout}>

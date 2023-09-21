@@ -3,15 +3,15 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, Image, Toucha
 import { globalStyles, textStyles } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { AppContext } from '../../../AppContext';
-import { updateUserData } from '../../../utils/QvaPayClient'
 import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
+import { updateUserData } from '../../../utils/QvaPayClient'
 import QPInput from '../../ui/QPInput';
-import { launchImageLibrary } from 'react-native-image-picker';
-import { uploadProfilePicture } from '../../../utils/QvaPayClient';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LottieView from "lottie-react-native";
+import Toast from 'react-native-toast-message';
+import { launchImageLibrary } from 'react-native-image-picker';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { uploadProfilePicture } from '../../../utils/QvaPayClient';
 
 export default function UserdataScreen() {
 
@@ -65,7 +65,7 @@ export default function UserdataScreen() {
             } else {
                 setUploadingAvatar(true);
                 const source = { uri: response.assets[0].uri };
-                uploadProfilePicture({ imageUri: source.uri, navigation }).then((result) => {
+                uploadProfilePicture({ imageUri: source.uri }).then((result) => {
                     if (result && result.status === 201) {
                         Toast.show({
                             type: 'success',
@@ -73,7 +73,7 @@ export default function UserdataScreen() {
                             position: 'bottom',
                             bottomOffset: 10,
                         });
-                        // Update teh new profile picture in the context
+                        // Update the new profile picture in the context
                         me.profile_photo_url = "https://media.qvapay.com/" + result.data.path;
                     } else {
                         setError('Error al actualizar la foto de perfil');
