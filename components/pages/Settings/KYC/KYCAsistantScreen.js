@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles, textStyles } from '../../../ui/Theme'
 import QPButton from '../../../ui/QPButton';
@@ -6,6 +6,7 @@ import QPTabButton from '../../../ui/QPTabButton';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
 import { AppContext } from '../../../../AppContext';
+import { apiRequest } from '../../../../utils/QvaPayClient';
 
 export default function KYCAsistantScreen() {
 
@@ -15,13 +16,54 @@ export default function KYCAsistantScreen() {
     const { me } = useContext(AppContext);
     const [verified, setVerified] = useState(me.kyc);
 
-    const [documentImage, setDocumentImage] = useState(null);
     const [selfieImage, setSelfieImage] = useState(null);
+    const [documentImage, setDocumentImage] = useState(null);
     const [documentOwner, setDocumentOwner] = useState(null);
 
-    const [documentImageStatus, setDocumentImageStatus] = useState(false);
     const [selfieImageStatus, setSelfieImageStatus] = useState(false);
+    const [documentImageStatus, setDocumentImageStatus] = useState(false);
     const [documentOwnerStatus, setDocumentOwnerStatus] = useState(false);
+
+    // useEffct for check the verification Status
+    useEffect(() => {
+        get_kyc_status();
+    }, []);
+
+    const get_kyc_status = async () => {
+        try {
+            const url = `/user/kyc`
+            const response = await apiRequest(url, { method: 'GET' }, navigation);
+
+            // Check if isset "document" property and is not ""
+            if (response.document_url && response.document_url !== "") {
+                setDocumentImageStatus(true);
+            }
+
+            // Check if isset "selfie" property and is not ""
+            if (response.selfie_url && response.selfie_url !== "") {
+                setSelfieImageStatus(true);
+            }
+
+            // Check if isset "check" property and is not ""
+            if (response.check_url && response.check_url !== "") {
+                setDocumentOwnerStatus(true);
+            }
+
+            // Check if isset "result" property and is not ""
+            if (response.result && response.result !== "") {
+                if (response.result === "passed") {
+                    setVerified(true);
+                } else {
+                    setVerified(false);
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            console.log('Finally');
+        }
+    }
 
     // Handle press for each tab
     const handleDocumentImagePress = () => {
@@ -59,7 +101,7 @@ export default function KYCAsistantScreen() {
                 ) : (
                     <>
                         <Text style={textStyles.h1}>Verificar cuenta:</Text>
-                        <Text style={textStyles.h6}>Con tu cuenta de QvaPay verificada, podrás acceder a mejoras y nuevas funcionalidades para crecer las posibilidades de tus financzas.</Text>
+                        <Text style={textStyles.h6}>Con tu cuenta de QvaPay verificada, podrás acceder a mejoras y nuevas funcionalidades para crecer las posibilidades de tus finanzas.</Text>
 
                         <View style={styles.stepsContainer}>
 

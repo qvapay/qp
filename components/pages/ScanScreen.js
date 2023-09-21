@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native'
-
 import { RNCamera } from 'react-native-camera';
 import { globalStyles, theme } from '../ui/Theme';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     cameraContainer: {
         width: 280,
         height: 280,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 10,
         overflow: 'hidden',
         alignSelf: 'center',

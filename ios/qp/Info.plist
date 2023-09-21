@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>es</string>
+	<key>CFBundleDisplayName</key>
+	<string>QvaPay</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>es</string>
-		<key>CFBundleDisplayName</key>
-		<string>QvaPay</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>$(PRODUCT_NAME)</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(MARKETING_VERSION)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(CURRENT_PROJECT_VERSION)</string>
-		<key>LSRequiresIPhoneOS</key>
-		<true/>
-		<key>NSAppTransportSecurity</key>
-		<dict>
-			<key>NSExceptionDomains</key>
-			<dict/>
-		</dict>
-		<key>NSCameraUsageDescription</key>
-		<string>Necesitamos acceso a la cámara para poder escanear correctamente el QR de pagos o fotos de perfil</string>
-		<key>NSFaceIDUsageDescription</key>
-		<string>QvaPay requires FaceID access to allows you quick and secure access.</string>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>QvaPay could suggest you the best business around to pay with your balance.</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>QvaPay would like access to your photo gallery for the propfile picture upload</string>
-		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>QvaPay would like to save photos to your photo gallery</string>
-		<key>UIAppFonts</key>
-		<array>
-			<string>FontAwesome.ttf</string>
-			<string>FontAwesome5_Brands.ttf</string>
-			<string>FontAwesome5_Regular.ttf</string>
-			<string>FontAwesome5_Solid.ttf</string>
-			<string>Rubik-Black.ttf</string>
-			<string>Rubik-BlackItalic.ttf</string>
-			<string>Rubik-Bold.ttf</string>
-			<string>Rubik-BoldItalic.ttf</string>
-			<string>Rubik-ExtraBold.ttf</string>
-			<string>Rubik-ExtraBoldItalic.ttf</string>
-			<string>Rubik-Italic.ttf</string>
-			<string>Rubik-Light.ttf</string>
-			<string>Rubik-LightItalic.ttf</string>
-			<string>Rubik-Medium.ttf</string>
-			<string>Rubik-MediumItalic.ttf</string>
-			<string>Rubik-Regular.ttf</string>
-			<string>Rubik-SemiBold.ttf</string>
-			<string>Rubik-SemiBoldItalic.ttf</string>
-		</array>
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>remote-notification</string>
-		</array>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIRequiredDeviceCapabilities</key>
-		<array>
-			<string>armv7</string>
-		</array>
-		<key>UIStatusBarHidden</key>
-		<true/>
-		<key>UIStatusBarStyle</key>
-		<string>UIStatusBarStyleDarkContent</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~iphone</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
+		<key>NSExceptionDomains</key>
+		<dict/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Necesitamos acceso a la cámara para poder escanear correctamente el QR de pagos o fotos de perfil</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>QvaPay requires FaceID access to allows you quick and secure access.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>QvaPay could suggest you the best business around to pay with your balance.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>QvaPay would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>QvaPay would like access to your photo gallery for the propfile picture upload</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Rubik-Black.ttf</string>
+		<string>Rubik-BlackItalic.ttf</string>
+		<string>Rubik-Bold.ttf</string>
+		<string>Rubik-BoldItalic.ttf</string>
+		<string>Rubik-ExtraBold.ttf</string>
+		<string>Rubik-ExtraBoldItalic.ttf</string>
+		<string>Rubik-Italic.ttf</string>
+		<string>Rubik-Light.ttf</string>
+		<string>Rubik-LightItalic.ttf</string>
+		<string>Rubik-Medium.ttf</string>
+		<string>Rubik-MediumItalic.ttf</string>
+		<string>Rubik-Regular.ttf</string>
+		<string>Rubik-SemiBold.ttf</string>
+		<string>Rubik-SemiBoldItalic.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen.storyboard</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~iphone</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
 </plist>

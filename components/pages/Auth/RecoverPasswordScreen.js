@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles, theme, textStyles } from '../../ui/Theme';
 import Loader from '../../ui/Loader';
@@ -11,34 +11,44 @@ import LottieView from "lottie-react-native";
 export default function RecoverPasswordScreen() {
 
     const navigation = useNavigation();
-    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
-    const [errortext, setErrortext] = useState('');
+    const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [errortext, setErrortext] = useState('');
 
     // Handle Recover Password
     const handleRecoverPassword = async () => {
 
         setErrortext('');
+
+        // Check for empty fields
         if (!email) {
             alert('Por favor, ingrese su correo, username o teléfono');
+            return;
+        }
+
+        // Check for a valid email
+        const emailRegex = /\S+@\S+\.\S+/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, ingrese un correo válido');
             return;
         }
 
         setLoading(true);
 
         try {
-            // Send the email to the server
-            const response = await qvaPayClient.post("/auth/recover", { email, password });
+            const response = await qvaPayClient.post("/auth/recover", { email });
             if (response.data && response.status === 201) {
                 setSuccess(true);
-                setLoading(false);
                 return response.data;
             } else {
                 throw new Error("No se pudo iniciar sesión correctamente");
             }
         } catch (error) {
+            console.error(error);
             Sentry.captureException(error);
+        } finally {
+            setLoading(false);
         }
 
     };
@@ -52,7 +62,7 @@ export default function RecoverPasswordScreen() {
                 success ? (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={[textStyles.h1, { textAlign: 'center' }]}>¡Listo!</Text>
-                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Te hemos enviado un correo con las instrucciones para recuperar tu contraseña.</Text>
+                        <Text style={[textStyles.h3, { textAlign: 'center', paddingHorizontal: 10 }]}>Te hemos enviado un correo con las instrucciones para recuperar tu contraseña.</Text>
                     </View>
                 ) : (
                     <>
@@ -61,7 +71,7 @@ export default function RecoverPasswordScreen() {
                             <View style={{ marginHorizontal: 40 }}>
                                 <LottieView source={require('../../../assets/lotties/forgot.json')} autoPlay loop style={styles.lottie} />
                             </View>
-                            
+
                             <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Recuperar contraseña:</Text>
                             </View>
@@ -79,11 +89,13 @@ export default function RecoverPasswordScreen() {
 
                                 <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
 
-                                {errortext != '' ? (
-                                    <Text style={styles.errorTextStyle}>
-                                        {errortext}
-                                    </Text>
-                                ) : null}
+                                {
+                                    errortext != '' ? (
+                                        <Text style={styles.errorTextStyle}>
+                                            {errortext}
+                                        </Text>
+                                    ) : null
+                                }
 
                                 <QPButton title="Enviar código de recuperación" onPress={handleRecoverPassword} />
 

@@ -65,15 +65,10 @@ export default function MainStack() {
                 headerRight: () => (
                     me.name && me.username ? (
                         <Pressable
-                            onPress={
-                                () => navigation.navigate("SettingsStack")
-                            }
                             style={styles.headerRight}
-                            onLongPress={
-                                () => navigation.navigate('SettingsStack', {
-                                    screen: 'UserdataScreen'
-                                })
-                            }>
+                            onPress={() => navigation.navigate("SettingsStack")}
+                            onLongPress={() => navigation.navigate('SettingsStack', { screen: 'UserdataScreen' })}
+                        >
                             <View style={styles.headerWelcome}>
                                 <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
                                 <Text style={styles.handleText}>@{`${me.username}`}</Text>
