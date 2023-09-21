@@ -6,7 +6,7 @@ import { theme } from '../../../ui/Theme';
 import KYCAsistantScreen from './KYCAsistantScreen';
 import DocumentSubmit from './DocumentSubmit';
 import SelfieSubmit from './SelfieSubmit';
-import OwnerSubmit from './OwnerSubmit';
+import CheckSubmit from './CheckSubmit';
 
 import { HeaderBackButton } from '@react-navigation/elements';
 const Stack = createNativeStackNavigator();
@@ -60,8 +60,8 @@ export default function KYCStack() {
             />
 
             <Stack.Screen
-                name="OwnerSubmit"
-                component={OwnerSubmit}
+                name="CheckSubmit"
+                component={CheckSubmit}
                 options={{
                     headerLeft: null,
                 }}

@@ -67,9 +67,9 @@ export default function KYCAsistantScreen() {
 
     // Check if this is already verified and if not, navigate to the verification screen
     const handleDocumentImagePress = () => {
-        //if (!documentImageStatus) {
+        if (!documentImageStatus) {
             navigation.navigate('DocumentSubmit');
-        //}
+        }
     }
 
     // Check if this is already verified and if not, navigate to the verification screen
@@ -82,7 +82,7 @@ export default function KYCAsistantScreen() {
     // Check if this is already verified and if not, navigate to the verification screen
     const handleDocumentOwnerPress = () => {
         if (!documentOwnerStatus) {
-            navigation.navigate('OwnerSubmit');
+            navigation.navigate('CheckSubmit');
         }
     }
 

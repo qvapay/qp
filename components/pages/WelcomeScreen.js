@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import React, { useEffect, useContext, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles, textStyles, theme } from '../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
 import QPButton from '../ui/QPButton';

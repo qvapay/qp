@@ -10,9 +10,9 @@ import { uploadKYCItem } from '../../../../utils/QvaPayClient'
 
 const { width } = Dimensions.get('window')
 
-export default function DocumentSubmit() {
+export default function CheckSubmit() {
 
-    const cameraRef = useRef(null);
+    const cameraRef = useRef(null)
     const navigation = useNavigation()
     const [img, setImg] = useState(null)
     const [takingPic, setTakingPic] = useState(false)
@@ -43,16 +43,16 @@ export default function DocumentSubmit() {
                 try {
                     if (data.uri) {
                         setUploadingDocument(true);
-                        uploadKYCItem({ imageUri: data.uri, documentType: 'selfie' }).then((result) => {
+                        uploadKYCItem({ imageUri: data.uri, documentType: 'check' }).then((result) => {
                             if (result && result.status === 201) {
                                 Toast.show({
                                     type: 'success',
-                                    text1: 'Selfie enviada correctamente',
+                                    text1: 'Foto de documents enviado correctamente',
                                     position: 'bottom',
                                     bottomOffset: 10,
                                 });
                             } else {
-                                console.log('Error al enviar la selfie');
+                                console.log('Error al actualizar la foto del documento');
                             }
                         }).catch((error) => {
                             console.error(`Error in Update: ${error}`);
@@ -83,12 +83,12 @@ export default function DocumentSubmit() {
             {
                 uploadingDocument ? (
                     <>
-                        <Text style={textStyles.h2}>Subiendo foto de documento...</Text>
+                        <Text style={textStyles.h1}>Enviando...</Text>
                     </>
                 ) : (
                     <>
-                        <Text style={textStyles.h1}>Hazte una Selfie:</Text>
-                        <Text style={textStyles.h6}>Necesitamos verificar que su cara corresponde al documento de identidad proporcionado.</Text>
+                        <Text style={textStyles.h1}>¿Eres tú?</Text>
+                        <Text style={textStyles.h6}>Ahora solo debes enviar una foto tuya sosteniendo el documento seleccionado.</Text>
 
                         <View style={{ flex: 1, marginTop: 20 }}>
 
@@ -98,8 +98,7 @@ export default function DocumentSubmit() {
                                         <RNCamera
                                             ref={cameraRef}
                                             style={{ height: '100%', width: '100%' }}
-                                            type={RNCamera.Constants.Type.front}
-                                            captureAudio={false}
+                                            type={RNCamera.Constants.Type.back} captureAudio={false}
                                         />
                                     </View>
                                 ) : (
@@ -113,47 +112,19 @@ export default function DocumentSubmit() {
                     </>
                 )
             }
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     cameraContainer: {
-        width: width - 100,
-        height: 400,
+        width: width - 30,
+        height: '100%',
         borderWidth: 2,
-        borderRadius: 200,
+        borderRadius: 10,
         overflow: 'hidden',
-        borderColor: 'white',
         alignSelf: 'center',
-    },
-    maskOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Color de fondo semi-transparente
-    },
-    maskCutout: {
-        margin: 10,
-        height: 240,
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 10,
-        alignItems: 'flex-start',
-        borderColor: '#FFFFFF60',
-        justifyContent: 'flex-start',
-        backgroundColor: 'transparent',
-    },
-    idPhotoBox: {
-        width: 100,
-        height: 100,
-        borderWidth: 1,
-        marginRight: 10,
-        borderRadius: 10,
-        borderColor: '#FFFFFF60',
-        backgroundColor: '#FFFFFF20',
-        marginBottom: 10,
+        borderColor: 'white',
     },
 })

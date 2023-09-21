@@ -1,24 +1,23 @@
-import React, { useEffect, useState, useContext, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native'
-import { RNCamera } from 'react-native-camera'
-import { request, PERMISSIONS } from 'react-native-permissions'
-import { globalStyles, textStyles } from '../../../ui/Theme'
-import { useNavigation } from '@react-navigation/native'
 import QPButton from '../../../ui/QPButton'
-import { uploadKYCItem } from '../../../../utils/QvaPayClient';
-import Toast from 'react-native-toast-message';
+import { RNCamera } from 'react-native-camera'
+import Toast from 'react-native-toast-message'
+import { useNavigation } from '@react-navigation/native'
+import { globalStyles, textStyles } from '../../../ui/Theme'
+import { request, PERMISSIONS } from 'react-native-permissions'
+import { uploadKYCItem } from '../../../../utils/QvaPayClient'
 
 const { width } = Dimensions.get('window')
 
 export default function DocumentSubmit() {
 
-  const cameraRef = useRef(null);
+  const cameraRef = useRef(null)
   const navigation = useNavigation()
-
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState(null)
   const [takingPic, setTakingPic] = useState(false)
-  const [uploadingDocument, setUploadingDocument] = useState(false);
   const [permissionResult, setPermissionResult] = useState(null)
+  const [uploadingDocument, setUploadingDocument] = useState(false)
 
   // request permission with a useEffect
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function DocumentSubmit() {
         setPermissionResult(result)
       })
       .catch((error) => {
-        console.log("No se ha autorizado la camara")
+        console.log("No se ha autorizado la camara" + error)
       })
   }, []);
 
@@ -44,7 +43,7 @@ export default function DocumentSubmit() {
         try {
           if (data.uri) {
             setUploadingDocument(true);
-            uploadKYCItem({ imageUri: data.uri }).then((result) => {
+            uploadKYCItem({ imageUri: data.uri, documentType: 'document' }).then((result) => {
               if (result && result.status === 201) {
                 Toast.show({
                   type: 'success',
@@ -53,7 +52,7 @@ export default function DocumentSubmit() {
                   bottomOffset: 10,
                 });
               } else {
-                console.log('Error al actualizar la foto de perfil');
+                console.log('Error al actualizar la foto del documento');
               }
             }).catch((error) => {
               console.error(`Error in Update: ${error}`);
@@ -95,8 +94,11 @@ export default function DocumentSubmit() {
               {
                 permissionResult === 'granted' ? (
                   <View style={styles.cameraContainer}>
-                    <RNCamera ref={cameraRef} style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.back} captureAudio={false} />
-
+                    <RNCamera
+                      ref={cameraRef}
+                      style={{ height: '100%', width: '100%' }}
+                      type={RNCamera.Constants.Type.back} captureAudio={false}
+                    />
                     <View style={styles.maskOverlay}>
                       <View style={styles.maskCutout}>
                         <View style={styles.idPhotoBox}></View>
@@ -105,7 +107,6 @@ export default function DocumentSubmit() {
                         <View style={styles.idLine3}></View>
                       </View>
                     </View>
-
                   </View>
                 ) : (
                   <Text style={textStyles.h2}>Permiso de cámara no otorgado</Text>
@@ -113,10 +114,11 @@ export default function DocumentSubmit() {
               }
 
             </View>
+
+            <QPButton title="Escanear" onPress={handleScan} />
           </>
         )
       }
-      <QPButton title="Escanear" onPress={handleScan} />
     </View>
   )
 }
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Color de fondo semi-transparente
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   maskCutout: {
     margin: 10,

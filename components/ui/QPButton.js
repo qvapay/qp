@@ -8,7 +8,6 @@ export default function QPButton({ danger, disabled, title, onPress, style }) {
     const gradientColors = danger ? [theme.darkColors.danger, '#C82030'] : [theme.darkColors.primary, '#6153E0'];
 
     const handlePress = () => {
-        console.log("clic")
         if (disabled) return;
         onPress && onPress();
     };
