@@ -65,27 +65,23 @@ export default function KYCAsistantScreen() {
         }
     }
 
-    // Handle press for each tab
+    // Check if this is already verified and if not, navigate to the verification screen
     const handleDocumentImagePress = () => {
-        // Check if this is already verified and if not, navigate to the verification screen
-        if (!documentImageStatus) {
-            // Navigate to the verification screen
+        //if (!documentImageStatus) {
             navigation.navigate('DocumentSubmit');
-        }
+        //}
     }
 
+    // Check if this is already verified and if not, navigate to the verification screen
     const handleSelfieImagePress = () => {
-        // Check if this is already verified and if not, navigate to the verification screen
         if (!selfieImageStatus) {
-            // Navigate to the verification screen
             navigation.navigate('SelfieSubmit');
         }
     }
 
+    // Check if this is already verified and if not, navigate to the verification screen
     const handleDocumentOwnerPress = () => {
-        // Check if this is already verified and if not, navigate to the verification screen
         if (!documentOwnerStatus) {
-            // Navigate to the verification screen
             navigation.navigate('OwnerSubmit');
         }
     }

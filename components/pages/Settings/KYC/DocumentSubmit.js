@@ -34,23 +34,16 @@ export default function DocumentSubmit() {
   // handle the Scan button
   const handleScan = async () => {
     if (cameraRef && permissionResult === 'granted' && !takingPic) {
-
       try {
-
         setTakingPic(true);
-
         const options = { quality: 0.8, exif: true, writeExif: true };
         const data = await cameraRef.current.takePictureAsync(options);
         setImg(data.uri);
         console.log(data.uri);
 
         try {
-
-          // Now send the image to the server
           if (data.uri) {
-
             setUploadingDocument(true);
-
             uploadKYCItem({ imageUri: data.uri }).then((result) => {
               if (result && result.status === 201) {
                 Toast.show({
@@ -87,33 +80,42 @@ export default function DocumentSubmit() {
 
   return (
     <View style={globalStyles.container}>
-      <Text style={textStyles.h1}>Escanea tu ID:</Text>
-      <Text style={textStyles.h6}>Necesitamos un documento oficial con foto y datos de identidad personal para validar su usuario.</Text>
+      {
+        uploadingDocument ? (
+          <>
+            <Text style={textStyles.h1}>Enviando...</Text>
+          </>
+        ) : (
+          <>
+            <Text style={textStyles.h1}>Escanea tu ID:</Text>
+            <Text style={textStyles.h6}>Necesitamos un documento oficial con foto y datos de identidad personal para validar su usuario.</Text>
 
-      <View style={{ flex: 1, marginTop: 20 }}>
+            <View style={{ flex: 1, marginTop: 20 }}>
 
-        {
-          permissionResult === 'granted' ? (
-            <View style={styles.cameraContainer}>
-              <RNCamera ref={cameraRef} style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.back} captureAudio={false} />
+              {
+                permissionResult === 'granted' ? (
+                  <View style={styles.cameraContainer}>
+                    <RNCamera ref={cameraRef} style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.back} captureAudio={false} />
 
-              <View style={styles.maskOverlay}>
-                <View style={styles.maskCutout}>
-                  <View style={styles.idPhotoBox}></View>
-                  <View style={styles.idLine1}></View>
-                  <View style={styles.idLine2}></View>
-                  <View style={styles.idLine3}></View>
-                </View>
-              </View>
+                    <View style={styles.maskOverlay}>
+                      <View style={styles.maskCutout}>
+                        <View style={styles.idPhotoBox}></View>
+                        <View style={styles.idLine1}></View>
+                        <View style={styles.idLine2}></View>
+                        <View style={styles.idLine3}></View>
+                      </View>
+                    </View>
+
+                  </View>
+                ) : (
+                  <Text style={textStyles.h2}>Permiso de cámara no otorgado</Text>
+                )
+              }
 
             </View>
-          ) : (
-            <Text style={textStyles.h2}>Permiso de cámara no otorgado</Text>
-          )
-        }
-
-      </View>
-
+          </>
+        )
+      }
       <QPButton title="Escanear" onPress={handleScan} />
     </View>
   )

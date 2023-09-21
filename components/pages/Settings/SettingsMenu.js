@@ -211,12 +211,14 @@ const SettingsMenu = () => {
 
             {/* GoldenCheck Card */}
             <Pressable
-                style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center' }]}
+                style={[styles.box, { flexDirection: 'row', alignContent: 'center', alignItems: 'center', overflow: 'hidden' }]}
                 onPress={() => navigation.navigate('GoldCheck')}
             >
-
-                <View style={{ marginRight: 20 }}>
-                    <Image source={require('../../../assets/images/gold-badge.png')} style={{ width: 28, height: 28 }} />
+                <View style={{ marginRight: 100 }}>
+                    <Image
+                        source={require('../../../assets/images/gold-badge.png')}
+                        style={{ width: 140, height: 140, position: 'absolute', top: -55, left: -50 }}
+                    />
                 </View>
                 <View>
                     <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>GOLD CHECK</Text>
