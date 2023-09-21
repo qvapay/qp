@@ -54,6 +54,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.goBack();
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}

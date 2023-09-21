@@ -107,11 +107,20 @@ export default function KYCAsistantScreen() {
 
                         </View>
 
-                        <QPButton title="Siguiente" onPress={() => { }} disabled={true} />
+                        {
+                            // If all steps are completed, show a warning dialog to the user for working on it
+                            documentImageStatus && selfieImageStatus && documentOwnerStatus ? (
+                                <View style={{ justifyContent: 'center', paddingVertical: 10 }}>
+                                    <Text style={styles.whyTextStyle} >¡Ya casi terminas!</Text>
+                                    <Text style={styles.whyTextStyle} >Estamos revisando los documentos enviados, le notificaremos en breve su estado de verificación.</Text>
+                                </View>
+                            ) : (
+                                <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10 }}>
+                                    <Text style={styles.whyTextStyle} onPress={() => { }}>¿Por qué esto es necesario?</Text>
+                                </View>
+                            )
+                        }
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={styles.whyTextStyle} onPress={() => { }}>¿Por qué esto es necesario?</Text>
-                        </View>
                     </>
                 )
             }
@@ -127,7 +136,6 @@ const styles = StyleSheet.create({
     whyTextStyle: {
         fontSize: 14,
         color: 'white',
-        paddingVertical: 10,
         alignSelf: 'center',
         textAlign: 'center',
         fontFamily: "Rubik-Regular",

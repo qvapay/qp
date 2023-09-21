@@ -33,6 +33,7 @@ export default function KYCStack() {
                         onPress={() => {
                             navigation.goBack();
                         }}
+                        style={{ marginLeft: 0 }}
                     />
                 ),
             }}
