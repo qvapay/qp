@@ -44,9 +44,12 @@ export default function P2pScreen({ navigation }) {
     );
 
     return (
-        <View style={[globalStyles.container]}>
-            <OffersFilter isSellEnabled={isSellEnabled} onToggle={(value) => setIsSellEnabled(value)} />
-            <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} navigation={navigation} />
+        // <View style={[globalStyles.container]}>
+        //     <OffersFilter isSellEnabled={isSellEnabled} onToggle={(value) => setIsSellEnabled(value)} />
+        //     <IndexP2p offers={(isSellEnabled ? selloffers : buyoffers)} navigation={navigation} />
+        // </View>
+        <View style={[globalStyles.container, { alignItems: 'center' }]}>
+            <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
         </View>
     )
 }

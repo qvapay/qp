@@ -4,7 +4,6 @@ import CreateP2p from './CreateP2p';
 import { theme } from '../../ui/Theme';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Stack Navigation
 const Stack = createNativeStackNavigator();
 
 export default function PeerToPeerStack() {

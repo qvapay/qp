@@ -7,8 +7,8 @@ export default function TransferPinScreen() {
     // Get the PIN from EncryptedStorage
 
     return (
-        <View style={globalStyles.container}>
-            <Text>TransferPinScreen</Text>
+        <View style={[globalStyles.container, { alignItems: 'center' }]}>
+            <Text style={globalStyles.title}>Coming Soon... ⚡️</Text>
         </View>
     )
 }
