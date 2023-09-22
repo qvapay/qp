@@ -76,7 +76,6 @@ export default function KeypadScreen({ navigation }) {
     // Send Amount to SendScreen
     const sendAmount = () => {
         if (amount > 0) {
-            // Dont allow more than me.balance value
             if (amount > me.balance) {
                 Alert.alert('Error', 'El monto no puede ser mayor a tu balance');
                 return;

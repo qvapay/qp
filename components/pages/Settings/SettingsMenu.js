@@ -125,6 +125,12 @@ const SettingsMenu = () => {
                     notifications: 0,
                 },
                 {
+                    title: 'PIN de seguridad',
+                    screen: 'TransferPinScreen',
+                    enabled: true,
+                    notifications: 0,
+                },
+                {
                     title: 'Verificación de identidad',
                     screen: 'KYCStack',
                     enabled: true,

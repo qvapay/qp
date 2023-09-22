@@ -6,7 +6,7 @@ import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUser } from '../../../utils/QvaPayClient';
-import { theme } from '../../ui/Theme';
+import { globalStyles, theme } from '../../ui/Theme';
 
 export default function SendScreen({ route, navigation }) {
 
@@ -51,39 +51,37 @@ export default function SendScreen({ route, navigation }) {
         return regex.test(text);
     };
 
+    // validar que sea un username con @ delante
+    const isUsername = (text) => {
+        const regex = /^@([A-Za-z0-9_]{1,15})$/;
+        return regex.test(text);
+    };
+
     // Go to ConfirmSendScreen
-    const handleSendMoney = async ({ uuid = '' }) => {
+    const handleSendMoney = async ({ uuid = '' } = {}) => {
 
         let destination = '';
 
-        if (isEmail(text) || isPhoneNumber(text) || (text !== '' && text.trim().length >= 3)) {
+        if (isEmail(text) || isPhoneNumber(text) || isUsername(text) || (text !== '' && text.trim().length >= 3)) {
+            console.log(text)
             destination = text;
         } else if (uuid !== '') {
             destination = contacts.find((contact) => contact.uuid === uuid);
         } else {
-            Alert.alert(
-                'Error',
-                'Por favor, seleccione un contacto o ingrese un correo electrónico, número de teléfono o nombre de usuario válido en el buscador.'
-            );
+            Alert.alert('Error', 'Por favor, seleccione un contacto o ingrese un correo electrónico, número de teléfono o nombre de usuario válido en el buscador.');
             return;
         }
 
         try {
-            const response = await checkUser({ to: destination, navigation });
+            const response = await checkUser({ to: destination, navigation })
             if (response.user) {
-                navigation.navigate('ConfirmSendScreen', { amount, destination });
+                navigation.navigate('ConfirmSendScreen', { amount, destination })
             } else {
-                Alert.alert(
-                    'Error',
-                    'El usuario no existe'
-                );
+                Alert.alert('Error', 'El usuario no existe')
             }
         } catch (error) {
             console.log(error);
-            Alert.alert(
-                'Error',
-                'El usuario no existe'
-            );
+            Alert.alert('Error', 'El usuario no existe')
             return;
         }
 
@@ -109,7 +107,7 @@ export default function SendScreen({ route, navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
 
             <View style={styles.sendingAmountContainer}>
                 <Text style={styles.sendingLabel}>Enviando...</Text>
@@ -148,12 +146,6 @@ export default function SendScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 10,
-        paddingHorizontal: 10,
-        backgroundColor: theme.darkColors.background,
-    },
     sendingAmountContainer: {
         flex: 1,
         alignItems: 'center',
@@ -170,7 +162,7 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
     },
     amount: {
-        fontSize: 30,
+        fontSize: 40,
         color: 'white',
         alignSelf: 'center',
         fontFamily: "Rubik-Black",

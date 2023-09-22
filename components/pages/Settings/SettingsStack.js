@@ -11,6 +11,7 @@ import SettingsMenu from './SettingsMenu';
 import SettingOption from './SettingOption';
 import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
+import TransferPinScreen from './TransferPinScreen';
 import NotificationScreen from './NotificationScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
@@ -237,6 +238,24 @@ export default function SettingsStack() {
             <Stack.Screen
                 name="FavoriteContactsScreen"
                 component={FavoriteContactsScreen}
+                options={{
+                    title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                            style={{ marginLeft: 0 }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="TransferPinScreen"
+                component={TransferPinScreen}
                 options={{
                     title: '',
                     animation: 'slide_from_right',

@@ -86,7 +86,6 @@ export default function ConfirmSendScreen({ route }) {
     // Confirm Send Money
     const handleConfirmSendMoney = async () => {
 
-        // Validate data
         if (!to || !amount || !comment) {
             return;
         }
@@ -96,28 +95,12 @@ export default function ConfirmSendScreen({ route }) {
         // Now send balance via transferBalance method and check response
         const response = await transferBalance({ to, amount, comment, navigation });
 
-        console.log(response)
-        console.log(response.status)
-
-        // If data status = paid and there is an uuid
         // Make a sound and change to payment completed animation
-        if (response.status === 201 && response.data.uuid) {
+        if (response && response.status && response.status === "paid" && response.uuid) {
             playDone();
             setPaymentCompleted(true);
         } else {
-            // If response.status is 422 theres no enough balance
-            if (response.status === 422) {
-                alert('No tienes saldo suficiente');
-            }
-            // If response.status is 404 theres no user with that email
-            if (response.status === 404) {
-                alert('No se encontró el usuario');
-            }
-            // If response.status is 400 theres no user with that email
-            if (response.status === 400) {
-                alert('No se encontró el usuario');
-            }
-            // Go to KeyPad Screen
+            setSendingPayment(false);
             navigation.navigate('KeypadScreen');
         }
     }
@@ -125,11 +108,7 @@ export default function ConfirmSendScreen({ route }) {
     return (
         <KeyboardAvoidingView style={styles.container} >
             {paymentCompleted ? (
-                <Pressable
-                    style={{ flex: 1 }}
-                    onPress={() => {
-                        navigation.navigate('HomeScreen');
-                    }}>
+                <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>
                     <CompletedPayment />
                 </Pressable>
             ) : (

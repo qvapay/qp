@@ -7,7 +7,6 @@ import { textStyles, theme } from '../ui/Theme';
 import { apiRequest } from '../../utils/QvaPayClient';
 import { useNavigation } from '@react-navigation/native';
 import ProfilePictureSection from '../ui/ProfilePictureSection';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
 export default function ProfileScreen({ route }) {
@@ -100,11 +99,6 @@ export default function ProfileScreen({ route }) {
                     </View>
                 </View>
 
-                <View style={styles.sharingContainer}>
-                    <FontAwesome5 name='info' size={30} color={theme.darkColors.primary} />
-                    <FontAwesome5 name='share-alt' size={30} color={theme.darkColors.primary} onPress={onShare} />
-                </View>
-
                 <View style={styles.qrSection}>
                     <QR qrData={qrData} />
                     {amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>}
@@ -141,6 +135,7 @@ const styles = StyleSheet.create({
     },
     qrSection: {
         flex: 1,
+        marginTop: 10,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'space-around',

@@ -1,41 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View, Text, Animated, Easing, StatusBar } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import LottieView from "lottie-react-native";
 
 export default function CompletedPayment() {
-
-    const [animation] = useState(new Animated.Value(0));
-
-    useEffect(() => {
-        Animated.timing(animation, {
-            toValue: 1,
-            duration: 800,
-            easing: Easing.out(Easing.back(1.7)),
-            useNativeDriver: true,
-        }).start();
-    }, [animation]);
-
-    const opacity = animation.interpolate({
-        inputRange: [0, 0.8, 1],
-        outputRange: [0, 0.8, 1],
-    });
-
-    const scale = animation.interpolate({
-        inputRange: [0, 0.5, 1],
-        outputRange: [0, 1.2, 1],
-    });
-
-    const rotate = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['-90deg', '0deg'],
-    });
 
     return (
         <View style={styles.container}>
             <StatusBar hidden={true} />
-            <Animated.View style={[styles.checkmarkContainer, { opacity, transform: [{ scale }, { rotate }] }]}>
-                <FontAwesome5 name="check" size={60} color="white" />
-            </Animated.View>
+            <LottieView source={require('../../../assets/lotties/completed.json')} autoPlay loop={false} style={styles.loadingAnimation} />
             <Text style={styles.text}>Pago completado</Text>
         </View>
     )
@@ -61,4 +33,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'Rubik-Regular',
     },
+    loadingAnimation: {
+        width: 450,
+        height: 450,
+    }
 });  
