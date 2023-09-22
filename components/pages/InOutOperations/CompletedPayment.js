@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, Animated, Easing, StatusBar } from 'react-native';
 import LottieView from "lottie-react-native";
+import { textStyles } from '../../ui/Theme';
 
 export default function CompletedPayment() {
 
@@ -8,7 +9,7 @@ export default function CompletedPayment() {
         <View style={styles.container}>
             <StatusBar hidden={true} />
             <LottieView source={require('../../../assets/lotties/completed.json')} autoPlay loop={false} style={styles.loadingAnimation} />
-            <Text style={styles.text}>Pago completado</Text>
+            <Text style={textStyles.h2}>Pago completado</Text>
         </View>
     )
 }
@@ -27,11 +28,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#4cd964',
         justifyContent: 'center',
-    },
-    text: {
-        fontSize: 24,
-        color: 'white',
-        fontFamily: 'Rubik-Regular',
     },
     loadingAnimation: {
         width: 450,

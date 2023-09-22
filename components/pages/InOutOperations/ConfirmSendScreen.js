@@ -1,63 +1,63 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView, Pressable } from 'react-native'
-import Sound from 'react-native-sound';
-import QPButton from '../../ui/QPButton';
-import SendingPayment from './SendingPayment';
-import CompletedPayment from './CompletedPayment';
-import CommentSticker from '../../ui/CommentSticker';
-import ProfilePictureSection from '../../ui/ProfilePictureSection';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { transferBalance, checkUser } from '../../../utils/QvaPayClient';
-import { useNavigation } from '@react-navigation/native';
-import { theme } from '../../ui/Theme';
+import { StyleSheet, View, KeyboardAvoidingView, Pressable, ActivityIndicator, Text } from 'react-native'
+import Sound from 'react-native-sound'
+import QPButton from '../../ui/QPButton'
+import SendingPayment from './SendingPayment'
+import CompletedPayment from './CompletedPayment'
+import CommentSticker from '../../ui/CommentSticker'
+import ProfilePictureSection from '../../ui/ProfilePictureSection'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
+import { useNavigation } from '@react-navigation/native'
+import { globalStyles, theme } from '../../ui/Theme'
 
-Sound.setCategory('Playback');
-const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE);
+Sound.setCategory('Playback')
+const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
 
 export default function ConfirmSendScreen({ route }) {
 
-    const navigation = useNavigation();
-    const [user, setUser] = useState({});
-    const { destination = '' } = route.params;
-    const [to] = useState(destination);
-    const [amount] = useState(route.params.amount);
-    const [comment, setComment] = useState('');
-    const [sendingPayment, setSendingPayment] = useState(false);
-    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const navigation = useNavigation()
+    const [user, setUser] = useState({})
+    const { destination = '' } = route.params
+    const [to] = useState(destination)
+    const [amount] = useState(route.params.amount)
+    const [comment, setComment] = useState('')
+    const [sendingPayment, setSendingPayment] = useState(false)
+    const [paymentCompleted, setPaymentCompleted] = useState(false)
 
     useEffect(() => {
-        navigation.setOptions({ title: `Enviando ${amount}` });
-    }, []);
+        navigation.setOptions({ title: `Enviando ${amount}` })
+    }, [])
 
     useEffect(() => {
-        ding.setVolume(1);
+        ding.setVolume(1)
         return () => {
-            ding.release();
-        };
-    }, []);
+            ding.release()
+        }
+    }, [])
 
     // Check for paymentCompleted with useEffect and hide topBar
     useEffect(() => {
         if (paymentCompleted) {
             navigation.setOptions({
                 headerShown: false,
-            });
+            })
         }
-    }, [paymentCompleted]);
+    }, [paymentCompleted])
 
     const playDone = () => {
-        ding.play();
-    };
+        ding.play()
+    }
 
     // useEffect to get the destination data and check against checkUser from QvaPayClient
     useEffect(() => {
         const fetchUser = async () => {
 
-            const response = await checkUser({ to, navigation });
-            setUser(response.user);
+            const response = await checkUser({ to, navigation })
+            setUser(response.user)
 
             // Sve this user to the contact list in AsyncStorage or update it by its uuid
-            const contacts = await AsyncStorage.getItem('contacts');
+            const contacts = await AsyncStorage.getItem('contacts')
 
             // toSave User schema
             const userToSave = {
@@ -65,55 +65,57 @@ export default function ConfirmSendScreen({ route }) {
                 name: response.user.name,
                 username: response.user.username,
                 source_uri: response.user.profile_photo_url,
-            };
+            }
 
             if (contacts) {
-                const contactsArray = JSON.parse(contacts);
-                const contactIndex = contactsArray.findIndex((contact) => contact.uuid === response.user.uuid);
+                const contactsArray = JSON.parse(contacts)
+                const contactIndex = contactsArray.findIndex((contact) => contact.uuid === response.user.uuid)
                 if (contactIndex === -1) {
-                    contactsArray.push(userToSave);
+                    contactsArray.push(userToSave)
                 } else {
                     contactsArray[contactIndex] = userToSave
                 }
-                await AsyncStorage.setItem('contacts', JSON.stringify(contactsArray));
+                await AsyncStorage.setItem('contacts', JSON.stringify(contactsArray))
             } else {
-                await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]));
+                await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]))
             }
-        };
-        fetchUser();
-    }, []);
+        }
+        fetchUser()
+    }, [])
 
     // Confirm Send Money
     const handleConfirmSendMoney = async () => {
 
         if (!to || !amount || !comment) {
-            return;
+            return
         }
 
-        setSendingPayment(true);
+        setSendingPayment(true)
 
         // Now send balance via transferBalance method and check response
-        const response = await transferBalance({ to, amount, comment, navigation });
+        const response = await transferBalance({ to, amount, comment, navigation })
 
         // Make a sound and change to payment completed animation
         if (response && response.status && response.status === "paid" && response.uuid) {
-            playDone();
-            setPaymentCompleted(true);
+            playDone()
+            setPaymentCompleted(true)
         } else {
-            setSendingPayment(false);
-            navigation.navigate('KeypadScreen');
+            setSendingPayment(false)
+            navigation.navigate('KeypadScreen')
         }
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container} >
+        <KeyboardAvoidingView style={globalStyles.container} >
             {paymentCompleted ? (
                 <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>
                     <CompletedPayment />
                 </Pressable>
             ) : (
                 <>
-                    {sendingPayment ? (<SendingPayment />) : (
+                    {sendingPayment ? (
+                        <ActivityIndicator color="white" size="large" />
+                    ) : (
                         <>
                             <View style={{ flex: 1 }}>
 
@@ -137,12 +139,6 @@ export default function ConfirmSendScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 10,
-        alignContent: 'center',
-        backgroundColor: theme.darkColors.background,
-    },
     destinationAvatar: {
         flex: 1,
     },
