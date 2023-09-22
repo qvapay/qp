@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Alert, KeyboardAvoidingView, ScrollView } from 'react-native'
 import QPButton from '../../ui/QPButton';
 import AvatarScroll from '../../ui/AvatarScroll';
 import AvatarPicture from '../../ui/AvatarPicture';
@@ -107,41 +107,45 @@ export default function SendScreen({ route, navigation }) {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
-            <View style={styles.sendingAmountContainer}>
-                <Text style={styles.sendingLabel}>Enviando...</Text>
-                <Text style={styles.amount}>$ {amount}</Text>
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
 
-            <View style={styles.sendingContactContainer}>
-
-                <View key={'fastDestinationSelector'} style={styles.avatarScroll}>
-                    <AvatarScroll navigation={navigation} />
+                <View style={styles.sendingAmountContainer}>
+                    <Text style={styles.sendingLabel}>Enviando...</Text>
+                    <Text style={styles.amount}>$ {amount}</Text>
                 </View>
 
-                <View style={styles.searchBar}>
-                    <FontAwesome5 name='search' size={12} color='#7f8c8d' />
-                    <TextInput
-                        onChangeText={search}
-                        placeholder="Correo o username de destino"
-                        placeholderTextColor="#7f8c8d"
-                        style={styles.searchBarText}
-                    />
+                <View style={styles.sendingContactContainer}>
+
+                    <View key={'fastDestinationSelector'} style={styles.avatarScroll}>
+                        <AvatarScroll navigation={navigation} />
+                    </View>
+
+                    <View style={styles.searchBar}>
+                        <FontAwesome5 name='search' size={12} color='#7f8c8d' />
+                        <TextInput
+                            onChangeText={search}
+                            placeholder="Correo o username de destino"
+                            placeholderTextColor="#7f8c8d"
+                            style={styles.searchBarText}
+                        />
+                    </View>
+
+                    <View key={'destinationContactList'}>
+                        <FlatList
+                            data={contacts}
+                            keyExtractor={(item) => item.uuid}
+                            renderItem={({ item }) => itemView({ item })}
+                        />
+                    </View>
                 </View>
 
-                <View key={'destinationContactList'}>
-                    <FlatList
-                        data={contacts}
-                        keyExtractor={(item) => item.uuid}
-                        renderItem={({ item }) => itemView({ item })}
-                    />
-                </View>
-            </View>
+            </ScrollView>
 
             <QPButton title={`ENVIAR \$${amount}`} onPress={handleSendMoney} />
 
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView, Pressable, ActivityIndicator, TextInput } from 'react-native'
+import { StyleSheet, View, Pressable, ActivityIndicator, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import Sound from 'react-native-sound'
 import QPButton from '../../ui/QPButton'
 import CompletedPayment from './CompletedPayment'
@@ -104,40 +104,46 @@ export default function ConfirmSendScreen({ route }) {
     }
 
     return (
-        <KeyboardAvoidingView style={globalStyles.container} >
-            {paymentCompleted ? (
-                <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>
-                    <CompletedPayment />
-                </Pressable>
-            ) : (
-                <>
-                    {sendingPayment ? (
-                        <ActivityIndicator color="white" size="large" />
-                    ) : (
-                        <>
-                            <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
-                                <View style={styles.destinationAvatar}>
-                                    <ProfilePictureSection user={user} />
-                                </View>
+            {
+                paymentCompleted ? (
+                    <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>
+                        <CompletedPayment />
+                    </Pressable>
+                ) : (
+                    <>
+                        {
+                            sendingPayment ? (
+                                <ActivityIndicator color="white" size="large" />
+                            ) : (
+                                <>
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <View style={{ flex: 1, padding: 10 }}>
+                                            <View style={styles.destinationAvatar}>
+                                                <ProfilePictureSection user={user} />
+                                            </View>
+                                        </View>
 
-                                <View style={styles.destinationComment}>
-                                    <TextInput
-                                        multiline={true}
-                                        style={styles.comment}
-                                        onChangeText={setComment}
-                                        placeholder="Escribe un comentario..."
-                                        placeholderTextColor="#7f8c8d"
-                                    />
-                                </View>
+                                        <View style={styles.destinationComment}>
+                                            <TextInput
+                                                multiline={true}
+                                                style={styles.comment}
+                                                onChangeText={setComment}
+                                                placeholder="Escribe un comentario..."
+                                                placeholderTextColor="#7f8c8d"
+                                            />
+                                        </View>
 
-                            </View>
+                                    </ScrollView>
 
-                            <QPButton title={`ENVIAR \$${amount}`} onPress={handleConfirmSendMoney} />
-                        </>
-                    )}
-                </>
-            )}
+                                    <QPButton title={`ENVIAR \$${amount}`} onPress={handleConfirmSendMoney} />
+                                </>
+                            )
+                        }
+                    </>
+                )
+            }
         </KeyboardAvoidingView>
     )
 }
@@ -154,14 +160,18 @@ const styles = StyleSheet.create({
     },
     destinationComment: {
         flex: 1,
+        marginTop: 20,
+        alignSelf: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     comment: {
-        color: 'white',
-        fontSize: 16,
-        fontFamily: "Rubik-Regular",
-        textAlign: 'center',
         width: '80%',
+        fontSize: 16,
+        color: 'white',
+        textAlign: 'center',
         alignSelf: 'center',
+        justifyContent: 'center',
+        fontFamily: "Rubik-Regular",
     },
 })
