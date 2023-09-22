@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView, Pressable, ActivityIndicator, Text } from 'react-native'
+import { StyleSheet, View, KeyboardAvoidingView, Pressable, ActivityIndicator, TextInput } from 'react-native'
 import Sound from 'react-native-sound'
 import QPButton from '../../ui/QPButton'
-import SendingPayment from './SendingPayment'
 import CompletedPayment from './CompletedPayment'
-import CommentSticker from '../../ui/CommentSticker'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
@@ -124,7 +122,13 @@ export default function ConfirmSendScreen({ route }) {
                                 </View>
 
                                 <View style={styles.destinationComment}>
-                                    <CommentSticker setComment={setComment} />
+                                    <TextInput
+                                        multiline={true}
+                                        style={styles.comment}
+                                        onChangeText={setComment}
+                                        placeholder="Escribe un comentario..."
+                                        placeholderTextColor="#7f8c8d"
+                                    />
                                 </View>
 
                             </View>
@@ -151,5 +155,13 @@ const styles = StyleSheet.create({
     destinationComment: {
         flex: 1,
         justifyContent: 'center',
+    },
+    comment: {
+        color: 'white',
+        fontSize: 16,
+        fontFamily: "Rubik-Regular",
+        textAlign: 'center',
+        width: '80%',
+        alignSelf: 'center',
     },
 })

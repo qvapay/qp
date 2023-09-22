@@ -86,7 +86,7 @@ export default function KYCAsistantScreen({ route }) {
             {
                 verified ? (
                     <>
-                        <LottieView source={require('../../../../assets/lotties/verified.json')} autoPlay style={styles.verifiedLottie} />
+                        <LottieView source={require('../../../../assets/lotties/verified.json')} autoPlay loop={false} style={styles.verifiedLottie} />
                         <Text style={[textStyles.h1, { textAlign: 'center' }]}>¡Tu cuenta está verificada!</Text>
                     </>
                 ) : (
