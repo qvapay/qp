@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react'
 import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native'
 import QPButton from '../../../ui/QPButton'
 import { RNCamera } from 'react-native-camera'
-import Toast from 'react-native-toast-message'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../../ui/Theme'
 import { request, PERMISSIONS } from 'react-native-permissions'
 import { uploadKYCItem } from '../../../../utils/QvaPayClient'
+import LottieView from "lottie-react-native";
 
 const { width } = Dimensions.get('window')
 
@@ -38,19 +38,15 @@ export default function CheckSubmit() {
                 const options = { quality: 0.8, exif: true, writeExif: true };
                 const data = await cameraRef.current.takePictureAsync(options);
                 setImg(data.uri);
-                console.log(data.uri);
 
                 try {
                     if (data.uri) {
                         setUploadingDocument(true);
                         uploadKYCItem({ imageUri: data.uri, documentType: 'check' }).then((result) => {
                             if (result && result.status === 201) {
-                                Toast.show({
-                                    type: 'success',
-                                    text1: 'Foto de documents enviado correctamente',
-                                    position: 'bottom',
-                                    bottomOffset: 10,
-                                });
+                                // Go to KYCStack
+                                setUploadingDocument(false);
+                                navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
                             } else {
                                 console.log('Error al actualizar la foto del documento');
                             }
@@ -82,9 +78,10 @@ export default function CheckSubmit() {
 
             {
                 uploadingDocument ? (
-                    <>
-                        <Text style={textStyles.h1}>Enviando...</Text>
-                    </>
+                    <View style={{ alignItems: 'center' }}>
+                        <LottieView source={require('../../../../assets/lotties/uploading.json')} autoPlay loop style={styles.loadingAnimation} />
+                        <Text style={textStyles.h3}>Estamos enviando tu foto...</Text>
+                    </View>
                 ) : (
                     <>
                         <Text style={textStyles.h1}>¿Eres tú?</Text>
@@ -127,4 +124,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderColor: 'white',
     },
+    loadingAnimation: {
+        width: 300,
+        height: 300,
+    }
 })

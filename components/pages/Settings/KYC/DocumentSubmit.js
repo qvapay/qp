@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react'
 import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native'
 import QPButton from '../../../ui/QPButton'
 import { RNCamera } from 'react-native-camera'
-import Toast from 'react-native-toast-message'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../../ui/Theme'
 import { request, PERMISSIONS } from 'react-native-permissions'
 import { uploadKYCItem } from '../../../../utils/QvaPayClient'
+import LottieView from "lottie-react-native";
 
 const { width } = Dimensions.get('window')
 
@@ -45,20 +45,15 @@ export default function DocumentSubmit() {
             setUploadingDocument(true);
             uploadKYCItem({ imageUri: data.uri, documentType: 'document' }).then((result) => {
               if (result && result.status === 201) {
-                Toast.show({
-                  type: 'success',
-                  text1: 'Foto de documents enviado correctamente',
-                  position: 'bottom',
-                  bottomOffset: 10,
-                });
+                // Go to KYCStack
+                setUploadingDocument(false);
+                navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
               } else {
                 console.log('Error al actualizar la foto del documento');
               }
             }).catch((error) => {
               console.error(`Error in Update: ${error}`);
-            }).finally(() => {
-              setUploadingDocument(false);
-            });
+            })
           }
 
         } catch (error) {
@@ -81,9 +76,10 @@ export default function DocumentSubmit() {
     <View style={globalStyles.container}>
       {
         uploadingDocument ? (
-          <>
-            <Text style={textStyles.h1}>Enviando...</Text>
-          </>
+          <View style={{ alignItems: 'center' }}>
+            <LottieView source={require('../../../../assets/lotties/uploading.json')} autoPlay loop style={styles.loadingAnimation} />
+            <Text style={textStyles.h3}>Estamos enviando tu documento...</Text>
+          </View>
         ) : (
           <>
             <Text style={textStyles.h1}>Escanea tu ID:</Text>
@@ -180,4 +176,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF60',
     marginVertical: 15,
   },
+  loadingAnimation: {
+    width: 300,
+    height: 300,
+  }
 })

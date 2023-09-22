@@ -63,7 +63,7 @@ export default function MainStack() {
                     <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
                 ),
                 headerRight: () => (
-                    me.name && me.username ? (
+                    me && me.name && me.username ? (
                         <Pressable
                             style={styles.headerRight}
                             onPress={() => navigation.navigate("SettingsStack")}
@@ -121,10 +121,10 @@ const styles = StyleSheet.create({
     qrIconStyle: {
         color: 'white',
         fontSize: 28,
-        marginLeft: 10
+        marginLeft: 20
     },
     headerRight: {
-        marginRight: 10,
+        marginRight: 20,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

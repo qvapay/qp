@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Linking } from 'react-native'
 import { globalStyles, textStyles } from '../../../ui/Theme'
 import QPButton from '../../../ui/QPButton';
 import QPTabButton from '../../../ui/QPTabButton';
@@ -116,7 +116,7 @@ export default function KYCAsistantScreen() {
                                 </View>
                             ) : (
                                 <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10 }}>
-                                    <Text style={styles.whyTextStyle} onPress={() => { }}>¿Por qué esto es necesario?</Text>
+                                    <Text style={styles.whyTextStyle} onPress={() => Linking.openURL('https://blog.qvapay.com')}>¿Por qué esto es necesario?</Text>
                                 </View>
                             )
                         }
