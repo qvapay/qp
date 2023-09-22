@@ -73,6 +73,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -91,6 +92,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -108,6 +110,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -125,6 +128,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -142,6 +146,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -159,6 +164,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -176,6 +182,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -203,6 +210,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -220,6 +228,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}
@@ -237,6 +246,7 @@ export default function SettingsStack() {
                             onPress={() => {
                                 navigation.navigate(ROUTES.SETTINGS_MENU);
                             }}
+                            style={{ marginLeft: 0 }}
                         />
                     ),
                 }}

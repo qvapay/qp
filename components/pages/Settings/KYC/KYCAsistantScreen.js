@@ -1,25 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Linking } from 'react-native'
-import { globalStyles, textStyles } from '../../../ui/Theme'
-import QPButton from '../../../ui/QPButton';
-import QPTabButton from '../../../ui/QPTabButton';
-import { useNavigation } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
+import QPTabButton from '../../../ui/QPTabButton';
 import { AppContext } from '../../../../AppContext';
-import { apiRequest } from '../../../../utils/QvaPayClient';
+import { useNavigation } from '@react-navigation/native';
+import { apiRequest } from '../../../../utils/QvaPayClient'
+import { globalStyles, textStyles } from '../../../ui/Theme'
 
-export default function KYCAsistantScreen() {
+export default function KYCAsistantScreen({ route }) {
 
     const navigation = useNavigation();
 
     // import AppContext
     const { me } = useContext(AppContext);
     const [verified, setVerified] = useState(me.kyc);
-
-    const [selfieImage, setSelfieImage] = useState(null);
-    const [documentImage, setDocumentImage] = useState(null);
-    const [documentOwner, setDocumentOwner] = useState(null);
-
     const [selfieImageStatus, setSelfieImageStatus] = useState(false);
     const [documentImageStatus, setDocumentImageStatus] = useState(false);
     const [documentOwnerStatus, setDocumentOwnerStatus] = useState(false);
@@ -27,6 +21,10 @@ export default function KYCAsistantScreen() {
     // useEffct for check the verification Status
     useEffect(() => {
         get_kyc_status();
+        const interval = setInterval(() => {
+            get_kyc_status();
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     const get_kyc_status = async () => {
@@ -57,11 +55,8 @@ export default function KYCAsistantScreen() {
                     setVerified(false);
                 }
             }
-
         } catch (error) {
             console.log(error);
-        } finally {
-            console.log('Finally');
         }
     }
 

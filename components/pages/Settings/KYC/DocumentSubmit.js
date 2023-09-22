@@ -45,9 +45,11 @@ export default function DocumentSubmit() {
             setUploadingDocument(true);
             uploadKYCItem({ imageUri: data.uri, documentType: 'document' }).then((result) => {
               if (result && result.status === 201) {
-                // Go to KYCStack
-                setUploadingDocument(false);
-                navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
+                // Wait 3 seconds before go to SelfieSubmit
+                setTimeout(() => {
+                  setUploadingDocument(false);
+                  navigation.navigate('KYCStack', { screen: 'SelfieSubmit' });
+                }, 3000);
               } else {
                 console.log('Error al actualizar la foto del documento');
               }

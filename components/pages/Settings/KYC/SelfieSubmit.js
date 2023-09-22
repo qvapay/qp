@@ -10,7 +10,7 @@ import LottieView from "lottie-react-native";
 
 const { width } = Dimensions.get('window')
 
-export default function DocumentSubmit() {
+export default function SelfieSubmit() {
 
     const cameraRef = useRef(null);
     const navigation = useNavigation()
@@ -45,9 +45,11 @@ export default function DocumentSubmit() {
                         setUploadingDocument(true);
                         uploadKYCItem({ imageUri: data.uri, documentType: 'selfie' }).then((result) => {
                             if (result && result.status === 201) {
-                                // Go to KYCStack
-                                setUploadingDocument(false);
-                                navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
+                                // Wait 3 seconds before go to CheckSubmit
+                                setTimeout(() => {
+                                    setUploadingDocument(false);
+                                    navigation.navigate('KYCStack', { screen: 'CheckSubmit' });
+                                }, 3000);
                             } else {
                                 console.log('Error al enviar la selfie');
                             }

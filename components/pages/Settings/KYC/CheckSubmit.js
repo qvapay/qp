@@ -44,17 +44,17 @@ export default function CheckSubmit() {
                         setUploadingDocument(true);
                         uploadKYCItem({ imageUri: data.uri, documentType: 'check' }).then((result) => {
                             if (result && result.status === 201) {
-                                // Go to KYCStack
-                                setUploadingDocument(false);
-                                navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
+                                // Wait 3 seconds before go to KYCAsistantScreen
+                                setTimeout(() => {
+                                    setUploadingDocument(false);
+                                    navigation.navigate('KYCStack', { screen: 'KYCAsistantScreen' });
+                                }, 3000);
                             } else {
                                 console.log('Error al actualizar la foto del documento');
                             }
                         }).catch((error) => {
                             console.error(`Error in Update: ${error}`);
-                        }).finally(() => {
-                            setUploadingDocument(false);
-                        });
+                        })
                     }
 
                 } catch (error) {
