@@ -1,8 +1,8 @@
 import React, { useState, useContext, useRef } from 'react'
-import { globalStyles, theme } from '../../ui/Theme';
-import { AppContext } from '../../../AppContext';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, Text, View, Pressable, Alert, Animated } from 'react-native'
+import { AppContext } from '../../../AppContext';
+import { globalStyles, theme } from '../../ui/Theme';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function KeypadScreen({ navigation }) {
 
@@ -118,7 +118,8 @@ export default function KeypadScreen({ navigation }) {
 
                 <View>
                     <View style={styles.amountContainer}>
-                        <Animated.Text style={[styles.amount, { fontSize: fontSize }]}>${amount}</Animated.Text>
+                        <Text style={styles.dolarSign}>$</Text>
+                        <Animated.Text style={[styles.amount, { fontSize: fontSize }]}>{amount}</Animated.Text>
                     </View>
                     <Pressable onPress={setMaxBalance}>
                         <View style={styles.balance}>
@@ -162,7 +163,15 @@ const styles = StyleSheet.create({
     amountContainer: {
         height: 80,
         marginBottom: 10,
+        flexDirection: 'row',
         justifyContent: 'center',
+    },
+    dolarSign: {
+        fontSize: 40,
+        color: 'white',
+        marginRight: 5,
+        alignSelf: 'center',
+        fontFamily: "Rubik-ExtraBold",
     },
     amount: {
         fontSize: 60,

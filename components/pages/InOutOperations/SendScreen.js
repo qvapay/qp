@@ -113,7 +113,10 @@ export default function SendScreen({ route, navigation }) {
 
                 <View style={styles.sendingAmountContainer}>
                     <Text style={styles.sendingLabel}>Enviando...</Text>
-                    <Text style={styles.amount}>$ {amount}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.dolarSign}>$</Text>
+                        <Text style={styles.amount}>{amount}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.sendingContactContainer}>
@@ -160,13 +163,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     sendingLabel: {
-        alignSelf: 'center',
         fontSize: 13,
-        color: 'white',
+        color: theme.darkColors.elevation_light,
+        alignSelf: 'center',
         fontFamily: "Rubik-Regular",
     },
     amount: {
-        fontSize: 40,
+        fontSize: 60,
         color: 'white',
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
@@ -228,5 +231,12 @@ const styles = StyleSheet.create({
     },
     contactAvatar: {
         marginRight: 10
+    },
+    dolarSign: {
+        fontSize: 40,
+        color: 'white',
+        marginRight: 5,
+        alignSelf: 'center',
+        fontFamily: "Rubik-ExtraBold",
     },
 })

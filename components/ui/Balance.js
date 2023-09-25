@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Black",
     },
     satsAmount: {
-        fontSize: 18,
-        fontFamily: "Rubik-Bold",
+        fontSize: 16,
+        fontFamily: "Rubik-Medium",
         color: theme.darkColors.elevation_light,
     },
     actionButtons: {
