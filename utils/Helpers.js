@@ -136,7 +136,7 @@ const adjustNumber = (value) => {
     }
 
     // Si el valor es superior a 1, retornar con dos decimales
-    if (numValue > 1) {
+    if (numValue >= 1) {
         return numValue.toFixed(2);
     }
 

@@ -64,7 +64,6 @@ export default function AddScreen({ navigation }) {
                                 <Text style={globalStyles.subtitle}>Determine la cantidad a depositar en su cuenta de QvaPay para comprar e intercambiar con otros.</Text>
                                 <TextInput
                                     value={amount}
-                                    autoFocus={true}
                                     style={styles.amount}
                                     keyboardType="numeric"
                                     onChangeText={handleAmountChange}
@@ -98,7 +97,7 @@ export default function AddScreen({ navigation }) {
 
                             </ScrollView>
 
-                            <QPButton onPress={onAddPress} title="Depositar" disabled={!selectedCoin} />
+                            <QPButton onPress={onAddPress} title={`Depositar ${amount}`} disabled={!selectedCoin} />
                         </>
                     )
                 }

@@ -39,14 +39,15 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
     }
 
     return (
-        <Pressable style={[styles.container, { backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation }]} onPress={handlePress}>
+        <Pressable style={[styles.container, { overflow: 'hidden' }, { backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation }]} onPress={handlePress} disabled={amount < min_in || amount > max_out}>
             <View style={styles.coinLogo}>
-                <SvgUri width="48" height="48" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
+                <SvgUri width="60" height="60" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
             </View>
             <View style={styles.coinData}>
+                
                 <Text style={styles.coinName}>{name}</Text>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.coinTick}>{tick}</Text>
                     <Text style={styles.coinLimits}>{fee()}%</Text>
                 </View>
             </View>
@@ -71,25 +72,27 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     coinLogo: {
+        left: -5,
         width: 48,
+        bottom: 5,
         height: 48,
-        marginRight: 15,
-        alignItems: 'center',
+        position: 'absolute',
     },
     coinData: {
         flex: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
+        marginLeft: 60,
         alignSelf: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
     },
     coinName: {
         fontSize: 20,
         color: 'white',
-        fontFamily: "Rubik-SemiBold",
+        fontFamily: "Rubik-Medium",
     },
     coinTick: {
-        fontSize: 16,
-        fontFamily: "Rubik-Medium",
+        fontSize: 14,
+        fontFamily: "Rubik-SemiBold",
         color: theme.darkColors.placeholder,
     },
     coinValues: {
@@ -103,7 +106,6 @@ const styles = StyleSheet.create({
     },
     coinLimits: {
         fontSize: 12,
-        marginLeft: 10,
         fontFamily: "Rubik-Regular",
         color: theme.darkColors.placeholder,
     }
