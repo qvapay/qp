@@ -37,8 +37,9 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
             <View style={styles.topLabels}>
                 <Pressable onPress={toggleShowBalance}>
-                    <View>
-                        <Text style={styles.balanceAmount}>$ {formatBalance(me.balance)}</Text>
+                    <View style={styles.amountContainer}>
+                        <Text style={styles.dolarSign}>$</Text>
+                        <Text style={styles.balanceAmount}>{formatBalance(me.balance)}</Text>
                     </View>
                 </Pressable>
                 <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='#ff9f4390' /> {me.satoshis}</Text>
@@ -67,6 +68,16 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10,
     },
+    amountContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    dolarSign: {
+        fontSize: 40,
+        color: 'white',
+        marginRight: 5,
+        fontFamily: "Rubik-ExtraBold",
+    },
     topLabels: {
         marginTop: 10,
         alignItems: 'center',
@@ -76,7 +87,6 @@ const styles = StyleSheet.create({
     balanceAmount: {
         fontSize: 48,
         color: 'white',
-        alignSelf: 'flex-start',
         fontFamily: "Rubik-Black",
     },
     satsAmount: {
