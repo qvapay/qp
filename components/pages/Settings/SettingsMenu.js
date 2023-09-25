@@ -221,7 +221,7 @@ const SettingsMenu = () => {
                 <View style={{ marginRight: 100 }}>
                     <Image
                         source={require('../../../assets/images/gold-badge.png')}
-                        style={{ width: 140, height: 140, position: 'absolute', top: -55, left: -50 }}
+                        style={{ width: 120, height: 120, position: 'absolute', top: -60, left: -40 }}
                     />
                 </View>
                 <View>
