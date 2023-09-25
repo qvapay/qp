@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { theme } from './Theme'
+import { textStyles, theme } from './Theme'
 
 export default function Balance({ navigation, me = { balance: 0 } }) {
 
@@ -30,19 +30,20 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
     return (
         <View style={styles.container}>
+
             <View style={styles.topLabels}>
-                <Text style={styles.white}>Balance QvaPay:</Text>
+                <Text style={styles.balanceHeader}>Balance QvaPay:</Text>
             </View>
+
             <View style={styles.topLabels}>
                 <Pressable onPress={toggleShowBalance}>
                     <View>
                         <Text style={styles.balanceAmount}>$ {formatBalance(me.balance)}</Text>
                     </View>
                 </Pressable>
-                <View>
-                    <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='yellow' /> {me.satoshis}</Text>
-                </View>
+                <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='#ff9f4390' /> {me.satoshis}</Text>
             </View>
+
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={() => add()}>
                     <Text style={styles.actionButtonLabel}>
@@ -62,36 +63,34 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: 10,
-        borderRadius: 10,
         paddingHorizontal: 10,
     },
     topLabels: {
         marginTop: 10,
         alignItems: 'center',
-        flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'space-between',
     },
     balanceAmount: {
-        fontSize: 40,
+        fontSize: 48,
         color: 'white',
         alignSelf: 'flex-start',
         fontFamily: "Rubik-Black",
     },
     satsAmount: {
-        fontSize: 20,
-        color: 'white',
+        fontSize: 18,
         fontFamily: "Rubik-Bold",
+        color: theme.darkColors.elevation_light,
     },
     actionButtons: {
         flexDirection: 'row',
     },
-    white: {
-        color: 'white',
-        fontSize: 14,
+    balanceHeader: {
+        fontSize: 13,
         fontFamily: "Rubik-Light",
+        color: theme.darkColors.elevation_light,
     },
     gray: {
         color: '#7f8c8d',

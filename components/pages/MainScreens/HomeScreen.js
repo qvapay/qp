@@ -83,8 +83,11 @@ export default function HomeScreen({ navigation }) {
             }>
 
             <Balance navigation={navigation} me={me} />
+
             {/* Friends and Business Stories */}
+
             <Transactions navigation={navigation} />
+            
             <Carousel featuredProducts={featuredProducts} widthPadding={20} />
 
             <View style={{ marginHorizontal: 5 }}>
