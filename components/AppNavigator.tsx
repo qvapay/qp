@@ -47,7 +47,6 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
-
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
@@ -144,9 +143,6 @@ export default function AppNavigator() {
       <Stack.Screen
         name={ROUTES.CONFIRM_SEND_SCREEN}
         component={ConfirmSendScreen}
-        options={{
-          title: 'Confirmar envío',
-        }}
       />
 
       <Stack.Screen
@@ -159,7 +155,13 @@ export default function AppNavigator() {
         }}
       />
 
-      <Stack.Screen name={ROUTES.SEND_SCREEN} component={SendScreen} />
+      <Stack.Screen
+        name={ROUTES.SEND_SCREEN}
+        component={SendScreen}
+        options={{
+          title: 'Enviando ...',
+        }}
+      />
     </Stack.Navigator>
   );
 }

@@ -63,7 +63,6 @@ export default function SendScreen({ route, navigation }) {
         let destination = '';
 
         if (isEmail(text) || isPhoneNumber(text) || isUsername(text) || (text !== '' && text.trim().length >= 3)) {
-            console.log(text)
             destination = text;
         } else if (uuid !== '') {
             destination = contacts.find((contact) => contact.uuid === uuid);
@@ -111,12 +110,9 @@ export default function SendScreen({ route, navigation }) {
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                <View style={styles.sendingAmountContainer}>
-                    <Text style={styles.sendingLabel}>Enviando...</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.dolarSign}>$</Text>
-                        <Text style={styles.amount}>{amount}</Text>
-                    </View>
+                <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center', marginTop: 10 }}>
+                    <Text style={styles.dolarSign}>$</Text>
+                    <Text style={styles.amount}>{amount}</Text>
                 </View>
 
                 <View style={styles.sendingContactContainer}>

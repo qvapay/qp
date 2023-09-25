@@ -18,13 +18,20 @@ export default function ConfirmSendScreen({ route }) {
     const [user, setUser] = useState({})
     const { destination = '' } = route.params
     const [to] = useState(destination)
+    const [uuid, setUuid] = useState('')
     const [amount] = useState(route.params.amount)
     const [comment, setComment] = useState('')
     const [sendingPayment, setSendingPayment] = useState(false)
     const [paymentCompleted, setPaymentCompleted] = useState(false)
 
     useEffect(() => {
-        navigation.setOptions({ title: `Enviando ${amount}` })
+        navigation.setOptions({
+            title: `Enviando \$${amount}`,
+            headerStyle: {
+                fontFamily: "Rubik-Regular",
+                backgroundColor: theme.darkColors.background,
+            },
+        })
     }, [])
 
     useEffect(() => {
@@ -84,9 +91,7 @@ export default function ConfirmSendScreen({ route }) {
     // Confirm Send Money
     const handleConfirmSendMoney = async () => {
 
-        if (!to || !amount || !comment) {
-            return
-        }
+        if (!to || !amount || !comment) { return }
 
         setSendingPayment(true)
 
@@ -96,6 +101,7 @@ export default function ConfirmSendScreen({ route }) {
         // Make a sound and change to payment completed animation
         if (response && response.status && response.status === "paid" && response.uuid) {
             playDone()
+            setUuid(response.uuid)
             setPaymentCompleted(true)
         } else {
             setSendingPayment(false)
@@ -109,15 +115,15 @@ export default function ConfirmSendScreen({ route }) {
             {
                 paymentCompleted ? (
                     <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>
-                        <CompletedPayment />
+                        <CompletedPayment uuid={uuid} />
                     </Pressable>
                 ) : (
                     <>
                         {
                             sendingPayment ? (
-                                <ActivityIndicator color="white" size="large" />
+                                <ActivityIndicator color="white" size="large" style={{ flex: 1, marginTop: 10 }} />
                             ) : (
-                                <>
+                                <View style={{ flex: 1, marginTop: 10 }}>
                                     <ScrollView showsVerticalScrollIndicator={false}>
                                         <View style={{ flex: 1, padding: 10 }}>
                                             <View style={styles.destinationAvatar}>
@@ -138,7 +144,7 @@ export default function ConfirmSendScreen({ route }) {
                                     </ScrollView>
 
                                     <QPButton title={`ENVIAR \$${amount}`} onPress={handleConfirmSendMoney} />
-                                </>
+                                </View>
                             )
                         }
                     </>
