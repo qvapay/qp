@@ -126,7 +126,7 @@ export default function MyPurchasesScreen() {
                             {
                                 Object.keys(itemData).map((key, index) => (
                                     <View key={index} style={{ marginVertical: 5 }}>
-                                        <Text style={styles.modalItemTitle}>{key.charAt(0).toUpperCase() + key.slice(1)}:</Text>
+                                        <Text style={textStyles.smallDescription}>{key.charAt(0).toUpperCase() + key.slice(1)}:</Text>
                                         <TextInput
                                             value={itemData[key]}
                                             style={styles.itemDescription}
@@ -140,8 +140,8 @@ export default function MyPurchasesScreen() {
 
                             }
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, marginBottom: 20 }}>
-                                <Text style={styles.modalItemTitle}>Actualizado:</Text>
+                            <View style={{ marginVertical: 5 }}>
+                                <Text style={textStyles.smallDescription}>Actualizado:</Text>
                                 <Text style={styles.itemDescription}>{getShortDateTime(selectedItem.created_at)}</Text>
                             </View>
                         </View>

@@ -92,11 +92,7 @@ export default function CheckSubmit() {
                             {
                                 permissionResult === 'granted' ? (
                                     <View style={styles.cameraContainer}>
-                                        <RNCamera
-                                            ref={cameraRef}
-                                            style={{ height: '100%', width: '100%' }}
-                                            type={RNCamera.Constants.Type.back} captureAudio={false}
-                                        />
+                                        <RNCamera ref={cameraRef} style={{ height: '100%', width: '100%' }} type={RNCamera.Constants.Type.front} captureAudio={false} />
                                     </View>
                                 ) : (
                                     <Text style={textStyles.h2}>Permiso de cámara no otorgado</Text>
