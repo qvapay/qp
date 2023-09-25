@@ -10,7 +10,7 @@ const colors = {
     warning: "#ff9f43",                 // Orange pastel
     danger: "#DB253E",                  // Red pastel
     dark: "#4b4b4b",                    // Black like blue
-    gray: "#f3f3f3",                    // Gray like white
+    gray: "#9da3b4",                    // Gray like white
     elevated_dark_color: "#222440",     // Dark for elevation purlposes
     placeholder: "#b4b7bd",             // Gray like blue
 }
@@ -83,6 +83,11 @@ const textStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
+    },
+    smallDescription: {
+        fontSize: 14,
+        color: colors.gray,
+        fontFamily: "Rubik-Light",
     },
 });
 
@@ -157,6 +162,14 @@ const globalStyles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular'
+    },
+    modalTopBar: {
+        width: 50,
+        height: 4,
+        borderRadius: 10,
+        marginBottom: 15,
+        alignSelf: 'center',
+        backgroundColor: 'white',
     }
 });
 

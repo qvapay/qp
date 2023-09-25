@@ -62,9 +62,7 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
                 <SvgUri width="70" height="70" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
             </View>
             <View style={styles.coinData}>
-
                 <Text style={styles.coinName}>{name}</Text>
-
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={styles.coinLimits}>{fee()}%</Text>
                 </View>

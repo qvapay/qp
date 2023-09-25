@@ -80,18 +80,13 @@ export default function ShopItemScreen({ route }) {
     const increment = () => setAmount(parsedAmount + 1);
     const decrement = () => setAmount(parsedAmount > 1 ? parsedAmount - 1 : 1);
 
+    // Verify the minimal amount is fetchedProduct.price
     const handleBuy = () => {
-        // Verify the minimal amount is fetchedProduct.price
         if (parsedAmount < parseFloat(price)) {
             alert(`El monto mínimo es de $${price}`);
             return;
         }
-
-        navigation.navigate('ShopCheckoutScreen', {
-            uuid,
-            value: total,
-            amount: parsedAmount,
-        });
+        navigation.navigate('ShopCheckoutScreen', { uuid, value: total, amount: parsedAmount });
     }
 
     // handle go to IndexScreen

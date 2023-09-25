@@ -5,7 +5,7 @@ import { globalStyles, textStyles } from '../../ui/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../../ui/Theme';
 import FastImage from 'react-native-fast-image';
-import { getShortDateTime } from '../../../utils/Helpers';
+import { getShortDateTime, timeAgo } from '../../../utils/Helpers';
 import { HeaderBackButton } from '@react-navigation/elements';
 import Modal from "react-native-modal";
 
@@ -19,6 +19,7 @@ export default function MyPurchasesScreen() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false);
     const [itemData, setItemData] = useState({});
+    const [confirmation, setConfirmation] = useState([]);
 
     // useEffect fopr fetching the data
     useEffect(() => {
@@ -45,7 +46,6 @@ export default function MyPurchasesScreen() {
                     {...props}
                     onPress={() => {
                         navigation.goBack();
-                        // navigation.navigate('ShopIndexScreen');
                     }}
                 />
             ),
@@ -55,7 +55,6 @@ export default function MyPurchasesScreen() {
     // Clic on a item to show the modal data
     const handleItemPress = (item) => {
         const itemDataJson = JSON.parse(item.service_data);
-        console.log(itemDataJson)
         setItemData(itemDataJson)
         setSelectedItem(item)
         setModalVisible(true)
@@ -77,6 +76,7 @@ export default function MyPurchasesScreen() {
         });
     };
 
+
     return (
         <View style={globalStyles.container}>
 
@@ -93,11 +93,14 @@ export default function MyPurchasesScreen() {
                                 resizeMode={FastImage.resizeMode.contain}
                             />
                             <View style={{ flex: 1, marginLeft: 80, marginVertical: 10 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <Text style={styles.itemTitle}>{item.service.name}</Text>
                                     <Text style={styles.itemDescription}>{item.status}</Text>
                                 </View>
-                                <Text style={styles.itemPrice}>${item.transaction?.amount}</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
+                                    <Text style={textStyles.smallDescription}>Hace {timeAgo(item.updated_at)}</Text>
+                                    <Text style={styles.itemPrice}>${item.transaction?.amount}</Text>
+                                </View>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -118,22 +121,23 @@ export default function MyPurchasesScreen() {
                     >
                         <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
 
+                            <View style={globalStyles.modalTopBar}></View>
+
                             {
                                 Object.keys(itemData).map((key, index) => (
-                                    <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View key={index} style={{ marginVertical: 5 }}>
                                         <Text style={styles.modalItemTitle}>{key.charAt(0).toUpperCase() + key.slice(1)}:</Text>
-                                        <Pressable onPress={() => copyTextToClipboard(itemData[key])}>
-                                            <TextInput
-                                                value={itemData[key]}
-                                                style={styles.itemDescription}
-                                                editable={false}
-                                                multiline
-                                                underlineColorAndroid="transparent"
-                                                selectTextOnFocus
-                                            />
-                                        </Pressable>
+                                        <TextInput
+                                            value={itemData[key]}
+                                            style={styles.itemDescription}
+                                            editable={false}
+                                            multiline
+                                            underlineColorAndroid="transparent"
+                                            selectTextOnFocus
+                                        />
                                     </View>
                                 ))
+
                             }
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, marginBottom: 20 }}>
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
     modalItemTitle: {
         fontSize: 16,
         color: 'white',
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'Rubik-Medium',
     },
     itemDescription: {
         fontSize: 16,
@@ -187,7 +191,6 @@ const styles = StyleSheet.create({
     },
     itemPrice: {
         fontSize: 16,
-        marginTop: 10,
         alignSelf: 'flex-end',
         fontFamily: 'Rubik-SemiBold',
         color: theme.darkColors.success,

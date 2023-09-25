@@ -37,6 +37,32 @@ const getShortDateTime = (date) => {
     return desiredDate.toLocaleString('es-ES', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
+// get a time ago from a date
+const timeAgo = (date) => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) {
+        return Math.floor(interval) + " año" + (Math.floor(interval) > 1 ? "s" : "");
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) + " mes" + (Math.floor(interval) > 1 ? "es" : "");
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) + " día" + (Math.floor(interval) > 1 ? "s" : "");
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) + " hora" + (Math.floor(interval) > 1 ? "s" : "");
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) + " minuto" + (Math.floor(interval) > 1 ? "s" : "");
+    }
+    return Math.floor(seconds) + " segundo" + (Math.floor(seconds) > 1 ? "s" : "");
+}
+
 // get a QR data and parse it, get the usernam, amount and transactionUUID
 const parseQRData = (data) => {
 
@@ -162,5 +188,6 @@ export {
     isValidQRData,
     filterCoins,
     truncateWalletAddress,
-    adjustNumber
+    adjustNumber,
+    timeAgo
 };

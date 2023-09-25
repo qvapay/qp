@@ -2,7 +2,7 @@ import React from 'react'
 import AvatarPicture from './AvatarPicture';
 import { timeSince, reduceString } from '../../utils/Helpers';
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { theme } from './Theme';
+import { textStyles, theme } from './Theme';
 
 export default function Transaction({ transaction, navigation }) {
 
@@ -30,7 +30,7 @@ export default function Transaction({ transaction, navigation }) {
             </View>
             <View style={styles.transactionData}>
                 <Text style={styles.transactionDescription}>{reduceString(description)}</Text>
-                <Text style={styles.transactionDescription2}>{`Hace: ${timeSince(updatedDate)}`}</Text>
+                <Text style={textStyles.smallDescription}>{`Hace: ${timeSince(updatedDate)}`}</Text>
             </View>
             <View style={styles.transactionValue}>
                 <Text style={[styles.transactionAmount, { color }]}>{amountSign}{amountFixed}</Text>
@@ -64,11 +64,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
         fontFamily: "Rubik-Regular",
-    },
-    transactionDescription2: {
-        fontSize: 14,
-        color: '#9da3b4',
-        fontFamily: "Rubik-Light",
     },
     transactionValue: {
         flexDirection: 'column',

@@ -29,11 +29,7 @@ export default function ShopStack() {
             }}
         >
 
-            <Stack.Screen
-                name="ShopIndexScreen"
-                component={ShopIndexScreen}
-            />
-
+            <Stack.Screen name="ShopIndexScreen" component={ShopIndexScreen} />
             <Stack.Screen name="ShopCartScreen" component={ShopCartScreen} />
 
             <Stack.Screen
@@ -64,9 +60,6 @@ export default function ShopStack() {
                     animationDuration: 250,
                     animation: 'slide_from_right',
                     headerTintColor: 'white',
-                    headerStyle: {
-                        backgroundColor: '#161d31',
-                    },
                     headerTitleStyle: {
                         color: 'white',
                         fontFamily: 'Rubik-Regular',
