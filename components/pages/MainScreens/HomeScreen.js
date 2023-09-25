@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
-import { StyleSheet, ScrollView, Linking, RefreshControl, View } from 'react-native'
+import { StyleSheet, ScrollView, Linking, RefreshControl, View, PanResponder } from 'react-native'
+
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
+import Carousel from '../../ui/Carousel'
 import Transactions from '../../ui/Transactions'
-import { getMe, getProducts } from '../../../utils/QvaPayClient';
 import { AppContext } from '../../../AppContext';
 import { globalStyles, theme } from '../../ui/Theme';
-import Carousel from '../../ui/Carousel'
+import { getMe, getProducts } from '../../../utils/QvaPayClient';
 
 export default function HomeScreen({ navigation }) {
 
@@ -46,8 +47,8 @@ export default function HomeScreen({ navigation }) {
         }
     };
 
+    // Fetch the products from QvaPayClient
     useEffect(() => {
-        // Fetch the products from QvaPayClient
         const fetchProducts = async () => {
             const fetchedProducts = await getProducts({ navigation });
             const featuredProducts = fetchedProducts.filter(product => product.featured);
@@ -56,8 +57,21 @@ export default function HomeScreen({ navigation }) {
         fetchProducts();
     }, []);
 
+    const panResponder = useRef(
+        PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderRelease: (evt, gestureState) => {
+                if (gestureState.dx > 50) {
+                    navigation.navigate('ScanScreen');
+                }
+            }
+        })
+    ).current;
+
     return (
-        <ScrollView style={styles.container}
+        <ScrollView
+            style={styles.container}
+            {...panResponder.panHandlers}
             refreshControl={
                 <RefreshControl
                     refreshing={refreshing}

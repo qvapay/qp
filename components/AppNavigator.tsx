@@ -47,7 +47,7 @@ export default function AppNavigator() {
         headerTitleAlign: 'center',
         animation: 'slide_from_right',
       }}>
-        
+
       <Stack.Screen
         name={ROUTES.SPLASH_SCREEN}
         component={SplashScreen}
@@ -66,6 +66,17 @@ export default function AppNavigator() {
         name={ROUTES.AUTH_STACK}
         component={AuthStack}
         options={{headerShown: false}}
+      />
+
+      {/* Magic Scan Screen */}
+      <Stack.Screen
+        name={ROUTES.SCAN_SCREEN}
+        component={ScanScreen}
+        options={{
+          headerShown: true,
+          animationDuration: 250,
+          animation: 'slide_from_left',
+        }}
       />
 
       {/* Main Tabs Navigator */}
@@ -127,16 +138,6 @@ export default function AppNavigator() {
         component={WithdrawInstructionsScreen}
         options={{
           title: 'Finalizar extracción',
-        }}
-      />
-
-      <Stack.Screen
-        name={ROUTES.SCAN_SCREEN}
-        component={ScanScreen}
-        options={{
-          headerShown: true,
-          animationDuration: 250,
-          animation: 'slide_from_left',
         }}
       />
 

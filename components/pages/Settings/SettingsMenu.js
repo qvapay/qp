@@ -189,9 +189,7 @@ const SettingsMenu = () => {
             <Pressable onPress={onPress} style={styles.item}>
                 <Text style={{ flex: 1, fontFamily: 'Rubik-Regular', color: 'white', fontSize: 18 }}>{title}</Text>
                 {
-                    notifications > 0
-                        ? <Text style={{ marginRight: 10, borderColor: theme.darkColors.primary }}>1</Text>
-                        : null
+                    notifications > 0 ? <Text style={{ marginRight: 10, borderColor: theme.darkColors.primary }}>1</Text> : null
                 }
                 <FontAwesome5 name="angle-right" size={16} style={{ color: 'white' }} />
             </Pressable>

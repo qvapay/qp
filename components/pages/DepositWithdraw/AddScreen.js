@@ -70,7 +70,6 @@ export default function AddScreen({ navigation }) {
                                     onChangeText={handleAmountChange}
                                     cursorColor='white'
                                 />
-                                {/** A Tag Selector of $5, $10, $50, $100 etc */}
                             </View>
 
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />

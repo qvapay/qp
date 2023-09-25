@@ -85,17 +85,13 @@ export default function GoldCheck() {
                             const response = await buyGoldCheck({ tier, navigation });
                             if (response.status === 201) {
                                 setStatus(true);
+                                setModalVisible(false);
+                                Alert.alert("Éxito", "Se ha adquirido la Verificación Dorada");
                             } else {
                                 console.log(response)
                             }
                         } catch (error) {
-                            console.log(error)
-
-                            // Send a notification to the user
-                            Alert.alert(
-                                "Error",
-                                "No se pudo realizar la compra de la Verificación Dorada"
-                            );
+                            Alert.alert("Error", "No se pudo realizar la compra de la Verificación Dorada")
                         }
                         setLoading(false);
                     }
@@ -113,10 +109,7 @@ export default function GoldCheck() {
 
                 <View style={{ flex: 1 }}>
 
-                    <Image
-                        source={require('../../../assets/images/gold-check-hero.png')} // Asume que tienes una imagen llamada 'gold_check.png' en tu directorio 'assets'
-                        style={styles.goldCheckImage}
-                    />
+                    <Image source={require('../../../assets/images/gold-check-hero.png')} style={styles.goldCheckImage} />
 
                     <View style={styles.box}>
                         <Text style={styles.goldCheckBenefits}>
@@ -175,22 +168,24 @@ export default function GoldCheck() {
 
             <QPButton title={status ? "Extender Verificación Dorada" : "Pagar Verificación Dorada"} onPress={() => setModalVisible(true)} disabled={balanceError} />
 
-            {isModalVisible && (
-                <Modal
-                    isVisible={isModalVisible}
-                    animationIn={'slideInUp'}
-                    onBackdropPress={() => setModalVisible(false)}
-                    onSwipeComplete={() => setModalVisible(false)}
-                    swipeDirection={['down']}
-                    style={styles.modalview}
-                >
-                    <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
-                        <Text style={{ fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 16, textAlign: 'center' }}>Selecciona el plan que deseas adquirir:</Text>
-                        <TabSelector selected={selected} setSelected={setSelected} pricingTiers={pricingTiers} />
-                        <QPButton title="Comprar Plan GOLD" onPress={handleUpgrade} disabled={selected == 0 ? true : false} />
-                    </View>
-                </Modal>
-            )}
+            {
+                isModalVisible && (
+                    <Modal
+                        isVisible={isModalVisible}
+                        animationIn={'slideInUp'}
+                        onBackdropPress={() => setModalVisible(false)}
+                        onSwipeComplete={() => setModalVisible(false)}
+                        swipeDirection={['down']}
+                        style={styles.modalview}
+                    >
+                        <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                            <Text style={{ fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 16, textAlign: 'center' }}>Selecciona el plan que deseas adquirir:</Text>
+                            <TabSelector selected={selected} setSelected={setSelected} pricingTiers={pricingTiers} />
+                            <QPButton title="Comprar Plan GOLD" onPress={handleUpgrade} disabled={selected == 0 ? true : false} />
+                        </View>
+                    </Modal>
+                )
+            }
         </View>
     )
 }

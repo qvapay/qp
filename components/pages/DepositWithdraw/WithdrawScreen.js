@@ -37,8 +37,8 @@ export default function WithdrawScreen() {
         const getOptions = async () => {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "OUT" });
-            setEWallets(filteredCoins.eWallets);
             setBanks(filteredCoins.banks);
+            setEWallets(filteredCoins.eWallets);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
         getOptions();
@@ -86,7 +86,6 @@ export default function WithdrawScreen() {
                                     onChangeText={handleAmountChange}
                                     cursorColor='white'
                                 />
-                                {/** A Tag Selector of $5, $10, $50, $100 etc */}
                             </View>
 
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
@@ -107,7 +106,7 @@ export default function WithdrawScreen() {
                                         <Text style={textStyles.h3}>{category.title}</Text>
                                         <FlatList
                                             data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" />}
+                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="OUT" amount={amount.substring(1)} />}
                                             keyExtractor={item => item.id}
                                         />
                                     </View>

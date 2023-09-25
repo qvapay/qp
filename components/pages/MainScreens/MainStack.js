@@ -2,10 +2,13 @@ import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from '../../ui/BottomBar';
+
+// MainStack Screens
 import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
+
 import AvatarPicture from '../../ui/AvatarPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from '../../ui/Theme';

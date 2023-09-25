@@ -51,7 +51,7 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
                 </View>
             </View>
             <View style={styles.coinValues}>
-                <Text style={styles.coinLimits}>~ {adjustNumber(amount / price)}</Text>
+                <Text style={styles.coinLimits}>{adjustNumber(amount / price)}</Text>
                 <Text style={[styles.coinPrice]}>$ {adjustNumber(price)}</Text>
             </View>
         </Pressable>

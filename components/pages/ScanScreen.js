@@ -8,8 +8,6 @@ import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 
-// TODO Add a button to light up the bulb
-
 export default function ScanScreen() {
 
     const navigation = useNavigation();

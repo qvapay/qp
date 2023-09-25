@@ -95,15 +95,12 @@ export default function KYCAsistantScreen({ route }) {
                         <Text style={textStyles.h6}>Con tu cuenta de QvaPay verificada, podrás acceder a mejoras y nuevas funcionalidades para crecer las posibilidades de tus finanzas.</Text>
 
                         <View style={styles.stepsContainer}>
-
                             <QPTabButton title="Documento ID" subtitle="Paso 1" active={documentImageStatus} logo={"id"} onPress={handleDocumentImagePress} />
                             <QPTabButton title="Foto & Video" subtitle="Paso 2" active={selfieImageStatus} logo={"faceid"} onPress={handleSelfieImagePress} />
                             <QPTabButton title="Confirmación" subtitle="Paso 3" active={documentOwnerStatus} logo={"security"} onPress={handleDocumentOwnerPress} />
-
                         </View>
 
                         {
-                            // If all steps are completed, show a warning dialog to the user for working on it
                             documentImageStatus && selfieImageStatus && documentOwnerStatus ? (
                                 <View style={{ justifyContent: 'center', paddingVertical: 10 }}>
                                     <Text style={styles.whyTextStyle} >¡Ya casi terminas!</Text>
