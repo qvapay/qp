@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, ScrollView, FlatList, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Button } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import { globalStyles, textStyles } from '../../ui/Theme';
+import { globalStyles, textStyles, theme } from '../../ui/Theme';
 import { filterCoins } from '../../../utils/Helpers';
 import { getCoins } from '../../../utils/QvaPayClient';
 import QPSearchBar from '../../ui/QPSearchBar';
@@ -9,7 +9,7 @@ import QPCoinRow from '../../ui/QPCoinRow';
 
 export default function AddScreen({ navigation }) {
 
-    const [amount, setAmount] = useState('$');
+    const [amount, setAmount] = useState(0.00);
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
@@ -37,20 +37,21 @@ export default function AddScreen({ navigation }) {
         getOptions();
     }, []);
 
-    // Always keep the $ before the amount (step 1)
-    const handleAmountChange = (text) => {
-        const inputText = text.replace(/^\$/, '');
-        if (inputText.length > 5) { return }
-        if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
-            setAmount('$' + inputText);
-            const numericValue = parseFloat(inputText);
-            setStepTwoDisabled(!(numericValue >= 5));
-        }
-    };
-
     // Navigate to AddInstructionsScreen
     const onAddPress = () => {
         navigation.navigate('AddInstructionsScreen', { amount: amount.substring(1), coin: selectedCoin });
+    };
+
+    // Handle the amount input
+    const handleChangeAmount = (text) => {
+        setAmount(text);
+
+        // enable button if amount is greater than 1 and lower than 10000
+        if (text >= 1 && text <= 10000) {
+            setStepTwoDisabled(false);
+        } else {
+            setStepTwoDisabled(true);
+        }
     };
 
     return (
@@ -59,18 +60,18 @@ export default function AddScreen({ navigation }) {
                 {
                     step === 1 && (
                         <>
-                            <View style={{ flex: 1 }}>
-                                <Text style={textStyles.h1}>Depositar balance</Text>
-                                <Text style={globalStyles.subtitle}>Determine la cantidad a depositar en su cuenta de QvaPay para comprar e intercambiar con otros.</Text>
+                            <Text style={textStyles.h1}>Depositar balance</Text>
+                            <Text style={globalStyles.subtitle}>Determine la cantidad a depositar en su cuenta de QvaPay para comprar e intercambiar con otros.</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={styles.dolarSign}>$</Text>
                                 <TextInput
                                     value={amount}
-                                    style={styles.amount}
-                                    keyboardType="numeric"
-                                    onChangeText={handleAmountChange}
                                     cursorColor='white'
+                                    style={styles.amount}
+                                    onChangeText={handleChangeAmount}
+                                    keyboardType="numeric"
                                 />
                             </View>
-
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
                         </>
                     )
@@ -130,5 +131,11 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1 / 3,
         paddingVertical: 2.5,
+    },
+    dolarSign: {
+        fontSize: 30,
+        marginRight: 5,
+        fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
     },
 })

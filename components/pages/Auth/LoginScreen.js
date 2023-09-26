@@ -41,7 +41,7 @@ export default function LoginScreen() {
                 setBiometricAvailable(true);
             })
             .catch(error => {
-                // setErrortext(error.message); 
+
             });
         return () => {
             FingerprintScanner.release();
@@ -259,7 +259,7 @@ export default function LoginScreen() {
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
-                            <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
+                            <Text style={[styles.registerTextStyle, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
                         </View>
                     </>
                 )
@@ -305,16 +305,16 @@ const styles = StyleSheet.create({
     },
     forgotTextStyle: {
         fontSize: 14,
-        color: theme.darkColors.primary,
-        marginVertical: 10,
         textAlign: 'right',
+        marginVertical: 10,
         fontFamily: "Rubik-Regular",
+        color: theme.darkColors.contrast_text,
     },
     errorTextStyle: {
         fontSize: 14,
-        color: theme.darkColors.danger,
         textAlign: 'center',
         fontFamily: "Rubik-Regular",
+        color: theme.darkColors.danger,
     },
     biometricIcon: {
         alignSelf: 'center',

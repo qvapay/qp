@@ -34,6 +34,7 @@ export default function AuthStack() {
                         onPress={() => {
                             navigation.goBack();
                         }}
+                        style={{ marginLeft: 0 }}
                     />
                 ),
             }}
@@ -43,6 +44,7 @@ export default function AuthStack() {
                 name="LoginScreen"
                 component={LoginScreen}
                 options={{
+
                 }}
             />
 

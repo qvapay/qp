@@ -119,13 +119,15 @@ const styles = StyleSheet.create({
     },
     qrIconStyle: {
         color: 'white',
-        fontSize: 28,
-        marginLeft: 20
+        fontSize: 30,
+        marginTop: 10,
+        marginLeft: 10,
     },
     headerRight: {
-        marginRight: 20,
-        flexDirection: 'row',
+        marginTop: 10,
+        marginRight: 10,
         alignItems: 'center',
+        flexDirection: 'row',
         justifyContent: 'space-between',
     },
     headerWelcome: {

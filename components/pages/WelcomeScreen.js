@@ -34,7 +34,7 @@ export default function WelcomeScreen() {
 
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <Text style={styles.registerText}>¿No tienes cuenta aún?</Text>
-                <Text style={[styles.registerText, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => { navigation.navigate('AuthStack', { screen: 'RegisterScreen' }) }}>Regístrate</Text>
+                <Text style={[styles.registerText, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => { navigation.navigate('AuthStack', { screen: 'RegisterScreen' }) }}>Regístrate</Text>
             </View>
         </View>
     )

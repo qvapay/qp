@@ -105,7 +105,7 @@ export default function RecoverPasswordScreen() {
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
-                            <Text style={[styles.registerTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
+                            <Text style={[styles.registerTextStyle, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => navigation.navigate('RegisterScreen')}>Regístrate</Text>
                         </View>
                     </>
                 )

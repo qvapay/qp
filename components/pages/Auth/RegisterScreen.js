@@ -103,7 +103,7 @@ export default function RegisterScreen({ navigation }) {
                         <View>
                             <Image
                                 source={require('../../../assets/images/auth/register.png')}
-                                style={{ width: '100%', height: 250, resizeMode: 'contain' }}
+                                style={{ width: '100%', height: 200, resizeMode: 'contain' }}
                             />
                             <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Registra tu cuenta:</Text>
@@ -173,7 +173,7 @@ export default function RegisterScreen({ navigation }) {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Text style={styles.loginTextStyle}>¿Ya tienes cuenta?</Text>
-                        <Text style={[styles.loginTextStyle, { color: theme.darkColors.primary, marginLeft: 5 }]} onPress={() => navigation.navigate('LoginScreen')}>Iniciar Sesión</Text>
+                        <Text style={[styles.loginTextStyle, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => navigation.navigate('LoginScreen')}>Iniciar Sesión</Text>
                     </View>
                 </>
             )}

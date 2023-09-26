@@ -59,7 +59,7 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
     return (
         <Pressable style={[styles.container, { overflow: 'hidden' }, { backgroundColor: selectedCoin == id ? theme.darkColors.primary : theme.darkColors.elevation }]} onPress={handlePress} disabled={disabled()}>
             <View style={styles.coinLogo}>
-                <SvgUri width="70" height="70" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
+                <SvgUri width="72" height="72" uri={`https://qvapay.com/img/coins/${item.logo}.svg`} />
             </View>
             <View style={styles.coinData}>
                 <Text style={styles.coinName}>{name}</Text>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation,
     },
     coinLogo: {
-        left: -10,
+        left: -16,
         width: 48,
         bottom: 15,
         height: 48,
