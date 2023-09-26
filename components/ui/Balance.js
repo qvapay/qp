@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     },
     dolarSign: {
         fontSize: 30,
-        color: 'white',
         marginRight: 5,
         fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
     },
     dolarTick: {
         fontSize: 20,
