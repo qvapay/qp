@@ -74,8 +74,8 @@ export default function HomeScreen({ navigation }) {
             {...panResponder.panHandlers}
             refreshControl={
                 <RefreshControl
-                    refreshing={refreshing}
                     onRefresh={fetchMe}
+                    refreshing={refreshing}
                     tintColor={theme.darkColors.primary}
                     progressBackgroundColor={theme.darkColors.background}
                     colors={['white', '#28c76f']}
@@ -84,11 +84,12 @@ export default function HomeScreen({ navigation }) {
 
             <Balance navigation={navigation} me={me} />
 
+            <Carousel featuredProducts={featuredProducts} widthPadding={20} />
+
             {/* Friends and Business Stories */}
 
             <Transactions navigation={navigation} />
-            
-            <Carousel featuredProducts={featuredProducts} widthPadding={20} />
+
 
             <View style={{ marginHorizontal: 5 }}>
                 <Hero

@@ -261,7 +261,7 @@ export default function AddInstructionsScreen({ route, navigation }) {
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <View>
-                                <Text style={styles.title}>Recarga de SQP</Text>
+                                <Text style={styles.title}>Agregar balance</Text>
                                 <Text style={styles.subTitle}>Depósito con {name}</Text>
                             </View>
                             <View>

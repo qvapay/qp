@@ -48,15 +48,13 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={() => add()}>
-                    <Text style={styles.actionButtonLabel}>
-                        <FontAwesome5 name='arrow-down' size={16} color='white' /> Depositar
-                    </Text>
+                    <FontAwesome5 name='arrow-down' size={16} color={theme.darkColors.elevation_light} style={{ marginRight: 5 }} />
+                    <Text style={styles.actionButtonLabel}>Depositar</Text>
                 </Pressable>
                 <View style={{ width: 3 }}></View>
                 <Pressable style={styles.actionButton2} onPress={() => withdraw()}>
-                    <Text style={styles.actionButtonLabel}>
-                        <FontAwesome5 name='arrow-up' size={16} color='white' /> Extraer
-                    </Text>
+                    <FontAwesome5 name='arrow-up' size={16} color={theme.darkColors.elevation_light} style={{ marginRight: 5 }} />
+                    <Text style={styles.actionButtonLabel}>Extraer</Text>
                 </Pressable>
             </View>
         </View>
@@ -65,9 +63,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
 const styles = StyleSheet.create({
     container: {
-        // marginTop: 10,
-        marginBottom: 10,
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
     },
     amountContainer: {
         flexDirection: 'row',
@@ -116,27 +112,29 @@ const styles = StyleSheet.create({
     },
     actionButton1: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingVertical: 10,
         marginVertical: 20,
-        backgroundColor: theme.darkColors.elevation,
-        borderBottomLeftRadius: 10,
+        paddingVertical: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
         borderTopLeftRadius: 10,
+        justifyContent: 'center',
+        borderBottomLeftRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
     },
     actionButton2: {
         flex: 1,
+        marginVertical: 20,
+        paddingVertical: 10,
+        alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingVertical: 10,
-        marginVertical: 20,
-        backgroundColor: theme.darkColors.elevation,
-        borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
     },
     actionButtonLabel: {
-        color: 'white',
         fontSize: 16,
+        color: 'white',
         textAlign: 'center',
         fontFamily: "Rubik-Bold",
     }
