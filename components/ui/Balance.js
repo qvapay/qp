@@ -32,7 +32,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
         <View style={styles.container}>
 
             <View style={styles.topLabels}>
-                <Text style={styles.balanceHeader}>Balance QvaPay:</Text>
+                <Text style={styles.balanceHeader}>Balance:</Text>
             </View>
 
             <View style={styles.topLabels}>
@@ -40,6 +40,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
                     <View style={styles.amountContainer}>
                         <Text style={styles.dolarSign}>$</Text>
                         <Text style={styles.balanceAmount}>{formatBalance(me.balance)}</Text>
+                        <Text style={styles.dolarTick}>USD</Text>
                     </View>
                 </Pressable>
                 <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='#ff9f4390' /> {me.satoshis}</Text>
@@ -64,7 +65,7 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        // marginTop: 10,
         marginBottom: 10,
         paddingHorizontal: 10,
     },
@@ -73,19 +74,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dolarSign: {
-        fontSize: 40,
+        fontSize: 30,
         color: 'white',
         marginRight: 5,
         fontFamily: "Rubik-ExtraBold",
     },
+    dolarTick: {
+        fontSize: 20,
+        marginLeft: 5,
+        fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
+    },
     topLabels: {
-        marginTop: 10,
+        marginTop: 5,
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'space-between',
     },
     balanceAmount: {
-        fontSize: 48,
+        fontSize: 50,
         color: 'white',
         fontFamily: "Rubik-Black",
     },

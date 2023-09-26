@@ -72,10 +72,6 @@ export default function MainStack() {
                             onPress={() => navigation.navigate("SettingsStack")}
                             onLongPress={() => navigation.navigate('SettingsStack', { screen: 'UserdataScreen' })}
                         >
-                            <View style={styles.headerWelcome}>
-                                <Text style={styles.headerRightText}>Hola {`${me.name}`}!</Text>
-                                <Text style={styles.handleText}>@{`${me.username}`}</Text>
-                            </View>
                             <AvatarPicture size={32} source_uri={me.profile_photo_url} />
                         </Pressable>
                     ) : null
