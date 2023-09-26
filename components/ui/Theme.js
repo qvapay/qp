@@ -167,11 +167,11 @@ const globalStyles = StyleSheet.create({
     },
     modalTopBar: {
         width: 50,
-        height: 4,
+        height: 3,
         borderRadius: 10,
         marginBottom: 15,
         alignSelf: 'center',
-        backgroundColor: 'white',
+        backgroundColor: colors.gray,
     }
 });
 

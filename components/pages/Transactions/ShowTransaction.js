@@ -62,7 +62,7 @@ export default function ShowTransaction({ route }) {
     return (
         <View style={globalStyles.container}>
 
-            <ProfilePictureSection user={payeer} />
+            <ProfilePictureSection user={payeer} size={100} />
 
             <View style={[globalStyles.section, { flex: 1 }]}>
                 <Text style={[globalStyles.amount, { fontSize: 50, color, marginBottom: 0 }]}>
@@ -92,7 +92,12 @@ export default function ShowTransaction({ route }) {
                 style={styles.modalview}
             >
                 <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
-                    <Text style={{ fontSize: 20, color: 'white', fontFamily: 'Rubik-Regular' }}>Más detalles:</Text>
+
+                    <View style={globalStyles.modalTopBar}></View>
+
+                    {
+                        console.log(transaction)
+                    }
                     {
                         transaction.p2p && (
                             <Text>P2P</Text>
