@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Animated } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { theme } from './Theme'
 
-export default function Balance({ navigation, me = { balance: 0 } }) {
+export default function Balance({ navigation, me = { balance: 0 }, refreshing = false }) {
 
-    // QvaPay Balance state
+    const scale = new Animated.Value(1);
     const [showBalance, setShowBalance] = useState(true);
+    const add = () => { navigation.navigate('AddScreen') }
+    const withdraw = () => { navigation.navigate('WithdrawScreen') }
+    const toggleShowBalance = () => { setShowBalance(!showBalance) };
+    const formatBalance = (balance) => { return showBalance ? parseFloat(balance).toFixed(2) : '*****' }
 
     // showBalance state persistence
     useEffect(() => {
@@ -21,12 +25,27 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
     }, [showBalance]);
 
 
-    const add = () => { navigation.navigate('AddScreen') }
-    const withdraw = () => { navigation.navigate('WithdrawScreen') }
+    useEffect(() => {
+        if (refreshing) {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(scale, {
+                        toValue: 1.05,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(scale, {
+                        toValue: 1,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }),
+                ])
+            ).start();
+        } else {
+            scale.setValue(1);
+        }
+    }, [refreshing]);
 
-    // Toggle for the pressable show real balance or just *****
-    const toggleShowBalance = () => { setShowBalance(!showBalance) };
-    const formatBalance = (balance) => { return showBalance ? parseFloat(balance).toFixed(2) : '*****' }
 
     return (
         <View style={styles.container}>
@@ -37,11 +56,11 @@ export default function Balance({ navigation, me = { balance: 0 } }) {
 
             <View style={styles.topLabels}>
                 <Pressable onPress={toggleShowBalance}>
-                    <View style={styles.amountContainer}>
+                    <Animated.View style={[styles.amountContainer, { transform: [{ scale }] }]}>
                         <Text style={styles.dolarSign}>$</Text>
                         <Text style={styles.balanceAmount}>{formatBalance(me.balance)}</Text>
                         <Text style={styles.dolarTick}>USD</Text>
-                    </View>
+                    </Animated.View>
                 </Pressable>
                 <Text style={styles.satsAmount}><FontAwesome5 name='bolt' size={16} color='#ff9f4390' /> {me.satoshis}</Text>
             </View>

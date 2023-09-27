@@ -57,32 +57,19 @@ export default function HomeScreen({ navigation }) {
         fetchProducts();
     }, []);
 
-    const panResponder = useRef(
-        PanResponder.create({
-            onStartShouldSetPanResponder: () => true,
-            onPanResponderRelease: (evt, gestureState) => {
-                if (gestureState.dx > 50) {
-                    navigation.navigate('ScanScreen');
-                }
+    const panResponder = PanResponder.create({
+        onPanResponderRelease: (e, gestureState) => {
+            if (gestureState.dy > 50) {
+                setRefreshing(true);
+                fetchMe().finally(() => setRefreshing(false));
             }
-        })
-    ).current;
+        },
+    });
 
     return (
-        <ScrollView
-            style={styles.container}
-            {...panResponder.panHandlers}
-            refreshControl={
-                <RefreshControl
-                    onRefresh={fetchMe}
-                    refreshing={refreshing}
-                    tintColor={theme.darkColors.primary}
-                    progressBackgroundColor={theme.darkColors.background}
-                    colors={['white', '#28c76f']}
-                />
-            }>
+        <ScrollView style={styles.container} {...panResponder.panHandlers}>
 
-            <Balance navigation={navigation} me={me} />
+            <Balance navigation={navigation} me={me} refreshing={refreshing} />
 
             <Carousel featuredProducts={featuredProducts} widthPadding={20} />
 
