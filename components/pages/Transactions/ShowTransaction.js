@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import QPButton from '../../ui/QPButton';
-import { globalStyles, textStyles } from '../../ui/Theme'
-import { StyleSheet, Text, View } from 'react-native'
-import { getShortDateTime } from '../../../utils/Helpers';
-import { getTransaction } from '../../../utils/QvaPayClient';
-import ProfilePictureSection from '../../ui/ProfilePictureSection';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from "react-native-modal";
 import { theme } from '../../ui/Theme';
-import { useNavigation } from '@react-navigation/native';
+import QPButton from '../../ui/QPButton';
+import { StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { globalStyles, textStyles } from '../../ui/Theme'
+import { getShortDateTime } from '../../../utils/Helpers'
+import { getTransaction } from '../../../utils/QvaPayClient'
+import ProfilePictureSection from '../../ui/ProfilePictureSection'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function ShowTransaction({ route }) {
 
