@@ -81,7 +81,7 @@ export default function AddScreen({ navigation }) {
                         <>
                             <ScrollView style={{ flex: 1 }}>
                                 <Text style={textStyles.h1}>Tipo de moneda</Text>
-                                <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, seleccion el de su preferencia.</Text>
+                                <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, selecciones el de su preferencia.</Text>
 
                                 <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
 

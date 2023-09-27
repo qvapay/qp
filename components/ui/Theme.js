@@ -80,6 +80,12 @@ const textStyles = StyleSheet.create({
         textAlign: 'left',
         fontFamily: 'Rubik-Regular',
     },
+    h5: {
+        fontSize: 17,
+        color: 'white',
+        textAlign: 'left',
+        fontFamily: 'Rubik-Light',
+    },
     h6: {
         fontSize: 16,
         color: 'white',

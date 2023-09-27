@@ -63,8 +63,12 @@ export default function ShopIndexScreen() {
         <FlatList
             ListHeaderComponent={
                 <>
-                    {showSearchBar && <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />}
-                    <Carousel featuredProducts={featuredProducts} />
+                    {
+                        showSearchBar && <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />
+                    }
+                    <View style={{ marginTop: 10 }}>
+                        <Carousel featuredProducts={featuredProducts} />
+                    </View>
                 </>
             }
             data={filteredProducts}

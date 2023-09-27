@@ -6,7 +6,7 @@ import { theme } from './Theme';
 export default function QPSearchBar({ searchQuery, setSearchQuery, autoFocus, onClose, style }) {
 
     return (
-        <View style={[styles.searchBarContainer, {...style}]}>
+        <View style={[styles.searchBarContainer, { ...style }]}>
             <View style={styles.expandedSearchBar}>
                 <FontAwesome5 name='search' size={14} color={theme.darkColors.placeholder} />
                 <TextInput
@@ -27,9 +27,9 @@ export default function QPSearchBar({ searchQuery, setSearchQuery, autoFocus, on
 
 const styles = StyleSheet.create({
     searchBarContainer: {
-        flexDirection: 'row',
+        marginTop: 10,
         alignItems: 'center',
-        marginVertical: 10,
+        flexDirection: 'row',
         paddingHorizontal: 5,
         justifyContent: 'space-between',
     },

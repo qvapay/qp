@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import QPButton from '../../ui/QPButton';
-import { globalStyles } from '../../ui/Theme'
+import { globalStyles, textStyles } from '../../ui/Theme'
 import { StyleSheet, Text, View } from 'react-native'
 import { getShortDateTime } from '../../../utils/Helpers';
 import { getTransaction } from '../../../utils/QvaPayClient';
@@ -95,29 +95,48 @@ export default function ShowTransaction({ route }) {
 
                     <View style={globalStyles.modalTopBar}></View>
 
-                    {
-                        console.log(transaction)
-                    }
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                        <Text style={textStyles.h4}>Total:</Text>
+                        <Text style={[textStyles.amount, { fontSize: 18 }]}>$ {transaction.amount}</Text>
+                    </View>
+
                     {
                         transaction.p2p && (
-                            <Text>P2P</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                                <Text style={textStyles.h4}>P2P:</Text>
+                                <Text></Text>
+                            </View>
                         )
                     }
                     {
                         transaction.servicebuy && (
-                            <Text>Service</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                                <Text style={textStyles.h4}>Servicio:</Text>
+                                <Text></Text>
+                            </View>
                         )
                     }
                     {
                         transaction.withdraw && (
-                            <Text>Withdraw</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                                <Text style={textStyles.h4}>Extracción:</Text>
+                                <Text></Text>
+                            </View>
                         )
                     }
                     {
                         transaction.wallet && (
-                            <Text>Wallet In</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                                <Text style={textStyles.h4}>Depósito:</Text>
+                                <Text>{JSON.stringify(transaction.wallet)}</Text>
+                            </View>
                         )
                     }
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+                        <Text style={textStyles.h4}>Estado:</Text>
+                        <Text style={textStyles.h6}>{transaction.status}</Text>
+                    </View>
                 </View>
             </Modal>
         </View>
