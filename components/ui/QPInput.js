@@ -1,15 +1,21 @@
-import React, { forwardRef } from 'react'
-import { StyleSheet, View, TextInput } from 'react-native'
+import React, { forwardRef, useState } from 'react'
+import { StyleSheet, View, TextInput, Pressable } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
 
 export default QPInput = forwardRef((props, ref) => {
 
-    const { style, multiline } = props;
+    const { style, multiline } = props
+    const hasPrefix = props.prefixIconName !== undefined
+    const hasSuffix = props.suffixIconName !== undefined
+    const [isSecure, setIsSecure] = useState(props.secureTextEntry)
 
-    // TODO Add suffix functionality
-    const hasPrefix = props.prefixIconName !== undefined;
-    const hasSuffix = props.suffixIconName !== undefined;
+    // Change the TextInput between password and text
+    const handleSuffixPress = () => {
+        if (props.suffixIconName === 'eye' || props.suffixIconName === 'eye-slash') {
+            setIsSecure(!isSecure);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -25,6 +31,7 @@ export default QPInput = forwardRef((props, ref) => {
             <TextInput
                 ref={ref}
                 {...props}
+                secureTextEntry={isSecure}
                 placeholderStyle={{ fontFamily: 'Rubik-Regular' }}
                 placeholderTextColor={theme.darkColors.placeholder}
                 style={{ ...styles.input, ...style, height: multiline ? 100 : 50 }}
@@ -32,9 +39,11 @@ export default QPInput = forwardRef((props, ref) => {
 
             {
                 hasSuffix && (
-                    <View style={styles.suffixContainer}>
-                        <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
-                    </View>
+                    <Pressable onPress={handleSuffixPress}>
+                        <View style={styles.suffixContainer}>
+                            <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
+                        </View>
+                    </Pressable>
                 )
             }
 
