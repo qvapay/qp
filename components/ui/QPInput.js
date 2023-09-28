@@ -8,12 +8,15 @@ export default QPInput = forwardRef((props, ref) => {
     const { style, multiline } = props
     const hasPrefix = props.prefixIconName !== undefined
     const hasSuffix = props.suffixIconName !== undefined
+
     const [isSecure, setIsSecure] = useState(props.secureTextEntry)
+    const [suffixIconName, setSuffixIconName] = useState(props.suffixIconName)
 
     // Change the TextInput between password and text
     const handleSuffixPress = () => {
         if (props.suffixIconName === 'eye' || props.suffixIconName === 'eye-slash') {
             setIsSecure(!isSecure);
+            setSuffixIconName(isSecure ? 'eye' : 'eye-slash');
         }
     }
 
@@ -41,7 +44,7 @@ export default QPInput = forwardRef((props, ref) => {
                 hasSuffix && (
                     <Pressable onPress={handleSuffixPress}>
                         <View style={styles.suffixContainer}>
-                            <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
+                            <FontAwesome5 size={18} color="white" name={suffixIconName} style={styles.suffixIcon} />
                         </View>
                     </Pressable>
                 )
