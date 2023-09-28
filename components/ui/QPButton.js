@@ -13,7 +13,10 @@ export default function QPButton({ danger, disabled, title, onPress, style }) {
     };
 
     return (
-        <Pressable onPress={handlePress} style={({ pressed }) => [disabled ? styles.disabledStyle : styles.buttonStyle, { transform: [{ scale: pressed ? 0.98 : 1 }] }, { ...style }]} >
+        <Pressable
+            onPress={handlePress}
+            style={({ pressed }) => [disabled ? styles.disabledStyle : styles.buttonStyle, { transform: [{ scale: pressed ? 0.98 : 1 }] }, { ...style }]}
+        >
             <LinearGradient colors={gradientColors} style={styles.gradient}>
                 <Text style={styles.titleStyle}>{title}</Text>
             </LinearGradient>

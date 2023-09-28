@@ -1,20 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platform, ScrollView } from 'react-native';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Loader from '../../ui/Loader';
+import QPInput from '../../ui/QPInput';
 import QPButton from '../../ui/QPButton';
-import { globalStyles, theme, textStyles } from '../../ui/Theme';
-import { AppContext } from '../../../AppContext';
-import { storeData } from '../../../utils/AsyncStorage';
-import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
+import OtpCode from '../../ui/OtpCode';
+import LottieView from "lottie-react-native";
+import Loader from '../../ui/Loader';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import * as Sentry from '@sentry/react-native';
-import { useNavigation } from '@react-navigation/native';
-import OtpCode from '../../ui/OtpCode';
-import QPInput from '../../ui/QPInput';
+import { AppContext } from '../../../AppContext';
 import { OneSignal } from 'react-native-onesignal';
-import LottieView from "lottie-react-native";
+import { storeData } from '../../../utils/AsyncStorage';
+import { useNavigation } from '@react-navigation/native';
+import { globalStyles, theme, textStyles } from '../../ui/Theme';
+import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
 
 export default function LoginScreen() {
 
@@ -232,6 +232,7 @@ export default function LoginScreen() {
 
                                 <QPInput
                                     prefixIconName="lock"
+                                    suffixIconName="eye"
                                     placeholder="Contraseña"
                                     keyboardType="default"
                                     returnKeyType="next"

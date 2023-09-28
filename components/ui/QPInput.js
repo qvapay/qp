@@ -14,11 +14,13 @@ export default QPInput = forwardRef((props, ref) => {
     return (
         <View style={styles.container}>
 
-            {hasPrefix && (
-                <View style={styles.suffixContainer}>
-                    <FontAwesome5 size={18} color="white" name={props.prefixIconName} style={styles.suffixIcon} />
-                </View>
-            )}
+            {
+                hasPrefix && (
+                    <View style={styles.prefixContainer}>
+                        <FontAwesome5 size={18} color="white" name={props.prefixIconName} style={styles.suffixIcon} />
+                    </View>
+                )
+            }
 
             <TextInput
                 ref={ref}
@@ -28,11 +30,13 @@ export default QPInput = forwardRef((props, ref) => {
                 style={{ ...styles.input, ...style, height: multiline ? 100 : 50 }}
             />
 
-            {hasSuffix && (
-                <View style={styles.suffixContainer}>
-                    <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
-                </View>
-            )}
+            {
+                hasSuffix && (
+                    <View style={styles.suffixContainer}>
+                        <FontAwesome5 size={18} color="white" name={props.suffixIconName} style={styles.suffixIcon} />
+                    </View>
+                )
+            }
 
         </View>
     )
@@ -45,9 +49,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
+        justifyContent: 'space-between',
         backgroundColor: theme.darkColors.elevation,
     },
-    suffixContainer: {
+    prefixContainer: {
         width: 50,
         height: 50,
         alignItems: 'center',
@@ -56,12 +61,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderBottomLeftRadius: 10,
     },
+    suffixContainer: {
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+    },
     suffixIcon: {
         marginHorizontal: 10
     },
     input: {
+        flex: 1,
         fontSize: 16,
-        width: '100%',
         color: 'white',
         fontFamily: 'Rubik-Regular',
     }

@@ -22,7 +22,7 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
     // Dynamic borderWidth based on size
     const badgeSize = size / 10;
     const borderWidth = size / 36;
-    const borderStories = size / 20;
+    const borderStories = size / 25;
     const borderColor = negative ? 'white' : theme.darkColors.background;
     const gradientColors = stories ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : ['#ffffff', '#ffffff'];
 
@@ -31,14 +31,16 @@ export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.
             <LinearGradient colors={gradientColors} style={{ padding: borderStories, borderRadius: size }}>
                 <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
             </LinearGradient>
-            {showBadge && (
-                <View style={styles.badgeRating}>
-                    <View style={styles.badge}>
-                        <Text style={[styles.badgeRatingText, { fontSize: badgeSize }]}>{rating}</Text>
-                        <FontAwesome name="star" size={badgeSize} style={styles.faIcon} />
+            {
+                showBadge && (
+                    <View style={styles.badgeRating}>
+                        <View style={styles.badge}>
+                            <Text style={[styles.badgeRatingText, { fontSize: badgeSize }]}>{rating}</Text>
+                            <FontAwesome name="star" size={badgeSize} style={styles.faIcon} />
+                        </View>
                     </View>
-                </View>
-            )}
+                )
+            }
         </View>
     )
 }

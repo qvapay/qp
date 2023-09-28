@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Pressable, ActivityIndicator, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { StyleSheet, View, Pressable, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
 import Sound from 'react-native-sound'
-import QPButton from '../../ui/QPButton'
 import CompletedPayment from './CompletedPayment'
+import { globalStyles, theme } from '../../ui/Theme'
+import QPSliderButton from '../../ui/QPSliderButton';
+import { useNavigation } from '@react-navigation/native'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
-import { useNavigation } from '@react-navigation/native'
-import { globalStyles, theme } from '../../ui/Theme'
+import QPInput from '../../ui/QPInput'
 
 Sound.setCategory('Playback')
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
@@ -23,16 +24,6 @@ export default function ConfirmSendScreen({ route }) {
     const [comment, setComment] = useState('')
     const [sendingPayment, setSendingPayment] = useState(false)
     const [paymentCompleted, setPaymentCompleted] = useState(false)
-
-    useEffect(() => {
-        navigation.setOptions({
-            title: `Enviando \$${amount}`,
-            headerStyle: {
-                fontFamily: "Rubik-Regular",
-                backgroundColor: theme.darkColors.background,
-            },
-        })
-    }, [])
 
     useEffect(() => {
         ding.setVolume(1)
@@ -130,20 +121,19 @@ export default function ConfirmSendScreen({ route }) {
                                                 <ProfilePictureSection user={user} />
                                             </View>
                                         </View>
-
                                         <View style={styles.destinationComment}>
-                                            <TextInput
+                                            <QPInput
                                                 multiline={true}
                                                 style={styles.comment}
                                                 onChangeText={setComment}
-                                                placeholder="Escribe un comentario..."
-                                                placeholderTextColor="#7f8c8d"
+                                                placeholder={"Mensaje para " + user.name}
+                                                placeholderTextColor={theme.darkColors.contrast_text}
                                             />
                                         </View>
-
                                     </ScrollView>
 
-                                    <QPButton title={`ENVIAR \$${amount}`} onPress={handleConfirmSendMoney} />
+                                    <QPSliderButton title={`ENVIAR \$${amount}`} onSlideEnd={handleConfirmSendMoney} />
+
                                 </View>
                             )
                         }
@@ -165,19 +155,23 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
     },
     destinationComment: {
-        flex: 1,
+        height: 150,
+        width: '100%',
         marginTop: 20,
         alignSelf: 'center',
         alignItems: 'center',
+        alignContent: 'center',
         justifyContent: 'center',
     },
     comment: {
-        width: '80%',
-        fontSize: 16,
+        padding: 10,
+        fontSize: 20,
         color: 'white',
         textAlign: 'center',
         alignSelf: 'center',
+        alignContent: 'center',
         justifyContent: 'center',
+        textAlignVertical: 'center',
         fontFamily: "Rubik-Regular",
     },
 })

@@ -1,8 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { globalStyles } from './Theme'
+import { globalStyles, theme } from './Theme'
 import AvatarPicture from './AvatarPicture';
-import { theme } from './Theme';
 
 export default function ProfilePictureSection({ user = {}, negative = false, size = 150 }) {
 
@@ -34,7 +33,9 @@ export default function ProfilePictureSection({ user = {}, negative = false, siz
 
             <View style={styles.fullNameView}>
                 <Text style={{ ...globalStyles.fullName, color: textColor }}>{name} {lastname}</Text>
-                {golden_check == 1 && (<Image source={require('../../assets/images/gold-badge.png')} style={{ marginLeft: 8, height: 20, width: 20 }} />)}
+                {
+                    golden_check == 1 && (<Image source={require('../../assets/images/gold-badge.png')} style={{ marginLeft: 8, height: 20, width: 20 }} />)
+                }
             </View>
             <Text style={[styles.usernameText, { color: textColor }]}>@{username}</Text>
         </View>
