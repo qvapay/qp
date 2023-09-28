@@ -58,8 +58,6 @@ export default function AuthStack() {
             <Stack.Screen
                 name="RegisterScreen"
                 component={RegisterScreen}
-                options={{
-                }}
             />
 
         </Stack.Navigator>

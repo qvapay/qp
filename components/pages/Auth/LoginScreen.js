@@ -213,9 +213,9 @@ export default function LoginScreen() {
                         <ScrollView showsVerticalScrollIndicator={false}>
 
                             <View style={{ marginHorizontal: 40 }}>
-                                <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
+                                <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 180, resizeMode: 'contain' }} />
                             </View>
-                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                            <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                                 <Text style={textStyles.h1}>Iniciar sesión:</Text>
                             </View>
 
@@ -243,20 +243,23 @@ export default function LoginScreen() {
 
                                 <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
 
-                                {errortext != '' ? (
-                                    <Text style={styles.errorTextStyle}>
-                                        {errortext}
-                                    </Text>
-                                ) : null}
+                                {
+                                    errortext != '' ? (
+                                        <Text style={styles.errorTextStyle}>
+                                            {errortext}
+                                        </Text>
+                                    ) : null
+                                }
 
-                                <QPButton title="Acceder" onPress={handleLoginSubmit} />
 
                                 <View style={styles.biometricIcon}>
                                     {biometricAvailable && <BiometricButton />}
                                 </View>
                             </View>
-
+                        
                         </ScrollView>
+
+                        <QPButton title="Acceder" onPress={handleLoginSubmit} />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>

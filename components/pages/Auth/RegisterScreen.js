@@ -10,19 +10,20 @@ import QPInput from '../../ui/QPInput';
 
 export default function RegisterScreen({ navigation }) {
 
+    const [agree, setAgree] = useState(false);
     const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
     const [errortext, setErrortext] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
-    const [agree, setAgree] = useState(false);
 
     const emailInputRef = createRef();
     const passwordInputRef = createRef();
 
     // Form Validation
     const validateFields = () => {
+
         setErrortext('');
 
         if (!userName) {
@@ -95,101 +96,93 @@ export default function RegisterScreen({ navigation }) {
 
             <Loader loading={loading} />
 
-            {isRegistraionSuccess ? (
-                <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
-                    <View style={{ alignItems: 'center' }}>
-                        <QPLogo />
-                    </View>
-                    <Text style={styles.successTextStyle}>
-                        Registro satisfactorio.
-                    </Text>
-                    <Text style={styles.successTextStyle}>
-                        Por favor, verifique su cuenta mediante el correo recibido para comenzar a usar QvaPay.
-                    </Text>
-                    <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
-                </View>
-            ) : (
-                <>
-                    <ScrollView showsVerticalScrollIndicator={false}>
+            {
+                isRegistraionSuccess ? (
+                    <>
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                            <View style={{ alignItems: 'center' }}><QPLogo /></View>
+                            <Text style={[textStyles.h1, { textAlign: 'center' }]}>¡Registro satisfactorio!</Text>
+                            <Text style={[textStyles.h6, { textAlign: 'center' }]}>Por favor, verifique su cuenta mediante el correo recibido para comenzar a usar QvaPay.</Text>
+                        </View>
+                        <QPButton title="Acceder" onPress={() => navigation.navigate('LoginScreen')} />
+                    </>
+                ) : (
+                    <>
+                        <ScrollView showsVerticalScrollIndicator={false}>
 
-                        <View>
-                            <Image
-                                source={require('../../../assets/images/auth/register.png')}
-                                style={{ width: '100%', height: 200, resizeMode: 'contain' }}
-                            />
-                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                                <Text style={textStyles.h1}>Registra tu cuenta:</Text>
+                            <View>
+                                <Image source={require('../../../assets/images/auth/register.png')} style={{ width: '100%', height: 180, resizeMode: 'contain' }} />
+                                <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
+                                    <Text style={textStyles.h1}>Registra tu cuenta:</Text>
+                                </View>
                             </View>
-                        </View>
 
-                        <QPInput
-                            prefixIconName="user"
-                            placeholder="Nombre"
-                            onChangeText={(name) => setUserName(name)}
-                            returnKeyType="next"
-                            blurOnSubmit={false}
-                        />
-
-                        <QPInput
-                            prefixIconName="at"
-                            placeholder="Email"
-                            onChangeText={(email) => setUserEmail(email)}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            ref={emailInputRef}
-                            returnKeyType="next"
-                            onSubmitEditing={() =>
-                                passwordInputRef.current &&
-                                passwordInputRef.current.focus()
-                            }
-                            blurOnSubmit={false}
-                        />
-
-                        <QPInput
-                            prefixIconName="lock"
-                            suffixIconName="eye-slash"
-                            placeholder="Contraseña"
-                            onChangeText={(password) => setUserPassword(password)}
-                            secureTextEntry={true}
-                            ref={passwordInputRef}
-                            returnKeyType="next"
-                            blurOnSubmit={false}
-                        />
-
-                        {errortext != '' ? (
-                            <Text style={styles.errorTextStyle}>
-                                {errortext}
-                            </Text>
-                        ) : null}
-
-                        <View style={styles.checkBox}>
-                            <BouncyCheckbox
-                                size={20}
-                                fillColor={theme.darkColors.primary}
-                                unfillColor={theme.darkColors.background}
-                                text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
-                                iconStyle={{ borderColor: theme.darkColors.primary }}
-                                innerIconStyle={{ borderWidth: 1 }}
-                                textStyle={{
-                                    fontFamily: "Rubik-Regular",
-                                    textDecorationLine: 'none'
-                                }}
-                                onPress={(isChecked) => {
-                                    setAgree(isChecked)
-                                }}
+                            <QPInput
+                                prefixIconName="user"
+                                placeholder="Nombre"
+                                onChangeText={(name) => setUserName(name)}
+                                returnKeyType="next"
+                                blurOnSubmit={false}
                             />
+
+                            <QPInput
+                                prefixIconName="at"
+                                placeholder="Email"
+                                onChangeText={(email) => setUserEmail(email)}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                ref={emailInputRef}
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInputRef.current &&
+                                    passwordInputRef.current.focus()
+                                }
+                                blurOnSubmit={false}
+                            />
+
+                            <QPInput
+                                prefixIconName="lock"
+                                suffixIconName="eye-slash"
+                                placeholder="Contraseña"
+                                onChangeText={(password) => setUserPassword(password)}
+                                secureTextEntry={true}
+                                ref={passwordInputRef}
+                                returnKeyType="next"
+                                blurOnSubmit={false}
+                            />
+
+                            {
+                                errortext != '' ? (
+                                    <Text style={styles.errorTextStyle}>
+                                        {errortext}
+                                    </Text>
+                                ) : null
+                            }
+
+                            <View style={styles.checkBox}>
+                                <BouncyCheckbox
+                                    size={20}
+                                    fillColor={theme.darkColors.primary}
+                                    unfillColor={theme.darkColors.background}
+                                    text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
+                                    iconStyle={{ borderColor: theme.darkColors.primary }}
+                                    innerIconStyle={{ borderWidth: 1 }}
+                                    textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                    onPress={(isChecked) => { setAgree(isChecked) }}
+                                />
+                            </View>
+
+                            <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
+
+                        </ScrollView>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <Text style={styles.loginTextStyle}>¿Ya tienes cuenta?</Text>
+                            <Text style={[styles.loginTextStyle, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => navigation.navigate('LoginScreen')}>Iniciar Sesión</Text>
                         </View>
-
-                        <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
-
-                    </ScrollView>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <Text style={styles.loginTextStyle}>¿Ya tienes cuenta?</Text>
-                        <Text style={[styles.loginTextStyle, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => navigation.navigate('LoginScreen')}>Iniciar Sesión</Text>
-                    </View>
-                </>
-            )}
+                    </>
+                )
+            }
 
         </KeyboardAvoidingView>
     )
@@ -232,7 +225,7 @@ const styles = StyleSheet.create({
     },
     checkBox: {
         paddingLeft: 10,
-        marginRight: 100,                   // TODO no idea why this works
+        marginRight: 100,
         marginVertical: 10,
         flexDirection: 'row',
         alignContent: 'center',

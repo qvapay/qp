@@ -72,8 +72,9 @@ export default function RecoverPasswordScreen() {
                                 <LottieView source={require('../../../assets/lotties/forgot.json')} autoPlay loop style={styles.lottie} />
                             </View>
 
-                            <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
-                                <Text style={textStyles.h1}>Recuperar contraseña:</Text>
+                            <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
+                                <Text style={textStyles.h1}>Recuperar acceso:</Text>
+                                <Text style={[textStyles.h6]}>Ingresa tu correo, username o teléfono para recuperar tu contraseña.</Text>
                             </View>
 
                             <View style={{ flex: 1 }}>
@@ -87,8 +88,6 @@ export default function RecoverPasswordScreen() {
                                     onChangeText={(email) => setEmail(email)}
                                 />
 
-                                <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
-
                                 {
                                     errortext != '' ? (
                                         <Text style={styles.errorTextStyle}>
@@ -97,11 +96,12 @@ export default function RecoverPasswordScreen() {
                                     ) : null
                                 }
 
-                                <QPButton title="Enviar código de recuperación" onPress={handleRecoverPassword} />
 
                             </View>
 
                         </ScrollView>
+
+                        <QPButton title="Enviar código de recuperación" onPress={handleRecoverPassword} />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.registerTextStyle}>¿No tienes cuenta aún?</Text>
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
     },
     lottie: {
-        width: 250,
-        height: 250,
+        width: 180,
+        height: 180,
         alignSelf: 'center',
     },
 })
