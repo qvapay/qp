@@ -8,6 +8,7 @@ import Transactions from '../../ui/Transactions'
 import { AppContext } from '../../../AppContext';
 import { globalStyles, theme } from '../../ui/Theme';
 import { getMe, getProducts } from '../../../utils/QvaPayClient';
+import QPSliderButton from '../../ui/QPSliderButton'
 
 export default function HomeScreen({ navigation }) {
 
@@ -70,6 +71,12 @@ export default function HomeScreen({ navigation }) {
         <ScrollView style={styles.container} {...panResponder.panHandlers}>
 
             <Balance navigation={navigation} me={me} refreshing={refreshing} />
+
+            <QPSliderButton
+                title={"Recargar"}
+                onPress={() => console.log('Recargar')}
+                style={{ marginVertical: 10 }}
+            />
 
             <Carousel featuredProducts={featuredProducts} widthPadding={20} />
 
