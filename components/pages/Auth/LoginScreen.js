@@ -232,7 +232,7 @@ export default function LoginScreen() {
 
                                 <QPInput
                                     prefixIconName="lock"
-                                    suffixIconName="eye"
+                                    suffixIconName="eye-slash"
                                     placeholder="Contraseña"
                                     keyboardType="default"
                                     returnKeyType="next"

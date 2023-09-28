@@ -24,26 +24,38 @@ export default function RegisterScreen({ navigation }) {
     // Form Validation
     const validateFields = () => {
         setErrortext('');
+
         if (!userName) {
-            alert('Please fill Name');
+            alert('Por favor rellene su nombre');
             return false;
         }
+
         if (!userEmail) {
-            alert('Please fill Email');
+            alert('Por favor rellene su correo electrónico');
             return false;
         }
+
         if (!userPassword) {
-            alert('Please fill Password');
+            alert('Por favor rellene su contraseña');
             return false;
         }
+
+        // Only allow one name on the name field
+        if (userName.split(' ').length > 1) {
+            alert('Por favor un solo nombre');
+            return false;
+        }
+
         if (userPassword.length < 6) {
-            alert('Please fill Password with at least 6 characters');
+            alert('La contraseña debe tener al menos 6 caracteres');
             return false;
         }
+
         if (!agree) {
-            alert('Please agree to the terms and conditions');
+            alert('Por favor acepte los términos y condiciones');
             return false;
         }
+
         return true;
     };
 
@@ -135,6 +147,7 @@ export default function RegisterScreen({ navigation }) {
 
                         <QPInput
                             prefixIconName="lock"
+                            suffixIconName="eye-slash"
                             placeholder="Contraseña"
                             onChangeText={(password) => setUserPassword(password)}
                             secureTextEntry={true}

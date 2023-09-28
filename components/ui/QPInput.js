@@ -7,7 +7,7 @@ export default QPInput = forwardRef((props, ref) => {
 
     const { style, multiline } = props;
 
-    // check if the props has a suffix and prefix FontAwesome icons names
+    // TODO Add suffix functionality
     const hasPrefix = props.prefixIconName !== undefined;
     const hasSuffix = props.suffixIconName !== undefined;
 
