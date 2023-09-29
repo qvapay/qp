@@ -14,11 +14,11 @@ export default function QPRoundButton({ size, icon, onPress, style }) {
 
 const styles = StyleSheet.create({
     roundButton: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        backgroundColor: theme.darkColors.primary,
+        width: 34,
+        height: 34,
+        borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: theme.darkColors.primary,
     },
 })

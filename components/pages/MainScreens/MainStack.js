@@ -1,23 +1,22 @@
 import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { theme } from '../../ui/Theme';
 import BottomBar from '../../ui/BottomBar';
+import { AppContext } from '../../../AppContext';
+import QPRoundButton from '../../ui/QPRoundButton';
+import AvatarPicture from '../../ui/AvatarPicture';
+import { useNavigation } from '@react-navigation/native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // MainStack Screens
-import P2pScreen from './P2pScreen';
 import HomeScreen from './HomeScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
 
-import AvatarPicture from '../../ui/AvatarPicture';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { theme } from '../../ui/Theme';
-import { AppContext } from '../../../AppContext';
-import { useNavigation } from '@react-navigation/native';
-
-// ShopStack
+// Aditional Stacks
+import P2PStack from '../P2P/P2PStack';
 import ShopStack from '../Shop/ShopStack';
-import QPRoundButton from '../../ui/QPRoundButton';
 
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
@@ -45,9 +44,14 @@ export default function MainStack() {
         navigation.navigate('ShopStack', { screen: 'MyPurchasesScreen' });
     };
 
+    // Go to P2PCreate
+    const gotoP2PCreate = () => {
+        navigation.navigate('P2PStack', { screen: 'P2PCreate' });
+    };
+
     return (
         <Tab.Navigator
-            initialRouteName="HomeScreen"
+            initialRouteName="HomeScreen"                             // TODO: Change this on production
             backBehavior='initialRoute'
             tabBar={
                 props => <BottomBar {...props} />
@@ -80,8 +84,32 @@ export default function MainStack() {
         >
 
             <Tab.Screen name="HomeScreen" component={HomeScreen} />
-            <Tab.Screen name="P2pScreen" component={P2pScreen} />
+
+            <Tab.Screen
+                name="P2PStack"
+                component={P2PStack}
+                options={{
+                    headerShown: true,
+                    headerLeft: () => (
+                        <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
+                    ),
+                    headerRight: () => (
+                        <View style={styles.headerRight}>
+                            <QPRoundButton size={16} icon={'plus'} style={{ marginRight: 10 }} onPress={gotoP2PCreate} />
+                            {
+                                me.name && me.username ? (
+                                    <Pressable onPress={() => navigation.navigate("SettingsStack")} >
+                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                                    </Pressable>
+                                ) : null
+                            }
+                        </View>
+                    ),
+                }}
+            />
+
             <Tab.Screen name="KeypadScreen" component={KeypadScreen} />
+
             <Tab.Screen name="LightningScreen" component={LightningScreen} />
 
             <Tab.Screen
@@ -94,7 +122,7 @@ export default function MainStack() {
                     ),
                     headerRight: () => (
                         <View style={styles.headerRight}>
-                            <QPRoundButton size={14} icon={'shopping-cart'} style={{ marginRight: 10 }} onPress={gotoMyPurchases} />
+                            <QPRoundButton size={16} icon={'shopping-cart'} style={{ marginRight: 10 }} onPress={gotoMyPurchases} />
                             {
                                 me.name && me.username ? (
                                     <Pressable onPress={() => navigation.navigate("SettingsStack")} >

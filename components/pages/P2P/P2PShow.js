@@ -8,7 +8,7 @@ import AvatarPicture from '../../ui/AvatarPicture';
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-export default function ShowP2p({ route, navigation }) {
+export default function P2PShow({ route, navigation }) {
 
     const { uuid } = route.params
     const [offer, setOffer] = useState({})

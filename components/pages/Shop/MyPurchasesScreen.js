@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Pressable } from 'react-native'
-import { getMyPurchases } from '../../../utils/QvaPayClient';
-import { globalStyles, textStyles } from '../../ui/Theme';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import { theme } from '../../ui/Theme';
-import FastImage from 'react-native-fast-image';
-import { getShortDateTime, timeAgo } from '../../../utils/Helpers';
-import { HeaderBackButton } from '@react-navigation/elements';
 import Modal from "react-native-modal";
+import FastImage from 'react-native-fast-image';
+import { useNavigation } from '@react-navigation/native';
+import { globalStyles, textStyles } from '../../ui/Theme';
+import { getMyPurchases } from '../../../utils/QvaPayClient';
+import { HeaderBackButton } from '@react-navigation/elements';
+import { getShortDateTime, timeAgo } from '../../../utils/Helpers';
 
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';

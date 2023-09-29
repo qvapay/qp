@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native'
-import { getProducts } from '../../../utils/QvaPayClient';
-import { useNavigation } from '@react-navigation/native';
-import Carousel from '../../ui/Carousel'
 import { theme } from '../../ui/Theme'
-import FeaturedCard from '../../ui/FeaturedCard';
-import QPSearchBar from '../../ui/QPSearchBar';
+import Carousel from '../../ui/Carousel'
+import QPSearchBar from '../../ui/QPSearchBar'
+import FeaturedCard from '../../ui/FeaturedCard'
+import { getProducts } from '../../../utils/QvaPayClient'
+import { useNavigation } from '@react-navigation/native'
 
 export default function ShopIndexScreen() {
 
     // get navigation hook
     const navigation = useNavigation();
-    const [commonProducts, setCommonProducts] = useState([]);
-    const [fetchedProducts, setFetchedProducts] = useState([]);
-    const [featuredProducts, setFeaturedProducts] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState([]);
-    const [refreshing, setRefreshing] = useState(false);
-    const [showSearchBar, setShowSearchBar] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('')
+    const [refreshing, setRefreshing] = useState(false)
+    const [commonProducts, setCommonProducts] = useState([])
+    const [showSearchBar, setShowSearchBar] = useState(false)
+    const [fetchedProducts, setFetchedProducts] = useState([])
+    const [featuredProducts, setFeaturedProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
 
     useEffect(() => {
         fetchProducts();
@@ -63,10 +63,10 @@ export default function ShopIndexScreen() {
         <FlatList
             ListHeaderComponent={
                 <>
-                    {
-                        showSearchBar && <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />
-                    }
                     <View style={{ marginTop: 10 }}>
+                        <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
+                            <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />
+                        </View>
                         <Carousel featuredProducts={featuredProducts} />
                     </View>
                 </>

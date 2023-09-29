@@ -193,19 +193,19 @@ export default function LoginScreen() {
                         <View style={{ marginHorizontal: 40 }}>
                             <LottieView source={require('../../../assets/lotties/2fa.json')} autoPlay style={styles.lottie} />
                         </View>
-                        <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+                        <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
 
-                        <View style={{ marginVertical: 30 }}>
-                            <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
-                        </View>
+                        <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
 
-                        {errortext !== '' ? (
-                            <Text style={styles.errorTextStyle}>
-                                {errortext}
-                            </Text>
-                        ) : null}
+                        {
+                            errortext !== '' ? (
+                                <Text style={styles.errorTextStyle}>
+                                    {errortext}
+                                </Text>
+                            ) : null
+                        }
 
                     </ScrollView>
                 ) : (
@@ -256,7 +256,7 @@ export default function LoginScreen() {
                                     {biometricAvailable && <BiometricButton />}
                                 </View>
                             </View>
-                        
+
                         </ScrollView>
 
                         <QPButton title="Acceder" onPress={handleLoginSubmit} />
@@ -325,8 +325,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     lottie: {
-        width: 300,
-        height: 300,
+        width: 180,
+        height: 180,
         alignSelf: 'center',
     },
 })

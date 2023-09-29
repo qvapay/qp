@@ -86,8 +86,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     input: {
-        flex: 1,
+        // flex: 1,
         fontSize: 16,
+        width: '100%',
         color: 'white',
         fontFamily: 'Rubik-Regular',
     }

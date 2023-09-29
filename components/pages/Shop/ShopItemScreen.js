@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
-import FastImage from 'react-native-fast-image';
-import { getProductByUuid } from '../../../utils/QvaPayClient';
-import { useNavigation } from '@react-navigation/native';
-import { globalStyles, theme } from '../../ui/Theme';
-import QPButton from '../../ui/QPButton';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import QPTag from '../../ui/QPTag';
-import { AppContext } from '../../../AppContext';
+import QPButton from '../../ui/QPButton';
+import FastImage from 'react-native-fast-image';
+import { globalStyles, theme } from '../../ui/Theme';
+import { useNavigation } from '@react-navigation/native';
+import { getProductByUuid } from '../../../utils/QvaPayClient';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const InfoContainer = ({ children, style }) => (
     <View style={[styles.infoContainer, style]}>
@@ -18,7 +17,6 @@ const InfoContainer = ({ children, style }) => (
 export default function ShopItemScreen({ route }) {
 
     const navigation = useNavigation();
-    // const { setBackgroundColor } = useContext(AppContext);
     const { uuid } = route.params;
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(0);

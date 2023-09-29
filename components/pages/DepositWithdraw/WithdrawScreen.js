@@ -13,7 +13,7 @@ export default function WithdrawScreen() {
 
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
-    const [amount, setAmount] = useState('$');
+    const [amount, setAmount] = useState();
 
     // Collapsible options
     const [eWallets, setEWallets] = useState([]);
@@ -57,16 +57,15 @@ export default function WithdrawScreen() {
         });
     }, []);
 
-    // Always keep the $ before the amount (step 1)
-    const handleAmountChange = (text) => {
-        const inputText = text.replace(/^\$/, '');
-        if (parseFloat(inputText) > parseFloat(me.balance)) { return }
-        if (inputText.length > 5) { return }
-        if (/^\d*\.?\d*$/.test(inputText) || inputText === '') {
-            setAmount('$' + inputText);
-            const numericValue = parseFloat(inputText);
-            setStepTwoDisabled(!(numericValue >= 5));
-        }
+    // handle the amount input
+    const handleChangeAmount = (text) => {
+        setAmount(text);
+        // dont allow amount more than me.balance
+        if (text >= 1 && text <= me.balance) {
+            setStepTwoDisabled(false);
+        } else {
+            setStepTwoDisabled(true);
+        } 
     };
 
     return (
@@ -75,19 +74,19 @@ export default function WithdrawScreen() {
                 {
                     step === 1 && (
                         <>
-                            <View style={{ flex: 1 }}>
-                                <Text style={textStyles.h1}>Extraer balance:</Text>
-                                <Text style={globalStyles.subtitle}>Seleccione la cantidad de balance que desea extraer desde su cuenta de QvaPay.</Text>
+                            <Text style={textStyles.h1}>Extraer balance:</Text>
+                            <Text style={globalStyles.subtitle}>Seleccione la cantidad de balance que desea extraer desde su cuenta de QvaPay.</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={styles.dolarSign}>$</Text>
                                 <TextInput
                                     value={amount}
                                     autoFocus={true}
                                     style={styles.amount}
                                     keyboardType="numeric"
-                                    onChangeText={handleAmountChange}
+                                    onChangeText={handleChangeAmount}
                                     cursorColor='white'
                                 />
                             </View>
-
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
                         </>
                     )
@@ -99,7 +98,9 @@ export default function WithdrawScreen() {
                                 <Text style={textStyles.h1}>Tipo de moneda:</Text>
                                 <Text style={globalStyles.subtitle}>Seleccione la moneda con la cual desea extraer su balance de QvaPay.</Text>
 
-                                <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
+                                <View style={{ marginVertical: 10 }}>
+                                    <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
+                                </View>
 
                                 {categories.map((category, index) => (
                                     <View key={index}>
@@ -237,5 +238,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Black',
+    },
+    dolarSign: {
+        fontSize: 30,
+        marginRight: 5,
+        fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
     },
 })

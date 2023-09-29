@@ -6,7 +6,7 @@ import {theme} from './ui/Theme';
 import AuthStack from './pages/Auth/AuthStack';
 import ShopStack from './pages/Shop/ShopStack';
 import MainStack from './pages/MainScreens/MainStack';
-import PeerToPeerStack from './pages/P2P/PeerToPeerStack';
+import PeerToPeerStack from './pages/P2P/P2PStack';
 import SettingsStack from './pages/Settings/SettingsStack';
 import TransactionStack from './pages/Transactions/TransactionStack';
 

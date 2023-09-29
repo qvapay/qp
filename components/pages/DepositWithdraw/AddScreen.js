@@ -45,8 +45,6 @@ export default function AddScreen({ navigation }) {
     // Handle the amount input
     const handleChangeAmount = (text) => {
         setAmount(text);
-
-        // enable button if amount is greater than 1 and lower than 10000
         if (text >= 1 && text <= 10000) {
             setStepTwoDisabled(false);
         } else {
@@ -66,10 +64,11 @@ export default function AddScreen({ navigation }) {
                                 <Text style={styles.dolarSign}>$</Text>
                                 <TextInput
                                     value={amount}
-                                    cursorColor='white'
+                                    autoFocus={true}
                                     style={styles.amount}
-                                    onChangeText={handleChangeAmount}
                                     keyboardType="numeric"
+                                    onChangeText={handleChangeAmount}
+                                    cursorColor='white'
                                 />
                             </View>
                             <QPButton onPress={() => setStep(2)} title="Siguiente" disabled={stepTwoDisabled} />
@@ -80,21 +79,26 @@ export default function AddScreen({ navigation }) {
                     step === 2 && (
                         <>
                             <ScrollView style={{ flex: 1 }}>
+
                                 <Text style={textStyles.h1}>Tipo de moneda</Text>
                                 <Text style={globalStyles.subtitle}>Actualmente soportamos una amplia variedad de métodos de pago, selecciones el de su preferencia.</Text>
 
-                                <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
+                                <View style={{ marginVertical: 10 }}>
+                                    <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
+                                </View>
 
-                                {categories.map((category, index) => (
-                                    <View key={index}>
-                                        <Text style={textStyles.h3}>{category.title}</Text>
-                                        <FlatList
-                                            data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" amount={amount.substring(1)} />}
-                                            keyExtractor={item => item.id}
-                                        />
-                                    </View>
-                                ))}
+                                {
+                                    categories.map((category, index) => (
+                                        <View key={index}>
+                                            <Text style={textStyles.h3}>{category.title}</Text>
+                                            <FlatList
+                                                data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
+                                                renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" amount={amount.substring(1)} />}
+                                                keyExtractor={item => item.id}
+                                            />
+                                        </View>
+                                    ))
+                                }
 
                             </ScrollView>
 

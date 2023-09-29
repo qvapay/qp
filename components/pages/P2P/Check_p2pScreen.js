@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Pressable, Text } from 'react-native'
-import IndexP2p from '../P2P/IndexP2p'
+import IndexP2p from './P2PIndex'
 import { globalStyles } from '../../ui/Theme'
 import { getP2POffers } from '../../../utils/QvaPayClient'
 import { theme } from '../../ui/Theme'
