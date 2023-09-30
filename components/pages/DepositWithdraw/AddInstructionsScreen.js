@@ -8,6 +8,7 @@ import { truncateWalletAddress } from '../../../utils/Helpers';
 import { getTopUpData, getCoinData, getTransaction } from '../../../utils/QvaPayClient';
 import Toast from 'react-native-toast-message';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 
 const supportedWallets = [
     {
@@ -63,8 +64,9 @@ const supportedWallets = [
     // Añade más billeteras y sus identificadores de paquete aquí
 ];
 
-export default function AddInstructionsScreen({ route, navigation }) {
+export default function AddInstructionsScreen({ route }) {
 
+    const navigation = useNavigation();
     const { amount, coin } = route.params;
     const [value, setValue] = useState('');
     const [price, setPrice] = useState('');
@@ -90,7 +92,6 @@ export default function AddInstructionsScreen({ route, navigation }) {
                 const response = await getCoinData({ coin_id: coin, navigation });
                 const { tick, logo, name, price } = response;
                 const priceWithDecimals = parseFloat(price).toFixed(2);
-
                 const walletResponse = await getTopUpData({ amount, coin: tick, navigation });
                 const { transaction_id, value, wallet = "", note = "", memo = "", url = "" } = walletResponse;
 
