@@ -6,22 +6,8 @@ import { adjustNumber } from '../../utils/Helpers';
 
 export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setSelectedCoin, amount }) {
 
-    const {
-        id,
-        name,
-        tick,
-        price,
-        enabled_in,
-        enabled_out,
-        enabled_p2p,
-        fee_in,
-        fee_out,
-        logo,
-        max_in,
-        max_out,
-        min_in,
-        min_out,
-    } = item;
+    const value = parseFloat(amount);
+    const { id, name, tick, price, enabled_in, enabled_out, enabled_p2p, fee_in, fee_out, logo, max_in, max_out, min_in, min_out } = item;
 
     // Conditional fee in/out/p2p
     const fee = () => {
@@ -36,18 +22,17 @@ export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setS
 
     // Conditional min_in/min_out if in_out_p2p is IN or OUT to determine the minimum amount
     const disabled = () => {
-        console.log("")
         if (in_out_p2p === "IN") {
-            return amount < min_in;
+            return value < min_in;
         }
         if (in_out_p2p === "OUT") {
-            return amount < min_out;
+            return value < min_out;
         }
         if (in_out_p2p === "IN") {
-            return amount > max_in;
+            return value > max_in;
         }
         if (in_out_p2p === "OUT") {
-            return amount > max_out;
+            return value > max_out;
         }
         return false;
     }

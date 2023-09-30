@@ -3,9 +3,11 @@ import { StyleSheet, Text, View, TextInput, ActivityIndicator, FlatList, Keyboar
 import QPButton from '../../ui/QPButton';
 import { globalStyles, theme } from '../../ui/Theme';
 import { getCoinData, sendWithdraw } from '../../../utils/QvaPayClient';
+import { useNavigation } from '@react-navigation/native';
 
-export default function WithdrawInstructionsScreen({ route, navigation }) {
+export default function WithdrawInstructionsScreen({ route }) {
 
+    const navigation = useNavigation();
     const { amount, coin } = route.params;
     const [loading, setLoading] = useState(true);
     const [sending, setSending] = useState(false);
@@ -36,6 +38,7 @@ export default function WithdrawInstructionsScreen({ route, navigation }) {
     };
 
     const renderForm = () => {
+
         if (!coinData) {
             return null;
         }

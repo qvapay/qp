@@ -3,9 +3,10 @@ import { Pressable, Text, StyleSheet } from 'react-native'
 import { theme } from './Theme';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default function QPButton({ danger, disabled, title, onPress, style }) {
+export default function QPButton({ success, danger, disabled, title, onPress, style }) {
 
-    const gradientColors = danger ? [theme.darkColors.danger, '#C82030'] : [theme.darkColors.primary, '#6153E0'];
+    const gradientColors = success ? [theme.darkColors.success, '#7BFFB1'] : danger ? [theme.darkColors.danger, '#DB253E'] : [theme.darkColors.primary, '#6759EF'];
+    const textColor = success ? 'black' : danger ? 'white' : 'white';
 
     const handlePress = () => {
         if (disabled) return;
@@ -18,7 +19,7 @@ export default function QPButton({ danger, disabled, title, onPress, style }) {
             style={({ pressed }) => [disabled ? styles.disabledStyle : styles.buttonStyle, { transform: [{ scale: pressed ? 0.98 : 1 }] }, { ...style }]}
         >
             <LinearGradient colors={gradientColors} style={styles.gradient}>
-                <Text style={styles.titleStyle}>{title}</Text>
+                <Text style={[styles.titleStyle, {color: textColor}]}>{title}</Text>
             </LinearGradient>
         </Pressable>
     )

@@ -13,11 +13,9 @@ export default function WithdrawScreen() {
 
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
-    const [amount, setAmount] = useState();
-
-    // Collapsible options
-    const [eWallets, setEWallets] = useState([]);
+    const [amount, setAmount] = useState(0.00);
     const [banks, setBanks] = useState([]);
+    const [eWallets, setEWallets] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
     const [selectedCoin, setSelectedCoin] = useState(0);
     const categories = [
@@ -48,7 +46,7 @@ export default function WithdrawScreen() {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Pressable onPress={() => setAmount('$' + me.balance)} style={styles.balance}>
+                <Pressable onPress={() => { handleChangeAmount(me.balance) }} style={styles.balance}>
                     <Text style={styles.balanceText}>
                         $ {me.balance}
                     </Text>
@@ -59,13 +57,17 @@ export default function WithdrawScreen() {
 
     // handle the amount input
     const handleChangeAmount = (text) => {
-        setAmount(text);
-        // dont allow amount more than me.balance
+        setAmount(text.toString());
         if (text >= 1 && text <= me.balance) {
             setStepTwoDisabled(false);
         } else {
             setStepTwoDisabled(true);
-        } 
+        }
+    };
+
+    // Send the withdraw request to WithdrawInstructionsScreen
+    const onWithdrawPress = () => {
+        navigation.navigate('WithdrawInstructionsScreen', { amount: amount, coin: selectedCoin });
     };
 
     return (
@@ -101,21 +103,18 @@ export default function WithdrawScreen() {
                                 <View style={{ marginVertical: 10 }}>
                                     <QPSearchBar style={{ paddingHorizontal: 0 }} setSearchQuery={setSearchQuery} />
                                 </View>
-
                                 {categories.map((category, index) => (
                                     <View key={index}>
                                         <Text style={textStyles.h3}>{category.title}</Text>
                                         <FlatList
                                             data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="OUT" amount={amount.substring(1)} />}
+                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="OUT" amount={amount} />}
                                             keyExtractor={item => item.id}
                                         />
                                     </View>
                                 ))}
-
                             </ScrollView>
-
-                            <QPButton onPress={() => setStep(2)} title={`Extraer ${amount}`} disabled={!selectedCoin} />
+                            <QPButton onPress={onWithdrawPress} title={`Extraer ${amount}`} disabled={!selectedCoin} />
                         </>
                     )
                 }

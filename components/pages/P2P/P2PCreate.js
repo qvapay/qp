@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles, textStyles } from '../../ui/Theme'
+import QPButton from '../../ui/QPButton'
 
 export default function P2PCreate() {
 
@@ -17,9 +18,17 @@ export default function P2PCreate() {
     const [paymentMethod, setPaymentMethod] = useState(null)
     const [desiredAmount, setDesiredAmount] = useState(null)
 
-    // useEffect for payment methods
+    // Handle the Operation selection
+    const handleOperation = (operation) => {
+        setOperation(operation)
+        setStep(2)
+    }
 
-    // TODO: Create the functions for each step
+    // Handle the Amount selection
+    const handleAmount = (amount) => {
+        setAmount(amount)
+        setStep(3)
+    }
 
     // Send info via API
     const publishP2P = () => {
@@ -28,14 +37,45 @@ export default function P2PCreate() {
     }
 
     return (
-        <View style={[globalStyles.container, { paddingTop: 10, paddingHorizontal: 20 }]}>
+        <View style={[globalStyles.container, { paddingTop: 10, paddingHorizontal: 10 }]}>
 
             <View style={globalStyles.modalTopBar}></View>
 
             <View style={{ flex: 1 }}>
-                <Text style={textStyles.h1}>Crear oferta P2P:</Text>
 
+                {
+                    step == 1 && (
+                        <>
+                            <Text style={textStyles.h1}>Crear oferta P2P:</Text>
+                            <Text style={textStyles.h6}>Selecciona si deseas comprar o vender tus dólares digitales de QvaPay:</Text>
 
+                            <View style={{ flex: 1, paddingVertical: 10 }}>
+                                <View style={[styles.optionCard, { backgroundColor: "#7BFFB160" }]}>
+                                    <View style={{ flex: 1, justifyContent: "center" }}>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selelciona esta opción si deseas adquirir saldo en dólares digitales.</Text>
+                                    </View>
+                                    <QPButton title='Comprar' onPress={() => handleOperation('buy')} success />
+                                </View>
+
+                                <View style={[styles.optionCard, { backgroundColor: "#DB253E60" }]}>
+                                    <View style={{ flex: 1, justifyContent: "center" }}>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selelciona esta opción si deseas vender tu saldo en dólares digitales.</Text>
+                                    </View>
+                                    <QPButton title='Vender' onPress={() => handleOperation('sell')} danger />
+                                </View>
+                            </View>
+                        </>
+                    )
+                }
+
+                {
+                    step == 2 && (
+                        <>
+                            <Text style={textStyles.h1}>Crear oferta P2P:</Text>
+                            <Text style={textStyles.h6}>Selecciona si deseas comprar o vender tus dólares digitales de QvaPay:</Text>
+                        </>
+                    )
+                }
 
             </View>
 
@@ -44,5 +84,12 @@ export default function P2PCreate() {
 }
 
 const styles = StyleSheet.create({
-
+    optionCard: {
+        flex: 1,
+        borderRadius: 10,
+        marginVertical: 5,
+        paddingTop: 10,
+        paddingHorizontal: 10,
+        backgroundColor: "#7BFFB160",
+    },
 })

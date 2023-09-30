@@ -39,7 +39,7 @@ export default function AddScreen({ navigation }) {
 
     // Navigate to AddInstructionsScreen
     const onAddPress = () => {
-        navigation.navigate('AddInstructionsScreen', { amount: amount.substring(1), coin: selectedCoin });
+        navigation.navigate('AddInstructionsScreen', { amount: amount, coin: selectedCoin });
     };
 
     // Handle the amount input
@@ -93,7 +93,7 @@ export default function AddScreen({ navigation }) {
                                             <Text style={textStyles.h3}>{category.title}</Text>
                                             <FlatList
                                                 data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                                renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" amount={amount.substring(1)} />}
+                                                renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={setSelectedCoin} in_out_p2p="IN" amount={amount} />}
                                                 keyExtractor={item => item.id}
                                             />
                                         </View>
