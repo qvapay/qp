@@ -161,6 +161,11 @@ const adjustNumber = (value) => {
         return value.toString();
     }
 
+    // Si el valor es 0, retornar null
+    if (numValue === 0) {
+        return null;
+    }
+
     // Si el valor es superior a 1, retornar con dos decimales
     if (numValue >= 1) {
         return numValue.toFixed(2);
@@ -179,6 +184,17 @@ const adjustNumber = (value) => {
     return numValue.toFixed(8);
 }
 
+// transform "buy" and "sell" text into "Compra" and "Venta"
+const transformText = (text) => {
+    if (text === "buy") {
+        return "Compra";
+    }
+    if (text === "sell") {
+        return "Venta";
+    }
+    return text;
+}
+
 // export timeSince function
 export {
     timeSince,
@@ -189,5 +205,6 @@ export {
     filterCoins,
     truncateWalletAddress,
     adjustNumber,
-    timeAgo
+    timeAgo,
+    transformText
 };

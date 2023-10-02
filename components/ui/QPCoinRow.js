@@ -4,7 +4,7 @@ import { theme } from './Theme';
 import { SvgUri } from 'react-native-svg';
 import { adjustNumber } from '../../utils/Helpers';
 
-export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setSelectedCoin, amount }) {
+export default function QPCoinRow({ item, in_out_p2p = "P2P", selectedCoin, setSelectedCoin, amount = "" }) {
 
     const value = parseFloat(amount);
     const { id, name, tick, price, enabled_in, enabled_out, enabled_p2p, fee_in, fee_out, logo, max_in, max_out, min_in, min_out } = item;

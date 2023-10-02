@@ -14,15 +14,6 @@ export default function P2PIndex() {
 
             {/** P2P Offers Index */}
 
-            {
-                isModalVisible && (
-                    <Modal>
-                        <View style={globalStyles.container}>
-                            <Text>Hello!</Text>
-                        </View>
-                    </Modal>
-                )
-            }
 
         </View>
     );

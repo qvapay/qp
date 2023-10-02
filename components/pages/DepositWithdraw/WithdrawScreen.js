@@ -32,14 +32,14 @@ export default function WithdrawScreen() {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        const getOptions = async () => {
+        const getPaymentMethods = async () => {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "OUT" });
             setBanks(filteredCoins.banks);
             setEWallets(filteredCoins.eWallets);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
-        getOptions();
+        getPaymentMethods();
     }, []);
 
     // set headerRight with the Current Balance

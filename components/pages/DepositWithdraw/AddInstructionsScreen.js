@@ -88,7 +88,6 @@ export default function AddInstructionsScreen({ route }) {
     useEffect(() => {
         const fetchCoinData = async () => {
             try {
-
                 const response = await getCoinData({ coin_id: coin, navigation });
                 const { tick, logo, name, price } = response;
                 const priceWithDecimals = parseFloat(price).toFixed(2);

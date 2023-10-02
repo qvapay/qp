@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, ScrollView, FlatList, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Button } from 'react-native';
 import QPButton from '../../ui/QPButton';
-import { globalStyles, textStyles, theme } from '../../ui/Theme';
+import QPCoinRow from '../../ui/QPCoinRow';
+import QPSearchBar from '../../ui/QPSearchBar';
 import { filterCoins } from '../../../utils/Helpers';
 import { getCoins } from '../../../utils/QvaPayClient';
-import QPSearchBar from '../../ui/QPSearchBar';
-import QPCoinRow from '../../ui/QPCoinRow';
+import { useNavigation } from '@react-navigation/native';
+import { globalStyles, textStyles, theme } from '../../ui/Theme';
 
-export default function AddScreen({ navigation }) {
+export default function AddScreen() {
 
+    const navigation = useNavigation();
     const [amount, setAmount] = useState(0.00);
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
@@ -27,14 +29,14 @@ export default function AddScreen({ navigation }) {
 
     // Get the coins from the API and filter them
     useEffect(() => {
-        const getOptions = async () => {
+        const getPaymentMethods = async () => {
             const coins = await getCoins(navigation);
             const filteredCoins = filterCoins({ coins, in_out_p2p: "IN" });
             setBanks(filteredCoins.banks);
             setEWallets(filteredCoins.eWallets);
             setCryptoCurrencies(filteredCoins.cryptoCurrencies);
         };
-        getOptions();
+        getPaymentMethods();
     }, []);
 
     // Navigate to AddInstructionsScreen
