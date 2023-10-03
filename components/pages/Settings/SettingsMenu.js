@@ -219,7 +219,7 @@ const SettingsMenu = () => {
                 onPress={() => navigation.navigate('GoldCheck')}
             >
                 <View style={{ marginRight: 100 }}>
-                    <Image source={require('../../../assets/images/gold-badge.png')} style={{ width: 120, height: 120, position: 'absolute', top: -60, left: -40 }} />
+                    <Image source={require('../../../assets/images/gold-badge.png')} style={{ width: 130, height: 130, position: 'absolute', top: -65, left: -50 }} />
                 </View>
                 <View>
                     <Text style={{ fontFamily: 'Rubik-Bold', color: 'white', fontSize: 16 }}>GOLD CHECK</Text>
