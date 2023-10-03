@@ -212,11 +212,12 @@ export default function LoginScreen() {
                     <>
                         <ScrollView showsVerticalScrollIndicator={false}>
 
-                            <View style={{ marginHorizontal: 40 }}>
-                                <Image source={require('../../../assets/images/auth/login.png')} style={{ width: '100%', height: 180, resizeMode: 'contain' }} />
-                            </View>
-                            <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
-                                <Text style={textStyles.h1}>Iniciar sesión:</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
+                                    <Text style={textStyles.h1}>Hey! 👋</Text>
+                                    <Text style={textStyles.h2}>Iniciar sesión:</Text>
+                                </View>
+                                <LottieView source={require('../../../assets/lotties/lock.json')} autoPlay loop={false} style={styles.lottie} />
                             </View>
 
                             <View style={{ flex: 1 }}>
@@ -325,8 +326,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     lottie: {
-        width: 180,
-        height: 180,
+        width: 120,
+        height: 120,
         alignSelf: 'center',
     },
 })

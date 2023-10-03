@@ -1,12 +1,13 @@
-import React, { useState, createRef } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, ScrollView, Image, Platform } from 'react-native';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import QPLogo from '../../ui/QPLogo';
-import Loader from '../../ui/Loader';
-import QPButton from '../../ui/QPButton';
-import { globalStyles, theme, textStyles } from '../../ui/Theme';
-import { qvaPayClient } from '../../../utils/QvaPayClient';
-import QPInput from '../../ui/QPInput';
+import React, { useState, createRef } from 'react'
+import { StyleSheet, View, Text, KeyboardAvoidingView, ScrollView, Image, Platform } from 'react-native'
+import BouncyCheckbox from "react-native-bouncy-checkbox"
+import QPLogo from '../../ui/QPLogo'
+import Loader from '../../ui/Loader'
+import QPButton from '../../ui/QPButton'
+import { globalStyles, theme, textStyles } from '../../ui/Theme'
+import { qvaPayClient } from '../../../utils/QvaPayClient'
+import QPInput from '../../ui/QPInput'
+import LottieView from "lottie-react-native";
 
 export default function RegisterScreen({ navigation }) {
 
@@ -110,11 +111,12 @@ export default function RegisterScreen({ navigation }) {
                     <>
                         <ScrollView showsVerticalScrollIndicator={false}>
 
-                            <View>
-                                <Image source={require('../../../assets/images/auth/register.png')} style={{ width: '100%', height: 180, resizeMode: 'contain' }} />
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
-                                    <Text style={textStyles.h1}>Registra tu cuenta:</Text>
+                                    <Text style={textStyles.h1}>Bienvenido! 👋</Text>
+                                    <Text style={textStyles.h2}>Crear tu cuenta:</Text>
                                 </View>
+                                <LottieView source={require('../../../assets/lotties/register.json')} autoPlay loop={false} style={styles.lottie} />
                             </View>
 
                             <QPInput
@@ -167,14 +169,14 @@ export default function RegisterScreen({ navigation }) {
                                     text="Al registrarme, acepto los Términos de Servicio y la Política de Privacidad."
                                     iconStyle={{ borderColor: theme.darkColors.primary }}
                                     innerIconStyle={{ borderWidth: 1 }}
-                                    textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
                                     onPress={(isChecked) => { setAgree(isChecked) }}
+                                    textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
                                 />
                             </View>
 
-                            <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
-
                         </ScrollView>
+
+                        <QPButton title="Registrarme" onPress={handleRegister} disabled={!agree} />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={styles.loginTextStyle}>¿Ya tienes cuenta?</Text>
@@ -231,5 +233,10 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-    }
+    },
+    lottie: {
+        width: 120,
+        height: 120,
+        alignSelf: 'center',
+    },
 })
