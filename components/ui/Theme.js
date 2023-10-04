@@ -14,6 +14,7 @@ const colors = {
     elevated_dark_color: "#222440",     // Dark for elevation purlposes
     placeholder: "#b4b7bd",             // Gray like blue
     contrast_text: "#BBBBDD",
+    almost_white: "#F7F7F7",
 }
 
 const theme = {
@@ -27,6 +28,7 @@ const theme = {
         placeholder: colors.placeholder,
         elevation_light: colors.gray,
         contrast_text: colors.contrast_text,
+        almost_white: colors.almost_white,
     },
     mode: 'dark',
 }

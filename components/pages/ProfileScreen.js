@@ -101,7 +101,9 @@ export default function ProfileScreen({ route }) {
 
                 <View style={styles.qrSection}>
                     <QR qrData={qrData} />
-                    {amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>}
+                    {
+                        amount > 0 && <Text style={styles.receivingAmount}>${amount}</Text>
+                    }
                 </View>
 
             </Pressable>
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 40,
         justifyContent: 'space-between',
-        backgroundColor: theme.darkColors.elevation_light,
+        backgroundColor: theme.darkColors.almost_white,
     },
     sharingContainer: {
         borderRadius: 10,
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 50,
         justifyContent: 'space-between',
-        backgroundColor: theme.darkColors.elevation_light,
+        backgroundColor: theme.darkColors.almost_white,
     },
     qrSection: {
         flex: 1,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: theme.darkColors.elevation_light,
+        backgroundColor: theme.darkColors.almost_white,
     },
     receivingAmount: {
         fontSize: 26,

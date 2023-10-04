@@ -13,7 +13,7 @@ export default function WithdrawScreen() {
 
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
-    const [amount, setAmount] = useState(0.00);
+    const [amount, setAmount] = useState("0.00");
     const [banks, setBanks] = useState([]);
     const [eWallets, setEWallets] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
@@ -83,7 +83,7 @@ export default function WithdrawScreen() {
                                 <TextInput
                                     value={amount}
                                     autoFocus={true}
-                                    style={styles.amount}
+                                    style={[styles.amount, { color: amount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
                                     keyboardType="numeric"
                                     onChangeText={handleChangeAmount}
                                     cursorColor='white'

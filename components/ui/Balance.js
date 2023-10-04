@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     },
     actionButton1: {
         flex: 1,
-        marginVertical: 20,
+        marginVertical: 10,
         paddingVertical: 10,
         alignItems: 'center',
         flexDirection: 'row',
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
     actionButton2: {
         flex: 1,
-        marginVertical: 20,
+        marginVertical: 10,
         paddingVertical: 10,
         alignItems: 'center',
         flexDirection: 'row',

@@ -113,10 +113,11 @@ export default function KeypadScreen({ navigation }) {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: "red" }}>
-            <View style={globalStyles.container}>
+        <View style={globalStyles.container}>
 
-                <View>
+            <View style={{ flex: 1 }}>
+
+                <View style={{ flex: 1, justifyContent: 'center' }}>
                     <View style={styles.amountContainer}>
                         <Text style={styles.dolarSign}>$</Text>
                         <Animated.Text style={[styles.amount, { fontSize: fontSize }]}>{amount}</Animated.Text>
@@ -129,24 +130,30 @@ export default function KeypadScreen({ navigation }) {
                 </View>
 
                 <View style={styles.padContainer}>
-                    {keys.map((row, rowIndex) => (
-                        <View key={rowIndex} style={styles.pad}>
-                            {row.map((key, keyIndex) => renderKey(key, keyIndex))}
-                        </View>
-                    ))}
+                    {
+                        keys.map((row, rowIndex) => (
+                            <View key={rowIndex} style={styles.pad}>
+                                {
+                                    row.map((key, keyIndex) => renderKey(key, keyIndex))
+                                }
+                            </View>
+                        ))
+                    }
                 </View>
-
             </View>
 
             <View style={styles.actionButtons}>
                 <Pressable style={styles.actionButton1} onPress={receiveAmount} >
-                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-down' size={16} color='white' /> Recibir</Text>
+                    <FontAwesome5 name='arrow-down' size={16} color={theme.darkColors.elevation_light} style={{ marginRight: 5 }} />
+                    <Text style={styles.actionButtonLabel}>Recibir</Text>
                 </Pressable>
                 <View style={{ width: 3 }}></View>
                 <Pressable style={styles.actionButton2} onPress={sendAmount} >
-                    <Text style={styles.actionButtonLabel}><FontAwesome5 name='arrow-up' size={16} color='white' /> Enviar</Text>
+                    <FontAwesome5 name='arrow-up' size={16} color={theme.darkColors.elevation_light} style={{ marginRight: 5 }} />
+                    <Text style={styles.actionButtonLabel}>Enviar</Text>
                 </Pressable>
             </View>
+
         </View>
     )
 }
@@ -167,11 +174,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     dolarSign: {
-        fontSize: 40,
-        color: 'white',
+        fontSize: 30,
         marginRight: 5,
         alignSelf: 'center',
         fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
     },
     amount: {
         fontSize: 60,
@@ -214,16 +221,22 @@ const styles = StyleSheet.create({
     actionButton1: {
         flex: 1,
         paddingVertical: 10,
-        backgroundColor: theme.darkColors.elevation,
-        borderBottomLeftRadius: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
         borderTopLeftRadius: 10,
+        justifyContent: 'center',
+        borderBottomLeftRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
     },
     actionButton2: {
         flex: 1,
         paddingVertical: 10,
-        backgroundColor: theme.darkColors.elevation,
-        borderBottomRightRadius: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
         borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
     },
     actionButtonLabel: {
         fontSize: 20,

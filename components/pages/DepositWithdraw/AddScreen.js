@@ -11,7 +11,7 @@ import { globalStyles, textStyles, theme } from '../../ui/Theme';
 export default function AddScreen() {
 
     const navigation = useNavigation();
-    const [amount, setAmount] = useState(0.00);
+    const [amount, setAmount] = useState("0.00");
     const [eWallets, setEWallets] = useState([]);
     const [banks, setBanks] = useState([]);
     const [cryptoCurrencies, setCryptoCurrencies] = useState([]);
@@ -67,7 +67,7 @@ export default function AddScreen() {
                                 <TextInput
                                     value={amount}
                                     autoFocus={true}
-                                    style={styles.amount}
+                                    style={[styles.amount, { color: amount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
                                     keyboardType="numeric"
                                     onChangeText={handleChangeAmount}
                                     cursorColor='white'
