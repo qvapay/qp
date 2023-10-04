@@ -43,20 +43,17 @@ export default function FeaturedCard({ product, showLead = true }) {
     return (
         <Pressable style={styles.cardContainer} onPress={handlePress}>
             <View style={[styles.featuredCard, { backgroundColor: color }]}>
-
                 <View style={[styles.circle1, circlePos.circle1]} />
                 <View style={[styles.circle2, circlePos.circle2]} />
                 <View style={[styles.circle3, circlePos.circle3]} />
-
                 <View style={{ flex: 1 }} />
-
                 <LinearGradient colors={['transparent', gradientEndColor]} style={[styles.bottomInfo, showLead ? { justifyContent: 'space-between' } : { justifyContent: 'center' }]}>
                     <Text style={styles.bottomNameText}>{name}</Text>
-                    {showLead && <Text style={styles.bottomPriceText}>{lead}</Text>}
+                    {
+                        showLead && <Text style={styles.bottomPriceText}>{lead}</Text>
+                    }
                 </LinearGradient>
-
                 <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />
-
             </View>
         </Pressable>
     )
@@ -94,19 +91,19 @@ const styles = StyleSheet.create({
     bottomInfo: {
         zIndex: 5,
         width: '100%',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
+        paddingVertical: 15,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingHorizontal: 20,
         justifyContent: 'space-between',
     },
     bottomNameText: {
-        fontSize: 16,
+        fontSize: 15,
         color: 'white',
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'Rubik-SemiBold',
     },
     bottomPriceText: {
-        fontSize: 12,
+        fontSize: 14,
         color: 'white',
         fontFamily: 'Rubik-Bold'
     },

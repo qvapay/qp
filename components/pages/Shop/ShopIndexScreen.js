@@ -48,9 +48,9 @@ export default function ShopIndexScreen() {
         const fetchedProducts = await getProducts({ navigation });
         const featuredProducts = fetchedProducts.filter(product => product.featured);
         const commonProducts = fetchedProducts.filter(product => !product.featured);
+        setCommonProducts(commonProducts);
         setFetchedProducts(fetchedProducts);
         setFeaturedProducts(featuredProducts);
-        setCommonProducts(commonProducts);
     };
 
     const productCard = ({ item, index }) => (
@@ -64,9 +64,11 @@ export default function ShopIndexScreen() {
             ListHeaderComponent={
                 <>
                     <View style={{ marginTop: 10 }}>
+
                         <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                             <QPSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onClose={() => setShowSearchBar(false)} />
                         </View>
+
                         <Carousel featuredProducts={featuredProducts} />
                     </View>
                 </>

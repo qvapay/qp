@@ -4,7 +4,6 @@ import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { SvgUri } from 'react-native-svg'
 import QPCoinRow from '../../ui/QPCoinRow'
-// import QPSearchBar from '../../ui/QPSearchBar';
 import { filterCoins } from '../../../utils/Helpers'
 import { transformText } from '../../../utils/Helpers'
 import { useNavigation } from '@react-navigation/native'
@@ -141,7 +140,7 @@ export default function P2PCreate() {
     }
 
     return (
-        <View style={[globalStyles.container, { paddingTop: 10, paddingHorizontal: 10 }]}>
+        <View style={[globalStyles.container, { padding: 20 }]}>
 
             {
                 step < 5 && (

@@ -144,6 +144,9 @@ export default function MyPurchasesScreen() {
                                 <Text style={textStyles.smallDescription}>Actualizado:</Text>
                                 <Text style={styles.itemDescription}>{getShortDateTime(selectedItem.created_at)}</Text>
                             </View>
+
+                            <View style={{ marginBottom: 20 }}></View>
+
                         </View>
                     </Modal>
                 )
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
     },
     modalview: {
         margin: 0,
-        justifyContent: 'flex-end',
         overflow: 'hidden',
+        justifyContent: 'flex-end',
     },
 })

@@ -34,9 +34,11 @@ export default function Carousel({ featuredProducts = [], widthPadding = 0 }) {
                 decelerationRate="fast"
                 pagingEnabled
             >
-                {featuredProducts.map((product, index) => (
-                    <FeaturedCard key={product.uuid} product={product} />
-                ))}
+                {
+                    featuredProducts.map((product, index) => (
+                        <FeaturedCard key={product.uuid} product={product} />
+                    ))
+                }
             </ScrollView>
         </View>
     )
