@@ -33,10 +33,10 @@ export default function KeypadScreen({ navigation }) {
     const keyPressed = (key) => {
 
         // If the amount is 0 and no decimals, replace it with the new amount
-        if (amount === '0') {
-            setAmount(key);
-            return;
-        }
+        // if (amount === '0') {
+        //     setAmount(key);
+        //     return;
+        // }
 
         // Add the amount to the state
         if (key === '<') {
