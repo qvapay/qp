@@ -147,7 +147,10 @@ export default function P2PCreate() {
     // Go to the P2PView using the p2p uuid
     const viewOffer = () => {
         navigation.pop()
-        navigation.navigate('P2PShow', { uuid: p2p.uuid })
+        navigation.navigate('P2PStack', {
+            screen: 'P2PShow',
+            params: { uuid: p2p.uuid },
+        })
     }
 
     // Cancel the operation

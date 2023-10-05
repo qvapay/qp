@@ -8,7 +8,6 @@ import { globalStyles, textStyles } from '../../ui/Theme';
 import { getMyPurchases } from '../../../utils/QvaPayClient';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { getShortDateTime, timeAgo } from '../../../utils/Helpers';
-
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';
 

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Modal from "react-native-modal";
 import { theme } from '../../ui/Theme';
 import QPButton from '../../ui/QPButton';
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
-import { getShortDateTime } from '../../../utils/Helpers'
+import { getShortDateTime, reduceString } from '../../../utils/Helpers'
 import { getTransaction } from '../../../utils/QvaPayClient'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -44,6 +44,7 @@ export default function ShowTransaction({ route }) {
     useEffect(() => {
         const fetchTransaction = async () => {
             try {
+                console.log(transaction)
                 const storedTransaction = await AsyncStorage.getItem(`transaction_${uuid}`);
                 if (storedTransaction) {
                     setTransaction(JSON.parse(storedTransaction));
@@ -104,7 +105,14 @@ export default function ShowTransaction({ route }) {
                         transaction.p2p && (
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
                                 <Text style={textStyles.h4}>P2P:</Text>
-                                <Text></Text>
+                                <Pressable
+                                    onPress={() => navigation.navigate('P2PStack', {
+                                        screen: 'P2PShow',
+                                        params: { uuid: transaction.p2p.uuid },
+                                    })}
+                                >
+                                    <Text style={textStyles.h4}>{reduceString(transaction.p2p.uuid)}</Text>
+                                </Pressable>
                             </View>
                         )
                     }
@@ -137,6 +145,9 @@ export default function ShowTransaction({ route }) {
                         <Text style={textStyles.h4}>Estado:</Text>
                         <Text style={textStyles.h6}>{transaction.status}</Text>
                     </View>
+
+                    <View style={{ marginBottom: 20 }}></View>
+
                 </View>
             </Modal>
         </View>
