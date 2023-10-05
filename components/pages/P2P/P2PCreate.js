@@ -7,10 +7,10 @@ import QPCoinRow from '../../ui/QPCoinRow'
 import { filterCoins } from '../../../utils/Helpers'
 import { transformText } from '../../../utils/Helpers'
 import { useNavigation } from '@react-navigation/native'
-import { qvaPayClient, getCoins } from '../../../utils/QvaPayClient'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import LottieView from "lottie-react-native"
 import QPInput from '../../ui/QPInput'
+import { qvaPayClient, apiRequest, getCoins } from '../../../utils/QvaPayClient'
 
 export default function P2PCreate() {
 
@@ -48,10 +48,11 @@ export default function P2PCreate() {
 
     // Api Call to get the total amount of buy and sell operations
     const getOperations = async () => {
-        const response = await qvaPayClient.get('p2p/get_total_operations')
-        if (response.status == 200 && response.data && response.data.sell && response.data.buy) {
-            setSellOperations(response.data.sell)
-            setBuyOperations(response.data.buy)
+        const url = '/p2p/get_total_operations'
+        const response = await apiRequest(url, { method: 'GET' }, navigation)
+        if (response.sell && response.buy) {
+            setSellOperations(response.sell)
+            setBuyOperations(response.buy)
         } else {
             setSellOperations(0)
             setBuyOperations(0)
@@ -120,18 +121,32 @@ export default function P2PCreate() {
     }
 
     // Send info via API
-    const publishP2P = () => {
-
-        console.log(operation)
-        console.log(selectedCoin)
-        console.log(amount)
-        console.log(desiredAmount)
-        console.log(offerDetails)
-        console.log(privateOffer)
-        console.log(onlyKYC)
-        console.log(promoteOffer)
+    const publishP2P = async () => {
 
         setStep(5)
+
+        // Now send the data to the API
+        try {
+            const data = {
+                type: operation,
+                coin: selectedCoin,
+                amount,
+                receive: desiredAmount,
+                details: offerDetails,
+                only_kyc: onlyKYC,
+                private: privateOffer,
+                promote_offer: promoteOffer,
+            }
+            console.log(data)
+            const response = await qvaPayClient.post('/p2p/create', { data })
+            console.log(response)
+            if (response.status == 201 && response.data && response.data.msg == "Succesfull created" && response.data.p2p) {
+                const p2p = response.data.p2p
+                setStep(6)
+            }
+        } catch (error) {
+
+        }
     }
 
     // Cancel the operation
@@ -268,10 +283,10 @@ export default function P2PCreate() {
                                     {/** Cycle here for every offerDetails as label QPInput fields */}
                                     {
                                         offerDetails.map((detail, index) => (
-                                            <>
+                                            <View style={{ marginVertical: 10 }}>
                                                 <Text style={[textStyles.h3]}>{detail.name}:</Text>
                                                 <QPInput
-                                                    key={index}
+                                                    key={detail.name}
                                                     prefixIconName="info"
                                                     label={detail.name}
                                                     value={offerDetails[index]?.value}
@@ -281,7 +296,7 @@ export default function P2PCreate() {
                                                         setOfferDetails(newDetails)
                                                     }}
                                                 />
-                                            </>
+                                            </View>
                                         ))
                                     }
 
@@ -346,6 +361,20 @@ export default function P2PCreate() {
                                 <Text style={[textStyles.h3, { textAlign: 'center' }]}>Publicando oferta P2P</Text>
                             </View>
                             <QPButton onPress={cancelP2P} title={`Cancelar`} danger={true} />
+                        </>
+                    )
+                }
+
+                {
+                    step == 6 && (
+                        <>
+                            <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                <View style={{ marginHorizontal: 40 }}>
+                                    <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
+                                </View>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
+                                <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
+                            </View>
                         </>
                     )
                 }

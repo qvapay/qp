@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { StyleSheet, Text, View, Animated } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 import { SvgUri } from 'react-native-svg'
+import LottieView from "lottie-react-native";
 
 export default function LightningScreen() {
 
@@ -47,7 +48,7 @@ export default function LightningScreen() {
                 Te va a gustar QvaPay
             </Animated.Text>
             <Animated.Text style={[styles.fadedText3, { opacity: fadeAnim3, transform: [{ translateY: translateY3 }] }]}>
-                ❤️🧡
+                <LottieView source={require('../../../assets/lotties/bitcoin.json')} autoPlay style={styles.lottie} />
             </Animated.Text>
         </View>
     )
@@ -74,5 +75,10 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Medium'
+    },
+    lottie: {
+        width: 160,
+        height: 160,
+        alignSelf: 'center',
     },
 })
