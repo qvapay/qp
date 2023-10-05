@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native'
 export default function P2PIndex() {
 
     const navigation = useNavigation();
-    const [isModalVisible, setModalVisible] = useState(false);
 
     return (
         <View style={globalStyles.container}>

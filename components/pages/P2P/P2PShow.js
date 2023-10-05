@@ -30,11 +30,6 @@ export default function P2PShow({ route, navigation }) {
 
     // Apply to an offer and change the status to "applied"
     const applyToOffer = () => {
-
-        // Send API request to see if this P2P is available
-        // If it is, then change the status to "processing"
-        // If it is not, then show an error message
-
         setShowChat(true)
         setShowSteps(true)
     }

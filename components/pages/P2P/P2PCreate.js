@@ -10,13 +10,9 @@ import { useNavigation } from '@react-navigation/native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import LottieView from "lottie-react-native"
 import QPInput from '../../ui/QPInput'
-import { qvaPayClient, apiRequest, getCoins } from '../../../utils/QvaPayClient'
+import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
 
 export default function P2PCreate() {
-
-    // Steps of the P2PCreate
-    // 3. Select the amount to [buy, sell] & Select the desired [receive/send] amount
-    // 4. Review the data and confirm the operation
 
     const navigation = useNavigation()
     const [step, setStep] = useState(1)
@@ -39,6 +35,7 @@ export default function P2PCreate() {
     const [onlyKYC, setOnlyKYC] = useState(false)
     const [promoteOffer, setPromoteOffer] = useState(false)
     const [offerDetails, setOfferDetails] = useState([])
+    const [p2p, setP2P] = useState(null)
 
     // useEffect to get the total amount of buy and sell operations
     useEffect(() => {
@@ -122,36 +119,40 @@ export default function P2PCreate() {
 
     // Send info via API
     const publishP2P = async () => {
-
         setStep(5)
-
-        // Now send the data to the API
         try {
+            const parsedDetails = JSON.stringify(offerDetails)
             const data = {
                 type: operation,
                 coin: selectedCoin,
                 amount,
                 receive: desiredAmount,
-                details: offerDetails,
+                details: parsedDetails,
                 only_kyc: onlyKYC,
                 private: privateOffer,
                 promote_offer: promoteOffer,
             }
-            console.log(data)
-            const response = await qvaPayClient.post('/p2p/create', { data })
-            console.log(response)
-            if (response.status == 201 && response.data && response.data.msg == "Succesfull created" && response.data.p2p) {
-                const p2p = response.data.p2p
+            const url = '/p2p/create'
+            const response = await apiRequest(url, { method: 'POST', data }, navigation)
+            if (response && response.msg == "Succesfull created" && response.p2p) {
+                const p2p = response.p2p
+                setP2P(p2p)
                 setStep(6)
             }
         } catch (error) {
-
+            console.log(error)
         }
+    }
+
+    // Go to the P2PView using the p2p uuid
+    const viewOffer = () => {
+        navigation.pop()
+        navigation.navigate('P2PShow', { uuid: p2p.uuid })
     }
 
     // Cancel the operation
     const cancelP2P = () => {
-        setStep(1)
+        setStep(4)
     }
 
     return (
@@ -375,6 +376,7 @@ export default function P2PCreate() {
                                 <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
                                 <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
                             </View>
+                            <QPButton onPress={viewOffer} title={`Ver oferta`} />
                         </>
                     )
                 }
