@@ -17,7 +17,7 @@ export default function P2POffer({ offer, navigation }) {
     // Navigation function to ShowTransaction screen
     const navigateToP2P = () => {
         navigation.navigate('PeerToPeerStack', {
-            screen: 'ShowP2p',
+            screen: 'P2PShow',
             params: { uuid },
         })
     }
@@ -46,7 +46,7 @@ export default function P2POffer({ offer, navigation }) {
                 </View>
             </View>
 
-            <PeerContainer peer={owner} />
+            <PeerContainer peer={owner} orientation="left" />
 
         </Pressable>
     )

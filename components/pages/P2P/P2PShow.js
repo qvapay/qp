@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import QPButton from '../../ui/QPButton';
-import { globalStyles, theme } from '../../ui/Theme';
-import ChatSection from '../../ui/ChatSection';
-import RatingStars from '../../ui/RatingStars';
-import AvatarPicture from '../../ui/AvatarPicture';
+import QPButton from '../../ui/QPButton'
+import ChatSection from '../../ui/ChatSection'
+import PeerContainer from '../../ui/PeerContainer'
+import { globalStyles, theme } from '../../ui/Theme'
+import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-export default function P2PShow({ route, navigation }) {
+export default function P2PShow({ route }) {
 
     const { uuid } = route.params
+    const navigation = useNavigation()
     const [offer, setOffer] = useState({})
     const [showChat, setShowChat] = useState(false)
     const [showSteps, setShowSteps] = useState(false)
+    const [owner, setOwner] = useState({})
 
     // Format amount and receive to have only 2 decimals
     fixedAmount = parseFloat(offer.amount).toFixed(2)
@@ -22,8 +24,13 @@ export default function P2PShow({ route, navigation }) {
     // get the Offer from getP2POffer function
     useEffect(() => {
         const getOffer = async () => {
-            const response = await getP2POffer({ uuid, navigation });
-            setOffer(response);
+            try {
+                const response = await getP2POffer({ uuid, navigation });
+                setOffer(response)
+                setOwner(response.owner)
+            } catch (error) {
+                console.log(error)
+            }
         }
         getOffer();
     }, [])
@@ -34,39 +41,28 @@ export default function P2PShow({ route, navigation }) {
         setShowSteps(true)
     }
 
-    // Custom Offer Label
-    const offerLabel = () => {
-        if (offer.type === 'buy') {
-            return 'Comprar'
-        } else {
-            return 'Vender'
-        }
-    }
-
     const OfferInOutComponent = () => (
-        <>
-            <View style={styles.offerReceiveSend}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-down' size={26} color='#28c76f' />
-                        <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.coinLabel}>SQP</Text>
-                    </View>
+        <View style={styles.offerReceiveSend}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                    <FontAwesome5 name='arrow-down' size={26} color='#28c76f' />
+                    <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
                 </View>
-                <View style={styles.grayDivider}></View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-up' size={26} color='#ea5455' />
-                        <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.coinLabel}>{offer.coin_data?.name}</Text>
-                    </View>
+                <View>
+                    <Text style={styles.coinLabel}>SQP</Text>
                 </View>
             </View>
-        </>
+            <View style={styles.grayDivider}></View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                    <FontAwesome5 name='arrow-up' size={26} color='#ea5455' />
+                    <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
+                </View>
+                <View>
+                    <Text style={styles.coinLabel}>{offer.coin_data?.name}</Text>
+                </View>
+            </View>
+        </View>
     )
 
     // Custom Offer Label with explanation
@@ -98,17 +94,22 @@ export default function P2PShow({ route, navigation }) {
     return (
         <View style={globalStyles.container}>
 
-            <View style={styles.peerOwnerContainer}>
-                <AvatarPicture size={56} source_uri={offer.owner?.profile_photo_url} />
-                <View style={{ marginLeft: 10 }}>
-                    <Text style={styles.peerName}>{offer.owner?.username}</Text>
-                    <RatingStars rating={5.0} fontSize={14} size={14} />
-                </View>
+            {
+                owner && owner.username && (
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <PeerContainer peer={owner} orientation="right" />
+                        <PeerContainer peer={owner} orientation="left" />
+                    </View>
+                )
+            }
+
+            <View style={{ flex: 1 }}>
+
             </View>
 
-            {showSteps ? <OfferStepsComponent /> : null}
+            {/* {showSteps ? <OfferStepsComponent /> : null}
             {showChat ? null : <OfferInOutComponent />}
-            {showChat ? <ChatSection uuid={uuid} /> : <OfferLabelComponent />}
+            {showChat ? <ChatSection uuid={uuid} /> : <OfferLabelComponent />} */}
 
         </View>
     )
@@ -120,15 +121,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         backgroundColor: theme.darkColors.elevation,
-    },
-    peerOwnerContainer: {
-        padding: 10,
-        flexDirection: 'row',
-    },
-    peerName: {
-        fontSize: 20,
-        color: 'white',
-        fontFamily: 'Rubik-Medium'
     },
     offerReceiveSend: {
         marginTop: 10,

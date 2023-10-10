@@ -9,8 +9,14 @@ export default function PeerContainer({ peer, orientation = 'left' }) {
     const usernameLabel = username.length > 10 ? username.substring(0, 10) + '' : username
 
     return (
-        <View style={styles.peerContainer}>
-            <View>
+        <View style={[styles.peerContainer, orientation === 'right' ? { flexDirection: 'row-reverse' } : {}]}>
+
+            <View style={{
+                flex: 1,
+                alignItems: orientation === 'left' ? 'flex-end' : 'flex-start',
+                marginRight: orientation === 'left' ? 8 : 0,
+                marginLeft: orientation === 'right' ? 8 : 0,
+            }}>
                 <Text style={styles.peerUsername}>{usernameLabel}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <RatingStars rating={average_rating} fontSize={12} size={10} />
@@ -21,6 +27,7 @@ export default function PeerContainer({ peer, orientation = 'left' }) {
                     }
                 </>
             </View>
+
             <AvatarPicture size={48} source_uri={profile_photo_url} />
         </View>
     )
