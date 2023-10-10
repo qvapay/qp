@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QvaPay</string>
+    <string name="onesignal_notification_accent_color">6759EF</string>
 </resources>

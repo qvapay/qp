@@ -28,12 +28,14 @@ export default function P2PIndex() {
         try {
             setLoading(true)
             const url = `/p2p/index?type=${type}`
+
+            // Construct filtering
+
             const response = await apiRequest(url, { metthod: "GET" }, navigation)
 
             setP2pOffers(response.data)
-            setBuyOffers(p2pOffers.filter((offer) => offer.type === 'buy'))
-            setSellOffers(p2pOffers.filter((offer) => offer.type === 'sell'))
-
+            setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
+            setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
 
             setLoading(false)
         } catch (error) {
@@ -48,13 +50,13 @@ export default function P2PIndex() {
 
     const OffersFilter = ({ isBuyEnabled }) => (
         <View style={styles.filterContainer}>
-            <Pressable onPress={() => setIsBuyEnabled(true)} style={[styles.filterButton, isBuyEnabled && styles.filterButtonActive]}>
-                <Text style={[styles.filterLabel, isBuyEnabled && styles.filterLabelActive]}>
+            <Pressable onPress={() => setIsBuyEnabled(true)} style={[styles.filterButton, { backgroundColor: isBuyEnabled && theme.darkColors.success }]}>
+                <Text style={[styles.filterLabel, { color: isBuyEnabled ? theme.darkColors.background : theme.darkColors.almost_white }]}>
                     Compra
                 </Text>
             </Pressable>
-            <Pressable onPress={() => setIsBuyEnabled(false)} style={[styles.filterButton, !isBuyEnabled && styles.filterButtonActive]}>
-                <Text style={[styles.filterLabel, !isBuyEnabled && styles.filterLabelActive]} >
+            <Pressable onPress={() => setIsBuyEnabled(false)} style={[styles.filterButton, { backgroundColor: !isBuyEnabled && theme.darkColors.danger }]}>
+                <Text style={[styles.filterLabel, { color: theme.darkColors.almost_white }]} >
                     Venta
                 </Text>
             </Pressable>
@@ -114,16 +116,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    filterButtonActive: {
-        backgroundColor: theme.darkColors.background,
-    },
     filterLabel: {
         fontSize: 16,
         fontFamily: 'Rubik-Regular',
         color: theme.darkColors.placeholder,
-    },
-    filterLabelActive: {
-        color: theme.darkColors.almost_white,
     },
     filterIcon: {
         padding: 10,

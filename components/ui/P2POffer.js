@@ -1,29 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { theme } from './Theme';
-import RatingStars from './RatingStars';
 import { SvgUri } from 'react-native-svg';
-import AvatarPicture from './AvatarPicture';
 import { adjustNumber } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import PeerContainer from './PeerContainer';
 
 
 export default function P2POffer({ offer, navigation }) {
 
-    const {
-        uuid,
-        type,
-        coin,
-        amount,
-        receive,
-        coin_data,
-        owner
-    } = offer
+    const { uuid, type, coin, amount, receive, coin_data, owner } = offer
     const coin_logo = 'https://qvapay.com/img/coins/' + coin_data.logo + '.svg'
-    const { username, profile_photo_url, average_rating } = owner
     fixedAmount = parseFloat(amount).toFixed(2)
     fixedReceive = parseFloat(receive).toFixed(2)
-    const usernameLabel = username.length > 14 ? username.substring(0, 14) + '...' : username
 
     // Navigation function to ShowTransaction screen
     const navigateToP2P = () => {
@@ -34,7 +23,7 @@ export default function P2POffer({ offer, navigation }) {
     }
 
     return (
-        <Pressable onPress={navigateToP2P} style={[styles.offerItem, { borderColor: type == "buy" ? theme.darkColors.success : theme.darkColors.danger, overflow: 'hidden' }]}>
+        <Pressable onPress={navigateToP2P} style={[styles.offerItem, { overflow: 'hidden' }]}>
 
             <View style={styles.coinLogo}>
                 <SvgUri width="72" height="72" uri={coin_logo} />
@@ -57,22 +46,7 @@ export default function P2POffer({ offer, navigation }) {
                 </View>
             </View>
 
-            <View style={styles.peerContainer}>
-
-                <View style={{}}>
-                    <Text style={styles.peerUsername}>{usernameLabel}</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <RatingStars rating={average_rating} fontSize={12} size={10} />
-                    </View>
-                    <>
-                        {
-                            // badges
-                        }
-                    </>
-                </View>
-
-                <AvatarPicture size={48} source_uri={profile_photo_url} />
-            </View>
+            <PeerContainer peer={owner} />
 
         </Pressable>
     )
@@ -81,9 +55,8 @@ export default function P2POffer({ offer, navigation }) {
 const styles = StyleSheet.create({
     offerItem: {
         flex: 1,
-        borderWidth: 1,
         borderRadius: 10,
-        marginVertical: 2,
+        marginVertical: 4,
         paddingVertical: 5,
         marginHorizontal: 1,
         alignItems: 'center',
@@ -113,26 +86,6 @@ const styles = StyleSheet.create({
         color: 'white',
         marginLeft: 5,
         fontFamily: 'Rubik-Bold',
-    },
-    peerContainer: {
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    peerUsername: {
-        fontSize: 16,
-        color: 'white',
-        fontFamily: 'Rubik-Light',
-    },
-    peerBadges: {
-        fontSize: 12,
-        color: 'white',
-        alignSelf: 'flex-end',
-        alignItems: 'flex-end',
-        alignContent: 'flex-end',
-        justifyContent: 'flex-end',
-        fontFamily: 'Rubik-Regular',
     },
     coinLogo: {
         left: -16,
