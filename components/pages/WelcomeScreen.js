@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     registerText: {
-        color: 'white',
+        color: theme.darkColors.almost_white,
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular',

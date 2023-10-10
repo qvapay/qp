@@ -46,6 +46,6 @@ export default function Carousel({ featuredProducts = [], widthPadding = 0 }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10,
+        marginBottom: 5,
     }
 })

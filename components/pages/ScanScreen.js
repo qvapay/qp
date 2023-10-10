@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ScanScreen() {
 
     const navigation = useNavigation();
-    const [validQR, setValidQR] = useState('white');
+    const [validQR, setValidQR] = useState(theme.darkColors.almost_white);
     const [torchOn, setTorchOn] = useState(false);
     const [permissionResult, setPermissionResult] = useState(null);
 
@@ -21,7 +21,7 @@ export default function ScanScreen() {
             headerRight: () => (
                 <Pressable
                     onPress={() => { setTorchOn(!torchOn) }}>
-                    <FontAwesome5 name='lightbulb' size={20} style={{ color: torchOn ? theme.darkColors.success : 'white' }} />
+                    <FontAwesome5 name='lightbulb' size={20} style={{ color: torchOn ? theme.darkColors.success : theme.darkColors.almost_white }} />
                 </Pressable>
             ),
         });

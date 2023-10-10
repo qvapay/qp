@@ -22,7 +22,7 @@ export default function AuthStack() {
             initialRouteName="LoginScreen"
             screenOptions={{
                 title: '',
-                headerTintColor: 'white',
+                headerTintColor: theme.darkColors.almost_white,
                 headerShadowVisible: false,
                 animation: 'slide_from_right',
                 headerStyle: {

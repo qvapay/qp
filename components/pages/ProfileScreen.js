@@ -21,7 +21,7 @@ export default function ProfileScreen({ route }) {
     // Set the max brightness on screen
     useEffect(() => {
         setTimeout(() => {
-            setBackgroundColor('white');
+            setBackgroundColor(theme.darkColors.almost_white);
         }, 150);
 
         // Guardar el brillo actual para poder restaurarlo luego
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: theme.darkColors.almost_white,
         justifyContent: 'space-between',
     },
     statsContainer: {

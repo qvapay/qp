@@ -154,6 +154,7 @@ const truncateWalletAddress = (address) => {
 };
 
 const adjustNumber = (value) => {
+
     const numValue = parseFloat(value);
 
     // Si no es un número válido, retornar el valor original
@@ -175,13 +176,12 @@ const adjustNumber = (value) => {
     if (numValue > 0 && numValue < 0.0001) {
         let exponentValue = numValue.toExponential();
         let [mantissa, exponent] = exponentValue.split('e');
-        // Asegurarse de que la mantisa tenga solo un decimal
         mantissa = parseFloat(mantissa).toFixed(1);
         return `${mantissa}e${exponent}`;
     }
 
     // Si no se cumplen las condiciones anteriores, retornar el valor como está
-    return numValue.toFixed(8);
+    return numValue.toFixed(2);
 }
 
 // transform "buy" and "sell" text into "Compra" and "Venta"

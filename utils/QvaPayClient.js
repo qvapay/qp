@@ -202,17 +202,6 @@ const transferBalance = async ({ to, amount, description, navigation }) => {
     }
 };
 
-// Get P2P Offers
-const getP2POffers = async ({ type = 'buy', coin = '', navigation }) => {
-    try {
-        const url = `/p2p/index?type=${type}`
-        const response = await apiRequest(url, { method: 'GET' }, navigation);
-        return response.data;   // This is a second 'data' object inside the response
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 // Get an specific order
 const getP2POffer = async ({ uuid, navigation }) => {
     try {
@@ -449,7 +438,6 @@ export {
     getTransactions,
     getMe,
     checkUser,
-    getP2POffers,
     getP2POffer,
     applyP2POffer,
     sendP2pMessage,
