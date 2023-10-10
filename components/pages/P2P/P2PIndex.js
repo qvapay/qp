@@ -12,7 +12,7 @@ export default function P2PIndex() {
     const navigation = useNavigation();
     const [type, setType] = useState('');
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
     const [p2pOffers, setP2pOffers] = useState([]);
     const [buyOffers, setBuyOffers] = useState([]);
     const [sellOffers, setSellOffers] = useState([]);
@@ -29,13 +29,11 @@ export default function P2PIndex() {
             setLoading(true)
             const url = `/p2p/index?type=${type}`
             const response = await apiRequest(url, { metthod: "GET" }, navigation)
+
             setP2pOffers(response.data)
             setBuyOffers(p2pOffers.filter((offer) => offer.type === 'buy'))
             setSellOffers(p2pOffers.filter((offer) => offer.type === 'sell'))
 
-            console.log("Offers" + p2pOffers)
-            console.log("Buy Offers" + buyOffers)
-            console.log("Sell Offers" + sellOffers)
 
             setLoading(false)
         } catch (error) {

@@ -196,9 +196,7 @@ export default function LoginScreen() {
                         <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
-
                         <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
-
                         {
                             errortext !== '' ? (
                                 <Text style={styles.errorTextStyle}>
@@ -206,7 +204,6 @@ export default function LoginScreen() {
                                 </Text>
                             ) : null
                         }
-
                     </ScrollView>
                 ) : (
                     <>
