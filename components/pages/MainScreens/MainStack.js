@@ -51,7 +51,7 @@ export default function MainStack() {
 
     return (
         <Tab.Navigator
-            initialRouteName="HomeScreen"                             // TODO: Change this on production
+            initialRouteName="HomeScreen"
             backBehavior='initialRoute'
             tabBar={
                 props => <BottomBar {...props} />
@@ -95,7 +95,11 @@ export default function MainStack() {
                     ),
                     headerRight: () => (
                         <View style={styles.headerRight}>
-                            <QPRoundButton size={16} icon={'plus'} style={{ marginRight: 10 }} onPress={gotoP2PCreate} />
+                            {
+                                me.p2p_enabled && me.p2p_enabled === 1 && (
+                                    <QPRoundButton size={16} icon={'plus'} style={{ marginRight: 10 }} onPress={gotoP2PCreate} />
+                                )
+                            }
                             {
                                 me.name && me.username ? (
                                     <Pressable onPress={() => navigation.navigate("SettingsStack")} >

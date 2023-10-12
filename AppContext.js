@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
     const defaultMe = {
         balance: 0,
         satoshis: 0,
+        p2p_enabled: 0,
         phone_verified: 0,
         profile_photo_url: "https://qvapay.com/android-chrome-192x192.png"
     };

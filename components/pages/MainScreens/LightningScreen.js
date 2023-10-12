@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { StyleSheet, Text, View, Animated } from 'react-native'
+import { StyleSheet, View, Animated } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 import { SvgUri } from 'react-native-svg'
 import LottieView from "lottie-react-native";
@@ -9,11 +9,8 @@ export default function LightningScreen() {
     const fadeAnim1 = useRef(new Animated.Value(0)).current
     const fadeAnim2 = useRef(new Animated.Value(0)).current
     const fadeAnim3 = useRef(new Animated.Value(0)).current
-
     const translateY1 = fadeAnim1.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
-
     const translateY2 = fadeAnim2.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
-
     const translateY3 = fadeAnim3.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
 
     useEffect(() => {

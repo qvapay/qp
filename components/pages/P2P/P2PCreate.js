@@ -137,7 +137,7 @@ export default function P2PCreate() {
             if (response && response.msg == "Succesfull created" && response.p2p) {
                 const p2p = response.p2p
                 setP2P(p2p)
-                setStep(6)
+                viewOffer(p2p)
             }
         } catch (error) {
             console.log(error)
@@ -145,17 +145,12 @@ export default function P2PCreate() {
     }
 
     // Go to the P2PView using the p2p uuid
-    const viewOffer = () => {
+    const viewOffer = (p2p) => {
         navigation.pop()
         navigation.navigate('P2PStack', {
             screen: 'P2PShow',
             params: { uuid: p2p.uuid },
         })
-    }
-
-    // Cancel the operation
-    const cancelP2P = () => {
-        setStep(4)
     }
 
     return (
@@ -275,13 +270,13 @@ export default function P2PCreate() {
                                     </View>
 
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Cantidad a {operation == "buy" ? "comprar" : "vender"}:</Text>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "comprar" : "vender"}:</Text>
                                         <Text style={[textStyles.h3, { textAlign: 'center' }]}>${amount}</Text>
                                     </View>
 
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Cantidad a {operation == "buy" ? "pagar" : "recibir"}:</Text>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>{desiredAmount} {getCoinById(selectedCoin)?.tick}</Text>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "pagar" : "recibir"}:</Text>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>{desiredAmount} en {getCoinById(selectedCoin)?.tick}</Text>
                                     </View>
 
                                     {/** Cycle here for every offerDetails as label QPInput fields */}
@@ -357,30 +352,12 @@ export default function P2PCreate() {
 
                 {
                     step == 5 && (
-                        <>
-                            <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
-                                <View style={{ marginHorizontal: 40 }}>
-                                    <LottieView source={require('../../../assets/lotties/uploading.json')} autoPlay style={styles.lottie} />
-                                </View>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Publicando oferta P2P</Text>
+                        <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                            <View style={{ marginHorizontal: 40 }}>
+                                <LottieView source={require('../../../assets/lotties/uploading.json')} autoPlay style={styles.lottie} />
                             </View>
-                            <QPButton onPress={cancelP2P} title={`Cancelar`} danger={true} />
-                        </>
-                    )
-                }
-
-                {
-                    step == 6 && (
-                        <>
-                            <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
-                                <View style={{ marginHorizontal: 40 }}>
-                                    <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
-                                </View>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
-                                <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
-                            </View>
-                            <QPButton onPress={viewOffer} title={`Ver oferta`} />
-                        </>
+                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Publicando oferta P2P</Text>
+                        </View>
                     )
                 }
 

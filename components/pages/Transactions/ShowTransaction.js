@@ -5,26 +5,26 @@ import QPButton from '../../ui/QPButton';
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
-import { getShortDateTime, reduceString } from '../../../utils/Helpers'
+import { getShortDateTime, reduceString, saveContact } from '../../../utils/Helpers'
 import { getTransaction } from '../../../utils/QvaPayClient'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function ShowTransaction({ route }) {
 
-    const { uuid } = route.params;
-    const navigation = useNavigation();
-    const [user, setUser] = useState({ uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' });
-    const [transaction, setTransaction] = useState({ amount: 0, paid_by: { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' } });
-    const negative = theme.darkColors.danger;
-    const positive = theme.darkColors.success;
-    const isNegative = transaction.paid_by.uuid === user.uuid;
-    const color = isNegative ? negative : positive;
-    const amountSign = isNegative ? "-" : "+";
-    const payeer = isNegative ? transaction.owner : transaction.paid_by;
-    const [isModalVisible, setModalVisible] = useState(false);
+    const { uuid } = route.params
+    const navigation = useNavigation()
+    const [user, setUser] = useState({ uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' })
+    const [transaction, setTransaction] = useState({ amount: 0, paid_by: { uuid: 'f62706c5-2a0d-46cd-a157-f857bbb8eb2d' } })
+    const negative = theme.darkColors.danger
+    const positive = theme.darkColors.success
+    const isNegative = transaction.paid_by.uuid === user.uuid
+    const color = isNegative ? negative : positive
+    const amountSign = isNegative ? "-" : "+"
+    const payeer = isNegative ? transaction.owner : transaction.paid_by
+    const [isModalVisible, setModalVisible] = useState(false)
 
-    // get me onject from AsyncStorage and useEffect
+    // get me object from AsyncStorage and useEffect
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -42,14 +42,15 @@ export default function ShowTransaction({ route }) {
     useEffect(() => {
         const fetchTransaction = async () => {
             try {
-                console.log(transaction)
                 const storedTransaction = await AsyncStorage.getItem(`transaction_${uuid}`);
                 if (storedTransaction) {
-                    setTransaction(JSON.parse(storedTransaction));
+                    setTransaction(JSON.parse(storedTransaction))
+                    saveContact(isNegative ? transaction.owner : transaction.paid_by)
                 } else {
-                    const response = await getTransaction({ uuid, navigation });
-                    await AsyncStorage.setItem(`transaction_${uuid}`, JSON.stringify(response));
-                    setTransaction(response);
+                    const transaction = await getTransaction({ uuid, navigation })
+                    await AsyncStorage.setItem(`transaction_${uuid}`, JSON.stringify(transaction))
+                    setTransaction(transaction)
+                    saveContact(isNegative ? transaction.owner : transaction.paid_by)
                 }
             } catch (error) {
                 console.error('Error fetching transaction:', error);
@@ -90,7 +91,7 @@ export default function ShowTransaction({ route }) {
                 swipeDirection={['down']}
                 style={styles.modalview}
             >
-                <View style={{ backgroundColor: theme.darkColors.elevation, padding: 20, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                <View style={styles.modalContent}>
 
                     <View style={globalStyles.modalTopBar}></View>
 
@@ -173,7 +174,13 @@ const styles = StyleSheet.create({
         color: '#9da3b4',
     },
     modalview: {
-        justifyContent: 'flex-end',
         margin: 0,
+        justifyContent: 'flex-end',
     },
+    modalContent: {
+        padding: 20,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
+    }
 });

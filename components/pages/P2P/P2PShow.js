@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState, useContext } from 'react'
+import { StyleSheet, Text, View, Share } from 'react-native'
+import Modal from "react-native-modal";
 import QPButton from '../../ui/QPButton'
 import ChatSection from '../../ui/ChatSection'
 import PeerContainer from '../../ui/PeerContainer'
-import { globalStyles, theme } from '../../ui/Theme'
+import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { AppContext } from '../../../AppContext';
+import LottieView from "lottie-react-native"
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export default function P2PShow({ route }) {
 
     const { uuid } = route.params
+    const { me } = useContext(AppContext)
     const navigation = useNavigation()
     const [offer, setOffer] = useState({})
     const [showChat, setShowChat] = useState(false)
     const [showSteps, setShowSteps] = useState(false)
+    const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
+    const [isModalVisible, setModalVisible] = useState(false)
+
 
     // Format amount and receive to have only 2 decimals
     fixedAmount = parseFloat(offer.amount).toFixed(2)
@@ -28,6 +36,7 @@ export default function P2PShow({ route }) {
                 const response = await getP2POffer({ uuid, navigation });
                 setOffer(response)
                 setOwner(response.owner)
+                setPeer(response.peer)
             } catch (error) {
                 console.log(error)
             }
@@ -41,55 +50,25 @@ export default function P2PShow({ route }) {
         setShowSteps(true)
     }
 
-    const OfferInOutComponent = () => (
-        <View style={styles.offerReceiveSend}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <FontAwesome5 name='arrow-down' size={26} color='#28c76f' />
-                    <Text style={styles.offerAmount}>$ {fixedAmount}</Text>
-                </View>
-                <View>
-                    <Text style={styles.coinLabel}>SQP</Text>
-                </View>
-            </View>
-            <View style={styles.grayDivider}></View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <FontAwesome5 name='arrow-up' size={26} color='#ea5455' />
-                    <Text style={styles.offerReceive}>$ {fixedReceive}</Text>
-                </View>
-                <View>
-                    <Text style={styles.coinLabel}>{offer.coin_data?.name}</Text>
-                </View>
-            </View>
-        </View>
-    )
-
-    // Custom Offer Label with explanation
-    const OfferLabelComponent = () => (
-        <>
-            <View style={[styles.container, styles.offerLabel]}>
-                <Text style={styles.offerLabelText}>
-                    Aplica a esta oferta P2P para recibir ${fixedAmount} SQP
-                    y pagar a {offer.owner?.name} un total de ${fixedReceive} en {offer.coin_data?.name}
-                </Text>
-            </View>
-
-            <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
-        </>
-    )
-
-    // Show Steps to complete Offer
-    const OfferStepsComponent = () => (
-        <View style={styles.offerSteps}>
-            <Text style={styles.offerStepsText}>
-                1. Realiza el pago a {offer.owner?.name} por un total de ${fixedReceive} en {offer.coin_data?.name}
-            </Text>
-            <Text style={styles.offerStepsText}>
-                2. Envía el comprobante de pago a {offer.owner?.name} por el chat de QvaPay
-            </Text>
-        </View>
-    )
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                title: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
+                message: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            Alert.alert(error.message);
+        }
+    };
 
     return (
         <View style={globalStyles.container}>
@@ -98,18 +77,50 @@ export default function P2PShow({ route }) {
                 owner && owner.username && (
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <PeerContainer peer={owner} orientation="right" />
-                        <PeerContainer peer={owner} orientation="left" />
+                        {
+                            peer && peer.username && (
+                                <PeerContainer peer={peer} orientation="left" />
+                            )
+                        }
                     </View>
                 )
             }
 
-            <View style={{ flex: 1 }}>
+            {
+                offer.status === 'open' && (
+                    <>
+                        <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                            <View style={{ marginHorizontal: 40 }}>
+                                <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
+                            </View>
+                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
+                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
+                        </View>
+                        <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
+                    </>
+                )
+            }
 
-            </View>
+            {
+                // Share Button if this offer is mine
+                offer.status === 'open' && offer.owner && offer.owner.username === me.username && (
+                    <QPButton title="Compartir" onPress={onShare} />
+                )
+            }
 
-            {/* {showSteps ? <OfferStepsComponent /> : null}
-            {showChat ? null : <OfferInOutComponent />}
-            {showChat ? <ChatSection uuid={uuid} /> : <OfferLabelComponent />} */}
+            <Modal
+                isVisible={isModalVisible}
+                animationIn={'slideInUp'}
+                onBackdropPress={() => setModalVisible(false)}
+                onSwipeComplete={() => setModalVisible(false)}
+                swipeDirection={['down']}
+                style={styles.modalview}
+            >
+                <View style={styles.modalContent}>
+                    <Text>ASD</Text>
+                    <Text>ASD</Text>
+                </View>
+            </Modal>
 
         </View>
     )
@@ -174,5 +185,20 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'Rubik-Regular',
         marginBottom: 3,
+    },
+    lottie: {
+        width: 180,
+        height: 180,
+        alignSelf: 'center',
+    },
+    modalview: {
+        margin: 0,
+        justifyContent: 'flex-end',
+    },
+    modalContent: {
+        padding: 20,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        backgroundColor: theme.darkColors.elevation,
     }
 })

@@ -27,7 +27,7 @@ export default function RatingStars({ rating, size = 14, fontSize = 16 }) {
         <View style={styles.mainView}>
             {/* {stars} */}
             <FontAwesome5 name="star" size={size} color={color} />
-            <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize, marginLeft: 10, marginTop: 1 }}>
+            <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', fontSize, marginLeft: 5, marginTop: 1 }}>
                 {rating.toFixed(1)}
             </Text>
         </View>

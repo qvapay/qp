@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
+import { saveContact } from '../../../utils/Helpers'
 import QPInput from '../../ui/QPInput'
 
 Sound.setCategory('Playback')
@@ -48,33 +49,9 @@ export default function ConfirmSendScreen({ route }) {
     // useEffect to get the destination data and check against checkUser from QvaPayClient
     useEffect(() => {
         const fetchUser = async () => {
-
             const response = await checkUser({ to, navigation })
             setUser(response.user)
-
-            // Sve this user to the contact list in AsyncStorage or update it by its uuid
-            const contacts = await AsyncStorage.getItem('contacts')
-
-            // toSave User schema
-            const userToSave = {
-                uuid: response.user.uuid,
-                name: response.user.name,
-                username: response.user.username,
-                source_uri: response.user.profile_photo_url,
-            }
-
-            if (contacts) {
-                const contactsArray = JSON.parse(contacts)
-                const contactIndex = contactsArray.findIndex((contact) => contact.uuid === response.user.uuid)
-                if (contactIndex === -1) {
-                    contactsArray.push(userToSave)
-                } else {
-                    contactsArray[contactIndex] = userToSave
-                }
-                await AsyncStorage.setItem('contacts', JSON.stringify(contactsArray))
-            } else {
-                await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]))
-            }
+            saveContact(response.user)
         }
         fetchUser()
     }, [])

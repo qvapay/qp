@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Pressable, Share } from 'react-native';
-
+import React, { useContext, useEffect, useState } from 'react'
 import QR from '../ui/QR';
-import { AppContext } from '../../AppContext';
-import { textStyles, theme } from '../ui/Theme';
-import { apiRequest } from '../../utils/QvaPayClient';
-import { useNavigation } from '@react-navigation/native';
-import ProfilePictureSection from '../ui/ProfilePictureSection';
-import DeviceBrightness from '@adrianso/react-native-device-brightness';
+import { AppContext } from '../../AppContext'
+import { textStyles, theme } from '../ui/Theme'
+import { apiRequest } from '../../utils/QvaPayClient'
+import { useNavigation } from '@react-navigation/native'
+import ProfilePictureSection from '../ui/ProfilePictureSection'
+import { View, StyleSheet, Text, Pressable } from 'react-native'
+import DeviceBrightness from '@adrianso/react-native-device-brightness'
 
 export default function ProfileScreen({ route }) {
 
@@ -56,27 +55,6 @@ export default function ProfileScreen({ route }) {
         };
         getExtendedData();
     }, []);
-
-    const onShare = async () => {
-        try {
-            const result = await Share.share({
-                // url: `https://qvapay.com/payme/username${me.username}`,
-                title: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
-                message: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            Alert.alert(error.message);
-        }
-    };
 
     return (
         <>

@@ -22,17 +22,16 @@ export default function SendScreen({ route, navigation }) {
     }, [amount]);
 
     // Load LOCAL contacts (not phone contacts but AsyncStorage Contacts)
-    const loadContacts = async () => {
-        const contacts = await AsyncStorage.getItem('contacts');
-        if (contacts) {
-            setContacts(JSON.parse(contacts));
-        }
-    };
-
-    // Load contacts on mount
     useEffect(() => {
+        const loadContacts = async () => {
+            const contacts = await AsyncStorage.getItem('contacts');
+            if (contacts) {
+                setContacts(JSON.parse(contacts));
+            }
+        };
         loadContacts();
     }, []);
+
 
     // search for contacts on text change
     const search = (text) => {
@@ -79,7 +78,6 @@ export default function SendScreen({ route, navigation }) {
                 Alert.alert('Error', 'El usuario no existe')
             }
         } catch (error) {
-            console.log(error);
             Alert.alert('Error', 'El usuario no existe')
             return;
         }

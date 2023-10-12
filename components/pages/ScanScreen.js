@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View, Dimensions } from 'react-native'
 import { RNCamera } from 'react-native-camera';
 import { globalStyles, theme } from '../ui/Theme';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -7,6 +7,9 @@ import { request, PERMISSIONS } from 'react-native-permissions';
 import { parseQRData, isValidQRData } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+
+// get height and width of the screen
+const { height, width } = Dimensions.get('window');
 
 export default function ScanScreen() {
 
@@ -57,28 +60,21 @@ export default function ScanScreen() {
 
     return (
         <View style={globalStyles.container}>
-            <View style={styles.rectangleContainer}>
-                <View style={[styles.cameraContainer, { borderColor: validQR }]}>
-                    <QRCodeScanner
-                        onRead={onSuccess}
-                        flashMode={torchOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
-                        cameraStyle={styles.camera}
-                    />
-                </View>
+            <View style={[styles.cameraContainer, { borderColor: validQR }]}>
+                <QRCodeScanner
+                    onRead={onSuccess}
+                    flashMode={torchOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
+                    cameraStyle={styles.camera}
+                />
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    rectangleContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     cameraContainer: {
-        width: 280,
-        height: 280,
+        width: width - 40,
+        height: height / 2,
         borderWidth: 2,
         borderRadius: 10,
         overflow: 'hidden',

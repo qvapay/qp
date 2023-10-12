@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // Calculate time since data
 const timeSince = (date) => {
 
@@ -66,36 +68,40 @@ const timeAgo = (date) => {
 // get a QR data and parse it, get the usernam, amount and transactionUUID
 const parseQRData = (data) => {
 
-    // Add a Bitcoin Lighning reader, a Bitcoin reader and a QP reader
+    // Add a Bitcoin Lighning reader when starting with "lnbc1",
+    // a Bitcoin reader when start with bc1, 1, or 3
+    // and a QP reader when starts with qp://
+    // A common QP qr is qp://u:username:a:amount:t:transactionUUID
+    // splitted could be ["u", "username", "a", "amount", "t", "transactionUUID"]
 
-    // Require qp:// as protocol
-    if (!data.startsWith('qp://')) {
-        return null;
-    }
-
-    const params = data.replace('qp://', '').split(':');
-    const parsedData = {};
-
-    for (let i = 0; i < params.length; i += 2) {
-        const key = params[i];
-        const value = params[i + 1];
-
-        switch (key) {
-            case 'u':
-                parsedData.username = value;
-                break;
-            case 'a':
-                parsedData.amount = value;
-                break;
-            case 't':
-                parsedData.transactionUUID = value;
-                break;
-            default:
-                break;
+    // In case of a qp:// schema
+    if (data.startsWith('qp://')) {
+        const params = data.replace('qp://', '').split(':');
+        const parsedData = {};
+        for (let i = 0; i < params.length; i += 2) {
+            const key = params[i];
+            const value = params[i + 1];
+            switch (key) {
+                case 'u':
+                    parsedData.username = value;
+                    break;
+                case 'a':
+                    parsedData.amount = value;
+                    break;
+                case 't':
+                    parsedData.transactionUUID = value;
+                    break;
+                default:
+                    break;
+            }
         }
+        // set qp property to true
+        parsedData.qp = true;
+        return parsedData;
     }
 
-    return parsedData;
+    // TODO In case of a lnbc1 schema
+    // TODO In case of a bc1 schema
 };
 
 // Check for a valid QR data
@@ -106,6 +112,9 @@ const isValidQRData = (parsedData) => {
     if ('transactionUUID' in parsedData) {
         return true;
     }
+
+    // TODO add validations for other schemas
+
     return 'username' in parsedData && 'amount' in parsedData;
 };
 
@@ -195,6 +204,36 @@ const transformText = (text) => {
     return text;
 }
 
+// Save contact function
+const saveContact = async (contact) => {
+    try {
+
+        const userToSave = {
+            uuid: contact.uuid,
+            name: contact.name,
+            username: contact.username,
+            source_uri: contact.profile_photo_url,
+        }
+
+        const contacts = await AsyncStorage.getItem('contacts');
+        let newContacts = [];
+        if (contacts) {
+            newContacts = JSON.parse(contacts);
+            const contactIndex = newContacts.findIndex((contact) => contact.uuid === userToSave.uuid)
+            if (contactIndex === -1) {
+                newContacts.push(userToSave)
+            } else {
+                newContacts[contactIndex] = userToSave
+            }
+            await AsyncStorage.setItem('contacts', JSON.stringify(newContacts))
+        } else {
+            await AsyncStorage.setItem('contacts', JSON.stringify([userToSave]))
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 // export timeSince function
 export {
     timeSince,
@@ -206,5 +245,6 @@ export {
     truncateWalletAddress,
     adjustNumber,
     timeAgo,
-    transformText
+    transformText,
+    saveContact
 };
