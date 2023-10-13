@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Pressable, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
 import Sound from 'react-native-sound'
+import QPInput from '../../ui/QPInput'
 import CompletedPayment from './CompletedPayment'
+import { saveContact } from '../../../utils/Helpers'
 import { globalStyles, theme } from '../../ui/Theme'
-import QPSliderButton from '../../ui/QPSliderButton';
+import QPSliderButton from '../../ui/QPSliderButton'
 import { useNavigation } from '@react-navigation/native'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
-import { saveContact } from '../../../utils/Helpers'
-import QPInput from '../../ui/QPInput'
 
 Sound.setCategory('Playback')
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
@@ -27,10 +26,9 @@ export default function ConfirmSendScreen({ route }) {
     const [paymentCompleted, setPaymentCompleted] = useState(false)
 
     useEffect(() => {
+        fetchUser()
         ding.setVolume(1)
-        return () => {
-            ding.release()
-        }
+        return () => { ding.release() }
     }, [])
 
     // Check for paymentCompleted with useEffect and hide topBar
@@ -42,25 +40,20 @@ export default function ConfirmSendScreen({ route }) {
         }
     }, [paymentCompleted])
 
-    const playDone = () => {
-        ding.play()
-    }
+    const playDone = () => { ding.play() }
 
-    // useEffect to get the destination data and check against checkUser from QvaPayClient
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await checkUser({ to, navigation })
-            setUser(response.user)
-            saveContact(response.user)
-        }
-        fetchUser()
-    }, [])
+    // Check if the user exists and save it to the contacts
+    const fetchUser = async () => {
+        const response = await checkUser({ to, navigation })
+        setUser(response.user)
+        saveContact(response.user)
+    }
 
     // Confirm Send Money
     const handleConfirmSendMoney = async () => {
 
         if (!to || !amount || !comment) { return }
-
+        
         setSendingPayment(true)
 
         // Now send balance via transferBalance method and check response
@@ -79,7 +72,6 @@ export default function ConfirmSendScreen({ route }) {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
-
             {
                 paymentCompleted ? (
                     <Pressable style={{ flex: 1 }} onPress={() => navigation.navigate('HomeScreen')}>

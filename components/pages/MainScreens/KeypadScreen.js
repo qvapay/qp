@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     amountContainer: {
         height: 80,
         marginBottom: 10,
+        alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
     },
