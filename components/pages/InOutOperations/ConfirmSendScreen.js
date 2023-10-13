@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Pressable, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
+import { StyleSheet, View, Pressable, KeyboardAvoidingView, ScrollView, TextInput, Text } from 'react-native'
 import Sound from 'react-native-sound'
 import QPInput from '../../ui/QPInput'
 import Modal from "react-native-modal"
+import { AppContext } from '../../../AppContext';
 import CompletedPayment from './CompletedPayment'
 import { saveContact } from '../../../utils/Helpers'
 import { globalStyles, theme } from '../../ui/Theme'
@@ -11,7 +12,8 @@ import { useNavigation } from '@react-navigation/native'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
 import QPButton from '../../ui/QPButton'
-import Toast from 'react-native-toast-message';
+import Toast from 'react-native-toast-message'
+import LottieView from "lottie-react-native"
 
 Sound.setCategory('Playback')
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
@@ -19,16 +21,16 @@ const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
 export default function ConfirmSendScreen({ route }) {
 
     const navigation = useNavigation()
+    const { me } = useContext(AppContext);
     const [user, setUser] = useState({})
     const [uuid, setUuid] = useState('')
     const [comment, setComment] = useState('')
-
     const { destination = '', amount } = route.params
     const [modalAmount, setModalAmount] = useState('');
     const [amountValue, setAmountValue] = useState(amount);
     const [sendingPayment, setSendingPayment] = useState(false)
     const [paymentCompleted, setPaymentCompleted] = useState(false)
-    const [isModalVisible, setModalVisible] = useState(amount === 0);
+    const [isModalVisible, setModalVisible] = useState(amount == 0);
 
     useEffect(() => {
         fetchUser()
@@ -106,6 +108,15 @@ export default function ConfirmSendScreen({ route }) {
         }
     }
 
+    // Handle the amount input
+    const handleChangeAmount = (text) => {
+        // text cannot be greater than me.balance
+        if (parseFloat(text) > parseFloat(me.balance)) {
+            return
+        }
+        setModalAmount(text);
+    };
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
             {
@@ -117,8 +128,9 @@ export default function ConfirmSendScreen({ route }) {
                     <>
                         {
                             sendingPayment ? (
-                                // TODO replace for a Lottie
-                                <ActivityIndicator color="white" size="large" style={{ flex: 1, marginTop: 10 }} />
+                                <View style={{ flex: 1, justifyContent: 'center' }}>
+                                    <LottieView source={require('../../../assets/lotties/sending.json')} autoPlay style={styles.lottie} />
+                                </View>
                             ) : (
                                 <View style={{ flex: 1, marginTop: 10 }}>
                                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -128,49 +140,47 @@ export default function ConfirmSendScreen({ route }) {
                                             </View>
                                         </View>
 
-                                        {
-                                            // If amount is 0, show the modal to set the amount otherwise show the comment input
-                                            amount === 0 ? (
-                                                <Modal
-                                                    animationType="slide"
-                                                    transparent={true}
-                                                    visible={isModalVisible}
-                                                    onRequestClose={() => { setModalVisible(!isModalVisible) }}
-                                                >
-                                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                                        <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
-                                                            <Text>Define la Cantidad:</Text>
-                                                            <TextInput
-                                                                placeholder="Cantidad"
-                                                                keyboardType="numeric"
-                                                                value={modalAmount}
-                                                                onChangeText={setModalAmount}
-                                                            />
-                                                            <QPButton title="Confirmar" onPress={() => {
-                                                                // Suponiendo que tienes un estado local para el valor del TextInput
-                                                                setAmountValue(modalAmount);
-                                                                setModalVisible(false);
-                                                            }} />
-                                                        </View>
-                                                    </View>
-                                                </Modal>
-                                            ) : (
-                                                <View style={styles.destinationComment}>
-                                                    <QPInput
-                                                        multiline={true}
-                                                        style={styles.comment}
-                                                        onChangeText={setComment}
-                                                        placeholder={"Mensaje para " + user.name}
-                                                        placeholderTextColor={theme.darkColors.contrast_text}
-                                                    />
-                                                </View>
-                                            )
-                                        }
-
+                                        <View style={styles.destinationComment}>
+                                            <QPInput
+                                                multiline={true}
+                                                style={styles.comment}
+                                                onChangeText={setComment}
+                                                placeholder={"Mensaje para " + user.name}
+                                                placeholderTextColor={theme.darkColors.contrast_text}
+                                            />
+                                        </View>
                                     </ScrollView>
 
-                                    <QPSliderButton title={`ENVIAR \$${amountValue}`} onSlideEnd={handleConfirmSendMoney} />
+                                    <Modal
+                                        isVisible={isModalVisible}
+                                        animationIn={'slideInUp'}
+                                        swipeDirection={['down']}
+                                        style={styles.modalview}
+                                    >
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                            <View style={[styles.modalContent, { width: 300, borderRadius: 10 }]}>
 
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Text style={styles.dolarSign}>$</Text>
+                                                    <TextInput
+                                                        value={modalAmount}
+                                                        autoFocus={true}
+                                                        cursorColor='white'
+                                                        keyboardType="numeric"
+                                                        onChangeText={handleChangeAmount}
+                                                        style={[styles.amount, { color: amount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
+                                                    />
+                                                </View>
+
+                                                <QPButton title="Confirmar" onPress={() => {
+                                                    setAmountValue(modalAmount);
+                                                    setModalVisible(false);
+                                                }} />
+                                            </View>
+                                        </View>
+                                    </Modal>
+
+                                    <QPSliderButton title={`ENVIAR \$${amountValue}`} onSlideEnd={handleConfirmSendMoney} />
                                 </View>
                             )
                         }
@@ -213,5 +223,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlignVertical: 'center',
         fontFamily: "Rubik-Regular",
+    },
+    lottie: {
+        width: 160,
+        height: 160,
+        alignSelf: 'center',
+    },
+    modalview: {
+        margin: 0,
+        justifyContent: 'flex-end',
+    },
+    modalContent: {
+        padding: 20,
+        backgroundColor: theme.darkColors.elevation,
+    },
+    amount: {
+        fontSize: 60,
+        color: 'white',
+        marginVertical: 10,
+        textAlign: 'center',
+        fontFamily: 'Rubik-Black',
+    },
+    dolarSign: {
+        fontSize: 30,
+        marginRight: 5,
+        fontFamily: "Rubik-ExtraBold",
+        color: theme.darkColors.elevation_light,
     },
 })

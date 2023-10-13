@@ -35,62 +35,62 @@ const theme = {
 
 const textStyles = StyleSheet.create({
     text: {
-        color: 'white',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Regular',
     },
     fullName: {
         fontSize: 20,
-        color: 'white',
+        color: colors.almost_white,
         marginLeft: 10,
         fontFamily: 'Rubik-Regular'
     },
     amount: {
         fontSize: 60,
-        color: 'white',
+        color: colors.almost_white,
         marginBottom: 10,
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
     },
     title: {
         fontSize: 18,
-        color: 'white',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Bold'
     },
     h1: {
         fontSize: 30,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         marginVertical: 10,
         fontFamily: 'Rubik-Bold',
     },
     h2: {
         fontSize: 24,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         marginVertical: 5,
         fontFamily: 'Rubik-SemiBold',
     },
     h3: {
         fontSize: 18,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Medium',
     },
     h4: {
         fontSize: 17,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Regular',
     },
     h5: {
         fontSize: 17,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
     },
     h6: {
         fontSize: 16,
-        color: 'white',
+        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
     },
@@ -129,7 +129,7 @@ const globalStyles = StyleSheet.create({
         backgroundColor: colors.primary_bg,
     },
     text: {
-        color: 'white',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Regular',
     },
     section: {
@@ -145,30 +145,30 @@ const globalStyles = StyleSheet.create({
     fullName: {
         fontSize: 22,
         marginLeft: 10,
-        color: 'white',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Bold'
     },
     amount: {
         fontSize: 60,
-        color: 'white',
+        color: colors.almost_white,
         marginBottom: 10,
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
     },
     title: {
         fontSize: 20,
-        color: 'white',
+        color: colors.almost_white,
         marginVertical: 10,
         fontFamily: 'Rubik-Bold'
     },
     subtitle: {
         fontSize: 16,
-        color: 'white',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Regular'
     },
     bio: {
         fontSize: 16,
-        color: 'white',
+        color: colors.almost_white,
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular'
