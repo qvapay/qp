@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
-import SlideButton from 'rn-slide-button';
 import { theme } from './Theme'
+import SlideButton from 'rn-slide-button';
 
 export default function QPSliderButton({ danger, disabled, title = "QPSlider", onSlideEnd }) {
 
@@ -22,8 +22,7 @@ export default function QPSliderButton({ danger, disabled, title = "QPSlider", o
                 animation={true}
                 icon={<Image style={{ width: 32, height: 32 }} source={require('../../assets/images/qvapay-logo.png')} />}
                 onSlideStart={() => console.log('slide started')}
-                onSlideEnd={onSlideEnd}
-
+                onReachedToEnd={onSlideEnd}         // Replaced by onSlideEnd check
             />
         </View>
     )

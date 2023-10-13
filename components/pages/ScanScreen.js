@@ -44,16 +44,18 @@ export default function ScanScreen() {
     // Succefully read a QR code
     const onSuccess = e => {
         const parsedData = parseQRData(e.data);
+        console.log(parsedData)
         if (!isValidQRData(parsedData)) {
             return;
         }
         setValidQR(theme.darkColors.success);
-        navigateToTransferScreenWithDelay(parsedData, 1000);
+        navigateToTransferScreenWithDelay(parsedData, 500);
     };
 
     // Navigate to another screen with a delay and params
     const navigateToTransferScreenWithDelay = (params, delay) => {
         setTimeout(() => {
+            // TODO if there is params.qp === true, navigate to ConfirmSendScreen, if not, navigate to WithdrawScreen
             navigation.navigate('ConfirmSendScreen', { amount: params.amount, destination: params.username });
         }, delay);
     };

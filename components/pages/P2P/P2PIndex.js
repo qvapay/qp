@@ -153,6 +153,7 @@ export default function P2PIndex() {
                 animationIn={'slideInUp'}
                 onBackdropPress={() => setModalVisible(false)}
                 onSwipeComplete={() => setModalVisible(false)}
+                onRequestClose={() => setModalVisible(false)}
                 swipeDirection={['down']}
                 style={styles.modalview}
             >

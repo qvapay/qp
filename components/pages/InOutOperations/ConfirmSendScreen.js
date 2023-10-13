@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Pressable, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
 import Sound from 'react-native-sound'
 import QPInput from '../../ui/QPInput'
+import Modal from "react-native-modal"
 import CompletedPayment from './CompletedPayment'
 import { saveContact } from '../../../utils/Helpers'
 import { globalStyles, theme } from '../../ui/Theme'
@@ -9,6 +10,8 @@ import QPSliderButton from '../../ui/QPSliderButton'
 import { useNavigation } from '@react-navigation/native'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import { transferBalance, checkUser } from '../../../utils/QvaPayClient'
+import QPButton from '../../ui/QPButton'
+import Toast from 'react-native-toast-message';
 
 Sound.setCategory('Playback')
 const ding = new Sound('paid.mp3', Sound.MAIN_BUNDLE)
@@ -17,13 +20,15 @@ export default function ConfirmSendScreen({ route }) {
 
     const navigation = useNavigation()
     const [user, setUser] = useState({})
-    const { destination = '' } = route.params
-    const [to] = useState(destination)
     const [uuid, setUuid] = useState('')
-    const [amount] = useState(route.params.amount)
     const [comment, setComment] = useState('')
+
+    const { destination = '', amount } = route.params
+    const [modalAmount, setModalAmount] = useState('');
+    const [amountValue, setAmountValue] = useState(amount);
     const [sendingPayment, setSendingPayment] = useState(false)
     const [paymentCompleted, setPaymentCompleted] = useState(false)
+    const [isModalVisible, setModalVisible] = useState(amount === 0);
 
     useEffect(() => {
         fetchUser()
@@ -31,7 +36,7 @@ export default function ConfirmSendScreen({ route }) {
         return () => { ding.release() }
     }, [])
 
-    // Check for paymentCompleted with useEffect and hide topBar
+    // Hide the header when payment is completed
     useEffect(() => {
         if (paymentCompleted) {
             navigation.setOptions({
@@ -42,29 +47,60 @@ export default function ConfirmSendScreen({ route }) {
 
     const playDone = () => { ding.play() }
 
-    // Check if the user exists and save it to the contacts
+    // Check if the user exists and save in the contacts
     const fetchUser = async () => {
-        const response = await checkUser({ to, navigation })
-        setUser(response.user)
-        saveContact(response.user)
+        try {
+            const response = await checkUser({ to: destination, navigation })
+            setUser(response.user)
+            saveContact(response.user)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Confirm Send Money
     const handleConfirmSendMoney = async () => {
 
-        if (!to || !amount || !comment) { return }
-        
+        if (!destination) {
+            console.log('Invalid data')
+            // TODO Toast invalid data
+            return
+        }
+
+        if (!amountValue) {
+            Toast.show({
+                type: 'error',
+                text1: 'Debe colocar una cantidad',
+                position: 'bottom',
+                bottomOffset: 10,
+            });
+            return
+        }
+
+        if (!comment) {
+            Toast.show({
+                type: 'error',
+                text1: 'Debe colocar un mensaje',
+                position: 'bottom',
+                bottomOffset: 10,
+            });
+            return
+        }
+
         setSendingPayment(true)
 
-        // Now send balance via transferBalance method and check response
-        const response = await transferBalance({ to, amount, comment, navigation })
-
-        // Make a sound and change to payment completed animation
-        if (response && response.status && response.status === "paid" && response.uuid) {
-            playDone()
-            setUuid(response.uuid)
-            setPaymentCompleted(true)
-        } else {
+        try {
+            const response = await transferBalance({ to: destination, amount: amountValue, comment, navigation })
+            if (response && response.status && response.status === "paid" && response.uuid) {
+                playDone()
+                setUuid(response.uuid)
+                setPaymentCompleted(true)
+            } else {
+                setSendingPayment(false)
+                navigation.navigate('KeypadScreen')
+            }
+        } catch (error) {
+            console.log(error)
             setSendingPayment(false)
             navigation.navigate('KeypadScreen')
         }
@@ -81,6 +117,7 @@ export default function ConfirmSendScreen({ route }) {
                     <>
                         {
                             sendingPayment ? (
+                                // TODO replace for a Lottie
                                 <ActivityIndicator color="white" size="large" style={{ flex: 1, marginTop: 10 }} />
                             ) : (
                                 <View style={{ flex: 1, marginTop: 10 }}>
@@ -90,18 +127,49 @@ export default function ConfirmSendScreen({ route }) {
                                                 <ProfilePictureSection user={user} />
                                             </View>
                                         </View>
-                                        <View style={styles.destinationComment}>
-                                            <QPInput
-                                                multiline={true}
-                                                style={styles.comment}
-                                                onChangeText={setComment}
-                                                placeholder={"Mensaje para " + user.name}
-                                                placeholderTextColor={theme.darkColors.contrast_text}
-                                            />
-                                        </View>
+
+                                        {
+                                            // If amount is 0, show the modal to set the amount otherwise show the comment input
+                                            amount === 0 ? (
+                                                <Modal
+                                                    animationType="slide"
+                                                    transparent={true}
+                                                    visible={isModalVisible}
+                                                    onRequestClose={() => { setModalVisible(!isModalVisible) }}
+                                                >
+                                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                        <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
+                                                            <Text>Define la Cantidad:</Text>
+                                                            <TextInput
+                                                                placeholder="Cantidad"
+                                                                keyboardType="numeric"
+                                                                value={modalAmount}
+                                                                onChangeText={setModalAmount}
+                                                            />
+                                                            <QPButton title="Confirmar" onPress={() => {
+                                                                // Suponiendo que tienes un estado local para el valor del TextInput
+                                                                setAmountValue(modalAmount);
+                                                                setModalVisible(false);
+                                                            }} />
+                                                        </View>
+                                                    </View>
+                                                </Modal>
+                                            ) : (
+                                                <View style={styles.destinationComment}>
+                                                    <QPInput
+                                                        multiline={true}
+                                                        style={styles.comment}
+                                                        onChangeText={setComment}
+                                                        placeholder={"Mensaje para " + user.name}
+                                                        placeholderTextColor={theme.darkColors.contrast_text}
+                                                    />
+                                                </View>
+                                            )
+                                        }
+
                                     </ScrollView>
 
-                                    <QPSliderButton title={`ENVIAR \$${amount}`} onSlideEnd={handleConfirmSendMoney} />
+                                    <QPSliderButton title={`ENVIAR \$${amountValue}`} onSlideEnd={handleConfirmSendMoney} />
 
                                 </View>
                             )
@@ -109,6 +177,9 @@ export default function ConfirmSendScreen({ route }) {
                     </>
                 )
             }
+
+            <Toast />
+
         </KeyboardAvoidingView>
     )
 }

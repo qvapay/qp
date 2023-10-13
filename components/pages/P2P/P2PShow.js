@@ -2,15 +2,13 @@ import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, Share } from 'react-native'
 import Modal from "react-native-modal";
 import QPButton from '../../ui/QPButton'
+import LottieView from "lottie-react-native"
 import ChatSection from '../../ui/ChatSection'
+import { AppContext } from '../../../AppContext'
 import PeerContainer from '../../ui/PeerContainer'
-import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { AppContext } from '../../../AppContext';
-import LottieView from "lottie-react-native"
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { globalStyles, textStyles, theme } from '../../ui/Theme'
 
 export default function P2PShow({ route }) {
 
