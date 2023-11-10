@@ -6,7 +6,7 @@ import {containerStyles} from './components/ui/Theme';
 import AppNavigator from './components/AppNavigator';
 
 // Onesiganl push notifications
-import {LogLevel, OneSignal} from 'react-native-onesignal';
+import {OneSignal} from 'react-native-onesignal';
 
 // Sentry crash reporting
 import * as Sentry from '@sentry/react-native';
@@ -17,7 +17,6 @@ Sentry.init({
 });
 
 function App(): JSX.Element {
-  // OneSignal Initialization
   OneSignal.initialize('30020a75-2a03-4d6d-a3e0-70efae81c1a8');
   OneSignal.User.setLanguage('es');
   OneSignal.Location.setShared(false); // TODO: Enable location sharing for mkt purposes in a future
@@ -32,9 +31,9 @@ function App(): JSX.Element {
 }
 
 function MainApp(): JSX.Element {
+  
   const {backgroundColor} = useContext(AppContext);
 
-  // if Android, set the status bar to background color
   if (Platform.OS === 'android') {
     StatusBar.setBackgroundColor(backgroundColor);
   }

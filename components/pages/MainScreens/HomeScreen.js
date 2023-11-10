@@ -73,7 +73,8 @@ export default function HomeScreen({ navigation }) {
 
             <Carousel featuredProducts={featuredProducts} widthPadding={20} />
 
-            {/* Friends and Business Stories */}
+            {/* TODO Friends and Business Stories */}
+            {/* TODO Blog news from Medium API */}
 
             <Transactions navigation={navigation} />
 

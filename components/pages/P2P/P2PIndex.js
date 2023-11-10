@@ -4,7 +4,7 @@ import { theme } from '../../ui/Theme'
 import Modal from "react-native-modal"
 import P2POffer from '../../ui/P2POffer'
 import { useNavigation } from '@react-navigation/native'
-// import { apiRequest } from '../../../utils/QvaPayClient'
+import { apiRequest } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles } from '../../ui/Theme'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
@@ -18,14 +18,13 @@ export default function P2PIndex() {
     const { me } = useContext(AppContext);
     const [type, setType] = useState('');
     const [myOffers, setMyOffers] = useState(false);
-    const [coming, setComing] = useState(true);
     // const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false)
     const [p2pOffers, setP2pOffers] = useState([]);
     const [buyOffers, setBuyOffers] = useState([]);
     const [sellOffers, setSellOffers] = useState([]);
     const [isBuyEnabled, setIsBuyEnabled] = useState(true);
     const [isModalVisible, setModalVisible] = useState(false)
-
     const fadeAnim1 = useRef(new Animated.Value(0)).current
     const fadeAnim2 = useRef(new Animated.Value(0)).current
     const fadeAnim3 = useRef(new Animated.Value(0)).current
@@ -61,22 +60,22 @@ export default function P2PIndex() {
     // function to retrieve offers from API
     const getP2POffers = async () => {
         try {
-            // setLoading(true)
-            // let url = `/p2p/index?type=${type}`
-            // myOffers && (url += `&my=true`)
+            setLoading(true)
+            let url = `/p2p/index?type=${type}`
+            myOffers && (url += `&my=true`)
 
-            // console.log(url)
+            console.log(url)
 
-            // // Construct filtering
-            // const response = await apiRequest(url, { metthod: "GET" }, navigation)
+            // Construct filtering
+            const response = await apiRequest(url, { metthod: "GET" }, navigation)
 
-            // setP2pOffers(response.data)
+            setP2pOffers(response.data)
 
-            // console.log(response.data)
+            console.log(response.data)
 
-            // setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
-            // setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
-            // setLoading(false)
+            setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
+            setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
+            setLoading(false)
         } catch (error) {
             console.error('Error fetching P2P Offers:', error);
         }
@@ -105,48 +104,26 @@ export default function P2PIndex() {
     return (
         <View style={globalStyles.container}>
 
-            {
-                coming ? (
-                    <View style={globalStyles.section}>
-                        <Animated.Text style={[styles.fadedText1, { opacity: fadeAnim1, transform: [{ translateY: translateY1 }] }]}>
-                            ¿Necesitas comprar Bitcoin? <SvgUri width="22" height="22" uri={`https://qvapay.com/img/coins/btc.svg`} style={{ marginRight: 5, marginBottom: 5 }} />
-                        </Animated.Text>
-                        <Animated.Text style={[styles.fadedText2, { opacity: fadeAnim2, transform: [{ translateY: translateY2 }] }]}>
-                            ¿Deseas acceder a un mercado seguro?
-                        </Animated.Text>
-                        <Animated.Text style={[styles.fadedText3, { opacity: fadeAnim3, transform: [{ translateY: translateY3 }] }]}>
-                            ¿Intercambiar tu moneda por otras mediante P2P?
-                        </Animated.Text>
-                        <Animated.Text style={[styles.fadedText3, { opacity: fadeAnim3, transform: [{ translateY: translateY3 }] }]}>
-                            Muy pronto en QvaPay.
-                        </Animated.Text>
-                        <Animated.Text style={[styles.fadedText3, { opacity: fadeAnim3, transform: [{ translateY: translateY3 }] }]}>
-                            💜
-                        </Animated.Text>
-                    </View>
-                ) : (
-                    <View style={{ marginTop: 15 }}>
-                        <FlatList
-                            ListHeaderComponent={
-                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
-                                    <View style={{ flex: 1 }}>
-                                        <OffersFilter isBuyEnabled={isBuyEnabled} />
-                                    </View>
-                                    <Pressable onPress={showFilterModal} style={styles.filterIcon} >
-                                        <FontAwesome5 name='filter' size={16} style={{ color: theme.darkColors.almost_white }} />
-                                    </Pressable>
-                                </View>
-                            }
-                            data={isBuyEnabled ? buyOffers : sellOffers}
-                            keyExtractor={(item) => item.uuid}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item }) => (
-                                <P2POffer offer={item} navigation={navigation} />
-                            )}
-                        />
-                    </View>
-                )
-            }
+            <View style={{ marginTop: 15 }}>
+                <FlatList
+                    ListHeaderComponent={
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+                            <View style={{ flex: 1 }}>
+                                <OffersFilter isBuyEnabled={isBuyEnabled} />
+                            </View>
+                            <Pressable onPress={showFilterModal} style={styles.filterIcon} >
+                                <FontAwesome5 name='filter' size={16} style={{ color: theme.darkColors.almost_white }} />
+                            </Pressable>
+                        </View>
+                    }
+                    data={isBuyEnabled ? buyOffers : sellOffers}
+                    keyExtractor={(item) => item.uuid}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <P2POffer offer={item} navigation={navigation} />
+                    )}
+                />
+            </View>
 
             <Modal
                 isVisible={isModalVisible}

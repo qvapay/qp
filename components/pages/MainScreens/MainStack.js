@@ -8,17 +8,12 @@ import QPRoundButton from '../../ui/QPRoundButton';
 import AvatarPicture from '../../ui/AvatarPicture';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-// MainStack Screens
 import HomeScreen from './HomeScreen';
 import KeypadScreen from './KeypadScreen';
 import LightningScreen from './LightningScreen';
-
-// Aditional Stacks
 import P2PStack from '../P2P/P2PStack';
 import ShopStack from '../Shop/ShopStack';
 
-// Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
 export default function MainStack() {
@@ -37,7 +32,6 @@ export default function MainStack() {
             navigation.navigate('SplashScreen');
         }
     }, [me, navigation]);
-
 
     // Go to MyPurchasesScreen via navigation using ShopStack
     const gotoMyPurchases = () => {
@@ -96,12 +90,12 @@ export default function MainStack() {
                     headerRight: () => (
                         <View style={styles.headerRight}>
                             {
-                                me.p2p_enabled && me.p2p_enabled === 1 && (
+                                me && me.p2p_enabled && me.p2p_enabled === 1 && (
                                     <QPRoundButton size={16} icon={'plus'} style={{ marginRight: 10 }} onPress={gotoP2PCreate} />
                                 )
                             }
                             {
-                                me.name && me.username ? (
+                                me && me.name && me.username ? (
                                     <Pressable onPress={() => navigation.navigate("SettingsStack")} >
                                         <AvatarPicture size={32} source_uri={me.profile_photo_url} />
                                     </Pressable>
