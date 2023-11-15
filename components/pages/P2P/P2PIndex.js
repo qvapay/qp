@@ -38,8 +38,6 @@ export default function P2PIndex() {
                 url += `&my=true`
             }
 
-            console.log(url)
-
             const response = await apiRequest(url, { method: "GET" }, navigation)
 
             setP2pOffers(response.data)

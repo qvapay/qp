@@ -22,7 +22,6 @@ export default function P2PShow({ route }) {
     const [owner, setOwner] = useState({})
     const [isModalVisible, setModalVisible] = useState(false)
 
-
     // Format amount and receive to have only 2 decimals
     fixedAmount = parseFloat(offer.amount).toFixed(2)
     fixedReceive = parseFloat(offer.receive).toFixed(2)
@@ -90,15 +89,59 @@ export default function P2PShow({ route }) {
             {
                 offer.status === 'open' && (
                     <>
-                        <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
-                            <View style={{ marginHorizontal: 40 }}>
-                                <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
-                            </View>
-                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
-                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
-                        </View>
-                        <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
+                        {
+                            offer.owner && offer.owner.uuid === me.uuid && (
+                                <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                    <View style={{ marginHorizontal: 40 }}>
+                                        <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
+                                    </View>
+                                    <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
+                                    <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
+                                </View>
+                            )
+                        }
+
+                        {
+                            offer.owner && offer.owner.uuid !== me.uuid && (
+                                <>
+                                    <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                        
+                                    </View>
+                                    <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
+                                </>
+                            )
+                        }
                     </>
+                )
+            }
+
+            {
+                offer.status === 'processing' && (
+                    <Text>Processing</Text>
+                )
+            }
+
+            {
+                offer.status === 'completed' && (
+                    <Text>Completed</Text>
+                )
+            }
+
+            {
+                offer.status === 'cancelled' && (
+                    <Text>Cancelled</Text>
+                )
+            }
+
+            {
+                offer.status === 'revision' && (
+                    <Text>Revision</Text>
+                )
+            }
+
+            {
+                offer.status === 'paid' && (
+                    <Text>Paid</Text>
                 )
             }
 
