@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, ScrollView, FlatList, TextInput, Pressable } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, FlatList, TextInput, Pressable, KeyboardAvoidingView } from 'react-native'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { SvgUri } from 'react-native-svg'
@@ -153,8 +153,22 @@ export default function P2PCreate() {
         })
     }
 
+    // onFocus if the value is 0.00, set it to empty
+    const onFocus = (value, setter) => {
+        if (value == "0.00") {
+            setter("")
+        }
+    }
+
+    // Now when the user unfocus the input, if it's empty, set it to 0.00
+    const onBlur = (value, setter) => {
+        if (value == "") {
+            setter("0.00")
+        }
+    }
+
     return (
-        <View style={[globalStyles.container, { padding: 20 }]}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
             {
                 step < 5 && (
@@ -227,6 +241,8 @@ export default function P2PCreate() {
                                         keyboardType="numeric"
                                         onChangeText={setAmount}
                                         cursorColor='white'
+                                        onFocus={() => { onFocus(amount, setAmount) }}
+                                        onBlur={() => { onBlur(amount, setAmount) }}
                                     />
                                 </View>
                             </View>
@@ -239,6 +255,8 @@ export default function P2PCreate() {
                                         keyboardType="numeric"
                                         onChangeText={setDesiredAmount}
                                         cursorColor='white'
+                                        onFocus={() => { onFocus(desiredAmount, setDesiredAmount) }}
+                                        onBlur={() => { onBlur(desiredAmount, setDesiredAmount) }}
                                     />
                                 </View>
                             </View>
@@ -363,7 +381,7 @@ export default function P2PCreate() {
 
             </View>
 
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

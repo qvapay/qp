@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Platform, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import QPInput from '../../ui/QPInput';
 import QPButton from '../../ui/QPButton';
 import OtpCode from '../../ui/OtpCode';
