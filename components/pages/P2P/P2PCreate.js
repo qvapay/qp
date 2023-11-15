@@ -33,6 +33,7 @@ export default function P2PCreate() {
     ];
     const [privateOffer, setPrivateOffer] = useState(false)
     const [onlyKYC, setOnlyKYC] = useState(false)
+    const [onlyVIP, setOnlyVIP] = useState(false)
     const [promoteOffer, setPromoteOffer] = useState(false)
     const [offerDetails, setOfferDetails] = useState([])
     const [p2p, setP2P] = useState(null)
@@ -168,7 +169,7 @@ export default function P2PCreate() {
     }
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start', paddingBottom: 20 }]}>
 
             {
                 step < 5 && (
@@ -342,6 +343,20 @@ export default function P2PCreate() {
                                             innerIconStyle={{ borderWidth: 1 }}
                                             textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
                                             onPress={(isChecked) => { setOnlyKYC(isChecked) }}
+                                        />
+                                    </View>
+
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta solo para VIPs:</Text>
+
+                                        <BouncyCheckbox
+                                            size={20}
+                                            fillColor={theme.darkColors.primary}
+                                            unfillColor={theme.darkColors.background}
+                                            iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
+                                            innerIconStyle={{ borderWidth: 1 }}
+                                            textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                            onPress={(isChecked) => { setOnlyVIP(isChecked) }}
                                         />
                                     </View>
 
