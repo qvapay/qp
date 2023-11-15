@@ -31,7 +31,11 @@ export default function Transaction({ transaction, navigation }) {
                 <Text style={textStyles.smallDescription}>{`Hace: ${timeSince(updatedDate)}`}</Text>
             </View>
             <View style={styles.transactionValue}>
-                <Text style={[styles.transactionAmount, { color }]}>{amountSign}{amountFixed}</Text>
+                <Text style={[styles.transactionAmount, { color }]}>
+                    {amountSign}
+                    <Text>{amountFixed.slice(0, -3)}</Text>
+                    <Text style={{ fontSize: 10 }}>{amountFixed.slice(-3)}</Text>
+                </Text>
                 <Text style={styles.transactionStatus}>Completado</Text>
             </View>
         </Pressable>
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     transactionAmount: {
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: "Rubik-Bold",
     },
     transactionStatus: {

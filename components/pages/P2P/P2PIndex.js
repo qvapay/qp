@@ -26,16 +26,17 @@ export default function P2PIndex() {
 
     // useEffect for Offers with getP2POffers
     useEffect(() => {
-        console.log(type)
         getP2POffers()
-    }, [type]);
+    }, [type, myOffers]);
 
     // function to retrieve offers from API
     const getP2POffers = async () => {
         try {
             setLoading(true)
             let url = `/p2p/index?type=${type}`
-            myOffers && (url += `&my=true`)
+            if (myOffers) {
+                url += `&my=true`
+            }
 
             console.log(url)
 
@@ -54,6 +55,12 @@ export default function P2PIndex() {
     // Show the filter modal
     const showFilterModal = () => {
         setModalVisible(true)
+    }
+
+    // Set the only my offers filter
+    const setOnlyMyOffers = (isChecked) => {
+        setMyOffers(isChecked)
+        getP2POffers()
     }
 
     const OffersFilter = () => (
@@ -113,7 +120,7 @@ export default function P2PIndex() {
                             iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
                             innerIconStyle={{ borderWidth: 1 }}
                             textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                            onPress={(isChecked) => { setMyOffers(isChecked); getP2POffers() }}
+                            onPress={(isChecked) => { setOnlyMyOffers(isChecked) }}
                             isChecked={myOffers}
                         />
                     </View>

@@ -32,6 +32,9 @@ export default function P2PShow({ route }) {
         const getOffer = async () => {
             try {
                 const response = await getP2POffer({ uuid, navigation });
+
+                console.log(response)
+
                 setOffer(response)
                 setOwner(response.owner)
                 setPeer(response.peer)
