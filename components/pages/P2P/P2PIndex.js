@@ -71,6 +71,7 @@ export default function P2PIndex() {
             setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
             setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
             setLoading(false)
+
         } catch (error) {
             console.error('Error fetching P2P Offers:', error);
         }
