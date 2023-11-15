@@ -1,19 +1,19 @@
 import React, { useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { globalStyles, textStyles, theme } from '../ui/Theme';
-import { useNavigation } from '@react-navigation/native';
-import QPButton from '../ui/QPButton';
-import { AppContext } from '../../AppContext';
-import LottieView from "lottie-react-native";
-import { ImageBackground } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-
-
+import { globalStyles, textStyles, theme } from '../ui/Theme'
+import { useNavigation } from '@react-navigation/native'
+import QPButton from '../ui/QPButton'
+import { AppContext } from '../../AppContext'
+import { ImageBackground } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import DeviceInfo from 'react-native-device-info'
 
 export default function WelcomeScreen() {
 
     const navigation = useNavigation();
     const { setBackgroundColor } = useContext(AppContext);
+    const version = DeviceInfo.getVersion();
+    const buildNumber = DeviceInfo.getBuildNumber();
 
     useEffect(() => {
         setBackgroundColor(theme.darkColors?.background);
@@ -52,6 +52,8 @@ export default function WelcomeScreen() {
                     <Text style={[styles.registerText, { color: theme.darkColors.contrast_text, marginLeft: 5 }]} onPress={() => { navigation.navigate('AuthStack', { screen: 'RegisterScreen' }) }}>Regístrate</Text>
                 </View>
 
+                <Text style={styles.versionText}>{`v ${version} - build ${buildNumber}\n`}</Text>
+
             </View>
         </ImageBackground>
     )
@@ -63,20 +65,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 20,
     },
-    imageLogo: {
-        width: 200,
-        height: 200,
-        alignSelf: 'center',
-        resizeMode: 'contain',
-    },
     accessButtons: {
         marginTop: 20,
     },
     registerText: {
-        color: theme.darkColors.almost_white,
         marginVertical: 10,
         textAlign: 'center',
         fontFamily: 'Rubik-Regular',
+        color: theme.darkColors.almost_white,
+    },
+    versionText: {
+        marginTop: 5,
+        textAlign: 'center',
+        fontFamily: 'Rubik-Regular',
+        color: theme.darkColors.almost_white,
     },
     lottie: {
         height: 250,

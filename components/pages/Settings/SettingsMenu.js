@@ -272,7 +272,7 @@ const SettingsMenu = () => {
 
             <Text style={styles.copyBottom}>
                 {`QvaPay © 2023 \n`}
-                {`v ${version} b (${buildNumber})\n`}
+                {`v ${version} build ${buildNumber}\n`}
                 {`Todos los derechos reservados \n`}
             </Text>
 
