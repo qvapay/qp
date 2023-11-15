@@ -64,15 +64,10 @@ export default function P2PIndex() {
             let url = `/p2p/index?type=${type}`
             myOffers && (url += `&my=true`)
 
-            console.log(url)
-
             // Construct filtering
             const response = await apiRequest(url, { metthod: "GET" }, navigation)
 
             setP2pOffers(response.data)
-
-            console.log(response.data)
-
             setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
             setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
             setLoading(false)
@@ -104,23 +99,23 @@ export default function P2PIndex() {
     return (
         <View style={globalStyles.container}>
 
-            <View style={{ marginTop: 15 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+                <View style={{ flex: 1 }}>
+                    <OffersFilter isBuyEnabled={isBuyEnabled} />
+                </View>
+                <Pressable onPress={showFilterModal} style={styles.filterIcon} >
+                    <FontAwesome5 name='filter' size={16} style={{ color: theme.darkColors.almost_white }} />
+                </Pressable>
+            </View>
+
+            <View style={{ flex: 1 }}>
                 <FlatList
-                    ListHeaderComponent={
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
-                            <View style={{ flex: 1 }}>
-                                <OffersFilter isBuyEnabled={isBuyEnabled} />
-                            </View>
-                            <Pressable onPress={showFilterModal} style={styles.filterIcon} >
-                                <FontAwesome5 name='filter' size={16} style={{ color: theme.darkColors.almost_white }} />
-                            </Pressable>
-                        </View>
-                    }
                     data={isBuyEnabled ? buyOffers : sellOffers}
                     keyExtractor={(item) => item.uuid}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        <P2POffer offer={item} navigation={navigation} />
+                        // <P2POffer offer={item} navigation={navigation} />
+                        <Text style={{color: 'white'}}>{item.uuid}</Text>
                     )}
                 />
             </View>
@@ -156,9 +151,7 @@ export default function P2PIndex() {
 
 const styles = StyleSheet.create({
     filterContainer: {
-        padding: 4,
         borderRadius: 10,
-        marginVertical: 5,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -167,7 +160,7 @@ const styles = StyleSheet.create({
     filterButton: {
         flex: 1,
         borderRadius: 6,
-        paddingVertical: 5,
+        paddingVertical: 8,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -78,7 +78,6 @@ export default function HomeScreen({ navigation }) {
 
             <Transactions navigation={navigation} />
 
-
             <View style={{ marginHorizontal: 5 }}>
                 <Hero
                     actionText={"5 estrellas"}
