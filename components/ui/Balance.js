@@ -11,7 +11,6 @@ export default function Balance({ navigation, me = { balance: 0 }, refreshing = 
     const add = () => { navigation.navigate('AddScreen') }
     const withdraw = () => { navigation.navigate('WithdrawScreen') }
     const toggleShowBalance = () => { setShowBalance(!showBalance) };
-    const formatBalance = (balance) => { return showBalance ? parseFloat(balance).toFixed(2) : '*****' }
 
     // showBalance state persistence
     useEffect(() => {
@@ -46,6 +45,22 @@ export default function Balance({ navigation, me = { balance: 0 }, refreshing = 
         }
     }, [refreshing]);
 
+    // Display ***** or balance stilyzed
+    const displayBalance = (balance) => {
+        const formattedBalance = balance.toFixed(2);
+        if (showBalance) {
+            return (
+                <Text style={styles.balanceAmount}>
+                    <Text>{formattedBalance.slice(0, -3)}</Text>
+                    <Text style={{ fontSize: 30 }}>{formattedBalance.slice(-3)}</Text>
+                </Text>
+            )
+        } else {
+            return (
+                <Text style={styles.balanceAmount}>*****</Text>
+            )
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -58,7 +73,7 @@ export default function Balance({ navigation, me = { balance: 0 }, refreshing = 
                 <Pressable onPress={toggleShowBalance}>
                     <Animated.View style={[styles.amountContainer, { transform: [{ scale }] }]}>
                         <Text style={styles.dolarSign}>$</Text>
-                        <Text style={styles.balanceAmount}>{formatBalance(me.balance)}</Text>
+                        {displayBalance(me.balance)}
                         <Text style={styles.dolarTick}>USD</Text>
                     </Animated.View>
                 </Pressable>
