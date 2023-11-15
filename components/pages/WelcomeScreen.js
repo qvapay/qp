@@ -38,7 +38,7 @@ export default function WelcomeScreen() {
                 <View style={styles.welcome}>
                     <Text style={textStyles.h1}>Bienvenid@ a QvaPay</Text>
                     <Text style={globalStyles.subtitle}>La forma más fácil de enviar, recibir y pagar.</Text>
-                    <Text style={globalStyles.subtitle}>Contecta tu negocio a nivel mundial. 🌎</Text>
+                    <Text style={globalStyles.subtitle}>Conecta tu negocio a nivel mundial. 🌎</Text>
                 </View>
 
                 <View style={{ flex: 1, justifyContent: 'center' }}></View>
