@@ -9,53 +9,26 @@ import { globalStyles, textStyles } from '../../ui/Theme'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { AppContext } from '../../../AppContext'
-import { SvgUri } from 'react-native-svg'
-import LottieView from "lottie-react-native";
+import QPButton from '../../ui/QPButton'
 
 export default function P2PIndex() {
 
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
-    const [type, setType] = useState('');
+    const [type, setType] = useState('buy');
     const [myOffers, setMyOffers] = useState(false);
-    // const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false)
+
     const [p2pOffers, setP2pOffers] = useState([]);
     const [buyOffers, setBuyOffers] = useState([]);
     const [sellOffers, setSellOffers] = useState([]);
-    const [isBuyEnabled, setIsBuyEnabled] = useState(true);
     const [isModalVisible, setModalVisible] = useState(false)
-    const fadeAnim1 = useRef(new Animated.Value(0)).current
-    const fadeAnim2 = useRef(new Animated.Value(0)).current
-    const fadeAnim3 = useRef(new Animated.Value(0)).current
-    const translateY1 = fadeAnim1.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
-    const translateY2 = fadeAnim2.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
-    const translateY3 = fadeAnim3.interpolate({ inputRange: [0, 1], outputRange: [50, 0] })
 
     // useEffect for Offers with getP2POffers
     useEffect(() => {
+        console.log(type)
         getP2POffers()
-    }, []);
-
-    useEffect(() => {
-        Animated.sequence([
-            Animated.timing(fadeAnim1, {
-                toValue: 1,
-                duration: 1000,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fadeAnim2, {
-                toValue: 1,
-                duration: 1500,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fadeAnim3, {
-                toValue: 1,
-                duration: 2000,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    }, [fadeAnim1, fadeAnim2, fadeAnim3]);
+    }, [type]);
 
     // function to retrieve offers from API
     const getP2POffers = async () => {
@@ -64,8 +37,9 @@ export default function P2PIndex() {
             let url = `/p2p/index?type=${type}`
             myOffers && (url += `&my=true`)
 
-            // Construct filtering
-            const response = await apiRequest(url, { metthod: "GET" }, navigation)
+            console.log(url)
+
+            const response = await apiRequest(url, { method: "GET" }, navigation)
 
             setP2pOffers(response.data)
             setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
@@ -82,15 +56,15 @@ export default function P2PIndex() {
         setModalVisible(true)
     }
 
-    const OffersFilter = ({ isBuyEnabled }) => (
+    const OffersFilter = () => (
         <View style={styles.filterContainer}>
-            <Pressable onPress={() => setIsBuyEnabled(true)} style={[styles.filterButton, { backgroundColor: isBuyEnabled && theme.darkColors.success }]}>
-                <Text style={[styles.filterLabel, { color: isBuyEnabled ? theme.darkColors.background : theme.darkColors.almost_white }]}>
+            <Pressable onPress={() => setType('buy')} style={[styles.filterButton, { backgroundColor: type === 'buy' && theme.darkColors.success }]}>
+                <Text style={[styles.filterLabel, { color: type === 'buy' ? theme.darkColors.background : theme.darkColors.almost_white }]}>
                     Compra
                 </Text>
             </Pressable>
-            <Pressable onPress={() => setIsBuyEnabled(false)} style={[styles.filterButton, { backgroundColor: !isBuyEnabled && theme.darkColors.danger }]}>
-                <Text style={[styles.filterLabel, { color: theme.darkColors.almost_white }]} >
+            <Pressable onPress={() => setType('sell')} style={[styles.filterButton, { backgroundColor: type === 'sell' && theme.darkColors.danger }]}>
+                <Text style={[styles.filterLabel, { color: type === 'sell' ? theme.darkColors.background : theme.darkColors.almost_white }]} >
                     Venta
                 </Text>
             </Pressable>
@@ -102,7 +76,7 @@ export default function P2PIndex() {
 
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
                 <View style={{ flex: 1 }}>
-                    <OffersFilter isBuyEnabled={isBuyEnabled} />
+                    <OffersFilter />
                 </View>
                 <Pressable onPress={showFilterModal} style={styles.filterIcon} >
                     <FontAwesome5 name='filter' size={16} style={{ color: theme.darkColors.almost_white }} />
@@ -111,12 +85,11 @@ export default function P2PIndex() {
 
             <View style={{ flex: 1 }}>
                 <FlatList
-                    data={isBuyEnabled ? buyOffers : sellOffers}
+                    data={type === 'buy' ? buyOffers : sellOffers}
                     keyExtractor={(item) => item.uuid}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        // <P2POffer offer={item} navigation={navigation} />
-                        <Text style={{color: 'white'}}>{item.uuid}</Text>
+                        <P2POffer offer={item} navigation={navigation} />
                     )}
                 />
             </View>
@@ -141,9 +114,14 @@ export default function P2PIndex() {
                             innerIconStyle={{ borderWidth: 1 }}
                             textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
                             onPress={(isChecked) => { setMyOffers(isChecked); getP2POffers() }}
+                            isChecked={myOffers}
                         />
                     </View>
+
+                    <QPButton title={'Aplicar'} onPress={() => setModalVisible(false)} />
+
                 </View>
+
             </Modal>
 
         </View>
