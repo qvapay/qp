@@ -14,6 +14,7 @@ export default function ProfilePictureSection({ user = {}, negative = false, siz
         kyc = 0,
         golden_check = 0,
         average_rating = "0.0",
+        vip = 0,
     } = user;
 
     // const average_rating_number = parseFloat(average_rating);
@@ -25,7 +26,7 @@ export default function ProfilePictureSection({ user = {}, negative = false, siz
             <AvatarPicture
                 size={size}
                 showBadge={true}
-                stories={negative}
+                vip={vip}
                 negative={negative}
                 rating={average_rating}
                 source_uri={profile_photo_url}

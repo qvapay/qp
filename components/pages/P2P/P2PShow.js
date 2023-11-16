@@ -71,7 +71,7 @@ export default function P2PShow({ route }) {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <View style={[globalStyles.container, { paddingVertical: 10 }]}>
 
             {
                 owner && owner.username && (
@@ -105,14 +105,14 @@ export default function P2PShow({ route }) {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <>
                                     <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
-                                        <Text style={{color: 'white'}}>{offer.coin}</Text>
-                                        <Text style={{color: 'white'}}>{offer.amount}</Text>
-                                        <Text style={{color: 'white'}}>{offer.receive}</Text>
-                                        <Text style={{color: 'white'}}>{offer.only_kyc}</Text>
-                                        <Text style={{color: 'white'}}>{offer.created_at}</Text>
-                                        <Text style={{color: 'white'}}>{offer.owner.name}</Text>
-                                        <Text style={{color: 'white'}}>{offer.private}</Text>
-                                        <Text style={{color: 'white'}}>{offer.uuid}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.coin}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.amount}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.receive}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.created_at}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.private}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.uuid}</Text>
                                     </View>
                                     <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
                                 </>

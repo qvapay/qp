@@ -19,7 +19,7 @@ export default function CompletedPayment({ uuid = "" }) {
                 <Text style={[textStyles.h6, { textAlign: 'center' }]}>Hemos procesado este pago y estará en su destino en pocos segundos.</Text>
             </View>
 
-            <QPButton title="Ver Transacción" onPress={() => { navigation.navigate('TransactionStack', { screen: 'ShowTransaction', params: { uuid } }) }} />
+            <QPButton title="Ver Transacción" onPress={() => { navigation.navigate('TransactionStack', { screen: 'TransactionShow', params: { uuid } }) }} />
         </>
     )
 }

@@ -10,7 +10,7 @@ import { getTransaction } from '../../../utils/QvaPayClient'
 import ProfilePictureSection from '../../ui/ProfilePictureSection'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function ShowTransaction({ route }) {
+export default function TransactionShow({ route }) {
 
     const { uuid } = route.params
     const navigation = useNavigation()

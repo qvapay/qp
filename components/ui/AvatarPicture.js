@@ -17,18 +17,18 @@ const AvatarImage = ({ source_uri, size, borderWidth, borderColor }) => (
     />
 );
 
-export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false, showBadge = false, rating = 0.0, stories = false }) {
+export default function AvatarPicture({ size = 32, source_uri = 'https://qvapay.com/android-chrome-512x512.png', negative = false, showBadge = false, rating = 0.0, vip = false }) {
 
     // Dynamic borderWidth based on size
     const badgeSize = size / 10;
     const borderWidth = size / 36;
-    const borderStories = size / 25;
+    const borderVip = size / 25;
     const borderColor = negative ? 'white' : theme.darkColors.background;
-    const gradientColors = stories ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : ['#ffffff', '#ffffff'];
+    const gradientColors = vip ? [theme.darkColors.danger, theme.darkColors.primary, theme.darkColors.success] : ['#ffffff', '#ffffff'];
 
     return (
         <View>
-            <LinearGradient colors={gradientColors} style={{ padding: borderStories, borderRadius: size }}>
+            <LinearGradient colors={gradientColors} style={{ padding: borderVip, borderRadius: size }}>
                 <AvatarImage source_uri={source_uri} size={size} borderWidth={borderWidth} borderColor={borderColor} />
             </LinearGradient>
             {

@@ -42,7 +42,6 @@ export default function RegisterScreen({ navigation }) {
             return false;
         }
 
-        // Only allow one name on the name field
         if (userName.split(' ').length > 1) {
             alert('Por favor un solo nombre');
             return false;

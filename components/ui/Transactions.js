@@ -55,7 +55,7 @@ export default function Transactions({ navigation }) {
         <View style={styles.container}>
             <View style={styles.transactionsDetails}>
                 <Text style={[styles.white, { marginBottom: 10 }]}>Transacciones:</Text>
-                <Pressable onPress={() => navigation.navigate('TransactionStack', { screen: 'IndexTransaction' })}>
+                <Pressable onPress={() => navigation.navigate('TransactionStack', { screen: 'TransactionIndex' })}>
                     <Text style={styles.gray}>Más detalles <FontAwesome5 name='chevron-right' /></Text>
                 </Pressable>
             </View>

@@ -15,7 +15,7 @@ export default function P2POffer({ offer, navigation }) {
     fixedAmount = parseFloat(amount).toFixed(2)
     fixedReceive = parseFloat(receive).toFixed(2)
 
-    // Navigation function to ShowTransaction screen
+    // Navigation function to TransactionShow screen
     const navigateToP2P = () => {
         navigation.navigate('PeerToPeerStack', {
             screen: 'P2PShow',

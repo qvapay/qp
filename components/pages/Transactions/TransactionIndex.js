@@ -5,7 +5,7 @@ import Transaction from '../../ui/Transaction';
 import { getTransactions } from '../../../utils/QvaPayClient';
 import QPSearchBar from '../../ui/QPSearchBar';
 
-export default function IndexTransaction({ navigation }) {
+export default function TransactionIndex({ navigation }) {
 
     // Transactions state
     const [searchQuery, setSearchQuery] = useState('')

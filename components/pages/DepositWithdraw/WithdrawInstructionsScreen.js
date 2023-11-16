@@ -73,7 +73,7 @@ export default function WithdrawInstructionsScreen({ route }) {
         try {
             const { uuid } = await sendWithdraw({ amount, coin: coinData.tick, details: formData, navigation });
             navigation.navigate('TransactionStack', {
-                screen: 'ShowTransaction',
+                screen: 'TransactionShow',
                 params: { uuid },
             })
         } catch (error) {

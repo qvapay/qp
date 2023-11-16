@@ -18,7 +18,7 @@ export default function Transaction({ transaction, navigation }) {
     const amountFixed = amountFloat.toFixed(2);
     const sourceUri = isNegative ? owner.profile_photo_url : paid_by.profile_photo_url;
 
-    const navigateToTransaction = () => navigation.navigate('TransactionStack', { screen: 'ShowTransaction', params: { uuid } })
+    const navigateToTransaction = () => navigation.navigate('TransactionStack', { screen: 'TransactionShow', params: { uuid } })
 
     return (
         <Pressable onPress={navigateToTransaction} style={styles.container}>
