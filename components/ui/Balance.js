@@ -112,6 +112,8 @@ const styles = StyleSheet.create({
     dolarTick: {
         fontSize: 20,
         marginLeft: 5,
+        marginBottom: 7,
+        alignSelf: 'flex-end',
         fontFamily: "Rubik-ExtraBold",
         color: theme.darkColors.elevation_light,
     },
