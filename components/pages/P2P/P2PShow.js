@@ -9,6 +9,7 @@ import PeerContainer from '../../ui/PeerContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
+import { adjustNumber } from '../../../utils/Helpers'
 
 export default function P2PShow({ route }) {
 
@@ -31,9 +32,6 @@ export default function P2PShow({ route }) {
         const getOffer = async () => {
             try {
                 const response = await getP2POffer({ uuid, navigation });
-
-                console.log(response)
-
                 setOffer(response)
                 setOwner(response.owner)
                 setPeer(response.peer)
@@ -91,7 +89,7 @@ export default function P2PShow({ route }) {
                     <>
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                <View style={styles.container}>
                                     <View style={{ marginHorizontal: 40 }}>
                                         <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
                                     </View>
@@ -104,7 +102,7 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <>
-                                    <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                    <View style={styles.container}>
                                         <Text style={{ color: 'white' }}>{offer.coin}</Text>
                                         <Text style={{ color: 'white' }}>{offer.amount}</Text>
                                         <Text style={{ color: 'white' }}>{offer.receive}</Text>
@@ -124,31 +122,111 @@ export default function P2PShow({ route }) {
 
             {
                 offer.status === 'processing' && (
-                    <Text>Processing</Text>
+                    <Text style={{ color: 'white' }}>Processing</Text>
                 )
             }
 
             {
                 offer.status === 'completed' && (
-                    <Text>Completed</Text>
+                    <>
+                        {
+                            offer.owner && offer.owner.uuid === me.uuid && (
+                                <View style={styles.container}>
+                                    <View style={styles.offerReceiveSend}>
+                                        <Text style={{ color: 'white' }}>{offer.coin}</Text>
+                                        <Text style={{ color: 'white' }}>{adjustNumber(offer.amount)}</Text>
+                                        <Text style={{ color: 'white' }}>{adjustNumber(offer.receive)}</Text>
+                                    </View>
+                                    <View style={[styles.offerReceiveSend, { flex: 1 }]}>
+                                        <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.created_at}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.private}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.status}</Text>
+                                        <Text style={{ color: 'white' }}>{offer.uuid}</Text>
+                                    </View>
+                                </View>
+                            )
+                        }
+                        {
+                            offer.owner && offer.owner.uuid !== me.uuid && (
+                                <View style={styles.container}>
+                                    <Text style={{ color: 'white' }}>{offer.coin}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.amount}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.receive}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.created_at}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.private}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.uuid}</Text>
+                                    <Text style={{ color: 'white' }}>{offer.status}</Text>
+                                </View>
+                            )
+                        }
+                    </>
                 )
             }
 
             {
                 offer.status === 'cancelled' && (
-                    <Text>Cancelled</Text>
+                    <>
+                        {
+                            offer.owner && offer.owner.uuid === me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                        {
+                            offer.owner && offer.owner.uuid !== me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                    </>
                 )
             }
 
             {
                 offer.status === 'revision' && (
-                    <Text>Revision</Text>
+                    <>
+                        {
+                            offer.owner && offer.owner.uuid === me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                        {
+                            offer.owner && offer.owner.uuid !== me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                    </>
                 )
             }
 
             {
                 offer.status === 'paid' && (
-                    <Text>Paid</Text>
+                    <>
+                        {
+                            offer.owner && offer.owner.uuid === me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                        {
+                            offer.owner && offer.owner.uuid !== me.uuid && (
+                                <View style={styles.container}>
+
+                                </View>
+                            )
+                        }
+                    </>
                 )
             }
 
@@ -182,7 +260,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: theme.darkColors.elevation,
     },
     offerReceiveSend: {
         marginTop: 10,

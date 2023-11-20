@@ -25,12 +25,12 @@ export default function WelcomeScreen() {
         <ImageBackground source={require('../../assets/images/onboarding/qp-bck.png')} style={{ flex: 1 }}>
 
             <LinearGradient
-                colors={['rgba(0,0,0,1)', 'transparent']}
+                colors={[theme.darkColors.background, 'transparent']}
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '40%' }}
             />
             <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.9)']}
-                style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '33%' }}
+                colors={['transparent', theme.darkColors.background]}
+                style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%' }}
             />
 
             <View style={[globalStyles.container, { backgroundColor: null }]}>
