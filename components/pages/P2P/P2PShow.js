@@ -32,28 +32,21 @@ export default function P2PShow({ route }) {
         const getOffer = async () => {
             try {
                 const response = await getP2POffer({ uuid, navigation });
-                
-                if (!response) {
-                    navigation.goBack();
-                }
-
-                // Are you the owner?
-                if (response.owner.uuid === me.uuid) {
-                    setShowChat(true)
-                }
-                console.log(response)
-
-                // Arent you the owner and there is a peer? get out of here
-                if (response.owner.uuid !== me.uuid && response.peer && response.peer.uuid !== me.uuid) {
-                    navigation.goBack();
-                }
-
-                console.log(response.owner)
-                console.log(response.peer)
-
                 setOffer(response)
-                setOwner(response.owner)
-                setPeer(response.peer)
+
+                if (response.peer.uuid === me.uuid) {
+                    setPeer(me)
+                    setOwner(response.owner)
+                } else if (response.owner.uuid === me.uuid) {
+                    setOwner(me)
+                    setPeer(response.peer)
+                } else if (response.peer.uuid === "0") {
+                    setPeer({})
+                    setOwner(response.owner)
+                } else {
+                    navigation.goBack()
+                }
+
             } catch (error) {
                 console.log(error)
             }
