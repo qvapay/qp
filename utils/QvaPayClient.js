@@ -75,35 +75,35 @@ const apiRequest = async (url, options = {}, navigation) => {
 
         // Network Error do nothing or 
         if (error.request && !error.response) {
-            console.log("Network Error")
             error.response.data && console.log(error.response.data)
             onNetworkError(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 401) {
-            console.log("Invalid Token")
             error.response.data && console.log(error.response.data)
             onInvalidToken(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 422) {
-            console.log("Unprocessable Entity")
             error.response.data && console.log(error.response.data)
             onInvalidResponse(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 429) {
-            console.log("Too Many Requests")
             error.response.data && console.log(error.response.data)
             onInvalidResponse(navigation);
             return null;
         }
 
         if (error.response && error.response.status === 500) {
-            console.log("No se ha podido completar la solicitud")
+            onInvalidResponse(navigation);
+            return null;
+        }
+
+        if (error.response && error.response.status === 520) {
             onInvalidResponse(navigation);
             return null;
         }
@@ -117,14 +117,14 @@ const apiRequest = async (url, options = {}, navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
-    return;
-    //navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
+    await EncryptedStorage.removeItem("accessToken");
+    navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
 };
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidResponse = async (navigation) => {
-    return;
     //navigation.goBack();
+    return;
 };
 
 // Go to Splash Screen

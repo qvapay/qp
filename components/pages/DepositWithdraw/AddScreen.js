@@ -104,7 +104,7 @@ export default function AddScreen() {
 
                             </ScrollView>
 
-                            <QPButton onPress={onAddPress} title={`Depositar ${amount}`} disabled={!selectedCoin} />
+                            <QPButton onPress={onAddPress} title={`Depositar $${amount}`} disabled={!selectedCoin} />
                         </>
                     )
                 }
