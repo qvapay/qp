@@ -70,7 +70,7 @@ export default function MainStack() {
                             onPress={() => navigation.navigate("SettingsStack")}
                             onLongPress={() => navigation.navigate('SettingsStack', { screen: 'UserdataScreen' })}
                         >
-                            <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                            <AvatarPicture size={32} source_uri={me.profile_photo_url} vip={me.vip} />
                         </Pressable>
                     ) : null
                 ),
@@ -97,7 +97,7 @@ export default function MainStack() {
                             {
                                 me && me.name && me.username ? (
                                     <Pressable onPress={() => navigation.navigate("SettingsStack")} >
-                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} vip={me.vip} />
                                     </Pressable>
                                 ) : null
                             }
@@ -124,7 +124,7 @@ export default function MainStack() {
                             {
                                 me.name && me.username ? (
                                     <Pressable onPress={() => navigation.navigate("SettingsStack")} >
-                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} />
+                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} vip={me.vip} />
                                     </Pressable>
                                 ) : null
                             }

@@ -91,7 +91,7 @@ export default function SendScreen({ route, navigation }) {
                 <View style={styles.contactView}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <View style={styles.contactAvatar}>
-                            <AvatarPicture source_uri={item.source_uri} />
+                            <AvatarPicture source_uri={item.source_uri} vip={item.vip} />
                         </View>
                         <View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
                             <Text style={styles.contactName}>{item.name}</Text>

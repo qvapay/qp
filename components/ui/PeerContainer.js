@@ -5,7 +5,7 @@ import AvatarPicture from './AvatarPicture';
 
 export default function PeerContainer({ peer, orientation = 'left' }) {
 
-    const { username, profile_photo_url, average_rating } = peer
+    const { username, profile_photo_url, average_rating, vip } = peer
     const usernameLabel = username.length > 10 ? username.substring(0, 10) + '' : username
 
     return (
@@ -29,7 +29,7 @@ export default function PeerContainer({ peer, orientation = 'left' }) {
                     </>
                 </View>
 
-                <AvatarPicture size={48} source_uri={profile_photo_url} />
+                <AvatarPicture size={48} source_uri={profile_photo_url} vip={vip} />
             </View>
         ) : (
             <View>

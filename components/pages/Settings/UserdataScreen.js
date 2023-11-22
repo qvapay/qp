@@ -95,7 +95,7 @@ export default function UserdataScreen() {
                 <View style={styles.userDataSection}>
 
                     <TouchableOpacity onPress={updatePicture} style={styles.avatarContainer}>
-                        <AvatarPicture size={76} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} />
+                        <AvatarPicture size={76} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} vip={me.vip} />
                         {uploadingAvatar && <LottieView source={require('../../../assets/lotties/spiner.json')} autoPlay loop style={styles.loadingAnimation} />}
                         <View style={[styles.editIcon, { width: 84, height: 84, backgroundColor: '#FFFFFF20', borderRadius: 42 }]}>
                             <FontAwesome5 name="camera" size={30} color="#FFFFFFC0" style={{ position: 'absolute', bottom: 26, right: 26 }} />
