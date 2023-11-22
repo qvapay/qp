@@ -6,11 +6,9 @@ import { adjustNumber } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PeerContainer from './PeerContainer';
 
-
 export default function P2POffer({ offer, navigation }) {
 
     const { uuid, type, coin, amount, receive, coin_data, owner } = offer
-
     const coin_logo = 'https://qvapay.com/img/coins/' + coin_data.logo + '.svg'
     fixedAmount = parseFloat(amount).toFixed(2)
     fixedReceive = parseFloat(receive).toFixed(2)

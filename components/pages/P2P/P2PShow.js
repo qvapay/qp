@@ -10,6 +10,8 @@ import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { adjustNumber } from '../../../utils/Helpers'
+import { SvgUri } from 'react-native-svg';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function P2PShow({ route }) {
 
@@ -115,14 +117,43 @@ export default function P2PShow({ route }) {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <>
                                     <View style={styles.container}>
-                                        <Text style={{ color: 'white' }}>{offer.coin}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.amount}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.receive}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.created_at}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.private}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.uuid}</Text>
+
+                                        {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.type}</Text> */}
+
+                                        <View style={[styles.offerContainer, { marginBottom: -8 }]}>
+                                            <Text style={textStyles.h4}>{offer.type == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <Text style={styles.offerAmount}>${adjustNumber(offer.amount)}</Text>
+                                                <View style={{ alignItems: 'center' }}>
+                                                    <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
+                                                    <Text style={styles.offerLabel}>USD</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
+                                            <FontAwesome5 name='chevron-circle-down' size={20} style={{ color: theme.darkColors.almost_white }} />
+                                        </View>
+
+                                        <View style={[styles.offerContainer, { marginTop: -8 }]}>
+                                            <Text style={textStyles.h4}>{offer.type == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <Text style={styles.offerAmount}>${adjustNumber(offer.receive)}</Text>
+                                                <View style={{ alignItems: 'center' }}>
+                                                    <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/' + offer.coin_data.logo + '.svg'} />
+                                                    <Text style={styles.offerLabel}>{offer.coin_data.name}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+
+                                        <View style={[styles.offerContainer, { flex: 1 }]}>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
+                                        </View>
                                     </View>
                                     <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
                                 </>
@@ -134,7 +165,7 @@ export default function P2PShow({ route }) {
 
             {
                 offer.status === 'processing' && (
-                    <Text style={{ color: 'white' }}>Processing</Text>
+                    <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
                 )
             }
 
@@ -144,18 +175,18 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
                                 <View style={styles.container}>
-                                    <View style={styles.offerReceiveSend}>
-                                        <Text style={{ color: 'white' }}>{offer.coin}</Text>
-                                        <Text style={{ color: 'white' }}>{adjustNumber(offer.amount)}</Text>
-                                        <Text style={{ color: 'white' }}>{adjustNumber(offer.receive)}</Text>
+                                    <View style={styles.offerContainer}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.coin}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{adjustNumber(offer.amount)}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{adjustNumber(offer.receive)}</Text>
                                     </View>
-                                    <View style={[styles.offerReceiveSend, { flex: 1 }]}>
-                                        <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.created_at}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.private}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.status}</Text>
-                                        <Text style={{ color: 'white' }}>{offer.uuid}</Text>
+                                    <View style={[styles.offerContainer, { flex: 1 }]}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
                                     </View>
                                 </View>
                             )
@@ -163,15 +194,15 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
-                                    <Text style={{ color: 'white' }}>{offer.coin}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.amount}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.receive}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.only_kyc}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.created_at}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.owner.name}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.private}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.uuid}</Text>
-                                    <Text style={{ color: 'white' }}>{offer.status}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.coin}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.amount}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.receive}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
                                 </View>
                             )
                         }
@@ -273,34 +304,28 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
     },
-    offerReceiveSend: {
+    offerContainer: {
         marginTop: 10,
         borderRadius: 10,
         paddingVertical: 10,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
         backgroundColor: theme.darkColors.elevation
     },
     offerLabel: {
-        padding: 25,
-        marginTop: 10,
-        borderRadius: 10,
-        backgroundColor: theme.darkColors.elevation
-    },
-    offerLabelText: {
         fontSize: 18,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         textAlign: 'center',
         fontFamily: 'Rubik-Medium'
     },
     offerAmount: {
-        fontSize: 28,
-        color: 'white',
+        fontSize: 24,
+        color: theme.darkColors.almost_white,
         marginLeft: 10,
         fontFamily: 'Rubik-Black',
     },
     offerReceive: {
         fontSize: 28,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         marginLeft: 10,
         fontFamily: 'Rubik-Black',
     },
@@ -311,7 +336,7 @@ const styles = StyleSheet.create({
     },
     coinLabel: {
         fontSize: 18,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         fontFamily: 'Rubik-Regular',
     },
     offerSteps: {
@@ -322,7 +347,7 @@ const styles = StyleSheet.create({
     },
     offerStepsText: {
         fontSize: 16,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         fontFamily: 'Rubik-Regular',
         marginBottom: 3,
     },

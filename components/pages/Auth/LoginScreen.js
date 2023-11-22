@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         flex: 1,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         borderWidth: 1,
         paddingHorizontal: 15,
         borderRadius: 10,
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     },
     inputStyle2FA: {
         flex: 1,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         textAlign: 'center',
         alignSelf: 'center',
         alignContent: 'center',
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     },
     registerTextStyle: {
         fontSize: 14,
-        color: 'white',
+        color: theme.darkColors.almost_white,
         paddingVertical: 10,
         alignSelf: 'center',
         textAlign: 'center',
