@@ -23,7 +23,7 @@ export default function Transaction({ transaction, navigation }) {
     return (
         <Pressable onPress={navigateToTransaction} style={styles.container}>
             <View style={styles.transactionLogo}>
-                <AvatarPicture source_uri={sourceUri} />
+                <AvatarPicture source_uri={sourceUri} vip={isNegative ? owner.vip : paid_by.vip} />
             </View>
             <View style={styles.transactionData}>
                 <Text style={styles.transactionDescription}>{reduceString(description)}</Text>
