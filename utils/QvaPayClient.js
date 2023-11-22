@@ -103,6 +103,11 @@ const apiRequest = async (url, options = {}, navigation) => {
             return null;
         }
 
+        if (error.response && error.response.status === 504) {
+            onInvalidResponse(navigation);
+            return null;
+        }
+
         if (error.response && error.response.status === 520) {
             onInvalidResponse(navigation);
             return null;
@@ -123,7 +128,6 @@ const onInvalidToken = async (navigation) => {
 
 // Borra accessToken y redirege a SplashScreen
 const onInvalidResponse = async (navigation) => {
-    //navigation.goBack();
     return;
 };
 

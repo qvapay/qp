@@ -11,6 +11,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import LottieView from "lottie-react-native"
 import QPInput from '../../ui/QPInput'
 import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
+import SwapContainer from '../../ui/swap/SwapContainer'
 
 export default function P2PCreate() {
 
@@ -173,7 +174,7 @@ export default function P2PCreate() {
 
             {
                 step < 5 && (
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10 }}>
                         <Pressable onPress={() => setStep(1)} style={{ flex: 1, height: step >= 1 ? 7 : 5, backgroundColor: step >= 1 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
                         <Pressable onPress={() => setStep(2)} style={{ flex: 1, height: step >= 2 ? 7 : 5, backgroundColor: step >= 2 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
                         <Pressable onPress={() => setStep(3)} style={{ flex: 1, height: step >= 3 ? 7 : 5, backgroundColor: step >= 3 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
@@ -213,11 +214,10 @@ export default function P2PCreate() {
                 {
                     step == 2 && (
                         <ScrollView style={{ marginTop: 10 }}>
-                            <Text style={textStyles.h3}>Selecciona la moneda con la cual {operation == "buy" ? "comprar" : "vender"} dólares digitales de QvaPay</Text>
+                            <Text style={textStyles.h3}>Selecciona la moneda con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
                             {
                                 categories.map((category, index) => (
                                     <View key={index}>
-                                        <Text style={textStyles.h3}>{category.title}</Text>
                                         <FlatList
                                             data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
                                             renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={handleSelectedCoin} in_out_p2p="P2P" />}
@@ -233,7 +233,17 @@ export default function P2PCreate() {
                 {
                     step == 3 && (
                         <View style={{ flex: 1, marginTop: 20 }}>
-                            <View style={{ flex: 1 }}>
+
+                            <SwapContainer
+                                editable={true}
+                                operation={operation}
+                                amount={amount}
+                                desiredAmount={desiredAmount}
+                                selectedCoin={selectedCoin}
+                                coin={getCoinById(selectedCoin)}
+                            />
+
+                            {/* <View style={{ flex: 1 }}>
                                 <Text style={[textStyles.h3, { textAlign: 'center' }]}>¿Cuánto quieres {operation == "buy" ? "comprar" : "vender"} en balance de QvaPay?</Text>
                                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                     <TextInput
@@ -260,7 +270,7 @@ export default function P2PCreate() {
                                         onBlur={() => { onBlur(desiredAmount, setDesiredAmount) }}
                                     />
                                 </View>
-                            </View>
+                            </View> */}
 
                             <QPButton onPress={reviewP2P} title={`Agregar detalles`} disabled={!stepThreeValidator} />
                         </View>
