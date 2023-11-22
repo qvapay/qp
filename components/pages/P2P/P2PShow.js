@@ -8,7 +8,7 @@ import { AppContext } from '../../../AppContext'
 import PeerContainer from '../../ui/PeerContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
-import { globalStyles, textStyles, theme } from '../../ui/Theme'
+import { globalStyles, textStyles, theme, colors } from '../../ui/Theme'
 import { adjustNumber } from '../../../utils/Helpers'
 import { SvgUri } from 'react-native-svg';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -121,7 +121,7 @@ export default function P2PShow({ route }) {
                                         {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.type}</Text> */}
 
                                         <View style={[styles.offerContainer, { marginBottom: -8 }]}>
-                                            <Text style={textStyles.h4}>{offer.type == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+                                            <Text style={[textStyles.h4, { color: colors.gray }]}>{offer.type == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                                 <Text style={styles.offerAmount}>${adjustNumber(offer.amount)}</Text>
                                                 <View style={{ alignItems: 'center' }}>
@@ -136,7 +136,7 @@ export default function P2PShow({ route }) {
                                         </View>
 
                                         <View style={[styles.offerContainer, { marginTop: -8 }]}>
-                                            <Text style={textStyles.h4}>{offer.type == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+                                            <Text style={[textStyles.h4, { color: colors.gray }]}>{offer.type == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                                 <Text style={styles.offerAmount}>${adjustNumber(offer.receive)}</Text>
                                                 <View style={{ alignItems: 'center' }}>
@@ -146,7 +146,7 @@ export default function P2PShow({ route }) {
                                             </View>
                                         </View>
 
-                                        <View style={[styles.offerContainer, { flex: 1 }]}>
+                                        <View style={[styles.offerContainer2, { flex: 1 }]}>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
@@ -310,6 +310,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         backgroundColor: theme.darkColors.elevation
+    },
+    offerContainer2: {
+        marginTop: 10,
+        borderWidth: 3,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderColor: theme.darkColors.elevation,
     },
     offerLabel: {
         fontSize: 16,

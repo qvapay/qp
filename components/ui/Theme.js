@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-// colors:
 const colors = {
     primary_bg: "#101020",              // Dark BG
     secondary_bg: "#21415F",            // Dark serious Blue
@@ -40,16 +39,16 @@ const textStyles = StyleSheet.create({
     },
     fullName: {
         fontSize: 20,
-        color: colors.almost_white,
         marginLeft: 10,
-        fontFamily: 'Rubik-Regular'
+        fontFamily: 'Rubik-Regular',
+        color: colors.almost_white,
     },
     amount: {
         fontSize: 60,
-        color: colors.almost_white,
         marginBottom: 10,
         alignSelf: 'center',
         fontFamily: "Rubik-Black",
+        color: colors.almost_white,
     },
     title: {
         fontSize: 18,
@@ -58,16 +57,16 @@ const textStyles = StyleSheet.create({
     },
     h1: {
         fontSize: 30,
-        color: colors.almost_white,
         textAlign: 'left',
         marginVertical: 10,
         fontFamily: 'Rubik-Bold',
+        color: colors.almost_white,
     },
     h2: {
         fontSize: 24,
-        color: colors.almost_white,
         textAlign: 'left',
         marginVertical: 5,
+        color: colors.almost_white,
         fontFamily: 'Rubik-SemiBold',
     },
     h3: {
@@ -78,21 +77,21 @@ const textStyles = StyleSheet.create({
     },
     h4: {
         fontSize: 17,
-        color: colors.almost_white,
         textAlign: 'left',
+        color: colors.almost_white,
         fontFamily: 'Rubik-Regular',
     },
     h5: {
         fontSize: 17,
-        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
+        color: colors.almost_white,
     },
     h6: {
         fontSize: 16,
-        color: colors.almost_white,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
+        color: colors.almost_white,
     },
     smallDescription: {
         fontSize: 14,
@@ -183,4 +182,4 @@ const globalStyles = StyleSheet.create({
     }
 });
 
-export { theme, globalStyles, textStyles, containerStyles };
+export { colors, theme, globalStyles, textStyles, containerStyles };
