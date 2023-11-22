@@ -132,7 +132,7 @@ export default function P2PShow({ route }) {
                                         </View>
 
                                         <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
-                                            <FontAwesome5 name='chevron-circle-down' size={20} style={{ color: theme.darkColors.almost_white }} />
+                                            <FontAwesome5 name={offer.type == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={20} style={{ color: theme.darkColors.almost_white }} />
                                         </View>
 
                                         <View style={[styles.offerContainer, { marginTop: -8 }]}>
@@ -312,16 +312,16 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation
     },
     offerLabel: {
-        fontSize: 18,
-        color: theme.darkColors.almost_white,
+        fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'Rubik-Medium'
+        fontFamily: 'Rubik-Regular',
+        color: theme.darkColors.almost_white,
     },
     offerAmount: {
         fontSize: 24,
-        color: theme.darkColors.almost_white,
         marginLeft: 10,
         fontFamily: 'Rubik-Black',
+        color: theme.darkColors.almost_white,
     },
     offerReceive: {
         fontSize: 28,
