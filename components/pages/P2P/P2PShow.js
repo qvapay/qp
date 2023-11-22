@@ -152,12 +152,13 @@ export default function P2PShow({ route }) {
                                         </View>
 
                                         <View style={[styles.offerContainer2, { flex: 1 }]}>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
+                                            {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
+                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text> */}
+                                            <Text></Text>
                                         </View>
                                     </View>
                                     <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
