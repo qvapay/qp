@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
-import { StyleSheet, ScrollView, Linking, RefreshControl, View, PanResponder } from 'react-native'
+import { StyleSheet, ScrollView, Linking, View, PanResponder } from 'react-native'
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Carousel from '../../ui/Carousel'

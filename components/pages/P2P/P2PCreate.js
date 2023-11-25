@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList, Pressable, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
-import { globalStyles, textStyles, theme } from '../../ui/Theme'
+import QPInput from '../../ui/QPInput'
 import QPButton from '../../ui/QPButton'
 import { SvgUri } from 'react-native-svg'
 import QPCoinRow from '../../ui/QPCoinRow'
-import { filterCoins } from '../../../utils/Helpers'
-import { transformText } from '../../../utils/Helpers'
+import LottieView from "lottie-react-native"
+import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
-import LottieView from "lottie-react-native"
-import QPInput from '../../ui/QPInput'
+import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
-import SwapContainer from '../../ui/swap/SwapContainer'
+import { transformText, filterCoins } from '../../../utils/Helpers'
 
 export default function P2PCreate() {
 
@@ -227,8 +226,7 @@ export default function P2PCreate() {
 
                     {
                         step == 3 && (
-                            <View style={{ flex: 1, marginTop: 10 }}>
-
+                            <View style={{ flex: 1, marginVertical: 10 }}>
                                 <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la cantidad con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
 
                                 <View style={{ flex: 1 }}>
@@ -245,13 +243,14 @@ export default function P2PCreate() {
                                 </View>
 
                                 <QPButton onPress={reviewP2P} title={`Agregar detalles`} disabled={!stepThreeValidator} />
+
                             </View>
                         )
                     }
 
                     {
                         step == 4 && (
-                            <>
+                            <View style={{ flex: 1, marginVertical: 10 }}>
                                 <ScrollView style={{ flex: 1, marginTop: 20 }}>
 
                                     <Text style={[textStyles.h2, { textAlign: 'center' }]}>Detalles de tu oferta P2P:</Text>
@@ -361,7 +360,7 @@ export default function P2PCreate() {
                                 </ScrollView>
 
                                 <QPButton onPress={publishP2P} title={`Publicar oferta`} />
-                            </>
+                            </View>
                         )
                     }
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
-import { StyleSheet, FlatList, View, Text, Pressable, Animated } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
+import { StyleSheet, FlatList, View, Text, Pressable, RefreshControl } from 'react-native'
 import { theme } from '../../ui/Theme'
 import Modal from "react-native-modal"
 import P2POffer from '../../ui/P2POffer'
@@ -16,31 +16,27 @@ export default function P2PIndex() {
     const navigation = useNavigation();
     const { me } = useContext(AppContext);
     const [type, setType] = useState('buy');
-    const [myOffers, setMyOffers] = useState(false);
     const [loading, setLoading] = useState(false)
-
-    const [p2pOffers, setP2pOffers] = useState([]);
     const [buyOffers, setBuyOffers] = useState([]);
     const [sellOffers, setSellOffers] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false)
 
     // useEffect for Offers with getP2POffers
     useEffect(() => {
         getP2POffers()
-    }, [type, myOffers]);
+    }, [type])
 
     // function to retrieve offers from API
     const getP2POffers = async () => {
         try {
+
+            console.log("Loafing more offers")
+
             setLoading(true)
             let url = `/p2p/index?type=${type}`
-            if (myOffers) {
-                url += `&my=true`
-            }
-
             const response = await apiRequest(url, { method: "GET" }, navigation)
 
-            setP2pOffers(response.data)
             setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
             setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
             setLoading(false)
@@ -50,15 +46,16 @@ export default function P2PIndex() {
         }
     }
 
+    // onRefresh
+    const onRefresh = () => {
+        setRefreshing(true);
+        getP2POffers();
+        setRefreshing(false);
+    }
+
     // Show the filter modal
     const showFilterModal = () => {
         setModalVisible(true)
-    }
-
-    // Set the only my offers filter
-    const setOnlyMyOffers = (isChecked) => {
-        setMyOffers(isChecked)
-        getP2POffers()
     }
 
     const OffersFilter = () => (
@@ -88,16 +85,21 @@ export default function P2PIndex() {
                 </Pressable>
             </View>
 
-            <View style={{ flex: 1 }}>
-                <FlatList
-                    data={type === 'buy' ? buyOffers : sellOffers}
-                    keyExtractor={(item) => item.uuid}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <P2POffer offer={item} navigation={navigation} />
-                    )}
-                />
-            </View>
+            <FlatList
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        colors={[theme.darkColors.primary]}
+                    />
+                }
+                data={type === 'buy' ? buyOffers : sellOffers}
+                keyExtractor={(item) => item.uuid}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                    <P2POffer offer={item} navigation={navigation} />
+                )}
+            />
 
             <Modal
                 isVisible={isModalVisible}
@@ -109,7 +111,7 @@ export default function P2PIndex() {
                 style={styles.modalview}
             >
                 <View style={styles.modalContent}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
                         <Text style={[textStyles.h3, { textAlign: 'center' }]}>Solo mis Ofertas:</Text>
                         <BouncyCheckbox
                             size={20}
@@ -121,7 +123,7 @@ export default function P2PIndex() {
                             onPress={(isChecked) => { setOnlyMyOffers(isChecked) }}
                             isChecked={myOffers}
                         />
-                    </View>
+                    </View> */}
 
                     <QPButton title={'Aplicar'} onPress={() => setModalVisible(false)} />
 

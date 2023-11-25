@@ -12,6 +12,7 @@ import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { adjustNumber } from '../../../utils/Helpers'
 import { SvgUri } from 'react-native-svg';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import SwapContainer from '../../ui/swap/SwapContainer';
 
 export default function P2PShow({ route }) {
 
@@ -97,6 +98,9 @@ export default function P2PShow({ route }) {
                     </View>
                 )
             }
+
+            {/** Operation Container */}
+            <SwapContainer operation={offer.type} />
 
             {
                 offer.status === 'open' && (
@@ -222,14 +226,14 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
                                 </View>
                             )
                         }
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
                                 </View>
                             )
                         }
@@ -243,14 +247,14 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
                                 </View>
                             )
                         }
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
                                 </View>
                             )
                         }
@@ -264,14 +268,14 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
                                 </View>
                             )
                         }
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
-
+                                    <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
                                 </View>
                             )
                         }
