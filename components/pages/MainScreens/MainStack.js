@@ -43,6 +43,10 @@ export default function MainStack() {
         navigation.navigate('P2PStack', { screen: 'P2PCreate' });
     };
 
+    const gotoP2PMyOffers = () => {
+        navigation.navigate('P2PStack', { screen: 'P2PCreate' });
+    };
+
     return (
         <Tab.Navigator
             initialRouteName="HomeScreen"
@@ -85,21 +89,16 @@ export default function MainStack() {
                 options={{
                     headerShown: true,
                     headerLeft: () => (
-                        <FontAwesome5 name={'qrcode'} style={styles.qrIconStyle} onPress={() => navigation.navigate('ScanScreen')} />
+                        <QPRoundButton size={16} icon={'plus'} style={{ marginLeft: 10 }} onPress={gotoP2PCreate} />
                     ),
                     headerRight: () => (
                         <View style={styles.headerRight}>
                             {
                                 me && me.p2p_enabled && me.p2p_enabled === 1 && (
-                                    <QPRoundButton size={16} icon={'plus'} style={{ marginRight: 10 }} onPress={gotoP2PCreate} />
+                                    <>
+                                        <QPRoundButton size={16} icon={'users'} onPress={gotoP2PMyOffers} />
+                                    </>
                                 )
-                            }
-                            {
-                                me && me.name && me.username ? (
-                                    <Pressable onPress={() => navigation.navigate("SettingsStack")} >
-                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} vip={me.vip} />
-                                    </Pressable>
-                                ) : null
                             }
                         </View>
                     ),

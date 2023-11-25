@@ -30,17 +30,12 @@ export default function P2PIndex() {
     // function to retrieve offers from API
     const getP2POffers = async () => {
         try {
-
-            console.log("Loafing more offers")
-
             setLoading(true)
             let url = `/p2p/index?type=${type}`
             const response = await apiRequest(url, { method: "GET" }, navigation)
-
             setBuyOffers(response.data.filter((offer) => offer.type === 'buy'))
             setSellOffers(response.data.filter((offer) => offer.type === 'sell'))
             setLoading(false)
-
         } catch (error) {
             console.error('Error fetching P2P Offers:', error);
         }
