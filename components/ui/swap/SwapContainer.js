@@ -1,46 +1,97 @@
-import React, { useState, useContext } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import React, { useContext } from 'react'
+import { StyleSheet, View, Text, TextInput, Pressable } from 'react-native'
 import { theme, textStyles } from '../Theme'
 import { AppContext } from '../../../AppContext'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { adjustNumber } from '../../../utils/Helpers'
 import { SvgUri } from 'react-native-svg';
 
-const SwapContainer = ({ editable = false, operation = '', amount = 0, desiredAmount = 0, selectedCoin = 0, coin }) => {
+const SwapContainer = ({ editable = false, operation = '', setAmount, setDesiredAmount, amount = 0, desiredAmount = 0, coin, setStep }) => {
 
     const { me } = useContext(AppContext)
 
+    // onFocus if the value is 0.00, set it to empty
+    const onFocus = (value, setter) => {
+        if (value == "0.00") {
+            setter("")
+        }
+    }
+
+    // Now when the user unfocus the input, if it's empty, set it to 0.00
+    const onBlur = (value, setter) => {
+        if (value == "") {
+            setter("0.00")
+        }
+    }
+
     return (
         <>
-            <View style={[styles.offerContainer, { marginBottom: -8 }]}>
-                <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={[styles.offerContainer, { marginBottom: -8, paddingBottom: 15 }]}>
 
+                <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View>
-                        <Text style={styles.offerAmount}>${adjustNumber(amount)}</Text>
+                        {
+                            editable ? (
+                                <TextInput
+                                    value={amount}
+                                    style={[styles.amount, { color: amount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
+                                    keyboardType="numeric"
+                                    onChangeText={setAmount}
+                                    cursorColor='white'
+                                    onFocus={() => { onFocus(amount, setAmount) }}
+                                    onBlur={() => { onBlur(amount, setAmount) }}
+                                />
+                            ) : (
+                                <Text style={styles.offerAmount}>${adjustNumber(amount)}</Text>
+                            )
+                        }
                         <Text style={styles.balanceAmount}>Balance: ${adjustNumber(me.balance)}</Text>
                     </View>
 
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', marginRight: 5 }}>
                         <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
                         <Text style={styles.offerLabel}>USD</Text>
                     </View>
+
                 </View>
+
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
                 <FontAwesome5 name={operation == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={20} style={{ color: theme.darkColors.almost_white }} />
             </View>
 
-            <View style={[styles.offerContainer, { marginTop: -8 }]}>
+            <View style={[styles.offerContainer, { marginTop: -8, paddingBottom: 15 }]}>
+
                 <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text style={styles.offerAmount}>${adjustNumber(desiredAmount)}</Text>
-                    <View style={{ alignItems: 'center' }}>
+                    <View>
+                        {
+                            editable ? (
+                                <TextInput
+                                    value={desiredAmount}
+                                    style={[styles.amount, { color: desiredAmount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
+                                    keyboardType="numeric"
+                                    onChangeText={setDesiredAmount}
+                                    cursorColor='white'
+                                    onFocus={() => { onFocus(desiredAmount, setDesiredAmount) }}
+                                    onBlur={() => { onBlur(desiredAmount, setDesiredAmount) }}
+                                />
+                            ) : (
+                                <Text style={styles.offerAmount}>${adjustNumber(desiredAmount)}</Text>
+                            )
+                        }
+                        <Text style={styles.balanceAmount}>Precio: ${adjustNumber(coin.price)}</Text>
+                    </View>
+
+                    <Pressable style={{ alignItems: 'center', marginRight: 5 }} onPress={() => {setStep(2)}}>
                         <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/' + coin.logo + '.svg'} />
                         <Text style={styles.offerLabel}>{coin.tick}</Text>
-                    </View>
+                    </Pressable>
+
                 </View>
+
             </View>
         </>
     )
@@ -122,7 +173,14 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         backgroundColor: theme.darkColors.elevation,
-    }
+    },
+    amount: {
+        fontSize: 30,
+        marginLeft: 10,
+        marginVertical: 10,
+        fontFamily: 'Rubik-Black',
+        color: theme.darkColors.almost_white,
+    },
 })
 
 export default SwapContainer

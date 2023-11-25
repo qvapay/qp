@@ -6,6 +6,7 @@ import QPSearchBar from '../../ui/QPSearchBar'
 import FeaturedCard from '../../ui/FeaturedCard'
 import { getProducts } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
+import { shuffleArray } from '../../../utils/Helpers';
 
 export default function ShopIndexScreen() {
 
@@ -48,9 +49,10 @@ export default function ShopIndexScreen() {
         const fetchedProducts = await getProducts({ navigation });
         const featuredProducts = fetchedProducts.filter(product => product.featured);
         const commonProducts = fetchedProducts.filter(product => !product.featured);
+        const randomFeaturedProducts = shuffleArray(featuredProducts);
         setCommonProducts(commonProducts);
         setFetchedProducts(fetchedProducts);
-        setFeaturedProducts(featuredProducts);
+        setFeaturedProducts(randomFeaturedProducts);
     };
 
     const productCard = ({ item, index }) => (

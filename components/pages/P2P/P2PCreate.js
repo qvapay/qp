@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, ScrollView, FlatList, TextInput, Pressable, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, FlatList, Pressable, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import QPButton from '../../ui/QPButton'
 import { SvgUri } from 'react-native-svg'
@@ -134,13 +134,19 @@ export default function P2PCreate() {
                 private: privateOffer,
                 promote_offer: promoteOffer,
             }
+
+            console.log(data)
+
             const url = '/p2p/create'
             const response = await apiRequest(url, { method: 'POST', data }, navigation)
             if (response && response.msg == "Succesfull created" && response.p2p) {
                 const p2p = response.p2p
                 setP2P(p2p)
                 viewOffer(p2p)
+            } else {
+                console.log(response)
             }
+
         } catch (error) {
             console.log(error)
         }
@@ -155,258 +161,226 @@ export default function P2PCreate() {
         })
     }
 
-    // onFocus if the value is 0.00, set it to empty
-    const onFocus = (value, setter) => {
-        if (value == "0.00") {
-            setter("")
-        }
-    }
-
-    // Now when the user unfocus the input, if it's empty, set it to 0.00
-    const onBlur = (value, setter) => {
-        if (value == "") {
-            setter("0.00")
-        }
-    }
-
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start', paddingBottom: 20 }]}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
-            {
-                step < 5 && (
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10 }}>
-                        <Pressable onPress={() => setStep(1)} style={{ flex: 1, height: step >= 1 ? 7 : 5, backgroundColor: step >= 1 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
-                        <Pressable onPress={() => setStep(2)} style={{ flex: 1, height: step >= 2 ? 7 : 5, backgroundColor: step >= 2 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
-                        <Pressable onPress={() => setStep(3)} style={{ flex: 1, height: step >= 3 ? 7 : 5, backgroundColor: step >= 3 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
-                        <Pressable onPress={() => setStep(4)} style={{ flex: 1, height: step >= 4 ? 7 : 5, backgroundColor: step >= 4 ? theme.darkColors.primary : "#6759EF60", borderRadius: 2 }} />
-                    </View>
-                )
-            }
-
-            <View style={{ flex: 1 }}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start', paddingBottom: 20 }]}>
 
                 {
-                    step == 1 && (
-                        <>
-                            <Text style={textStyles.h1}>Crear oferta P2P:</Text>
-                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona si deseas comprar o vender tus dólares digitales de QvaPay:</Text>
-                            <View style={{ flex: 1, paddingVertical: 10 }}>
-                                <View style={[styles.optionCard, { backgroundColor: "#7BFFB160" }]}>
-                                    <View style={{ flex: 1, justifyContent: "center" }}>
-                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas adquirir saldo en dólares digitales.</Text>
-                                        <Text style={[textStyles.h2, { textAlign: 'center' }]}>{sellOperations} operaciones</Text>
-                                    </View>
-                                    <QPButton title='Comprar' onPress={() => handleOperation('buy')} success />
-                                </View>
-
-                                <View style={[styles.optionCard, { backgroundColor: "#DB253E60" }]}>
-                                    <View style={{ flex: 1, justifyContent: "center" }}>
-                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas vender tu saldo en dólares digitales.</Text>
-                                        <Text style={[textStyles.h2, { textAlign: 'center' }]}>{buyOperations} operaciones</Text>
-                                    </View>
-                                    <QPButton title='Vender' onPress={() => handleOperation('sell')} danger />
-                                </View>
-                            </View>
-                        </>
-                    )
-                }
-
-                {
-                    step == 2 && (
-                        <ScrollView style={{ marginTop: 10 }}>
-                            <Text style={textStyles.h3}>Selecciona la moneda con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
-                            {
-                                categories.map((category, index) => (
-                                    <View key={index}>
-                                        <FlatList
-                                            data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
-                                            renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={handleSelectedCoin} in_out_p2p="P2P" />}
-                                            keyExtractor={item => item.id}
-                                        />
-                                    </View>
-                                ))
-                            }
-                        </ScrollView>
-                    )
-                }
-
-                {
-                    step == 3 && (
-                        <View style={{ flex: 1, marginTop: 20 }}>
-
-                            <SwapContainer
-                                editable={true}
-                                operation={operation}
-                                amount={amount}
-                                desiredAmount={desiredAmount}
-                                selectedCoin={selectedCoin}
-                                coin={getCoinById(selectedCoin)}
-                            />
-
-                            {/* <View style={{ flex: 1 }}>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>¿Cuánto quieres {operation == "buy" ? "comprar" : "vender"} en balance de QvaPay?</Text>
-                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextInput
-                                        value={amount}
-                                        style={[styles.amount, { color: amount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
-                                        keyboardType="numeric"
-                                        onChangeText={setAmount}
-                                        cursorColor='white'
-                                        onFocus={() => { onFocus(amount, setAmount) }}
-                                        onBlur={() => { onBlur(amount, setAmount) }}
-                                    />
-                                </View>
-                            </View>
-                            <View style={{ flex: 1 }}>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>¿Cuánto quieres {operation == "buy" ? "pagar" : "recibir"} en {getCoinById(selectedCoin)?.name}?</Text>
-                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextInput
-                                        value={desiredAmount}
-                                        style={[styles.amount, { color: desiredAmount == "0.00" ? theme.darkColors.elevation_light : 'white' }]}
-                                        keyboardType="numeric"
-                                        onChangeText={setDesiredAmount}
-                                        cursorColor='white'
-                                        onFocus={() => { onFocus(desiredAmount, setDesiredAmount) }}
-                                        onBlur={() => { onBlur(desiredAmount, setDesiredAmount) }}
-                                    />
-                                </View>
-                            </View> */}
-
-                            <QPButton onPress={reviewP2P} title={`Agregar detalles`} disabled={!stepThreeValidator} />
+                    step < 5 && (
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10 }}>
+                            <Pressable onPress={() => setStep(1)} style={{ flex: 1, height: step >= 1 ? 7 : 5, backgroundColor: step >= 1 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
+                            <Pressable onPress={() => setStep(2)} style={{ flex: 1, height: step >= 2 ? 7 : 5, backgroundColor: step >= 2 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
+                            <Pressable onPress={() => setStep(3)} style={{ flex: 1, height: step >= 3 ? 7 : 5, backgroundColor: step >= 3 ? theme.darkColors.primary : "#6759EF60", marginRight: 4, borderRadius: 2 }} />
+                            <Pressable onPress={() => setStep(4)} style={{ flex: 1, height: step >= 4 ? 7 : 5, backgroundColor: step >= 4 ? theme.darkColors.primary : "#6759EF60", borderRadius: 2 }} />
                         </View>
                     )
                 }
 
-                {
-                    step == 4 && (
-                        <>
-                            <ScrollView style={{ flex: 1, marginTop: 20 }}>
+                <View style={{ flex: 1 }}>
 
-                                <Text style={[textStyles.h2, { textAlign: 'center' }]}>Detalles de tu oferta P2P:</Text>
+                    {
+                        step == 1 && (
+                            <>
+                                <Text style={textStyles.h1}>Crear oferta P2P:</Text>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona si deseas comprar o vender tus dólares digitales de QvaPay:</Text>
 
-                                <View style={{ flex: 1, padding: 10 }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Tipo de oferta:</Text>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>{transformText(operation)}</Text>
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Moneda:</Text>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <SvgUri width="22" height="22" uri={`https://qvapay.com/img/coins/${getCoinById(selectedCoin)?.logo}.svg`} style={{ marginRight: 5 }} />
-                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{getCoinById(selectedCoin)?.name}</Text>
+                                <View style={{ flex: 1, paddingVertical: 10 }}>
+                                    <View style={[styles.optionCard, { backgroundColor: "#7BFFB160" }]}>
+                                        <View style={{ flex: 1, justifyContent: "center" }}>
+                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas adquirir saldo en dólares digitales.</Text>
+                                            <Text style={[textStyles.h2, { textAlign: 'center' }]}>{sellOperations} operaciones</Text>
                                         </View>
+                                        <QPButton title='Comprar' onPress={() => handleOperation('buy')} success />
                                     </View>
 
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "comprar" : "vender"}:</Text>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>${amount}</Text>
+                                    <View style={[styles.optionCard, { backgroundColor: "#DB253E60" }]}>
+                                        <View style={{ flex: 1, justifyContent: "center" }}>
+                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas vender tu saldo en dólares digitales.</Text>
+                                            <Text style={[textStyles.h2, { textAlign: 'center' }]}>{buyOperations} operaciones</Text>
+                                        </View>
+                                        <QPButton title='Vender' onPress={() => handleOperation('sell')} danger />
                                     </View>
+                                </View>
+                            </>
+                        )
+                    }
 
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "pagar" : "recibir"}:</Text>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>{desiredAmount} en {getCoinById(selectedCoin)?.tick}</Text>
-                                    </View>
+                    {
+                        step == 2 && (
+                            <ScrollView style={{ marginTop: 10 }}>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la moneda con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
+                                {
+                                    categories.map((category, index) => (
+                                        <View key={index}>
+                                            <FlatList
+                                                data={category.data.filter(item => searchQuery === '' || item.name.includes(searchQuery))}
+                                                renderItem={({ item }) => <QPCoinRow item={item} selectedCoin={selectedCoin} setSelectedCoin={handleSelectedCoin} in_out_p2p="P2P" />}
+                                                keyExtractor={item => item.id}
+                                            />
+                                        </View>
+                                    ))
+                                }
+                            </ScrollView>
+                        )
+                    }
 
-                                    {/** Cycle here for every offerDetails as label QPInput fields */}
-                                    {
-                                        offerDetails.map((detail, index) => (
-                                            <View style={{ marginVertical: 10 }}>
-                                                <Text style={[textStyles.h3]}>{detail.name}:</Text>
-                                                <QPInput
-                                                    key={detail.name}
-                                                    prefixIconName="info"
-                                                    label={detail.name}
-                                                    value={offerDetails[index]?.value}
-                                                    onChangeText={(value) => {
-                                                        const newDetails = [...offerDetails]
-                                                        newDetails[index].value = value
-                                                        setOfferDetails(newDetails)
-                                                    }}
-                                                />
-                                            </View>
-                                        ))
-                                    }
+                    {
+                        step == 3 && (
+                            <View style={{ flex: 1, marginTop: 10 }}>
 
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta Privada:</Text>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la cantidad con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
 
-                                        <BouncyCheckbox
-                                            size={20}
-                                            fillColor={theme.darkColors.primary}
-                                            unfillColor={theme.darkColors.background}
-                                            iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
-                                            innerIconStyle={{ borderWidth: 1 }}
-                                            textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                                            onPress={(isChecked) => { setPrivateOffer(isChecked) }}
-                                        />
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta solo para KYC:</Text>
-
-                                        <BouncyCheckbox
-                                            size={20}
-                                            fillColor={theme.darkColors.primary}
-                                            unfillColor={theme.darkColors.background}
-                                            iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
-                                            innerIconStyle={{ borderWidth: 1 }}
-                                            textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                                            onPress={(isChecked) => { setOnlyKYC(isChecked) }}
-                                        />
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta solo para VIPs:</Text>
-
-                                        <BouncyCheckbox
-                                            size={20}
-                                            fillColor={theme.darkColors.primary}
-                                            unfillColor={theme.darkColors.background}
-                                            iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
-                                            innerIconStyle={{ borderWidth: 1 }}
-                                            textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                                            onPress={(isChecked) => { setOnlyVIP(isChecked) }}
-                                        />
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta Promocionada:</Text>
-
-                                        <BouncyCheckbox
-                                            size={20}
-                                            fillColor={theme.darkColors.primary}
-                                            unfillColor={theme.darkColors.background}
-                                            iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
-                                            innerIconStyle={{ borderWidth: 1 }}
-                                            textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                                            onPress={(isChecked) => { setPromoteOffer(isChecked) }}
-                                        />
-                                    </View>
-
+                                <View style={{ flex: 1 }}>
+                                    <SwapContainer
+                                        editable={true}
+                                        operation={operation}
+                                        amount={amount}
+                                        desiredAmount={desiredAmount}
+                                        setAmount={setAmount}
+                                        setDesiredAmount={setDesiredAmount}
+                                        coin={getCoinById(selectedCoin)}
+                                        setStep={setStep}
+                                    />
                                 </View>
 
-                            </ScrollView>
-
-                            <QPButton onPress={publishP2P} title={`Publicar oferta`} />
-                        </>
-                    )
-                }
-
-                {
-                    step == 5 && (
-                        <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
-                            <View style={{ marginHorizontal: 40 }}>
-                                <LottieView source={require('../../../assets/lotties/uploading.json')} autoPlay style={styles.lottie} />
+                                <QPButton onPress={reviewP2P} title={`Agregar detalles`} disabled={!stepThreeValidator} />
                             </View>
-                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Publicando oferta P2P</Text>
-                        </View>
-                    )
-                }
+                        )
+                    }
 
-            </View>
+                    {
+                        step == 4 && (
+                            <>
+                                <ScrollView style={{ flex: 1, marginTop: 20 }}>
 
-        </KeyboardAvoidingView>
+                                    <Text style={[textStyles.h2, { textAlign: 'center' }]}>Detalles de tu oferta P2P:</Text>
+
+                                    <View style={{ flex: 1, padding: 10 }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Tipo de oferta:</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{transformText(operation)}</Text>
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Moneda:</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                <SvgUri width="22" height="22" uri={`https://qvapay.com/img/coins/${getCoinById(selectedCoin)?.logo}.svg`} style={{ marginRight: 5 }} />
+                                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>{getCoinById(selectedCoin)?.name}</Text>
+                                            </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "comprar" : "vender"}:</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>${amount}</Text>
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "pagar" : "recibir"}:</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{desiredAmount} en {getCoinById(selectedCoin)?.tick}</Text>
+                                        </View>
+
+                                        {/** Cycle here for every offerDetails as label QPInput fields */}
+                                        {
+                                            offerDetails.map((detail, index) => (
+                                                <View style={{ marginVertical: 10 }}>
+                                                    <Text style={[textStyles.h3]}>{detail.name}:</Text>
+                                                    <QPInput
+                                                        key={detail.name}
+                                                        prefixIconName="info"
+                                                        label={detail.name}
+                                                        value={offerDetails[index]?.value}
+                                                        onChangeText={(value) => {
+                                                            const newDetails = [...offerDetails]
+                                                            newDetails[index].value = value
+                                                            setOfferDetails(newDetails)
+                                                        }}
+                                                    />
+                                                </View>
+                                            ))
+                                        }
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta Privada:</Text>
+
+                                            <BouncyCheckbox
+                                                size={20}
+                                                fillColor={theme.darkColors.primary}
+                                                unfillColor={theme.darkColors.background}
+                                                iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
+                                                innerIconStyle={{ borderWidth: 1 }}
+                                                textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                                onPress={(isChecked) => { setPrivateOffer(isChecked) }}
+                                            />
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta solo para KYC:</Text>
+
+                                            <BouncyCheckbox
+                                                size={20}
+                                                fillColor={theme.darkColors.primary}
+                                                unfillColor={theme.darkColors.background}
+                                                iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
+                                                innerIconStyle={{ borderWidth: 1 }}
+                                                textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                                onPress={(isChecked) => { setOnlyKYC(isChecked) }}
+                                            />
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta solo para VIPs:</Text>
+
+                                            <BouncyCheckbox
+                                                size={20}
+                                                fillColor={theme.darkColors.primary}
+                                                unfillColor={theme.darkColors.background}
+                                                iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
+                                                innerIconStyle={{ borderWidth: 1 }}
+                                                textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                                onPress={(isChecked) => { setOnlyVIP(isChecked) }}
+                                            />
+                                        </View>
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta Promocionada:</Text>
+
+                                            <BouncyCheckbox
+                                                size={20}
+                                                fillColor={theme.darkColors.primary}
+                                                unfillColor={theme.darkColors.background}
+                                                iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
+                                                innerIconStyle={{ borderWidth: 1 }}
+                                                textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
+                                                onPress={(isChecked) => { setPromoteOffer(isChecked) }}
+                                            />
+                                        </View>
+
+                                    </View>
+
+                                </ScrollView>
+
+                                <QPButton onPress={publishP2P} title={`Publicar oferta`} />
+                            </>
+                        )
+                    }
+
+                    {
+                        step == 5 && (
+                            <View style={{ flex: 1, marginTop: 20, justifyContent: 'center' }}>
+                                <View style={{ marginHorizontal: 40 }}>
+                                    <LottieView source={require('../../../assets/lotties/uploading.json')} autoPlay style={styles.lottie} />
+                                </View>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Publicando oferta P2P</Text>
+                            </View>
+                        )
+                    }
+
+                </View>
+
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+
     )
 }
 
@@ -418,13 +392,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingHorizontal: 10,
         backgroundColor: "#7BFFB160",
-    },
-    amount: {
-        fontSize: 60,
-        color: 'white',
-        marginVertical: 10,
-        textAlign: 'center',
-        fontFamily: 'Rubik-Black',
     },
     lottie: {
         width: 180,

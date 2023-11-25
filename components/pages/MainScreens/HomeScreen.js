@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
 import { StyleSheet, ScrollView, Linking, RefreshControl, View, PanResponder } from 'react-native'
-
 import Hero from '../../ui/Hero'
 import Balance from '../../ui/Balance'
 import Carousel from '../../ui/Carousel'
@@ -8,6 +7,7 @@ import Transactions from '../../ui/Transactions'
 import { AppContext } from '../../../AppContext';
 import { globalStyles, theme } from '../../ui/Theme';
 import { getMe, getProducts } from '../../../utils/QvaPayClient';
+import { shuffleArray } from '../../../utils/Helpers';
 
 export default function HomeScreen({ navigation }) {
 
@@ -52,7 +52,8 @@ export default function HomeScreen({ navigation }) {
         const fetchProducts = async () => {
             const fetchedProducts = await getProducts({ navigation });
             const featuredProducts = fetchedProducts.filter(product => product.featured);
-            setFeaturedProducts(featuredProducts);
+            const randomFeaturedProducts = shuffleArray(featuredProducts);
+            setFeaturedProducts(randomFeaturedProducts);
         };
         fetchProducts();
     }, []);
