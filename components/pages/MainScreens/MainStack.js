@@ -119,14 +119,7 @@ export default function MainStack() {
                     ),
                     headerRight: () => (
                         <View style={styles.headerRight}>
-                            <QPRoundButton size={16} icon={'shopping-cart'} style={{ marginRight: 10 }} onPress={gotoMyPurchases} />
-                            {
-                                me.name && me.username ? (
-                                    <Pressable onPress={() => navigation.navigate("SettingsStack")} >
-                                        <AvatarPicture size={32} source_uri={me.profile_photo_url} vip={me.vip} />
-                                    </Pressable>
-                                ) : null
-                            }
+                            <QPRoundButton size={16} icon={'shopping-cart'} onPress={gotoMyPurchases} />
                         </View>
                     ),
                 }}
