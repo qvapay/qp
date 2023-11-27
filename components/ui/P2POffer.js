@@ -5,7 +5,7 @@ import { SvgUri } from 'react-native-svg';
 import { adjustNumber } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PeerContainer from './PeerContainer';
-import { p2pStatusText } from '../../utils/Helpers'
+import { p2pStatusText, p2pTypeText } from '../../utils/Helpers'
 
 export default function P2POffer({ offer, extended = false, navigation }) {
 
