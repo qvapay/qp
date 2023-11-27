@@ -1,18 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Modal from "react-native-modal";
-import QPButton from '../../ui/QPButton'
+import Modal from "react-native-modal"
 import LottieView from "lottie-react-native"
 import ChatSection from '../../ui/ChatSection'
 import { AppContext } from '../../../AppContext'
 import PeerContainer from '../../ui/PeerContainer'
+import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
-import { adjustNumber } from '../../../utils/Helpers'
-import { SvgUri } from 'react-native-svg';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import SwapContainer from '../../ui/swap/SwapContainer';
 
 import Footer from '../../ui/p2p/Footer';
 
