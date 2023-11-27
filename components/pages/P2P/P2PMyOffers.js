@@ -31,7 +31,7 @@ const P2PMyOffers = () => {
             <FlatList
                 data={myOffers}
                 renderItem={({ item }) => (
-                    <P2POffer offer={item} navigation={navigation} />
+                    <P2POffer offer={item} navigation={navigation} extended={true} />
                 )}
                 keyExtractor={item => item.uuid}
             />

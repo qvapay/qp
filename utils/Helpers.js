@@ -194,12 +194,31 @@ const adjustNumber = (value) => {
 }
 
 // transform "buy" and "sell" text into "Compra" and "Venta"
-const transformText = (text) => {
+const p2pTypeText = (text) => {
     if (text === "buy") {
         return "Compra";
     }
     if (text === "sell") {
         return "Venta";
+    }
+    return text;
+}
+
+const p2pStatusText = (text) => {
+    if (text === "open") {
+        return "Abierta";
+    }
+    if (text === "revision") {
+        return "Revisión";
+    }
+    if (text === "cancelled") {
+        return "Cancelada";
+    }
+    if (text === "closed") {
+        return "Cerrada";
+    }
+    if (text === "processing") {
+        return "Procesando";
     }
     return text;
 }
@@ -257,7 +276,8 @@ export {
     truncateWalletAddress,
     adjustNumber,
     timeAgo,
-    transformText,
+    p2pTypeText,
     saveContact,
-    shuffleArray
+    shuffleArray,
+    p2pStatusText
 };

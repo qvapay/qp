@@ -5,10 +5,11 @@ import { SvgUri } from 'react-native-svg';
 import { adjustNumber } from '../../utils/Helpers';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PeerContainer from './PeerContainer';
+import { p2pStatusText } from '../../utils/Helpers'
 
-export default function P2POffer({ offer, navigation }) {
+export default function P2POffer({ offer, extended = false, navigation }) {
 
-    const { uuid, type, amount, receive, coin_data, owner } = offer
+    const { uuid, type, amount, receive, coin_data, owner, status } = offer
     const coin_logo = 'https://qvapay.com/img/coins/' + coin_data.logo + '.svg'
     fixedAmount = parseFloat(amount).toFixed(2)
     fixedReceive = parseFloat(receive).toFixed(2)
@@ -22,42 +23,66 @@ export default function P2POffer({ offer, navigation }) {
     }
 
     return (
-        <Pressable onPress={navigateToP2P} style={[styles.offerItem, { overflow: 'hidden' }]}>
+        <>
+            <Pressable onPress={navigateToP2P} style={[styles.offerItem, { overflow: 'hidden' }]}>
 
-            <View style={styles.coinLogo}>
-                <SvgUri width="72" height="72" uri={coin_logo} />
-            </View>
+                <View style={styles.coinLogo}>
+                    <SvgUri width="72" height="72" uri={coin_logo} />
+                </View>
 
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 55 }}>
-                <View style={styles.offerDetails}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-down' size={14} color={theme.darkColors.success} />
-                        <Text style={styles.amount}>$ {fixedAmount}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='arrow-up' size={14} color={theme.darkColors.danger} />
-                        <Text style={styles.amount}>$ {fixedReceive}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesome5 name='percent' size={10} color={theme.darkColors.almost_white} style={{ marginRight: 3, marginLeft: 1 }} />
-                        <Text style={styles.amount}>{adjustNumber(fixedReceive / fixedAmount)}</Text>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 55 }}>
+                    <View style={styles.offerDetails}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name='arrow-down' size={14} color={theme.darkColors.success} />
+                            <Text style={styles.amount}>$ {fixedAmount}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name='arrow-up' size={14} color={theme.darkColors.danger} />
+                            <Text style={styles.amount}>$ {fixedReceive}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name='percent' size={10} color={theme.darkColors.almost_white} style={{ marginRight: 3, marginLeft: 1 }} />
+                            <Text style={styles.amount}>{adjustNumber(fixedReceive / fixedAmount)}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
-            <PeerContainer peer={owner} orientation="left" />
+                <PeerContainer peer={owner} orientation="left" />
 
-        </Pressable>
+            </Pressable>
+
+            {
+                extended &&
+                <View style={styles.offerExtended}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.offerRatio}>Tipo:</Text>
+                        </View>
+                        <Pressable style={styles.filterIcon} >
+                            <Text style={styles.offerRatio}>{p2pTypeText(type)}</Text>
+                        </Pressable>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.offerRatio}>Estado:</Text>
+                        </View>
+                        <Pressable style={styles.filterIcon} >
+                            <Text style={styles.offerRatio}>{p2pStatusText(status)}</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            }
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     offerItem: {
         flex: 1,
+        marginTop: 4,
+        marginBottom: 4,
         borderRadius: 10,
-        marginVertical: 4,
         paddingVertical: 5,
-        marginHorizontal: 1,
         alignItems: 'center',
         flexDirection: 'row',
         paddingHorizontal: 10,
@@ -92,5 +117,20 @@ const styles = StyleSheet.create({
         bottom: 18,
         height: 48,
         position: 'absolute',
+    },
+    offerExtended: {
+        flex: 1,
+        alignItems: 'center',
+        marginTop: -4,
+        borderWidth: 2,
+        marginBottom: 4,
+        borderTopWidth: 0,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        marginHorizontal: 6,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderColor: theme.darkColors.elevation,
+        backgroundColor: theme.darkColors.background,
     },
 })

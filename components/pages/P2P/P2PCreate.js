@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
-import { transformText, filterCoins } from '../../../utils/Helpers'
+import { p2pTypeText, filterCoins } from '../../../utils/Helpers'
 
 export default function P2PCreate() {
 
@@ -258,7 +258,7 @@ export default function P2PCreate() {
                                     <View style={{ flex: 1, padding: 10 }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
                                             <Text style={[textStyles.h3, { textAlign: 'center' }]}>Tipo de oferta:</Text>
-                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{transformText(operation)}</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{p2pTypeText(operation)}</Text>
                                         </View>
 
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
