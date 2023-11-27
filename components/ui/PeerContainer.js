@@ -5,36 +5,31 @@ import AvatarPicture from './AvatarPicture';
 
 export default function PeerContainer({ peer, orientation = 'left' }) {
 
-    const { username, profile_photo_url, average_rating, vip } = peer
+    const { username = "", profile_photo_url, average_rating, vip } = peer || {};
     const usernameLabel = username.length > 10 ? username.substring(0, 10) + '' : username
 
     return (
-        username !== "QvaPay" ? (
-            <View style={[styles.peerContainer, orientation === 'right' ? { flexDirection: 'row-reverse' } : {}]}>
+        <View style={[styles.peerContainer, orientation === 'right' ? { flexDirection: 'row-reverse' } : {}]}>
 
-                <View style={{
-                    flex: 1,
-                    alignItems: orientation === 'left' ? 'flex-end' : 'flex-start',
-                    marginRight: orientation === 'left' ? 8 : 0,
-                    marginLeft: orientation === 'right' ? 8 : 0,
-                }}>
-                    <Text style={styles.peerUsername}>{usernameLabel}</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <RatingStars rating={average_rating} fontSize={12} size={10} />
-                    </View>
-                    <>
-                        {
-                            // badges
-                        }
-                    </>
+            <View style={{
+                flex: 1,
+                alignItems: orientation === 'left' ? 'flex-end' : 'flex-start',
+                marginRight: orientation === 'left' ? 8 : 0,
+                marginLeft: orientation === 'right' ? 8 : 0,
+            }}>
+                <Text style={styles.peerUsername}>{usernameLabel}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <RatingStars rating={average_rating} fontSize={12} size={10} />
                 </View>
+                <>
+                    {
+                        // badges
+                    }
+                </>
+            </View>
 
-                <AvatarPicture size={48} source_uri={profile_photo_url} vip={vip} />
-            </View>
-        ) : (
-            <View>
-            </View>
-        )
+            <AvatarPicture size={48} source_uri={profile_photo_url} vip={vip} />
+        </View>
     )
 }
 

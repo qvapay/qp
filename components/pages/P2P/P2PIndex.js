@@ -3,13 +3,13 @@ import { StyleSheet, FlatList, View, Text, Pressable, RefreshControl } from 'rea
 import { theme } from '../../ui/Theme'
 import Modal from "react-native-modal"
 import P2POffer from '../../ui/P2POffer'
+import QPButton from '../../ui/QPButton'
+import { AppContext } from '../../../AppContext'
 import { useNavigation } from '@react-navigation/native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles } from '../../ui/Theme'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
-import { AppContext } from '../../../AppContext'
-import QPButton from '../../ui/QPButton'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 export default function P2PIndex() {
 
