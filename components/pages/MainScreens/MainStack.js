@@ -44,7 +44,7 @@ export default function MainStack() {
     };
 
     const gotoP2PMyOffers = () => {
-        navigation.navigate('P2PStack', { screen: 'P2PCreate' });
+        navigation.navigate('P2PStack', { screen: 'P2PMyOffers' });
     };
 
     return (
@@ -89,7 +89,7 @@ export default function MainStack() {
                 options={{
                     headerShown: true,
                     headerLeft: () => (
-                        <QPRoundButton size={16} icon={'plus'} style={{ marginLeft: 10 }} onPress={gotoP2PCreate} />
+                        <QPRoundButton size={16} icon={'plus'} style={{ marginLeft: 10, marginTop: 10 }} onPress={gotoP2PCreate} />
                     ),
                     headerRight: () => (
                         <View style={styles.headerRight}>
