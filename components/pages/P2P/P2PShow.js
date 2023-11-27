@@ -20,10 +20,11 @@ export default function P2PShow({ route }) {
     const { me } = useContext(AppContext)
     const navigation = useNavigation()
     const [offer, setOffer] = useState({})
-    const [showChat, setShowChat] = useState(false)
-    const [showSteps, setShowSteps] = useState(false)
     const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
+    const [showChat, setShowChat] = useState(false)
+    const [showSteps, setShowSteps] = useState(false)
+    const [offerReady, setOfferReady] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false)
 
     // Format amount and receive to have only 2 decimals
@@ -36,6 +37,7 @@ export default function P2PShow({ route }) {
             try {
                 const response = await getP2POffer({ uuid, navigation });
                 setOffer(response)
+                setOfferReady(true)
 
                 if (response.peer.uuid === me.uuid) {
                     setPeer(me)
@@ -99,8 +101,10 @@ export default function P2PShow({ route }) {
                 )
             }
 
-            {/** Operation Container */}
-            <SwapContainer operation={offer.type} />
+            {
+                offerReady &&
+                <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
+            }
 
             {
                 offer.status === 'open' && (
@@ -185,18 +189,8 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid === me.uuid && (
                                 <View style={styles.container}>
-                                    <View style={styles.offerContainer}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.coin}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{adjustNumber(offer.amount)}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{adjustNumber(offer.receive)}</Text>
-                                    </View>
                                     <View style={[styles.offerContainer, { flex: 1 }]}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>CHAT</Text>
                                     </View>
                                 </View>
                             )
@@ -204,15 +198,7 @@ export default function P2PShow({ route }) {
                         {
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.coin}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.amount}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.receive}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
+                                    <Text style={{ color: theme.darkColors.almost_white }}>CHAT</Text>
                                 </View>
                             )
                         }

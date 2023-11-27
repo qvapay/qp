@@ -6,9 +6,12 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { adjustNumber } from '../../../utils/Helpers'
 import { SvgUri } from 'react-native-svg';
 
-const SwapContainer = ({ editable = false, operation = '', setAmount, setDesiredAmount, amount = 0, desiredAmount = 0, coin, setStep }) => {
+const SwapContainer = ({ editable = false, operation = '', setAmount, setDesiredAmount, amount = 0, desiredAmount = 0, coin = {}, setStep }) => {
 
     const { me } = useContext(AppContext)
+    const { price, name, logo } = coin
+
+    console.log(desiredAmount)
 
     // onFocus if the value is 0.00, set it to empty
     const onFocus = (value, setter) => {
@@ -82,7 +85,7 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                                 <Text style={styles.offerAmount}>${adjustNumber(desiredAmount)}</Text>
                             )
                         }
-                        <Text style={styles.balanceAmount}>Precio: ${adjustNumber(coin.price)}</Text>
+                        <Text style={styles.balanceAmount}>Precio: ${adjustNumber(price)}</Text>
                     </View>
 
                     <Pressable style={{ alignItems: 'center', marginRight: 5 }} onPress={() => {setStep(2)}}>
