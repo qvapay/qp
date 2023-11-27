@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View, Share } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import Modal from "react-native-modal";
 import QPButton from '../../ui/QPButton'
 import LottieView from "lottie-react-native"
@@ -14,6 +14,8 @@ import { SvgUri } from 'react-native-svg';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SwapContainer from '../../ui/swap/SwapContainer';
 
+import Footer from '../../ui/p2p/Footer';
+
 export default function P2PShow({ route }) {
 
     const { uuid } = route.params
@@ -22,8 +24,6 @@ export default function P2PShow({ route }) {
     const [offer, setOffer] = useState({})
     const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
-    const [showChat, setShowChat] = useState(false)
-    const [showSteps, setShowSteps] = useState(false)
     const [offerReady, setOfferReady] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false)
 
@@ -58,32 +58,6 @@ export default function P2PShow({ route }) {
         }
         getOffer();
     }, [])
-
-    // Apply to an offer and change the status to "applied"
-    const applyToOffer = () => {
-        setShowChat(true)
-        setShowSteps(true)
-    }
-
-    const onShare = async () => {
-        try {
-            const result = await Share.share({
-                title: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
-                message: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            Alert.alert(error.message);
-        }
-    };
 
     return (
         <View style={[globalStyles.container, { paddingVertical: 10 }]}>
@@ -126,39 +100,6 @@ export default function P2PShow({ route }) {
                                 <>
                                     <View style={styles.container}>
 
-                                        {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.type}</Text> */}
-
-                                        <View style={[styles.offerContainer, { marginBottom: -8 }]}>
-                                            <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{offer.type == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-
-                                                <View>
-                                                    <Text style={styles.offerAmount}>${adjustNumber(offer.amount)}</Text>
-                                                    <Text style={styles.balanceAmount}>Balance: ${adjustNumber(me.balance)}</Text>
-                                                </View>
-
-                                                <View style={{ alignItems: 'center' }}>
-                                                    <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
-                                                    <Text style={styles.offerLabel}>USD</Text>
-                                                </View>
-                                            </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
-                                            <FontAwesome5 name={offer.type == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={20} style={{ color: theme.darkColors.almost_white }} />
-                                        </View>
-
-                                        <View style={[styles.offerContainer, { marginTop: -8 }]}>
-                                            <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{offer.type == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <Text style={styles.offerAmount}>${adjustNumber(offer.receive)}</Text>
-                                                <View style={{ alignItems: 'center' }}>
-                                                    <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/' + offer.coin_data.logo + '.svg'} />
-                                                    <Text style={styles.offerLabel}>{offer.coin_data.name}</Text>
-                                                </View>
-                                            </View>
-                                        </View>
-
                                         <View style={[styles.offerContainer2, { flex: 1 }]}>
                                             {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
@@ -166,10 +107,9 @@ export default function P2PShow({ route }) {
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text> */}
-                                            <Text></Text>
+                                            <Text>Offer Details</Text>
                                         </View>
                                     </View>
-                                    <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
                                 </>
                             )
                         }
@@ -208,22 +148,8 @@ export default function P2PShow({ route }) {
 
             {
                 offer.status === 'cancelled' && (
-                    <>
-                        {
-                            offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
-                                </View>
-                            )
-                        }
-                        {
-                            offer.owner && offer.owner.uuid !== me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
-                                </View>
-                            )
-                        }
-                    </>
+                    <View style={styles.container}>
+                    </View>
                 )
             }
 
@@ -269,12 +195,7 @@ export default function P2PShow({ route }) {
                 )
             }
 
-            {
-                // Share Button if this offer is mine
-                offer.status === 'open' && offer.owner && offer.owner.username === me.username && (
-                    <QPButton title="Compartir" onPress={onShare} />
-                )
-            }
+            <Footer offer={offer} me={me} />
 
             <Modal
                 isVisible={isModalVisible}
