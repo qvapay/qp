@@ -28,6 +28,9 @@ const P2PMyOffers = () => {
 
     return (
         <View style={globalStyles.container}>
+
+            <Text style={textStyles.h1}>Mis Ofertas P2P:</Text>
+
             <FlatList
                 data={myOffers}
                 renderItem={({ item }) => (

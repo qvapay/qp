@@ -217,6 +217,9 @@ const p2pStatusText = (text) => {
     if (text === "closed") {
         return "Cerrada";
     }
+    if (text === "completed") {
+        return "Completada";
+    }
     if (text === "processing") {
         return "Procesando";
     }

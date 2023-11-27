@@ -59,7 +59,7 @@ export default function P2POffer({ offer, extended = false, navigation }) {
                             <Text style={styles.offerRatio}>Tipo:</Text>
                         </View>
                         <Pressable style={styles.filterIcon} >
-                            <Text style={styles.offerRatio}>{p2pTypeText(type)}</Text>
+                            <Text style={styles.amount}>{p2pTypeText(type)}</Text>
                         </Pressable>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
@@ -67,7 +67,7 @@ export default function P2POffer({ offer, extended = false, navigation }) {
                             <Text style={styles.offerRatio}>Estado:</Text>
                         </View>
                         <Pressable style={styles.filterIcon} >
-                            <Text style={styles.offerRatio}>{p2pStatusText(status)}</Text>
+                            <Text style={styles.amount}>{p2pStatusText(status)}</Text>
                         </Pressable>
                     </View>
                 </View>

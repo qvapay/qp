@@ -52,8 +52,8 @@ const textStyles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
+        fontFamily: 'Rubik-Bold',
         color: colors.almost_white,
-        fontFamily: 'Rubik-Bold'
     },
     h1: {
         fontSize: 30,
