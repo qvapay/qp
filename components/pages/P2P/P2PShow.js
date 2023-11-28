@@ -81,7 +81,7 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={{ marginTop: 10 }}>
                                         <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
                                         <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
                                         <View style={{ marginHorizontal: 40 }}>
@@ -269,8 +269,8 @@ const styles = StyleSheet.create({
         marginBottom: 3,
     },
     lottie: {
-        width: 180,
-        height: 180,
+        width: 150,
+        height: 150,
         alignSelf: 'center',
     },
     modalview: {

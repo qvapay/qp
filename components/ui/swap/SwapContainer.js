@@ -50,7 +50,6 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                         }
                         <Text style={styles.balanceAmount}>Balance: ${adjustNumber(me.balance)}</Text>
                     </View>
-
                     <View style={{ alignItems: 'center', marginRight: 5 }}>
                         <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
                         <Text style={styles.offerLabel}>USD</Text>
@@ -63,7 +62,6 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
             </View>
 
             <View style={[styles.offerContainer, { marginTop: -8, paddingBottom: 15 }]}>
-
                 <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View>
@@ -84,14 +82,11 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                         }
                         <Text style={styles.balanceAmount}>Precio: ${adjustNumber(price)}</Text>
                     </View>
-
                     <Pressable style={{ alignItems: 'center', marginRight: 5 }} onPress={() => {setStep(2)}}>
                         <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/' + coin.logo + '.svg'} />
                         <Text style={styles.offerLabel}>{coin.tick}</Text>
                     </Pressable>
-
                 </View>
-
             </View>
         </>
     )
