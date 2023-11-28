@@ -56,7 +56,7 @@ export default function P2PShow({ route }) {
     }, [])
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start', paddingHorizontal: 0 }]}>
             <View style={[globalStyles.container, { paddingVertical: 10 }]}>
 
                 {
@@ -73,8 +73,7 @@ export default function P2PShow({ route }) {
                 }
 
                 {
-                    offerReady &&
-                    <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
+                    offerReady && <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
                 }
 
                 {
@@ -83,15 +82,14 @@ export default function P2PShow({ route }) {
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
                                     <View style={styles.container}>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
+                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
                                         <View style={{ marginHorizontal: 40 }}>
                                             <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
                                         </View>
-                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
-                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
                                     </View>
                                 )
                             }
-
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
                                     <>

@@ -30,9 +30,8 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
     return (
         <>
             <View style={[styles.offerContainer, { marginBottom: -8, paddingBottom: 15 }]}>
-
                 <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View>
                         {
                             editable ? (
@@ -56,9 +55,7 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                         <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
                         <Text style={styles.offerLabel}>USD</Text>
                     </View>
-
                 </View>
-
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
