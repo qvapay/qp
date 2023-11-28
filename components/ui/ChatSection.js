@@ -19,13 +19,11 @@ export default function ChatSection({ uuid }) {
     const onSend = useCallback(async (newMessages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
         setInput('');
-
         try {
             const response = await sendP2pMessage({ uuid: uuid, text: newMessages[0].text });
         } catch (error) {
             console.error('Error al enviar el mensaje:', error);
         }
-
     }, [messages]);
 
     const sendMessage = () => {

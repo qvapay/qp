@@ -121,24 +121,19 @@ export default function P2PShow({ route }) {
 
             {
                 offer.status === 'completed' && (
-                    <>
-                        {
-                            offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={styles.container}>
-                                    <View style={[styles.offerContainer, { flex: 1 }]}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>CHAT</Text>
-                                    </View>
-                                </View>
-                            )
-                        }
-                        {
+                    <View style={styles.container}>
+                        {/* {
+                            offer.owner && offer.owner.uuid === me.uuid ? (
+                                <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
+                            ) : (
                             offer.owner && offer.owner.uuid !== me.uuid && (
                                 <View style={styles.container}>
                                     <Text style={{ color: theme.darkColors.almost_white }}>CHAT</Text>
                                 </View>
                             )
-                        }
-                    </>
+                        } */}
+                        <ChatSection uuid={uuid} />
+                    </View>
                 )
             }
 
