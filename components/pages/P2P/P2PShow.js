@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
 import Modal from "react-native-modal"
 import LottieView from "lottie-react-native"
 import ChatSection from '../../ui/ChatSection'
@@ -56,73 +56,74 @@ export default function P2PShow({ route }) {
     }, [])
 
     return (
-        <View style={[globalStyles.container, { paddingVertical: 10 }]}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
+            <View style={[globalStyles.container, { paddingVertical: 10 }]}>
 
-            {
-                owner && owner.username && (
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <PeerContainer peer={owner} orientation="right" />
-                        {
-                            peer && peer.username && (
-                                <PeerContainer peer={peer} orientation="left" />
-                            )
-                        }
-                    </View>
-                )
-            }
+                {
+                    owner && owner.username && (
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <PeerContainer peer={owner} orientation="right" />
+                            {
+                                peer && peer.username && (
+                                    <PeerContainer peer={peer} orientation="left" />
+                                )
+                            }
+                        </View>
+                    )
+                }
 
-            {
-                offerReady &&
-                <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
-            }
+                {
+                    offerReady &&
+                    <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
+                }
 
-            {
-                offer.status === 'open' && (
-                    <>
-                        {
-                            offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={styles.container}>
-                                    <View style={{ marginHorizontal: 40 }}>
-                                        <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
-                                    </View>
-                                    <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
-                                    <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
-                                </View>
-                            )
-                        }
-
-                        {
-                            offer.owner && offer.owner.uuid !== me.uuid && (
-                                <>
+                {
+                    offer.status === 'open' && (
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
                                     <View style={styles.container}>
+                                        <View style={{ marginHorizontal: 40 }}>
+                                            <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
+                                        </View>
+                                        <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
+                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
+                                    </View>
+                                )
+                            }
 
-                                        <View style={[styles.offerContainer2, { flex: 1 }]}>
-                                            {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <>
+                                        <View style={styles.container}>
+
+                                            <View style={[styles.offerContainer2, { flex: 1 }]}>
+                                                {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
                                             <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text> */}
-                                            <Text>Offer Details</Text>
+                                                <Text>Offer Details</Text>
+                                            </View>
                                         </View>
-                                    </View>
-                                </>
-                            )
-                        }
-                    </>
-                )
-            }
+                                    </>
+                                )
+                            }
+                        </>
+                    )
+                }
 
-            {
-                offer.status === 'processing' && (
-                    <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
-                )
-            }
+                {
+                    offer.status === 'processing' && (
+                        <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
+                    )
+                }
 
-            {
-                offer.status === 'completed' && (
-                    <View style={styles.container}>
-                        {/* {
+                {
+                    offer.status === 'completed' && (
+                        <View style={styles.container}>
+                            {/* {
                             offer.owner && offer.owner.uuid === me.uuid ? (
                                 <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
                             ) : (
@@ -132,77 +133,78 @@ export default function P2PShow({ route }) {
                                 </View>
                             )
                         } */}
-                        <ChatSection uuid={uuid} />
+                            <ChatSection uuid={uuid} />
+                        </View>
+                    )
+                }
+
+                {
+                    offer.status === 'cancelled' && (
+                        <View style={styles.container}>
+                        </View>
+                    )
+                }
+
+                {
+                    offer.status === 'revision' && (
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
+                                    </View>
+                                )
+                            }
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
+                                    </View>
+                                )
+                            }
+                        </>
+                    )
+                }
+
+                {
+                    offer.status === 'paid' && (
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
+                                    </View>
+                                )
+                            }
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
+                                    </View>
+                                )
+                            }
+                        </>
+                    )
+                }
+
+                <Footer offer={offer} me={me} />
+
+                <Modal
+                    isVisible={isModalVisible}
+                    animationIn={'slideInUp'}
+                    onBackdropPress={() => setModalVisible(false)}
+                    onSwipeComplete={() => setModalVisible(false)}
+                    swipeDirection={['down']}
+                    style={styles.modalview}
+                >
+                    <View style={styles.modalContent}>
+                        <Text>ASD</Text>
+                        <Text>ASD</Text>
                     </View>
-                )
-            }
+                </Modal>
 
-            {
-                offer.status === 'cancelled' && (
-                    <View style={styles.container}>
-                    </View>
-                )
-            }
-
-            {
-                offer.status === 'revision' && (
-                    <>
-                        {
-                            offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
-                                </View>
-                            )
-                        }
-                        {
-                            offer.owner && offer.owner.uuid !== me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
-                                </View>
-                            )
-                        }
-                    </>
-                )
-            }
-
-            {
-                offer.status === 'paid' && (
-                    <>
-                        {
-                            offer.owner && offer.owner.uuid === me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
-                                </View>
-                            )
-                        }
-                        {
-                            offer.owner && offer.owner.uuid !== me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
-                                </View>
-                            )
-                        }
-                    </>
-                )
-            }
-
-            <Footer offer={offer} me={me} />
-
-            <Modal
-                isVisible={isModalVisible}
-                animationIn={'slideInUp'}
-                onBackdropPress={() => setModalVisible(false)}
-                onSwipeComplete={() => setModalVisible(false)}
-                swipeDirection={['down']}
-                style={styles.modalview}
-            >
-                <View style={styles.modalContent}>
-                    <Text>ASD</Text>
-                    <Text>ASD</Text>
-                </View>
-            </Modal>
-
-        </View>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 

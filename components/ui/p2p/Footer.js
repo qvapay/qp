@@ -45,11 +45,11 @@ const Footer = ({ offer, me }) => {
                 )
             }
 
-            {
+            {/* {
                 offer.status === 'completed' && offer.owner && offer.owner.uuid === me.uuid && (
                     <QPButton title="Oferta Completada" disabled={true} />
                 )
-            }
+            } */}
 
             {
                 offer.status === 'cancelled' && offer.owner && offer.owner.uuid === me.uuid && (
