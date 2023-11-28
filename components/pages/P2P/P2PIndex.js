@@ -80,21 +80,29 @@ export default function P2PIndex() {
                 </Pressable>
             </View>
 
-            <FlatList
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        colors={[theme.darkColors.primary]}
+            {
+                loading ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={textStyles.h3}>Cargando...</Text>
+                    </View>
+                ) : (
+                    <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                                colors={[theme.darkColors.primary]}
+                            />
+                        }
+                        data={type === 'buy' ? buyOffers : sellOffers}
+                        keyExtractor={(item) => item.uuid}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <P2POffer offer={item} navigation={navigation} />
+                        )}
                     />
-                }
-                data={type === 'buy' ? buyOffers : sellOffers}
-                keyExtractor={(item) => item.uuid}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                    <P2POffer offer={item} navigation={navigation} />
-                )}
-            />
+                )
+            }
 
             <Modal
                 isVisible={isModalVisible}
