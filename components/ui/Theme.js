@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const colors = {
     primary_bg: "#0E0E1C",              // Dark BG
     secondary_bg: "#21415F",            // Dark serious Blue
-    color: "#b4b7bd",                   // Gray like blue
     primary: "#6759EF",                 // Primary Blue/Purple color
     success: "#7BFFB1",                 // Intense Green
     warning: "#ff9f43",                 // Orange pastel
