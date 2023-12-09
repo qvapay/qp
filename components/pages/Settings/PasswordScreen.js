@@ -73,7 +73,6 @@ export default function PasswordScreen() {
 
     // Api call to update the password
     const updatePasswordRequest = async () => {
-        // Send update Passorw request to apiRequest
         try {
             const url = `/user/password`
             const data = { password: userPassword, new_password: newUserPassword }
@@ -145,7 +144,3 @@ export default function PasswordScreen() {
         </KeyboardAvoidingView>
     )
 }
-
-const styles = StyleSheet.create({
-
-})

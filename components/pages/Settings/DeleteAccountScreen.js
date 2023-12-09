@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
-import { View, Text, KeyboardAvoidingView, ScrollView } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { StyleSheet, View, Text, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { globalStyles } from '../../ui/Theme'
 import Loader from '../../ui/Loader'
 import QPInput from '../../ui/QPInput'
 import QPButton from '../../ui/QPButton'
+import { AppContext } from '../../../AppContext'
 
-const DeleteAccountScreen = () => {
+export default function DeleteAccountScreen() {
 
+    const { me } = useContext(AppContext)
     const [loading, setLoading] = useState(false)
     const [errortext, setErrortext] = useState('')
+    const [deletionText, setDeletionText] = useState('delete-' + me.username)
+    const [confirmDeletionText, setConfirmDeletionText] = useState('')
 
     const deleteAccount = async () => {
         setLoading(true);
@@ -34,14 +38,32 @@ const DeleteAccountScreen = () => {
 
             <ScrollView>
 
-                
+                <Text style={styles.confirmationText}>Escriba el texto '{deletionText}' para confirmar la eliminación de su cuenta</Text>
+
+                <QPInput
+                    prefixIconName="trash"
+                    placeholder={deletionText}
+                    onChangeText={(delete_text) => setConfirmDeletionText(delete_text)}
+                    returnKeyType="next"
+                />
 
             </ScrollView>
 
-            <QPButton title="Eliminar mi cuenta" onPress={deleteAccount} danger={true} outline={true} />
+            <QPButton title="Confirmar Eliminación" onPress={deleteAccount} danger={true} outline={true} />
 
         </KeyboardAvoidingView>
     )
 }
 
-export default DeleteAccountScreen
+const styles = StyleSheet.create({
+    confirmationText: {
+        fontSize: 17,
+        color: 'white',
+        fontFamily: 'Rubik-Medium'
+    },
+    errorTextStyle: {
+        color: 'red',
+        textAlign: 'center',
+        fontSize: 14,
+    },
+})

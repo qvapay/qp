@@ -1,14 +1,14 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
-import { globalStyles, theme } from '../../ui/Theme'
+import OtpCode from '../../ui/OtpCode'
 import QPButton from '../../ui/QPButton'
+import { textStyles } from '../../ui/Theme'
+import { AppContext } from '../../../AppContext'
+import { OneSignal } from 'react-native-onesignal'
+import { globalStyles, theme } from '../../ui/Theme'
 import PhoneInput from 'react-native-phone-number-input'
 import { useNavigation } from '@react-navigation/native'
-import { AppContext } from '../../../AppContext'
-import OtpCode from '../../ui/OtpCode'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient'
-import { textStyles } from '../../ui/Theme'
-import { OneSignal } from 'react-native-onesignal'
 
 export default function PhoneScreen() {
 
