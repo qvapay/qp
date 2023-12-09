@@ -105,7 +105,7 @@ export default function PasswordScreen() {
 
                 <View style={{ marginVertical: 20 }}>
 
-                    <Text style={textStyles.h1}>Cambiar contraseña:</Text>
+                    {/** TODO Lottie Here */}
 
                     <QPInput
                         prefixIconName="lock"

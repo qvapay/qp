@@ -122,7 +122,7 @@ export default function SettingsStack() {
                 name="UserdataScreen"
                 component={UserdataScreen}
                 options={{
-                    title: '',
+                    title: 'Datos de su cuenta',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -158,7 +158,7 @@ export default function SettingsStack() {
                 name="PasswordScreen"
                 component={PasswordScreen}
                 options={{
-                    title: '',
+                    title: 'Cambiar contraseña',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton

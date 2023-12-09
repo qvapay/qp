@@ -112,7 +112,6 @@ export default function UserdataScreen() {
                 </View>
 
                 <View style={{ marginVertical: 20 }}>
-                    <Text style={textStyles.h1}>Datos de usuario:</Text>
                     <QPInput prefixIconName='user' placeholder='Nombre de Usuario' value={username} onChangeText={(username) => setUsername(username)} />
                     <QPInput prefixIconName='id-card' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
                     <QPInput prefixIconName='id-card' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />

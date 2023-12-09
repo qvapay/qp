@@ -1,27 +1,27 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { globalStyles, theme } from '../../ui/Theme';
-import QPButton from '../../ui/QPButton';
-import PhoneInput from 'react-native-phone-number-input';
-import { useNavigation } from '@react-navigation/native';
-import { AppContext } from '../../../AppContext';
-import OtpCode from '../../ui/OtpCode';
-import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient';
-import { textStyles } from '../../ui/Theme';
-import { OneSignal } from 'react-native-onesignal';
+import { globalStyles, theme } from '../../ui/Theme'
+import QPButton from '../../ui/QPButton'
+import PhoneInput from 'react-native-phone-number-input'
+import { useNavigation } from '@react-navigation/native'
+import { AppContext } from '../../../AppContext'
+import OtpCode from '../../ui/OtpCode'
+import { sendOTP, verifyOTP } from '../../../utils/QvaPayClient'
+import { textStyles } from '../../ui/Theme'
+import { OneSignal } from 'react-native-onesignal'
 
 export default function PhoneScreen() {
 
-    const { me } = useContext(AppContext);
-    const navigation = useNavigation();
-    const phoneInput = useRef(null);
-    const [phone, setPhone] = useState(me.phone);
-    const [formattedValue, setFormattedValue] = useState(me.phone);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [otpShow, setOtpShow] = useState(false);
-    const [code, setCode] = useState('');
+    const { me } = useContext(AppContext)
+    const navigation = useNavigation()
+    const phoneInput = useRef(null)
+    const [phone, setPhone] = useState(me.phone)
+    const [formattedValue, setFormattedValue] = useState(me.phone)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [otpShow, setOtpShow] = useState(false)
+    const [code, setCode] = useState('')
     const [boldMessage, setBoldMessage] = useState('Coloca tu número de teléfono celular:')
-    const [verified, setVerified] = useState(me.phone_verified);
+    const [verified, setVerified] = useState(me.phone_verified)
 
     // useEffect for the main label
     useEffect(() => {
@@ -36,35 +36,34 @@ export default function PhoneScreen() {
     const handleOTP = async () => {
         if (otpShow) {
             try {
-                const response = await verifyOTP({ navigation, phone: formattedValue, code });
+                const response = await verifyOTP({ navigation, phone: formattedValue, code })
                 if (response.status === 201) {
                     setVerified(true)
-                    // Suscribe to OneSignal SMS
-                    OneSignal.User.addSms(formattedValue);
+                    OneSignal.User.addSms(formattedValue)
                 } else {
-                    setErrorMessage('Código Inválido');
+                    setErrorMessage('Código Inválido')
                 }
             } catch (error) {
-                setErrorMessage('Código Inválido');
+                setErrorMessage('Código Inválido')
             }
         } else {
             if (phoneInput.current.isValidNumber(phone)) {
-                const { formattedNumber } = phoneInput.current.getNumberAfterPossiblyEliminatingZero();
+                const { formattedNumber } = phoneInput.current.getNumberAfterPossiblyEliminatingZero()
                 try {
-                    const response = await sendOTP({ navigation, phone: formattedNumber });
+                    const response = await sendOTP({ navigation, phone: formattedNumber })
                     if (response.status === 201) {
-                        setOtpShow(true);
+                        setOtpShow(true)
                     } else {
-                        setErrorMessage('Número de Teléfono Inválido');
+                        setErrorMessage('Número de Teléfono Inválido')
                     }
                 } catch (error) {
-                    setErrorMessage('No se ha poduido enviar el código');
+                    setErrorMessage('No se ha poduido enviar el código')
                 }
             } else {
-                setErrorMessage('Número de Teléfono Inválido');
+                setErrorMessage('Número de Teléfono Inválido')
             }
         }
-    };
+    }
 
     return (
         <View style={globalStyles.container}>

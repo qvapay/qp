@@ -209,7 +209,7 @@ const SettingsMenu = () => {
 
                 <View style={{ marginBottom: 10 }}>
                     <ProfilePictureSection user={me} size={120} />
-                    <Text style={globalStyles.bio}>{bio}</Text>
+                    {/* <Text style={globalStyles.bio}>{bio}</Text> */}
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
