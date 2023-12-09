@@ -49,7 +49,7 @@ export default function DeleteAccountScreen() {
 
             </ScrollView>
 
-            <QPButton title="Confirmar Eliminación" onPress={deleteAccount} danger={true} outline={true} />
+            <QPButton title="Confirmar Eliminación" onPress={deleteAccount} danger={true} outline={true} disabled={deletionText != confirmDeletionText} />
 
         </KeyboardAvoidingView>
     )
