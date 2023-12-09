@@ -123,8 +123,8 @@ const apiRequest = async (url, options = {}, navigation) => {
 // Borra accessToken y redirege a SplashScreen
 const onInvalidToken = async (navigation) => {
     try {
-        await EncryptedStorage.removeItem("accessToken");
-        navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
+        // TODO await EncryptedStorage.removeItem("accessToken");
+        // TODO navigation.reset({ index: 0, routes: [{ name: 'SplashScreen' }] });
     } catch (error) {
         console.error(error);
     }
