@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 
-// Import Screens
 import GoldCheck from './GoldCheck';
 import PhoneScreen from './PhoneScreen';
 import ThemeScreen from './ThemeScreen';
