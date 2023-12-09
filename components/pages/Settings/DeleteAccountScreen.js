@@ -34,7 +34,7 @@ const DeleteAccountScreen = () => {
 
             <ScrollView>
 
-
+                
 
             </ScrollView>
 

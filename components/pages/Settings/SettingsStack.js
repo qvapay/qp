@@ -275,7 +275,7 @@ export default function SettingsStack() {
                 name="DeleteAccountScreen"
                 component={DeleteAccountScreen}
                 options={{
-                    title: '',
+                    title: 'Eliminar mi cuenta',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
