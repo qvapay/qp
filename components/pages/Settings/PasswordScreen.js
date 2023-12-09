@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView } from 'react-native'
-import { globalStyles, textStyles } from '../../ui/Theme'
+import { globalStyles } from '../../ui/Theme'
 import { useNavigation } from '@react-navigation/native';
 import QPInput from '../../ui/QPInput';
 import QPButton from '../../ui/QPButton';
