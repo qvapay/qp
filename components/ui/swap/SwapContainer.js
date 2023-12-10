@@ -73,11 +73,12 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
-                    <Pressable style={{ alignItems: 'center' }} onPress={() => { setStep(2) }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Pressable onPress={() => { setStep(2) }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                             <SvgUri width="32" height="32" uri={'https://qvapay.com/img/coins/' + coin.logo + '.svg'} />
                             <Text style={styles.offerLabel}>{coin.tick}</Text>
                         </View>
+                        <Text style={styles.balanceAmount}>Precio: ${adjustNumber(price)}</Text>
                     </Pressable>
 
                     <View>
@@ -96,7 +97,6 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                                 <Text style={styles.offerReceive}>${adjustNumber(desiredAmount)}</Text>
                             )
                         }
-                        <Text style={styles.balanceAmount}>Precio: ${adjustNumber(price)}</Text>
                     </View>
                 </View>
             </View>
