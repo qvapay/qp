@@ -30,8 +30,19 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
     return (
         <>
             <View style={[styles.offerContainer, { marginBottom: -8, paddingBottom: 15 }]}>
-                <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+
+                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                    <View style={{ marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <SvgUri width="32" height="32" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
+                            <Text style={styles.offerLabel}>USD</Text>
+                        </View>
+                        <Text style={styles.balanceAmount}>Balance: ${adjustNumber(me.balance)}</Text>
+                    </View>
+
                     <View>
                         {
                             editable ? (
@@ -48,11 +59,6 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                                 <Text style={styles.offerAmount}>${adjustNumber(amount)}</Text>
                             )
                         }
-                        <Text style={styles.balanceAmount}>Balance: ${adjustNumber(me.balance)}</Text>
-                    </View>
-                    <View style={{ alignItems: 'center', marginRight: 5 }}>
-                        <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/qvapay.svg'} />
-                        <Text style={styles.offerLabel}>USD</Text>
                     </View>
                 </View>
             </View>
@@ -62,8 +68,18 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
             </View>
 
             <View style={[styles.offerContainer, { marginTop: -8, paddingBottom: 15 }]}>
-                <Text style={[textStyles.h4, { color: theme.darkColors.elevation_light }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+
+                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                    <Pressable style={{ alignItems: 'center' }} onPress={() => { setStep(2) }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <SvgUri width="32" height="32" uri={'https://qvapay.com/img/coins/' + coin.logo + '.svg'} />
+                            <Text style={styles.offerLabel}>{coin.tick}</Text>
+                        </View>
+                    </Pressable>
+
                     <View>
                         {
                             editable ? (
@@ -77,15 +93,11 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
                                     onBlur={() => { onBlur(desiredAmount, setDesiredAmount) }}
                                 />
                             ) : (
-                                <Text style={styles.offerAmount}>${adjustNumber(desiredAmount)}</Text>
+                                <Text style={styles.offerReceive}>${adjustNumber(desiredAmount)}</Text>
                             )
                         }
                         <Text style={styles.balanceAmount}>Precio: ${adjustNumber(price)}</Text>
                     </View>
-                    <Pressable style={{ alignItems: 'center', marginRight: 5 }} onPress={() => {setStep(2)}}>
-                        <SvgUri width="56" height="56" uri={'https://qvapay.com/img/coins/' + coin.logo + '.svg'} />
-                        <Text style={styles.offerLabel}>{coin.tick}</Text>
-                    </Pressable>
                 </View>
             </View>
         </>
@@ -116,25 +128,26 @@ const styles = StyleSheet.create({
     offerLabel: {
         fontSize: 16,
         textAlign: 'center',
+        marginHorizontal: 10,
         fontFamily: 'Rubik-Regular',
         color: theme.darkColors.almost_white,
     },
     offerAmount: {
-        fontSize: 24,
+        fontSize: 26,
         marginLeft: 10,
-        fontFamily: 'Rubik-Black',
+        fontFamily: 'Rubik-Bold',
         color: theme.darkColors.almost_white,
     },
     balanceAmount: {
         fontSize: 14,
-        marginLeft: 10,
+        marginTop: 10,
         fontFamily: 'Rubik-Medium',
         color: theme.darkColors.elevation_light,
     },
     offerReceive: {
-        fontSize: 28,
+        fontSize: 26,
         marginLeft: 10,
-        fontFamily: 'Rubik-Black',
+        fontFamily: 'Rubik-Bold',
         color: theme.darkColors.almost_white,
     },
     coinLabel: {
