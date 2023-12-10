@@ -81,9 +81,9 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={{ marginTop: 10 }}>
+                                    <View style={{ flex: 1, marginTop: 10, justifyContent: 'center' }}>
                                         <Text style={[textStyles.h3, { textAlign: 'center' }]}>¡Oferta publicada!</Text>
-                                        <Text style={[textStyles.h4, { textAlign: 'center' }]}>Estamos ahora buscando peers que le interese.</Text>
+                                        <Text style={[textStyles.h4, { textAlign: 'center', marginHorizontal: 10 }]}>Estamos ahora buscando peers que le interese y puedan completar la operación.</Text>
                                         <View style={{ marginHorizontal: 40 }}>
                                             <LottieView source={require('../../../assets/lotties/looking.json')} autoPlay style={styles.lottie} />
                                         </View>
