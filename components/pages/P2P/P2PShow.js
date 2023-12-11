@@ -20,6 +20,8 @@ export default function P2PShow({ route }) {
     const [offer, setOffer] = useState({})
     const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [chats, setChats] = useState([])
     const [offerReady, setOfferReady] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false)
 
@@ -31,10 +33,15 @@ export default function P2PShow({ route }) {
     useEffect(() => {
         const getOffer = async () => {
             try {
-                const response = await getP2POffer({ uuid, navigation });
+                
+                setLoading(true)
+                const response = await getP2POffer({ uuid, navigation })
                 setOffer(response)
+                setChats(response.chats)
+                setLoading(false)
                 setOfferReady(true)
 
+                // Check if I'm the owner or the peer
                 if (response.peer.uuid === me.uuid) {
                     setPeer(me)
                     setOwner(response.owner)
@@ -48,9 +55,11 @@ export default function P2PShow({ route }) {
                     navigation.goBack()
                 }
 
+                console.log("Chats" + chats)
+
             } catch (error) {
                 console.log(error)
-            }
+            } 
         }
         getOffer();
     }, [])

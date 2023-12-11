@@ -134,8 +134,6 @@ export default function P2PCreate() {
                 promote_offer: promoteOffer,
             }
 
-            console.log(data)
-
             const url = '/p2p/create'
             const response = await apiRequest(url, { method: 'POST', data }, navigation)
             if (response && response.msg == "Succesfull created" && response.p2p) {

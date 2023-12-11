@@ -43,13 +43,12 @@ export default function ScanScreen() {
 
     // Succefully read a QR code
     const onSuccess = e => {
-        const parsedData = parseQRData(e.data);
-        console.log(parsedData)
+        const parsedData = parseQRData(e.data)
         if (!isValidQRData(parsedData)) {
             return;
         }
         setValidQR(theme.darkColors.success);
-        navigateToTransferScreenWithDelay(parsedData, 500);
+        navigateToTransferScreenWithDelay(parsedData, 500)
     };
 
     // Navigate to another screen with a delay and params

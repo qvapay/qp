@@ -23,7 +23,10 @@ export default function P2PStack() {
 
             <Stack.Screen name="P2PShow" component={P2PShow} />
 
-            <Stack.Screen name="P2PMyOffers" component={P2PMyOffers} />
+            <Stack.Screen
+                name="P2PMyOffers"
+                component={P2PMyOffers}
+            />
 
             <Stack.Screen
                 name="P2PCreate"

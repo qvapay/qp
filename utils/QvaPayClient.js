@@ -203,7 +203,6 @@ const transferBalance = async ({ to, amount, description, navigation }) => {
     try {
         const url = `/transactions/transfer`
         const response = await apiRequest(url, { method: 'POST', data }, navigation);
-        console.log(response)
         return response;
     } catch (error) {
         console.error("Error transfering " + error);
