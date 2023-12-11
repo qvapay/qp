@@ -230,11 +230,21 @@ const applyP2POffer = async ({ uuid, navigation }) => {
     }
 }
 
-// Send a message to a P2P offer
-// uuid is the P2P offer
-const sendP2pMessage = async ({ uuid, text, navigation }) => {
+// get all messages from a P2P offer
+const getP2PChat = async ({ uuid, navigation }) => {
     try {
-        const url = `/p2p/${uuid}/msg`
+        const url = `/p2p/${uuid}/chat`
+        const response = await apiRequest(url, { method: 'GET' }, navigation);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Send a message to a P2P offer
+const sendP2PChat = async ({ uuid, text, navigation }) => {
+    try {
+        const url = `/p2p/${uuid}/chat`
         const response = await apiRequest(url, { method: 'POST', data: { text } }, navigation);
         return response;
     } catch (error) {
@@ -447,7 +457,8 @@ export {
     checkUser,
     getP2POffer,
     applyP2POffer,
-    sendP2pMessage,
+    getP2PChat,
+    sendP2PChat,
     getCoins,
     getTopUpData,
     getCoinData,

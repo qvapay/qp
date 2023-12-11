@@ -21,7 +21,6 @@ export default function P2PShow({ route }) {
     const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
     const [loading, setLoading] = useState(false)
-    const [chats, setChats] = useState([])
     const [offerReady, setOfferReady] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false)
 
@@ -37,7 +36,6 @@ export default function P2PShow({ route }) {
                 setLoading(true)
                 const response = await getP2POffer({ uuid, navigation })
                 setOffer(response)
-                setChats(response.chats)
                 setLoading(false)
                 setOfferReady(true)
 
@@ -54,8 +52,6 @@ export default function P2PShow({ route }) {
                 } else {
                     navigation.goBack()
                 }
-
-                console.log("Chats" + chats)
 
             } catch (error) {
                 console.log(error)
@@ -130,16 +126,6 @@ export default function P2PShow({ route }) {
                 {
                     offer.status === 'completed' && (
                         <View style={styles.container}>
-                            {/* {
-                            offer.owner && offer.owner.uuid === me.uuid ? (
-                                <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
-                            ) : (
-                            offer.owner && offer.owner.uuid !== me.uuid && (
-                                <View style={styles.container}>
-                                    <Text style={{ color: theme.darkColors.almost_white }}>CHAT</Text>
-                                </View>
-                            )
-                        } */}
                             <ChatSection uuid={uuid} />
                         </View>
                     )
