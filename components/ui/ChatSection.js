@@ -2,15 +2,17 @@ import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
 import { AppContext } from '../../AppContext';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { sendP2PChat } from '../../utils/QvaPayClient';
+import { sendP2PChat, getP2PChat } from '../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
 
 export default function ChatSection({ uuid }) {
 
-    const { me } = useContext(AppContext);
-    const [input, setInput] = useState('');
-    const [messages, setMessages] = useState([]);
+    console.log(uuid)
+
+    const { me } = useContext(AppContext)
+    const [input, setInput] = useState('')
+    const [messages, setMessages] = useState([])
 
     // Get Messages from API using QvaPayClient and store in state
     // useEffect to get all sent messages
@@ -18,6 +20,7 @@ export default function ChatSection({ uuid }) {
         const getMessages = async () => {
             try {
                 const response = await getP2PChat({ uuid: uuid });
+                console.log(response)
                 const messages = response.data.map(message => {
                     return {
                         _id: message.id,

@@ -53,7 +53,8 @@ export default function FeaturedCard({ product, showLead = true }) {
                         showLead && <Text style={styles.bottomPriceText}>{lead}</Text>
                     }
                 </LinearGradient>
-                <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />
+                <FastImage style={styles.logo} source={{ uri: `${cover_url}` }} resizeMode={FastImage.resizeMode.cover} />
+                {/* <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} /> */}
             </View>
         </Pressable>
     )
@@ -73,10 +74,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     logo: {
-        width: '50%',
-        height: '90%',
-        position: 'absolute',
         zIndex: 4,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
     },
     patternOverlay: {
         position: 'absolute',

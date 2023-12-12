@@ -11,8 +11,6 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
     const { me } = useContext(AppContext)
     const { price, name, logo } = coin
 
-    console.log(desiredAmount)
-
     // onFocus if the value is 0.00, set it to empty
     const onFocus = (value, setter) => {
         if (value == "0.00") {
