@@ -15,21 +15,20 @@ export default function ChatSection({ uuid }) {
     const [messages, setMessages] = useState([])
 
     // Get Messages from API using QvaPayClient and store in state
-    // useEffect to get all sent messages
     useEffect(() => {
         const getMessages = async () => {
             try {
                 const response = await getP2PChat({ uuid: uuid });
-                console.log(response)
-                const messages = response.data.map(message => {
+                console.log(response.data)
+                const chats = response.data.map(chat => {
                     return {
-                        _id: message.id,
-                        text: message.text,
-                        createdAt: new Date(message.created_at),
+                        _id: chat.id,
+                        text: chat.message,
+                        createdAt: new Date(chat.created_at),
                         user: {
-                            _id: message.sender.uuid,
-                            name: message.sender.name,
-                            avatar: message.sender.profile_photo_url
+                            _id: chat.user.uuid,
+                            name: chat.user.name,
+                            avatar: chat.user.profile_photo_url
                         },
                     }
                 })
@@ -69,6 +68,7 @@ export default function ChatSection({ uuid }) {
     };
 
     return (
+
         <View style={styles.container}>
 
             <GiftedChat
@@ -80,21 +80,22 @@ export default function ChatSection({ uuid }) {
                 placeholder="Enviar mensaje..."
             />
 
-            <View style={styles.inputContainer}>
-                <TextInput
-                    value={input}
-                    multiline={false}
-                    style={styles.input}
-                    placeholderTextColor={'gray'}
-                    placeholder="Enviar mensaje..."
-                    onChangeText={text => setInput(text)}
-                />
+            {/* <View style={styles.inputContainer}>
+        //         <TextInput
+        //             value={input}
+        //             multiline={false}
+        //             style={styles.input}
+        //             placeholderTextColor={'gray'}
+        //             placeholder="Enviar mensaje..."
+        //             onChangeText={text => setInput(text)}
+        //         />
 
-                <Pressable onPress={sendMessage} style={styles.messageSend}>
-                    <FontAwesome5 name='paper-plane' size={16} color='white' />
-                </Pressable>
+        //         <Pressable onPress={sendMessage} style={styles.messageSend}>
+        //             <FontAwesome5 name='paper-plane' size={16} color='white' />
+        //         </Pressable>
 
-            </View>
+        //     </View> */}
+
         </View>
     );
 }
