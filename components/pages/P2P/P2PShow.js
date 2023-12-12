@@ -9,7 +9,6 @@ import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
-
 import Footer from '../../ui/p2p/Footer';
 
 export default function P2PShow({ route }) {
@@ -32,7 +31,7 @@ export default function P2PShow({ route }) {
     useEffect(() => {
         const getOffer = async () => {
             try {
-                
+
                 setLoading(true)
                 const response = await getP2POffer({ uuid, navigation })
                 setOffer(response)
@@ -55,7 +54,7 @@ export default function P2PShow({ route }) {
 
             } catch (error) {
                 console.log(error)
-            } 
+            }
         }
         getOffer();
     }, [])
@@ -99,15 +98,8 @@ export default function P2PShow({ route }) {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
                                     <>
                                         <View style={styles.container}>
-
                                             <View style={[styles.offerContainer2, { flex: 1 }]}>
-                                                {/* <Text style={{ color: theme.darkColors.almost_white }}>{offer.only_kyc}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.created_at}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.owner.name}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.private}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.status}</Text>
-                                            <Text style={{ color: theme.darkColors.almost_white }}>{offer.uuid}</Text> */}
-                                                <Text>Offer Details</Text>
+                                                <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Aplica a esta oferta si quieres realizar el intercambio con el peer en cuestión</Text>
                                             </View>
                                         </View>
                                     </>
@@ -119,22 +111,64 @@ export default function P2PShow({ route }) {
 
                 {
                     offer.status === 'processing' && (
-                        <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
+                                    </View>
+                                )
+                            }
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
+                                    </View>
+                                )
+                            }
+                        </>
                     )
                 }
 
                 {
                     offer.status === 'completed' && (
-                        <View style={styles.container}>
-                            <ChatSection uuid={uuid} />
-                        </View>
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
+                                    </View>
+                                )
+                            }
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
+                                    </View>
+                                )
+                            }
+                        </>
                     )
                 }
 
                 {
                     offer.status === 'cancelled' && (
-                        <View style={styles.container}>
-                        </View>
+                        <>
+                            {
+                                offer.owner && offer.owner.uuid === me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
+                                    </View>
+                                )
+                            }
+                            {
+                                offer.owner && offer.owner.uuid !== me.uuid && (
+                                    <View style={styles.container}>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
+                                    </View>
+                                )
+                            }
+                        </>
                     )
                 }
 
@@ -219,7 +253,10 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingHorizontal: 30,
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
         borderColor: theme.darkColors.elevation,
     },
     offerLabel: {

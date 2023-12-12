@@ -44,26 +44,28 @@ const Footer = ({ offer, me }) => {
                     <QPButton title="Compartir" onPress={onShare} />
                 )
             }
+            {
+                offer.status === 'open' && offer.owner && offer.owner.uuid !== me.uuid && (
+                    <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
+                )
+            }
 
-            {/* {
+            {
+                offer.status === 'revision' && offer.owner && offer.owner.uuid === me.uuid && (
+                    <QPButton title="Revisión" disabled={true} />
+                )
+            }
+
+            {
                 offer.status === 'completed' && offer.owner && offer.owner.uuid === me.uuid && (
                     <QPButton title="Oferta Completada" disabled={true} />
                 )
-            } */}
+            }
 
             {
                 offer.status === 'cancelled' && offer.owner && offer.owner.uuid === me.uuid && (
                     <QPButton title="Oferta Cancelada" danger={true} disabled={true} />
                 )
-            }
-
-            {
-                offer.status === 'open' && offer.owner && offer.owner.uuid !== me.uuid && (
-                    <>
-                        <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
-                    </>
-                )
-
             }
         </>
     )
