@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Text } from 'react-native'
 import { FlatList } from 'react-native'
 import P2POffer from '../../ui/P2POffer'
+import { View, Text } from 'react-native'
+import LottieView from 'lottie-react-native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
@@ -37,7 +38,7 @@ const P2PMyOffers = () => {
             {
                 loading ? (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={textStyles.h3}>Cargando...</Text>
+                        <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay style={styles.lottie} />
                     </View>
                 ) : (
                     <FlatList
