@@ -29,10 +29,17 @@ const Footer = ({ offer, me }) => {
         } catch (error) {
             Alert.alert(error.message);
         }
-    };
+    }
+
+    // Cancel offer
+    const onCancel = () => {
+        // TODO Show a confirmation Dialog
+        // TODO Send cancel request to API
+        console.log('Cancel offer')
+    }
 
     // Apply to an offer and change the status to "applied"
-    const applyToOffer = () => {
+    const onApply = () => {
         setShowChat(true)
         setShowSteps(true)
     }
@@ -41,12 +48,15 @@ const Footer = ({ offer, me }) => {
         <>
             {
                 offer.status === 'open' && offer.owner && offer.owner.uuid === me.uuid && (
-                    <QPButton title="Compartir" onPress={onShare} />
+                    <>
+                        <QPButton title="Cancelar Oferta" onPress={onCancel} />
+                        <QPButton title="Compartir" onPress={onShare} />
+                    </>
                 )
             }
             {
                 offer.status === 'open' && offer.owner && offer.owner.uuid !== me.uuid && (
-                    <QPButton title="Aplicar a oferta" onPress={applyToOffer} />
+                    <QPButton title="Aplicar a oferta" onPress={onApply} />
                 )
             }
 
