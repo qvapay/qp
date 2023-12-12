@@ -4,7 +4,6 @@ import QPButton from '../QPButton'
 
 const Footer = ({ offer, me }) => {
 
-    // Params destructuring
     const { uuid } = me
     const { status, owner } = offer
     const [showChat, setShowChat] = useState(false)
@@ -49,7 +48,7 @@ const Footer = ({ offer, me }) => {
             {
                 offer.status === 'open' && offer.owner && offer.owner.uuid === me.uuid && (
                     <>
-                        <QPButton title="Cancelar Oferta" onPress={onCancel} />
+                        <QPButton title="Cancelar Oferta" onPress={onCancel} danger={true} />
                         <QPButton title="Compartir" onPress={onShare} />
                     </>
                 )

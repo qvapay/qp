@@ -1,12 +1,11 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { AppContext } from '../../../AppContext';
-import { GiftedChat } from 'react-native-gifted-chat';
-import { sendP2PChat, getP2PChat } from '../../../utils/QvaPayClient';
+import { AppContext } from '../../../AppContext'
+import { GiftedChat } from 'react-native-gifted-chat'
+import { sendP2PChat, getP2PChat } from '../../../utils/QvaPayClient'
 
 export default function P2PChat({ route }) {
 
-    // 83abddf4-c776-4736-a7c1-2f5367ef7ae8
     const { uuid } = route.params
     const { me } = useContext(AppContext)
     const [input, setInput] = useState('')
@@ -20,7 +19,7 @@ export default function P2PChat({ route }) {
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const response = await getP2PChat({ uuid: uuid });
+                const response = await getP2PChat({ uuid: uuid })
                 console.log(response.data)
                 const chats = response.data.map(chat => {
                     return {
@@ -36,10 +35,10 @@ export default function P2PChat({ route }) {
                 })
                 setMessages(chats);
             } catch (error) {
-                console.error('Error al obtener los mensajes:', error);
+                console.error('Error al obtener los mensajes:', error)
             }
         }
-        getMessages();
+        getMessages()
     }, []);
 
     return (
