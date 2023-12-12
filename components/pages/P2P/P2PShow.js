@@ -96,13 +96,9 @@ export default function P2PShow({ route }) {
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <>
-                                        <View style={styles.container}>
-                                            <View style={[styles.offerContainer2, { flex: 1 }]}>
-                                                <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Aplica a esta oferta si quieres realizar el intercambio con el peer en cuestión</Text>
-                                            </View>
-                                        </View>
-                                    </>
+                                    <View style={styles.offerContainer2}>
+                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Aplica a esta oferta si quieres realizar el intercambio con el peer en cuestión</Text>
+                                    </View>
                                 )
                             }
                         </>
@@ -114,14 +110,14 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Processing</Text>
                                     </View>
                                 )
@@ -135,15 +131,15 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
+                                    <View style={styles.offerContainer2}>
+                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Esta operación se completó satisfactoriamente.</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.container}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Completed</Text>
+                                    <View style={styles.offerContainer2}>
+                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Esta operación se completó satisfactoriamente.</Text>
                                     </View>
                                 )
                             }
@@ -156,14 +152,14 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
                                     </View>
                                 )
@@ -177,14 +173,14 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Revision</Text>
                                     </View>
                                 )
@@ -198,14 +194,14 @@ export default function P2PShow({ route }) {
                         <>
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.container}>
+                                    <View style={styles.offerContainer2}>
                                         <Text style={{ color: theme.darkColors.almost_white }}>Paid</Text>
                                     </View>
                                 )
@@ -249,6 +245,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.darkColors.elevation
     },
     offerContainer2: {
+        flex: 1,
         marginTop: 10,
         borderWidth: 3,
         borderRadius: 10,
