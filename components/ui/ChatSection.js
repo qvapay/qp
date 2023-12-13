@@ -34,7 +34,7 @@ export default function ChatSection({ uuid }) {
                 })
                 setMessages(messages);
             } catch (error) {
-                console.error('Error al obtener los mensajes:', error);
+                console.error('Error al obtener los mensajes:', error)
             }
         }
         getMessages();

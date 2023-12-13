@@ -4,8 +4,7 @@ import QPButton from '../QPButton'
 
 const Footer = ({ offer, me }) => {
 
-    const { uuid } = me
-    const { status, owner } = offer
+    const { uuid, status, owner } = offer
     const [showChat, setShowChat] = useState(false)
     const [showSteps, setShowSteps] = useState(false)
 

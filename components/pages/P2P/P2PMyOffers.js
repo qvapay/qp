@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { FlatList } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import P2POffer from '../../ui/P2POffer'
 import { View, Text } from 'react-native'
 import LottieView from 'lottie-react-native'
@@ -7,7 +7,7 @@ import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
 
-const P2PMyOffers = () => {
+export default function P2PMyOffers() {
 
     // Load my P2P Offers
     const navigation = useNavigation();
@@ -26,7 +26,7 @@ const P2PMyOffers = () => {
             setMyOffers(response.data)
             setLoading(false)
         } catch (error) {
-            console.error('Error fetching P2P Offers:', error);
+            console.error('Error fetching P2P Offers:', error)
         }
     }
 
@@ -55,4 +55,4 @@ const P2PMyOffers = () => {
     )
 }
 
-export default P2PMyOffers
+const styles = StyleSheet.create({})

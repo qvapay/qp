@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
 import Modal from "react-native-modal"
 import LottieView from "lottie-react-native"
-import ChatSection from '../../ui/ChatSection'
 import { AppContext } from '../../../AppContext'
 import PeerContainer from '../../ui/PeerContainer'
 import SwapContainer from '../../ui/swap/SwapContainer'
