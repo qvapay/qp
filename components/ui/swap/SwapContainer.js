@@ -182,8 +182,8 @@ const styles = StyleSheet.create({
     },
     amount: {
         fontSize: 30,
-        marginLeft: 10,
         marginVertical: 10,
+        textAlign: 'right',
         fontFamily: 'Rubik-Black',
         color: theme.darkColors.almost_white,
     },

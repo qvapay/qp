@@ -55,4 +55,6 @@ export default function P2PChat({ route }) {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    
+})

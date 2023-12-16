@@ -55,4 +55,10 @@ export default function P2PMyOffers() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    lottie: {
+        width: 160,
+        height: 160,
+        alignSelf: 'center',
+    },
+})
