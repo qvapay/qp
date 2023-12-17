@@ -19,7 +19,7 @@ export default function P2PShow({ route }) {
     const [peer, setPeer] = useState({})
     const [owner, setOwner] = useState({})
     const [loading, setLoading] = useState(false)
-    const [offerReady, setOfferReady] = useState(false);
+    const [offerReady, setOfferReady] = useState(false)
     const [isModalVisible, setModalVisible] = useState(false)
 
     // Format amount and receive to have only 2 decimals
@@ -30,13 +30,11 @@ export default function P2PShow({ route }) {
     useEffect(() => {
         const getOffer = async () => {
             try {
-
                 setLoading(true)
                 const response = await getP2POffer({ uuid, navigation })
                 setOffer(response)
                 setLoading(false)
                 setOfferReady(true)
-
                 // Check if I'm the owner or the peer
                 if (response.peer.uuid === me.uuid) {
                     setPeer(me)
@@ -209,7 +207,9 @@ export default function P2PShow({ route }) {
                     )
                 }
 
-                <Footer offer={offer} me={me} />
+                {
+                    offerReady && <Footer offer={offer} me={me} />
+                }
 
                 <Modal
                     isVisible={isModalVisible}

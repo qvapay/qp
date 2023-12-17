@@ -9,7 +9,7 @@ import { AppContext } from '../../../AppContext'
 import { useNavigation } from '@react-navigation/native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles } from '../../ui/Theme'
-import BouncyCheckbox from 'react-native-bouncy-checkbox'
+// import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 export default function P2PIndex() {
