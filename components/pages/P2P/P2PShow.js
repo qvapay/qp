@@ -73,9 +73,7 @@ export default function P2PShow({ route }) {
                     )
                 }
 
-                {
-                    offerReady && <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />
-                }
+                {offerReady && <SwapContainer operation={offer.type} amount={offer.amount} desiredAmount={offer.receive} coin={offer.coin_data} />}
 
                 {
                     offer.status === 'open' && (
@@ -207,9 +205,7 @@ export default function P2PShow({ route }) {
                     )
                 }
 
-                {
-                    offerReady && <Footer offer={offer} me={me} />
-                }
+                {offerReady && <Footer offer={offer} me={me} />}
 
                 <Modal
                     isVisible={isModalVisible}

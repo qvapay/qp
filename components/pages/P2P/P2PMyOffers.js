@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, FlatList, RefreshControl, View, Text } from 'react-native'
 import P2POffer from '../../ui/P2POffer'
-import { View, Text } from 'react-native'
 import LottieView from 'lottie-react-native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
@@ -9,10 +8,10 @@ import { globalStyles, textStyles } from '../../ui/Theme'
 
 export default function P2PMyOffers() {
 
-    // Load my P2P Offers
     const navigation = useNavigation();
     const [myOffers, setMyOffers] = useState([])
     const [loading, setLoading] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
         getMyOffers()
@@ -28,6 +27,12 @@ export default function P2PMyOffers() {
         } catch (error) {
             console.error('Error fetching P2P Offers:', error)
         }
+    }
+
+    const onRefresh = () => {
+        setRefreshing(true)
+        getMyOffers()
+        setRefreshing(false)
     }
 
     return (
@@ -47,6 +52,12 @@ export default function P2PMyOffers() {
                             <P2POffer offer={item} navigation={navigation} extended={true} />
                         )}
                         keyExtractor={item => item.uuid}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     />
                 )
             }
