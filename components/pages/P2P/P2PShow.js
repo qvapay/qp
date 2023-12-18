@@ -148,14 +148,14 @@ export default function P2PShow({ route }) {
                             {
                                 offer.owner && offer.owner.uuid === me.uuid && (
                                     <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Oferta cancelada</Text>
                                     </View>
                                 )
                             }
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
                                     <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Cancelled</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white }}>Oferta cancelada</Text>
                                     </View>
                                 )
                             }

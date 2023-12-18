@@ -22,8 +22,8 @@ export default function Footer({ offer, me }) {
     const onShare = async () => {
         try {
             const result = await Share.share({
-                title: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
-                message: `Ya puedes pagarme directo en QvaPay 💜\n\nhttps://qvapay.com/payme/${me.username}`,
+                title: `Mira esta oferta en QvaPay 💜\n\nhttps://qvapay.com/p2p/${p2pOffer.uuid}`,
+                message: `Estoy usando el P2P de QvaPay y esta oferta puede interesarte 👍\n\nhttps://qvapay.com/p2p/${p2pOffer.uuid}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
