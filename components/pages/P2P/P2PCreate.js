@@ -268,13 +268,13 @@ export default function P2PCreate() {
                                         </View>
 
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "comprar" : "vender"}:</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "comprar" : "enviar"}:</Text>
                                             <Text style={[textStyles.h3, { textAlign: 'center' }]}>${amount}</Text>
                                         </View>
 
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
                                             <Text style={[textStyles.h3, { textAlign: 'center' }]}>A {operation == "buy" ? "pagar" : "recibir"}:</Text>
-                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>{desiredAmount} en {getCoinById(selectedCoin)?.tick}</Text>
+                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>${desiredAmount}</Text>
                                         </View>
 
                                         {/** Cycle here for every offerDetails as label QPInput fields */}
