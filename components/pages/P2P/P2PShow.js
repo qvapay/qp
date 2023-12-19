@@ -7,6 +7,7 @@ import PeerContainer from '../../ui/PeerContainer'
 import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
+import { getShortDateTime } from '../../../utils/Helpers'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import Footer from '../../ui/p2p/Footer';
 
@@ -123,20 +124,24 @@ export default function P2PShow({ route }) {
                 {
                     offer.status === 'completed' && (
                         <>
-                            {
-                                offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Esta operación se completó satisfactoriamente.</Text>
-                                    </View>
-                                )
-                            }
-                            {
-                                offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Esta operación se completó satisfactoriamente.</Text>
-                                    </View>
-                                )
-                            }
+                            <View style={styles.offerContainer2}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                    <Text style={textStyles.h4}>Estado:</Text>
+                                    <Text style={textStyles.h6}>Completado</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                    <Text style={textStyles.h4}>Confirmación:</Text>
+                                    <Text style={textStyles.h6}>{offer.tx_id}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                    <Text style={textStyles.h4}>Fecha Completado:</Text>
+                                    <Text style={textStyles.h6}>{getShortDateTime(offer.updated_at)}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                    <Text style={textStyles.h4}>Valoración:</Text>
+                                    <Text style={textStyles.h6}></Text>
+                                </View>
+                            </View>
                         </>
                     )
                 }
@@ -244,10 +249,9 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         paddingVertical: 10,
-        paddingHorizontal: 30,
         alignItems: 'center',
+        paddingHorizontal: 10,
         alignContent: 'center',
-        justifyContent: 'center',
         borderColor: theme.darkColors.elevation,
     },
     offerLabel: {
