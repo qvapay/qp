@@ -18,6 +18,68 @@ export default function Footer({ offer, me }) {
         setOfferReady(true)
     }, [])
 
+    // Apply to an offer and change the status to "processing"
+    const onApply = () => {
+        console.log("Apply to offer")
+    }
+
+    // Mark offer as paid
+    const onPaid = () => {
+        Alert.alert(
+            "Completar Oferta",
+            "¿Has enviado el pago acordado correctamente?",
+            [
+                {
+                    text: "No",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+                    text: "Si, he pagado",
+                    onPress: () => { confirmPaid() }
+                }
+            ]
+        );
+    }
+
+    // Received payment
+    const onReceived = () => {
+        Alert.alert(
+            "Completar Oferta",
+            "¿Has recibido el pago acordado correctamente?",
+            [
+                {
+                    text: "No",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+                    text: "Si, he recibido",
+                    onPress: () => { confirmReceived() }
+                }
+            ]
+        );
+    }
+
+    // Cancel offer
+    const onCancel = () => {
+        Alert.alert(
+            "Cancelar Oferta",
+            "¿Estás seguro que deseas cancelar esta oferta?",
+            [
+                {
+                    text: "No",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+                    text: "Si, cancelar",
+                    onPress: () => { confirmCancellation() }
+                }
+            ]
+        );
+    }
+
     // Share offer
     const onShare = async () => {
         try {
@@ -39,25 +101,38 @@ export default function Footer({ offer, me }) {
         }
     }
 
-    // Cancel offer
-    const onCancel = () => {
-        Alert.alert(
-            "Cancelar Oferta",
-            "¿Estás seguro que deseas cancelar esta oferta?",
-            [
-                {
-                    text: "No",
-                    onPress: () => {},
-                    style: "cancel"
-                },
-                {
-                    text: "Si, cancelar",
-                    onPress: () => { confirmCancellation() }
-                }
-            ]
-        );
+    // API to confirm payment
+    const confirmPaid = async () => {
+        try {
+            setLoading(true)
+            let url = `/p2p/${p2pOffer.uuid}/paid`
+            const response = await apiRequest(url, { method: "POST" }, navigation)
+            console.log(response)
+            setP2POffer({ ...p2pOffer, status: 'paid' })
+            setLoading(false)
+            Alert.alert('Oferta pagada', 'Has marcado la oferta como pagada, ahora el dueño de la oferta debe confirmar la recepción del pago.')
+        }
+        catch (error) {
+            console.error('Error confirming P2P Offer:', error)
+        }
     }
 
+    // API to confirm received payment
+    const confirmReceived = async () => {
+        try {
+            setLoading(true)
+            let url = `/p2p/${p2pOffer.uuid}/received`
+            const response = await apiRequest(url, { method: "POST" }, navigation)
+            console.log(response)
+            setP2POffer({ ...p2pOffer, status: 'completed' })
+            setLoading(false)
+            Alert.alert('Oferta completada', 'Has confirmado la recepción del pago, la oferta ha sido completada exitosamente.')
+        } catch (error) {
+            console.error('Error confirming P2P Offer:', error)
+        }
+    }
+
+    // API to confirm Cancellation
     const confirmCancellation = async () => {
         try {
             setLoading(true)
@@ -70,11 +145,6 @@ export default function Footer({ offer, me }) {
         } catch (error) {
             console.error('Error cancelling P2P Offer:', error)
         }
-    }
-
-    // Apply to an offer and change the status to "applied"
-    const onApply = () => {
-        setShowChat(true)
     }
 
     if (!offerReady) {
@@ -94,37 +164,44 @@ export default function Footer({ offer, me }) {
                     </View>
                 ) : (
                     <>
-                        {
-                            p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
-                                <>
-                                    <QPButton title="Cancelar Oferta" onPress={onCancel} danger={true} />
-                                    <QPButton title="Compartir" onPress={onShare} />
-                                </>
-                            )
-                        }
-                        {
-                            p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
-                                <QPButton title="Aplicar a oferta" onPress={onApply} />
-                            )
+                        {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
+                            <>
+                                <QPButton title="Cancelar Oferta" onPress={onCancel} danger={true} />
+                                <QPButton title="Compartir" onPress={onShare} />
+                            </>
+                        )}
+
+                        {p2pOffer.status === 'paid' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
+                            <QPButton title="Oferta pagada" disabled={true} />
+                        )}
+
+                        {p2pOffer.status === 'paid' && p2pOffer.owner && p2pOffer.owner.uuid == me.uuid && (
+                            <QPButton title="Oferta Recibida" onPress={onReceived} />
+                        )}
+
+                        {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
+                            <QPButton title="Aplicar a oferta" onPress={onApply} />
+                        )}
+
+                        {p2pOffer.status === 'processing' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
+                            <>
+                                <QPButton title="Cancelar Oferta" onPress={onCancel} danger={true} />
+                                <QPButton title="Completar Oferta" onPress={onPaid} />
+                            </>
+                        )}
+
+                        {p2pOffer.status === 'revision' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
+                            <QPButton title="Oferta en Revisión" disabled={true} />
+                        )
                         }
 
-                        {
-                            p2pOffer.status === 'revision' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
-                                <QPButton title="Revisión" disabled={true} />
-                            )
-                        }
+                        {p2pOffer.status === 'completed' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
+                            <QPButton title="Oferta Completada" disabled={true} />
+                        )}
 
-                        {
-                            p2pOffer.status === 'completed' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
-                                <QPButton title="Oferta Completada" disabled={true} />
-                            )
-                        }
-
-                        {
-                            p2pOffer.status === 'cancelled' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
-                                <QPButton title="Oferta Cancelada" danger={true} disabled={true} />
-                            )
-                        }
+                        {p2pOffer.status === 'cancelled' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
+                            <QPButton title="Oferta Cancelada" danger={true} disabled={true} />
+                        )}
                     </>
                 )
             }
