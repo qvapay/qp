@@ -27,7 +27,7 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
 
     return (
         <>
-            <View style={[styles.offerContainer, { marginBottom: -8, paddingBottom: 15 }]}>
+            <View style={[styles.offerContainer, { marginBottom: -20, paddingBottom: 15 }]}>
 
                 <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
 
@@ -62,10 +62,10 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
-                <FontAwesome5 name={operation == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={20} style={{ color: theme.darkColors.almost_white }} />
+                <FontAwesome5 name={operation == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={40} style={{ color: theme.darkColors.almost_white }} />
             </View>
 
-            <View style={[styles.offerContainer, { marginTop: -8, paddingBottom: 15 }]}>
+            <View style={[styles.offerContainer, { marginTop: -20, paddingBottom: 15 }]}>
 
                 <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
 

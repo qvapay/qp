@@ -48,7 +48,6 @@ export default function P2PShow({ route }) {
                 } else {
                     navigation.goBack()
                 }
-
             } catch (error) {
                 console.log(error)
             }
