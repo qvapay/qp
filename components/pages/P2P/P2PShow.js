@@ -123,47 +123,35 @@ export default function P2PShow({ route }) {
 
                 {
                     offer.status === 'completed' && (
-                        <>
-                            <View style={styles.offerContainer2}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
-                                    <Text style={textStyles.h4}>Estado:</Text>
-                                    <Text style={textStyles.h6}>Completado</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
-                                    <Text style={textStyles.h4}>Confirmación:</Text>
-                                    <Text style={textStyles.h6}>{offer.tx_id}</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
-                                    <Text style={textStyles.h4}>Fecha Completado:</Text>
-                                    <Text style={textStyles.h6}>{getShortDateTime(offer.updated_at)}</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
-                                    <Text style={textStyles.h4}>Valoración:</Text>
-                                    <Text style={textStyles.h6}></Text>
-                                </View>
+                        <View style={styles.offerContainer2}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                <Text style={textStyles.h4}>Estado:</Text>
+                                <Text style={textStyles.h6}>Completado</Text>
                             </View>
-                        </>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                <Text style={textStyles.h4}>Confirmación:</Text>
+                                <Text style={textStyles.h6}>{offer.tx_id}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                <Text style={textStyles.h4}>Fecha Completado:</Text>
+                                <Text style={textStyles.h6}>{getShortDateTime(offer.updated_at)}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                <Text style={textStyles.h4}>Valoración:</Text>
+                                <Text style={textStyles.h6}></Text>
+                            </View>
+                        </View>
                     )
                 }
 
                 {
                     offer.status === 'cancelled' && (
-                        <>
-                            {
-                                offer.owner && offer.owner.uuid === me.uuid && (
-                                    <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Oferta cancelada</Text>
-                                    </View>
-                                )
-                            }
-                            {
-                                offer.owner && offer.owner.uuid !== me.uuid && (
-                                    <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white }}>Oferta cancelada</Text>
-                                    </View>
-                                )
-                            }
-                        </>
+                        <View style={styles.offerContainer2}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', width: '100%' }}>
+                                <Text style={textStyles.h4}>Estado:</Text>
+                                <Text style={textStyles.h6}>Cancelado</Text>
+                            </View>
+                        </View>
                     )
                 }
 
