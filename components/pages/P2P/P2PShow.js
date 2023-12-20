@@ -29,32 +29,37 @@ export default function P2PShow({ route }) {
 
     // get the Offer from getP2POffer function
     useEffect(() => {
-        const getOffer = async () => {
-            try {
-                setLoading(true)
-                const response = await getP2POffer({ uuid, navigation })
-                setOffer(response)
-                setLoading(false)
-                setOfferReady(true)
-                // Check if I'm the owner or the peer
-                if (response.peer.uuid === me.uuid) {
-                    setPeer(me)
-                    setOwner(response.owner)
-                } else if (response.owner.uuid === me.uuid) {
-                    setOwner(me)
-                    setPeer(response.peer)
-                } else if (response.peer.uuid === "0") {
-                    setPeer({})
-                    setOwner(response.owner)
-                } else {
-                    navigation.goBack()
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
         getOffer();
+        const interval = setInterval(() => {
+            getOffer()
+        }, 5000);
+        return () => clearInterval(interval);
     }, [])
+
+    const getOffer = async () => {
+        try {
+            setLoading(true)
+            const response = await getP2POffer({ uuid, navigation })
+            setOffer(response)
+            setLoading(false)
+            setOfferReady(true)
+            // Check if I'm the owner or the peer
+            if (response.peer.uuid === me.uuid) {
+                setPeer(me)
+                setOwner(response.owner)
+            } else if (response.owner.uuid === me.uuid) {
+                setOwner(me)
+                setPeer(response.peer)
+            } else if (response.peer.uuid === "0") {
+                setPeer({})
+                setOwner(response.owner)
+            } else {
+                navigation.goBack()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start', paddingHorizontal: 0 }]}>
