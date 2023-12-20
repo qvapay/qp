@@ -190,6 +190,13 @@ export default function Footer({ offer, me }) {
                             </>
                         )}
 
+                        {p2pOffer.status === 'processing' && p2pOffer.owner && p2pOffer.owner.uuid == me.uuid && (
+                            <>
+                                <QPButton title="Cancelar Oferta" onPress={onCancel} danger={true} />
+                                <QPButton title="Oferta Recibida" onPress={onReceived} />
+                            </>
+                        )}
+
                         {p2pOffer.status === 'revision' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
                             <QPButton title="Oferta en Revisión" disabled={true} />
                         )
