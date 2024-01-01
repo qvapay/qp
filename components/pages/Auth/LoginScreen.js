@@ -197,13 +197,7 @@ export default function LoginScreen() {
                             <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
                         <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
-                        {
-                            errortext !== '' ? (
-                                <Text style={styles.errorTextStyle}>
-                                    {errortext}
-                                </Text>
-                            ) : null
-                        }
+                        {errortext !== '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
                     </ScrollView>
                 ) : (
                     <>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Share, Alert, StyleSheet, View } from 'react-native'
+import { Share, Alert, View } from 'react-native'
 import QPButton from '../QPButton'
+import QPLoader from '../QPLoader'
 import LottieView from 'lottie-react-native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
@@ -149,9 +150,7 @@ export default function Footer({ offer, me }) {
 
     if (!offerReady) {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay style={styles.lottie} />
-            </View>
+            <QPLoader width={120} height={120} />
         )
     }
 
@@ -159,9 +158,7 @@ export default function Footer({ offer, me }) {
         <>
             {
                 loading ? (
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay style={styles.lottie} />
-                    </View>
+                    <QPLoader width={120} height={120} />
                 ) : (
                     <>
                         {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
@@ -215,11 +212,3 @@ export default function Footer({ offer, me }) {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    lottie: {
-        width: 120,
-        height: 120,
-        alignSelf: 'center',
-    },
-})

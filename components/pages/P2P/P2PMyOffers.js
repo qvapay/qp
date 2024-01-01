@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList, RefreshControl, View, Text } from 'react-native'
 import P2POffer from '../../ui/P2POffer'
-import LottieView from 'lottie-react-native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
+import QPLoader from '../../ui/QPLoader'
 
 export default function P2PMyOffers() {
 
@@ -42,9 +42,7 @@ export default function P2PMyOffers() {
 
             {
                 loading ? (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay style={styles.lottie} />
-                    </View>
+                    <QPLoader />
                 ) : (
                     <FlatList
                         data={myOffers}

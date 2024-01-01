@@ -4,13 +4,13 @@ import { theme } from '../../ui/Theme'
 import Modal from "react-native-modal"
 import P2POffer from '../../ui/P2POffer'
 import QPButton from '../../ui/QPButton'
-import LottieView from 'lottie-react-native'
 import { AppContext } from '../../../AppContext'
 import { useNavigation } from '@react-navigation/native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles } from '../../ui/Theme'
 // import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import QPLoader from '../../ui/QPLoader'
 
 export default function P2PIndex() {
 
@@ -83,9 +83,7 @@ export default function P2PIndex() {
 
             {
                 loading ? (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                         <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay style={styles.lottie} />
-                    </View>
+                    <QPLoader />
                 ) : (
                     <FlatList
                         refreshControl={

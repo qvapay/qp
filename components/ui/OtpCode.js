@@ -63,7 +63,7 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
                 <QPInput
                     key={index}
                     ref={(input) => (inputs.current[index] = input)}
-                    style={{ width: 45, fontSize: 22, textAlign: 'center', fontFamily: 'Rubik-Bold' }}
+                    style={{ width: 55, fontSize: 22, textAlign: 'center', fontFamily: 'Rubik-Medium' }}
                     onChangeText={(value) => handleInputChange(index, value)}
                     onKeyPress={(event) => handleInputKeyPress(event, index)}
                     value={code[index] || ''}
@@ -79,8 +79,10 @@ export default function OtpCode({ cols = 6, setValidatedCode }) {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         alignItems: 'center',
         flexDirection: 'row',
+        paddingHorizontal: 5,
         justifyContent: 'space-between',
     },
 })  
