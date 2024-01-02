@@ -18,19 +18,15 @@ import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
 
 export default function LoginScreen() {
 
+    const numDigits2FA = 6;
     const navigation = useNavigation();
     const { setMe } = useContext(AppContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
-
-    // 2FA Form
-    const numDigits2FA = 6;
     const [twofactorcode, setTwofactorcode] = useState(0);
     const [showtwofaForm, setShowtwofaForm] = useState(false);
-
-    // Biometric check
     const [biometricAvailable, setBiometricAvailable] = useState(false);
     const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
 
@@ -235,18 +231,12 @@ export default function LoginScreen() {
 
                                 <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
 
-                                {
-                                    errortext != '' ? (
-                                        <Text style={styles.errorTextStyle}>
-                                            {errortext}
-                                        </Text>
-                                    ) : null
-                                }
-
+                                {errortext != '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
 
                                 <View style={styles.biometricIcon}>
                                     {biometricAvailable && <BiometricButton />}
                                 </View>
+
                             </View>
 
                         </ScrollView>
@@ -313,8 +303,9 @@ const styles = StyleSheet.create({
         color: theme.darkColors.danger,
     },
     biometricIcon: {
-        alignSelf: 'center',
         marginTop: 20,
+
+        alignSelf: 'center',
     },
     lottie: {
         width: 120,
