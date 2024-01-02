@@ -83,7 +83,9 @@ export default function P2PIndex() {
 
             {
                 loading ? (
-                    <QPLoader />
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <QPLoader />
+                    </View>
                 ) : (
                     <FlatList
                         refreshControl={
