@@ -41,7 +41,7 @@ export default function Footer({ offer, me }) {
     // Mark offer as paid
     const onPaid = () => {
         Alert.alert(
-            "Completar Oferta",
+            "Pagar Oferta",
             "¿Has enviado el pago acordado correctamente?",
             [
                 {
