@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function Footer({ offer, me }) {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
     const [p2pOffer, setP2POffer] = useState({})
     const [loading, setLoading] = useState(false)
     const [showChat, setShowChat] = useState(false)
@@ -21,7 +21,21 @@ export default function Footer({ offer, me }) {
 
     // Apply to an offer and change the status to "processing"
     const onApply = () => {
-        console.log("Apply to offer")
+        Alert.alert(
+            "Aplicar a Oferta",
+            "¿Estás seguro que deseas aplicar a esta oferta?",
+            [
+                {
+                    text: "No",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+                    text: "Si, aplicar",
+                    onPress: () => { confirmApply() }
+                }
+            ]
+        )
     }
 
     // Mark offer as paid
@@ -40,7 +54,7 @@ export default function Footer({ offer, me }) {
                     onPress: () => { confirmPaid() }
                 }
             ]
-        );
+        )
     }
 
     // Received payment
@@ -59,7 +73,7 @@ export default function Footer({ offer, me }) {
                     onPress: () => { confirmReceived() }
                 }
             ]
-        );
+        )
     }
 
     // Cancel offer
@@ -78,7 +92,7 @@ export default function Footer({ offer, me }) {
                     onPress: () => { confirmCancellation() }
                 }
             ]
-        );
+        )
     }
 
     // Share offer
@@ -87,7 +101,7 @@ export default function Footer({ offer, me }) {
             const result = await Share.share({
                 title: `Mira esta oferta en QvaPay 💜\n\nhttps://qvapay.com/p2p/${p2pOffer.uuid}`,
                 message: `Estoy usando el P2P de QvaPay y esta oferta puede interesarte 👍\n\nhttps://qvapay.com/p2p/${p2pOffer.uuid}`,
-            });
+            })
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
                     // shared with activity type of result.activityType
@@ -98,7 +112,21 @@ export default function Footer({ offer, me }) {
                 // dismissed
             }
         } catch (error) {
-            Alert.alert(error.message);
+            Alert.alert(error.message)
+        }
+    }
+
+    // API to confirm apply
+    const confirmApply = async () => {
+        try {
+            setLoading(true)
+            let url = `/p2p/${p2pOffer.uuid}/apply`
+            const response = await apiRequest(url, { method: "POST" }, navigation)
+            console.log(response)
+            setP2POffer({ ...p2pOffer, status: 'processing' })
+            setLoading(false)
+        } catch (error) {
+            console.error('Error applying to P2P Offer:', error)
         }
     }
 
@@ -150,7 +178,7 @@ export default function Footer({ offer, me }) {
 
     if (!offerReady) {
         return (
-            <QPLoader width={120} height={120} />
+            <QPLoader width={70} height={70} />
         )
     }
 
@@ -158,7 +186,7 @@ export default function Footer({ offer, me }) {
         <>
             {
                 loading ? (
-                    <QPLoader width={120} height={120} />
+                    <QPLoader width={70} height={70} />
                 ) : (
                     <>
                         {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid === me.uuid && (
@@ -167,6 +195,9 @@ export default function Footer({ offer, me }) {
                                 <QPButton title="Compartir" onPress={onShare} />
                             </>
                         )}
+                        {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
+                            <QPButton title="Aplicar a oferta" onPress={onApply} />
+                        )}
 
                         {p2pOffer.status === 'paid' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
                             <QPButton title="Oferta pagada" disabled={true} />
@@ -174,10 +205,6 @@ export default function Footer({ offer, me }) {
 
                         {p2pOffer.status === 'paid' && p2pOffer.owner && p2pOffer.owner.uuid == me.uuid && (
                             <QPButton title="Oferta Recibida" onPress={onReceived} />
-                        )}
-
-                        {p2pOffer.status === 'open' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (
-                            <QPButton title="Aplicar a oferta" onPress={onApply} />
                         )}
 
                         {p2pOffer.status === 'processing' && p2pOffer.owner && p2pOffer.owner.uuid !== me.uuid && (

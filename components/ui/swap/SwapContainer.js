@@ -29,7 +29,7 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
         <>
             <View style={[styles.offerContainer, { marginBottom: -20, paddingBottom: 15 }]}>
 
-                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
@@ -67,7 +67,7 @@ const SwapContainer = ({ editable = false, operation = '', setAmount, setDesired
 
             <View style={[styles.offerContainer, { marginTop: -20, paddingBottom: 15 }]}>
 
-                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 

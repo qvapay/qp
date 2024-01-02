@@ -7,7 +7,7 @@ import PeerContainer from '../../ui/PeerContainer'
 import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import { getP2POffer } from '../../../utils/QvaPayClient'
-import { getShortDateTime } from '../../../utils/Helpers'
+import { adjustNumber, getShortDateTime } from '../../../utils/Helpers'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
 import Footer from '../../ui/p2p/Footer';
 
@@ -97,7 +97,7 @@ export default function P2PShow({ route }) {
                             {
                                 offer.owner && offer.owner.uuid !== me.uuid && (
                                     <View style={styles.offerContainer2}>
-                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Aplica a esta oferta si quieres realizar el intercambio con el peer en cuestión</Text>
+                                        <Text style={{ color: theme.darkColors.almost_white, textAlign: 'center' }}>Aplica a esta oferta si quieres {offer.type == 'sell' ? "recibir" : "enviar"} ${adjustNumber(offer.amount)} USD y {offer.type == 'sell' ? "enviar" : "recibir"} {adjustNumber(offer.receive)} en {offer.coin_data.name}</Text>
                                     </View>
                                 )
                             }

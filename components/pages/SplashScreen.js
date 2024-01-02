@@ -55,7 +55,7 @@ const SplashScreen = () => {
     return (
         <View style={styles.container}>
             <Image source={require('../../assets/images/qvapay-logo-white.png')} style={styles.imageLogo} />
-            {isLoading && <QPLoader width={160} height={160} />}
+            {isLoading && <QPLoader width={70} height={70} />}
         </View>
     )
 }
