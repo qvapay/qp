@@ -19,9 +19,8 @@ export default function WelcomeScreen() {
         setBackgroundColor(theme.darkColors?.background);
     }, []);
 
-    // TODO create a smooth moving background image
-
     return (
+        // TODO create a smooth moving background image
         <ImageBackground source={require('../../assets/images/onboarding/qp-bck.png')} style={{ flex: 1 }}>
 
             <LinearGradient
@@ -79,10 +78,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Rubik-Regular',
         color: theme.darkColors.almost_white,
-    },
-    lottie: {
-        height: 250,
-        width: '100%',
-        alignSelf: 'center',
-    },
+    }
 })
