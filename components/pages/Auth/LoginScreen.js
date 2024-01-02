@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import QPInput from '../../ui/QPInput';
-import QPButton from '../../ui/QPButton';
-import OtpCode from '../../ui/OtpCode';
-import LottieView from "lottie-react-native";
-import Loader from '../../ui/Loader';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import * as Sentry from '@sentry/react-native';
-import { AppContext } from '../../../AppContext';
-import { OneSignal } from 'react-native-onesignal';
-import { storeData } from '../../../utils/AsyncStorage';
-import { useNavigation } from '@react-navigation/native';
-import { globalStyles, theme, textStyles } from '../../ui/Theme';
-import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
+import React, { useEffect, useState, useContext } from 'react'
+import { StyleSheet, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import QPInput from '../../ui/QPInput'
+import OtpCode from '../../ui/OtpCode'
+import QPButton from '../../ui/QPButton'
+import QPLoader from '../../ui/QPLoader'
+import LottieView from "lottie-react-native"
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FingerprintScanner from 'react-native-fingerprint-scanner'
+import EncryptedStorage from 'react-native-encrypted-storage'
+import * as Sentry from '@sentry/react-native'
+import { AppContext } from '../../../AppContext'
+import { OneSignal } from 'react-native-onesignal'
+import { storeData } from '../../../utils/AsyncStorage'
+import { useNavigation } from '@react-navigation/native'
+import { globalStyles, theme, textStyles } from '../../ui/Theme'
+import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient'
 
 export default function LoginScreen() {
 
@@ -23,7 +23,7 @@ export default function LoginScreen() {
     const { setMe } = useContext(AppContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [errortext, setErrortext] = useState('');
     const [twofactorcode, setTwofactorcode] = useState(0);
     const [showtwofaForm, setShowtwofaForm] = useState(false);
@@ -181,18 +181,20 @@ export default function LoginScreen() {
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
-            <Loader loading={loading} />
-
             {
                 showtwofaForm ? (
                     <ScrollView showsVerticalScrollIndicator={false}>
+
                         <View style={{ marginHorizontal: 40 }}>
                             <LottieView source={require('../../../assets/lotties/2fa.json')} autoPlay style={styles.lottie} />
                         </View>
+
                         <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
+
                         <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
+
                         {errortext !== '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
                     </ScrollView>
                 ) : (
@@ -233,9 +235,9 @@ export default function LoginScreen() {
 
                                 {errortext != '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
 
-                                <View style={styles.biometricIcon}>
-                                    {biometricAvailable && <BiometricButton />}
-                                </View>
+                                <View style={styles.biometricIcon}>{biometricAvailable && <BiometricButton />}</View>
+
+                                {loading && (<QPLoader />)}
 
                             </View>
 

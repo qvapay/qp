@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { ROUTES } from '../routes';
-import { getMe } from '../../utils/QvaPayClient';
-import * as Sentry from '@sentry/react-native';
-import { theme } from '../ui/Theme';
-import { AppContext } from '../../AppContext';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import { Image, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState, useContext } from 'react'
+import { ROUTES } from '../routes'
+import { theme } from '../ui/Theme'
+import QPLoader from '../ui/QPLoader'
+import { AppContext } from '../../AppContext'
+import * as Sentry from '@sentry/react-native'
+import { getMe } from '../../utils/QvaPayClient'
+import { useNavigation } from '@react-navigation/native'
+import EncryptedStorage from 'react-native-encrypted-storage'
 
-// Splashscreen waiting time
 const WAITING_TIME = 2500;
 
 const SplashScreen = () => {
@@ -55,7 +55,7 @@ const SplashScreen = () => {
     return (
         <View style={styles.container}>
             <Image source={require('../../assets/images/qvapay-logo-white.png')} style={styles.imageLogo} />
-            {isLoading && <ActivityIndicator color={theme.darkColors.background} size="small" />}
+            {isLoading && <QPLoader width={160} height={160} />}
         </View>
     )
 }
