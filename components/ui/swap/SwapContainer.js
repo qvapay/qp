@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { StyleSheet, View, Text, TextInput, Pressable } from 'react-native'
+import { SvgUri } from 'react-native-svg'
 import { theme, textStyles } from '../Theme'
 import { AppContext } from '../../../AppContext'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { adjustNumber } from '../../../utils/Helpers'
-import { SvgUri } from 'react-native-svg';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-const SwapContainer = ({ editable = false, operation = '', setAmount, setDesiredAmount, amount = 0, desiredAmount = 0, coin = {}, setStep }) => {
+export default function SwapContainer({ editable = false, operation = '', setAmount, setDesiredAmount, amount = 0, desiredAmount = 0, coin = {}, setStep }) {
 
     const { me } = useContext(AppContext)
     const { price, name, logo } = coin
@@ -187,5 +187,3 @@ const styles = StyleSheet.create({
         color: theme.darkColors.almost_white,
     },
 })
-
-export default SwapContainer
