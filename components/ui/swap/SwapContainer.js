@@ -26,8 +26,8 @@ export default function SwapContainer({ editable = false, operation = '', setAmo
     }
 
     return (
-        <>
-            <View style={[styles.offerContainer, { marginBottom: -20, paddingBottom: 15 }]}>
+        <View>
+            <View style={[styles.offerContainer, { marginBottom: -18, paddingBottom: 15 }]}>
 
                 <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
 
@@ -59,13 +59,14 @@ export default function SwapContainer({ editable = false, operation = '', setAmo
                         }
                     </View>
                 </View>
+
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
+            <View style={{ flexDirection: 'row', position: 'relative', bottom: 0, justifyContent: 'center', zIndex: 1 }}>
                 <FontAwesome5 name={operation == 'buy' ? 'chevron-circle-up' : 'chevron-circle-down'} size={40} style={{ color: theme.darkColors.almost_white }} />
             </View>
 
-            <View style={[styles.offerContainer, { marginTop: -20, paddingBottom: 15 }]}>
+            <View style={[styles.offerContainer, { marginTop: -18, paddingBottom: 15 }]}>
 
                 <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
 
@@ -98,16 +99,11 @@ export default function SwapContainer({ editable = false, operation = '', setAmo
                     </View>
                 </View>
             </View>
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        borderRadius: 10,
-        justifyContent: 'center',
-    },
     offerContainer: {
         marginTop: 10,
         borderRadius: 10,

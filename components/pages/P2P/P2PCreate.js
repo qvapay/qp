@@ -226,7 +226,7 @@ export default function P2PCreate() {
                     {
                         step == 3 && (
                             <View style={{ flex: 1, marginVertical: 10 }}>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la cantidad con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
+                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la cantidad a {operation == "buy" ? "comprar" : "vender"} en USD:</Text>
 
                                 <View style={{ flex: 1 }}>
                                     <SwapContainer
