@@ -29,7 +29,7 @@ export default function SwapContainer({ editable = false, operation = '', setAmo
         <View>
             <View style={[styles.offerContainer, { marginBottom: -18, paddingBottom: 15 }]}>
 
-                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Pagas:' : 'Recibes:'}</Text>
+                <Text style={[textStyles.h5, { color: theme.darkColors.almost_white }]}>{editable == true ? operation == 'buy' ? 'Compras' : 'Vendes' : operation == 'buy' ? 'Pagas' : 'Recibes'}:</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
@@ -68,7 +68,7 @@ export default function SwapContainer({ editable = false, operation = '', setAmo
 
             <View style={[styles.offerContainer, { marginTop: -18, paddingBottom: 15 }]}>
 
-                <Text style={[textStyles.h4, { color: theme.darkColors.almost_white }]}>{operation == 'buy' ? 'Recibes:' : 'Pagas:'}</Text>
+                <Text style={[textStyles.h5, { color: theme.darkColors.almost_white }]}>{editable == true ? operation == 'buy' ? 'Envías' : 'Recibes' : operation == 'buy' ? 'Recibes' : 'Pagas'}:</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 

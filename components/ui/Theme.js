@@ -57,7 +57,7 @@ const textStyles = StyleSheet.create({
     h1: {
         fontSize: 30,
         textAlign: 'left',
-        marginVertical: 10,
+        marginVertical: 8,
         fontFamily: 'Rubik-Bold',
         color: colors.almost_white,
     },
@@ -81,19 +81,19 @@ const textStyles = StyleSheet.create({
         fontFamily: 'Rubik-Regular',
     },
     h5: {
-        fontSize: 17,
+        fontSize: 14,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
         color: colors.almost_white,
     },
     h6: {
-        fontSize: 16,
+        fontSize: 13,
         textAlign: 'left',
         fontFamily: 'Rubik-Light',
         color: colors.almost_white,
     },
     smallDescription: {
-        fontSize: 14,
+        fontSize: 12,
         color: colors.gray,
         fontFamily: "Rubik-Light",
     },

@@ -36,7 +36,6 @@ export default function P2PCreate() {
     const [privateOffer, setPrivateOffer] = useState(false)
     const [onlyKYC, setOnlyKYC] = useState(false)
     const [onlyVIP, setOnlyVIP] = useState(false)
-    const [promoteOffer, setPromoteOffer] = useState(false)
     const [offerDetails, setOfferDetails] = useState([])
     const [p2p, setP2P] = useState(null)
 
@@ -133,9 +132,7 @@ export default function P2PCreate() {
                 details: parsedDetails,
                 only_kyc: onlyKYC,
                 private: privateOffer,
-                promote_offer: promoteOffer,
             }
-
             const url = '/p2p/create'
             const response = await apiRequest(url, { method: 'POST', data }, navigation)
             if (response && response.msg == "Succesfull created" && response.p2p) {
@@ -337,20 +334,6 @@ export default function P2PCreate() {
                                                 innerIconStyle={{ borderWidth: 1 }}
                                                 textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
                                                 onPress={(isChecked) => { setOnlyVIP(isChecked) }}
-                                            />
-                                        </View>
-
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-                                            <Text style={[textStyles.h3, { textAlign: 'center' }]}>Oferta Promocionada:</Text>
-
-                                            <BouncyCheckbox
-                                                size={20}
-                                                fillColor={theme.darkColors.primary}
-                                                unfillColor={theme.darkColors.background}
-                                                iconStyle={{ borderColor: theme.darkColors.primary, marginRight: -15 }}
-                                                innerIconStyle={{ borderWidth: 1 }}
-                                                textStyle={{ fontFamily: "Rubik-Regular", textDecorationLine: 'none' }}
-                                                onPress={(isChecked) => { setPromoteOffer(isChecked) }}
                                             />
                                         </View>
 
