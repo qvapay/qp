@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList, Pressable, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import QPInput from '../../ui/QPInput'
 import QPButton from '../../ui/QPButton'
 import { SvgUri } from 'react-native-svg'
 import QPCoinRow from '../../ui/QPCoinRow'
 import LottieView from "lottie-react-native"
+import { AppContext } from '../../../AppContext'
 import SwapContainer from '../../ui/swap/SwapContainer'
 import { useNavigation } from '@react-navigation/native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { globalStyles, textStyles, theme } from '../../ui/Theme'
-import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
 import { p2pTypeText, filterCoins } from '../../../utils/Helpers'
+import { apiRequest, getCoins } from '../../../utils/QvaPayClient'
 
 export default function P2PCreate() {
 
     const navigation = useNavigation()
+    const { me } = useContext(AppContext)
     const [step, setStep] = useState(1)
     const [operation, setOperation] = useState(null)
     const [amount, setAmount] = useState(null)
@@ -180,12 +182,11 @@ export default function P2PCreate() {
                         step == 1 && (
                             <>
                                 <Text style={textStyles.h1}>Crear oferta P2P:</Text>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona si deseas comprar o vender tus dólares digitales de QvaPay:</Text>
 
                                 <View style={{ flex: 1, paddingVertical: 10 }}>
                                     <View style={[styles.optionCard, { backgroundColor: "#7BFFB160" }]}>
                                         <View style={{ flex: 1, justifyContent: "center" }}>
-                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas adquirir saldo en dólares digitales.</Text>
+                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas comprar USD.</Text>
                                             <Text style={[textStyles.h2, { textAlign: 'center' }]}>{sellOperations} operaciones</Text>
                                         </View>
                                         <QPButton title='Comprar' onPress={() => handleOperation('buy')} success />
@@ -193,10 +194,10 @@ export default function P2PCreate() {
 
                                     <View style={[styles.optionCard, { backgroundColor: "#DB253E60" }]}>
                                         <View style={{ flex: 1, justifyContent: "center" }}>
-                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas vender tu saldo en dólares digitales.</Text>
+                                            <Text style={[textStyles.h4, { textAlign: 'center' }]}>Selecciona esta opción si deseas vender USD.</Text>
                                             <Text style={[textStyles.h2, { textAlign: 'center' }]}>{buyOperations} operaciones</Text>
                                         </View>
-                                        <QPButton title='Vender' onPress={() => handleOperation('sell')} danger />
+                                        <QPButton title='Vender' onPress={() => handleOperation('sell')} danger disabled={me.balance == 0 ? true : false} />
                                     </View>
                                 </View>
                             </>
@@ -206,7 +207,7 @@ export default function P2PCreate() {
                     {
                         step == 2 && (
                             <ScrollView style={{ marginTop: 10 }}>
-                                <Text style={[textStyles.h3, { textAlign: 'center' }]}>Selecciona la moneda con la cual quieres {operation == "buy" ? "comprar" : "vender"} dólares digitales:</Text>
+                                <Text style={[textStyles.h3, { textAlign: 'center', marginBottom: 10 }]}>Selecciona la moneda a {operation == "buy" ? "enviar" : "recibir"} por USD:</Text>
                                 {
                                     categories.map((category, index) => (
                                         <View key={index}>

@@ -75,7 +75,7 @@ const textStyles = StyleSheet.create({
         fontFamily: 'Rubik-Medium',
     },
     h4: {
-        fontSize: 17,
+        fontSize: 16,
         textAlign: 'left',
         color: colors.almost_white,
         fontFamily: 'Rubik-Regular',
