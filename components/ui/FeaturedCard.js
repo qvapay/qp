@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { theme } from './Theme';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { theme } from './Theme';
 
 export default function FeaturedCard({ product, showLead = true }) {
 
