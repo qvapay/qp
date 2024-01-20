@@ -8,8 +8,9 @@ import { AppContext } from '../../../AppContext'
 import { useNavigation } from '@react-navigation/native'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { globalStyles, textStyles } from '../../ui/Theme'
-import BouncyCheckbox from 'react-native-bouncy-checkbox'
+// import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import QPLoader from '../../ui/QPLoader'
 
 export default function P2PIndex() {
 
@@ -82,8 +83,8 @@ export default function P2PIndex() {
 
             {
                 loading ? (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={textStyles.h3}>Cargando...</Text>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <QPLoader />
                     </View>
                 ) : (
                     <FlatList

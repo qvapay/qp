@@ -1,14 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Alert, StyleSheet, ScrollView, Text, View, Image, Pressable } from 'react-native';
-import QPButton from '../../ui/QPButton';
-import { globalStyles, theme } from '../../ui/Theme';
-import { AppContext } from '../../../AppContext';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { buyGoldCheck } from '../../../utils/QvaPayClient';
+import { Alert, StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import Loader from '../../ui/Loader';
-import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modal";
+import QPButton from '../../ui/QPButton';
 import TabSelector from '../../ui/TabSelector';
+import { AppContext } from '../../../AppContext';
+import { globalStyles, theme } from '../../ui/Theme';
+import { useNavigation } from '@react-navigation/native';
+import { buyGoldCheck } from '../../../utils/QvaPayClient';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const GOLD_CHECK_PRICE_MONTHLY = 5;
 const GOLD_CHECK_PRICE_SEMESTER = 28;
@@ -70,9 +70,7 @@ export default function GoldCheck() {
 
     // Buy the Gold Check
     const handleUpgrade = async () => {
-
         const tier = pricingTiers[selected - 1].price;
-
         Alert.alert(
             "Compra de Verificación Dorada",
             `¿Quieres adquirir la Verificación Dorada por $${tier}?`,

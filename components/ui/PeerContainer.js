@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import RatingStars from './RatingStars';
 import AvatarPicture from './AvatarPicture';
+import { theme } from './Theme';
 
 export default function PeerContainer({ peer, orientation = 'left' }) {
 
@@ -17,7 +18,7 @@ export default function PeerContainer({ peer, orientation = 'left' }) {
                 marginRight: orientation === 'left' ? 8 : 0,
                 marginLeft: orientation === 'right' ? 8 : 0,
             }}>
-                <Text style={styles.peerUsername}>{usernameLabel}</Text>
+                <Text style={styles.peerUsername}>@{usernameLabel}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <RatingStars rating={average_rating} fontSize={12} size={10} />
                 </View>
@@ -42,16 +43,16 @@ const styles = StyleSheet.create({
     },
     peerUsername: {
         fontSize: 16,
-        color: 'white',
-        fontFamily: 'Rubik-Light',
+        fontFamily: 'Rubik-Medium',
+        color: theme.darkColors.almost_white,
     },
     peerBadges: {
         fontSize: 12,
-        color: 'white',
         alignSelf: 'flex-end',
         alignItems: 'flex-end',
         alignContent: 'flex-end',
         justifyContent: 'flex-end',
         fontFamily: 'Rubik-Regular',
+        color: theme.darkColors.almost_white,
     },
 })

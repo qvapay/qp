@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { View, Text } from 'react-native'
-import { FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { FlatList, RefreshControl, View, Text } from 'react-native'
 import P2POffer from '../../ui/P2POffer'
+import QPLoader from '../../ui/QPLoader'
 import { apiRequest } from '../../../utils/QvaPayClient'
 import { useNavigation } from '@react-navigation/native'
 import { globalStyles, textStyles } from '../../ui/Theme'
 
-const P2PMyOffers = () => {
+export default function P2PMyOffers() {
 
-    // Load my P2P Offers
     const navigation = useNavigation();
     const [myOffers, setMyOffers] = useState([])
     const [loading, setLoading] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
         getMyOffers()
@@ -25,8 +25,14 @@ const P2PMyOffers = () => {
             setMyOffers(response.data)
             setLoading(false)
         } catch (error) {
-            console.error('Error fetching P2P Offers:', error);
+            console.error('Error fetching P2P Offers:', error)
         }
+    }
+
+    const onRefresh = () => {
+        setRefreshing(true)
+        getMyOffers()
+        setRefreshing(false)
     }
 
     return (
@@ -36,8 +42,8 @@ const P2PMyOffers = () => {
 
             {
                 loading ? (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={textStyles.h3}>Cargando...</Text>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <QPLoader />
                     </View>
                 ) : (
                     <FlatList
@@ -46,6 +52,12 @@ const P2PMyOffers = () => {
                             <P2POffer offer={item} navigation={navigation} extended={true} />
                         )}
                         keyExtractor={item => item.uuid}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     />
                 )
             }
@@ -53,5 +65,3 @@ const P2PMyOffers = () => {
         </View>
     )
 }
-
-export default P2PMyOffers

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { theme } from './Theme';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { theme } from './Theme';
 
 export default function FeaturedCard({ product, showLead = true }) {
 
@@ -53,7 +53,8 @@ export default function FeaturedCard({ product, showLead = true }) {
                         showLead && <Text style={styles.bottomPriceText}>{lead}</Text>
                     }
                 </LinearGradient>
-                <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} />
+                <FastImage style={styles.logo} source={{ uri: `${cover_url}` }} resizeMode={FastImage.resizeMode.cover} />
+                {/* <FastImage style={styles.logo} source={{ uri: `${logo_url}` }} resizeMode={FastImage.resizeMode.contain} /> */}
             </View>
         </Pressable>
     )
@@ -73,10 +74,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     logo: {
-        width: '50%',
-        height: '90%',
-        position: 'absolute',
         zIndex: 4,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
     },
     patternOverlay: {
         position: 'absolute',

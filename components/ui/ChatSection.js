@@ -2,25 +2,51 @@ import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
 import { AppContext } from '../../AppContext';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { sendP2pMessage } from '../../utils/QvaPayClient';
+import { sendP2PChat, getP2PChat } from '../../utils/QvaPayClient';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { theme } from './Theme';
 
 export default function ChatSection({ uuid }) {
 
-    const { me } = useContext(AppContext);
-    const [input, setInput] = useState('');
-    const [messages, setMessages] = useState([]);
+    console.log(uuid)
+
+    const { me } = useContext(AppContext)
+    const [input, setInput] = useState('')
+    const [messages, setMessages] = useState([])
 
     // Get Messages from API using QvaPayClient and store in state
-    // useEffect to get all sent messages
+    useEffect(() => {
+        const getMessages = async () => {
+            try {
+                const response = await getP2PChat({ uuid: uuid });
+                console.log(response.data)
+                const chats = response.data.map(chat => {
+                    return {
+                        _id: chat.id,
+                        text: chat.message,
+                        createdAt: new Date(chat.created_at),
+                        user: {
+                            _id: chat.user.uuid,
+                            name: chat.user.name,
+                            avatar: chat.user.profile_photo_url
+                        },
+                    }
+                })
+                setMessages(messages);
+            } catch (error) {
+                console.error('Error al obtener los mensajes:', error)
+            }
+        }
+        getMessages();
+    }, []);
 
     // Send Message
     const onSend = useCallback(async (newMessages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
         setInput('');
         try {
-            const response = await sendP2pMessage({ uuid: uuid, text: newMessages[0].text });
+            const response = await sendP2PChat({ uuid: uuid, text: newMessages[0].text });
+            console.log(response)
         } catch (error) {
             console.error('Error al enviar el mensaje:', error);
         }
@@ -42,6 +68,7 @@ export default function ChatSection({ uuid }) {
     };
 
     return (
+
         <View style={styles.container}>
 
             <GiftedChat
@@ -50,24 +77,25 @@ export default function ChatSection({ uuid }) {
                 user={{ _id: me.uuid, name: me.name, avatar: me.profile_photo_url }}
                 renderInputToolbar={() => null}
                 showAvatarForEveryMessage={true}
-                placeholder="Escribe un mensaje..."
+                placeholder="Enviar mensaje..."
             />
 
-            <View style={styles.inputContainer}>
-                <TextInput
-                    value={input}
-                    multiline={false}
-                    style={styles.input}
-                    placeholderTextColor={'gray'}
-                    placeholder="Escribe un mensaje..."
-                    onChangeText={text => setInput(text)}
-                />
+            {/* <View style={styles.inputContainer}>
+        //         <TextInput
+        //             value={input}
+        //             multiline={false}
+        //             style={styles.input}
+        //             placeholderTextColor={'gray'}
+        //             placeholder="Enviar mensaje..."
+        //             onChangeText={text => setInput(text)}
+        //         />
 
-                <Pressable onPress={sendMessage} style={styles.messageSend}>
-                    <FontAwesome5 name='paper-plane' size={16} color='white' />
-                </Pressable>
+        //         <Pressable onPress={sendMessage} style={styles.messageSend}>
+        //             <FontAwesome5 name='paper-plane' size={16} color='white' />
+        //         </Pressable>
 
-            </View>
+        //     </View> */}
+
         </View>
     );
 }

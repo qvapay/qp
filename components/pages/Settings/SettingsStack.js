@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 
-// Import Screens
 import GoldCheck from './GoldCheck';
 import PhoneScreen from './PhoneScreen';
 import ThemeScreen from './ThemeScreen';
@@ -13,6 +12,7 @@ import UserdataScreen from './UserdataScreen';
 import PasswordScreen from './PasswordScreen';
 import TransferPinScreen from './TransferPinScreen';
 import NotificationScreen from './NotificationScreen';
+import DeleteAccountScreen from './DeleteAccountScreen';
 import PaymewntMethodsScreen from './PaymewntMethodsScreen';
 import FavoriteContactsScreen from './FavoriteContactsScreen';
 import TwoFactorSettingsScreen from './TwoFactorSettingsScreen';
@@ -121,7 +121,7 @@ export default function SettingsStack() {
                 name="UserdataScreen"
                 component={UserdataScreen}
                 options={{
-                    title: '',
+                    title: 'Datos de su cuenta',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -157,7 +157,7 @@ export default function SettingsStack() {
                 name="PasswordScreen"
                 component={PasswordScreen}
                 options={{
-                    title: '',
+                    title: 'Cambiar contraseña',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton
@@ -258,6 +258,24 @@ export default function SettingsStack() {
                 component={TransferPinScreen}
                 options={{
                     title: '',
+                    animation: 'slide_from_right',
+                    headerLeft: (props) => (
+                        <HeaderBackButton
+                            {...props}
+                            onPress={() => {
+                                navigation.navigate(ROUTES.SETTINGS_MENU);
+                            }}
+                            style={{ marginLeft: 0 }}
+                        />
+                    ),
+                }}
+            />
+
+            <Stack.Screen
+                name="DeleteAccountScreen"
+                component={DeleteAccountScreen}
+                options={{
+                    title: 'Eliminar mi cuenta',
                     animation: 'slide_from_right',
                     headerLeft: (props) => (
                         <HeaderBackButton

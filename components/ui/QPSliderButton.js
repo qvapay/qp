@@ -22,7 +22,7 @@ export default function QPSliderButton({ danger, disabled, title = "QPSlider", o
                 animation={true}
                 icon={<Image style={{ width: 32, height: 32 }} source={require('../../assets/images/qvapay-logo.png')} />}
                 onSlideStart={() => console.log('slide started')}
-                onReachedToEnd={onSlideEnd}         // Replaced by onSlideEnd check
+                onReachedToEnd={onSlideEnd}
             />
         </View>
     )

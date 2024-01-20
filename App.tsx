@@ -13,10 +13,10 @@ import * as Sentry from '@sentry/react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 Sentry.init({
   dsn: 'https://c09b39b83c90495d9a5e0b9c8e3efb0d@o483954.ingest.sentry.io/4505457463132160',
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.3,
 });
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   OneSignal.initialize('30020a75-2a03-4d6d-a3e0-70efae81c1a8');
   OneSignal.User.setLanguage('es');
   OneSignal.Location.setShared(false); // TODO: Enable location sharing for mkt purposes in a future
@@ -30,8 +30,7 @@ function App(): JSX.Element {
   );
 }
 
-function MainApp(): JSX.Element {
-  
+function MainApp(): React.JSX.Element {
   const {backgroundColor} = useContext(AppContext);
 
   if (Platform.OS === 'android') {
@@ -47,5 +46,4 @@ function MainApp(): JSX.Element {
   );
 }
 
-// export default App;
 export default Sentry.wrap(App);

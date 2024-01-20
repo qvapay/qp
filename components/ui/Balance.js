@@ -66,10 +66,6 @@ export default function Balance({ navigation, me = { balance: 0 }, refreshing = 
         <View style={styles.container}>
 
             <View style={styles.topLabels}>
-                <Text style={styles.balanceHeader}>Balance:</Text>
-            </View>
-
-            <View style={styles.topLabels}>
                 <Pressable onPress={toggleShowBalance}>
                     <Animated.View style={[styles.amountContainer, { transform: [{ scale }] }]}>
                         <Text style={styles.dolarSign}>$</Text>
@@ -135,11 +131,6 @@ const styles = StyleSheet.create({
     },
     actionButtons: {
         flexDirection: 'row',
-    },
-    balanceHeader: {
-        fontSize: 13,
-        fontFamily: "Rubik-Light",
-        color: theme.darkColors.elevation_light,
     },
     gray: {
         color: '#7f8c8d',

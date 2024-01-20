@@ -43,19 +43,19 @@ export default function Transaction({ transaction, navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         height: 40,
         width: '100%',
+        borderRadius: 10,
         marginVertical: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
         paddingHorizontal: 10,
-        borderRadius: 10
+        justifyContent: 'space-between',
     },
     transactionLogo: {
-        flexDirection: 'row',
-        alignItems: 'center',
         marginRight: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     transactionData: {
         flex: 1,

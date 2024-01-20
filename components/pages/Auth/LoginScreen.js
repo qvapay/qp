@@ -1,153 +1,152 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import QPInput from '../../ui/QPInput';
-import QPButton from '../../ui/QPButton';
-import OtpCode from '../../ui/OtpCode';
-import LottieView from "lottie-react-native";
-import Loader from '../../ui/Loader';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import * as Sentry from '@sentry/react-native';
-import { AppContext } from '../../../AppContext';
-import { OneSignal } from 'react-native-onesignal';
-import { storeData } from '../../../utils/AsyncStorage';
-import { useNavigation } from '@react-navigation/native';
-import { globalStyles, theme, textStyles } from '../../ui/Theme';
-import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient';
+import React, { useEffect, useState, useContext } from 'react'
+import { StyleSheet, View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import QPInput from '../../ui/QPInput'
+import OtpCode from '../../ui/OtpCode'
+import QPButton from '../../ui/QPButton'
+import QPLoader from '../../ui/QPLoader'
+import LottieView from "lottie-react-native"
+import * as Sentry from '@sentry/react-native'
+import { AppContext } from '../../../AppContext'
+import { OneSignal } from 'react-native-onesignal'
+import { storeData } from '../../../utils/AsyncStorage'
+import { useNavigation } from '@react-navigation/native'
+import EncryptedStorage from 'react-native-encrypted-storage'
+import { globalStyles, theme, textStyles } from '../../ui/Theme'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FingerprintScanner from 'react-native-fingerprint-scanner'
+import { qvaPayClient, checkTwoFactor } from '../../../utils/QvaPayClient'
 
 export default function LoginScreen() {
 
-    const navigation = useNavigation();
-    const { setMe } = useContext(AppContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
-
-    // 2FA Form
-    const numDigits2FA = 6;
-    const [twofactorcode, setTwofactorcode] = useState(0);
-    const [showtwofaForm, setShowtwofaForm] = useState(false);
-
-    // Biometric check
-    const [biometricAvailable, setBiometricAvailable] = useState(false);
-    const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false);
+    const numDigits2FA = 6
+    const navigation = useNavigation()
+    const { setMe } = useContext(AppContext)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [errortext, setErrortext] = useState('')
+    const [twofactorcode, setTwofactorcode] = useState(0)
+    const [showtwofaForm, setShowtwofaForm] = useState(false)
+    const [biometricAvailable, setBiometricAvailable] = useState(false)
+    const [biometricLoginCredentials, setBiometricLoginCredentials] = useState(false)
 
     // Check if devica can handle biometric auth
     useEffect(() => {
         FingerprintScanner.isSensorAvailable()
             .then(() => {
-                setBiometricAvailable(true);
+                setBiometricAvailable(true)
             })
             .catch(error => {
 
-            });
+            })
         return () => {
-            FingerprintScanner.release();
-        };
-    }, []);
+            FingerprintScanner.release()
+        }
+    }, [])
 
     // Check if there's a stored email and password
     useEffect(() => {
         const checkStoredCredentialsForBiometricLogin = async () => {
-            const email = await EncryptedStorage.getItem('email');
-            const password = await EncryptedStorage.getItem('password');
+            const email = await EncryptedStorage.getItem('email')
+            const password = await EncryptedStorage.getItem('password')
             if (email && password) {
                 setBiometricLoginCredentials(true)
             }
         }
-        checkStoredCredentialsForBiometricLogin();
-    }, []);
+        checkStoredCredentialsForBiometricLogin()
+    }, [])
 
     // useEffect for twofactorcode change if it's numDigits2FA length
     useEffect(() => {
         if (twofactorcode.toString().length === numDigits2FA) {
-            handleTwoFactor();
+            handleTwoFactor()
         }
-    }, [twofactorcode]);
+    }, [twofactorcode])
 
     // Login Method from QvaPayClient
     const login = async (email, password) => {
         try {
-            const response = await qvaPayClient.post("/auth/login", { email, password });
+            const response = await qvaPayClient.post("/auth/login", { email, password })
             if (response.data && response.data.accessToken) {
-                return response.data;
+                return response.data
             } else {
-                throw new Error("No se pudo iniciar sesión correctamente");
+                throw new Error("No se pudo iniciar sesión correctamente")
             }
         } catch (error) {
-            Sentry.captureException(error);
+            Sentry.captureException(error)
         }
-    };
+    }
 
     // handle submit form
     const handleLoginSubmit = async () => {
-        setErrortext('');
+        setErrortext('')
         if (!email) {
-            alert('Debe rellenar el usuario');
-            return;
+            alert('Debe rellenar el usuario')
+            return
         }
         if (!password) {
-            alert('Debe rellenar la contraseña');
-            return;
+            alert('Debe rellenar la contraseña')
+            return
         }
         handleLogin(email, password)
     }
 
     // Handle the login process
     const handleLogin = async (email, password) => {
-        setLoading(true);
+        setLoading(true)
         try {
-            const data = await login(email, password);
+            const data = await login(email, password)
             if (data && data.accessToken && data.me) {
 
-                await EncryptedStorage.setItem('email', email);
-                await EncryptedStorage.setItem('password', password);
-                await EncryptedStorage.setItem('accessToken', data.accessToken);
-                await storeData('me', data.me);
+                await EncryptedStorage.setItem('email', email)
+                await EncryptedStorage.setItem('password', password)
+                await EncryptedStorage.setItem('accessToken', data.accessToken)
+                await storeData('me', data.me)
 
                 // Update the user global AppContext state
-                setMe(data.me);
-                setLoading(false);
+                setMe(data.me)
+                setLoading(false)
 
                 // Suscribe to OneSignal Notifications
-                OneSignal.login(data.me.uuid);
-                OneSignal.User.addEmail(email);
+                OneSignal.login(data.me.uuid)
+                OneSignal.User.addEmail(email)
 
                 // If me.2fa_required is true then show the 2fa form
                 if (data.me.two_factor_secret) {
-                    await EncryptedStorage.setItem('twoFactorSecret', 'true');
-                    setShowtwofaForm(true);
+                    await EncryptedStorage.setItem('twoFactorSecret', 'true')
+                    setShowtwofaForm(true)
                 } else {
-                    navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+                    navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] })
                 }
 
             } else {
-                setLoading(false);
-                setErrortext("No es posible iniciar sesión, intente nuevamente");
+                setLoading(false)
+                setErrortext("No es posible iniciar sesión, intente nuevamente")
             }
         } catch (error) {
-            console.log(error)
-            setLoading(false);
-            setErrortext("No se ha podido iniciar sesion, intente nuevamente");
-            Sentry.captureException(error);
+            setLoading(false)
+            setErrortext("No se ha podido iniciar sesion, intente nuevamente")
+            Sentry.captureException(error)
         }
-    };
+    }
 
     // Handle 2FA
     const handleTwoFactor = async () => {
+        setLoading(true)
         try {
-            const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode });
+            const response = await checkTwoFactor({ navigation, verifyCode: twofactorcode })
             if (response && response.status === 200) {
-                await EncryptedStorage.setItem('twoFactorSecret', 'false');
-                navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] });
+                setLoading(false)
+                await EncryptedStorage.setItem('twoFactorSecret', 'false')
+                navigation.reset({ index: 0, routes: [{ name: 'MainStack' }] })
             } else {
-                setErrortext('El código es incorrecto');
+                setLoading(false)
+                setErrortext('El código es incorrecto')
             }
         } catch (error) {
-            setErrortext("No se ha podido iniciar sesion, intente nuevamente");
-            Sentry.captureException(error);
+            setLoading(false)
+            setErrortext("No se ha podido iniciar sesion, intente nuevamente")
+            Sentry.captureException(error)
         }
     }
 
@@ -155,20 +154,20 @@ export default function LoginScreen() {
         FingerprintScanner.authenticate({ title: 'Iniciar sesión con biometría' })
             .then(() => {
                 const getStoredCredentials = async () => {
-                    const email = await EncryptedStorage.getItem('email');
-                    const password = await EncryptedStorage.getItem('password');
+                    const email = await EncryptedStorage.getItem('email')
+                    const password = await EncryptedStorage.getItem('password')
                     if (email && password) {
-                        setEmail(email);
-                        setPassword(password);
+                        setEmail(email)
+                        setPassword(password)
                         handleLogin(email, password)
                     }
                 }
-                getStoredCredentials();
+                getStoredCredentials()
             })
             .catch(error => {
                 console.error(error)
-            });
-    };
+            })
+    }
 
     // Biometric button component as icon
     const BiometricButton = () => {
@@ -179,31 +178,30 @@ export default function LoginScreen() {
                 color={biometricLoginCredentials ? theme.darkColors.success : "#4b4b4b"}
                 onPress={handleBiometricLogin}
             />
-        );
+        )
     }
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[globalStyles.container, { justifyContent: 'flex-start' }]}>
 
-            <Loader loading={loading} />
-
             {
                 showtwofaForm ? (
                     <ScrollView showsVerticalScrollIndicator={false}>
+
                         <View style={{ marginHorizontal: 40 }}>
                             <LottieView source={require('../../../assets/lotties/2fa.json')} autoPlay style={styles.lottie} />
                         </View>
+
                         <View style={{ paddingHorizontal: 5, marginBottom: 10 }}>
                             <Text style={textStyles.h1}>Código 2FA:</Text>
                         </View>
+
                         <OtpCode cols={numDigits2FA} setValidatedCode={setTwofactorcode} />
-                        {
-                            errortext !== '' ? (
-                                <Text style={styles.errorTextStyle}>
-                                    {errortext}
-                                </Text>
-                            ) : null
-                        }
+
+                        {errortext !== '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
+
+                        {loading && (<QPLoader />)}
+
                     </ScrollView>
                 ) : (
                     <>
@@ -241,18 +239,12 @@ export default function LoginScreen() {
 
                                 <Text style={styles.forgotTextStyle} onPress={() => navigation.navigate('RecoverPasswordScreen')}>¿Olvidaste tu contraseña?</Text>
 
-                                {
-                                    errortext != '' ? (
-                                        <Text style={styles.errorTextStyle}>
-                                            {errortext}
-                                        </Text>
-                                    ) : null
-                                }
+                                {errortext != '' && (<Text style={styles.errorTextStyle}> {errortext} </Text>)}
 
+                                <View style={styles.biometricIcon}>{biometricAvailable && <BiometricButton />}</View>
 
-                                <View style={styles.biometricIcon}>
-                                    {biometricAvailable && <BiometricButton />}
-                                </View>
+                                {loading && (<QPLoader />)}
+
                             </View>
 
                         </ScrollView>
@@ -267,7 +259,7 @@ export default function LoginScreen() {
                 )
             }
         </KeyboardAvoidingView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -319,8 +311,9 @@ const styles = StyleSheet.create({
         color: theme.darkColors.danger,
     },
     biometricIcon: {
-        alignSelf: 'center',
         marginTop: 20,
+
+        alignSelf: 'center',
     },
     lottie: {
         width: 120,

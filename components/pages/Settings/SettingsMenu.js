@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native';
-import { globalStyles, theme } from '../../ui/Theme';
-import QPButton from '../../ui/QPButton';
-import { AppContext } from '../../../AppContext';
-import { useNavigation } from '@react-navigation/native';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import ProfilePictureSection from '../../ui/ProfilePictureSection';
-import { OneSignal } from 'react-native-onesignal';
-import DeviceInfo from 'react-native-device-info';
+import { StyleSheet, Text, View, Pressable, Image, Alert, ScrollView, Linking } from 'react-native'
+import QPButton from '../../ui/QPButton'
+import { AppContext } from '../../../AppContext'
+import DeviceInfo from 'react-native-device-info'
+import { OneSignal } from 'react-native-onesignal'
+import { globalStyles, theme } from '../../ui/Theme'
+import { useNavigation } from '@react-navigation/native'
+import EncryptedStorage from 'react-native-encrypted-storage'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import ProfilePictureSection from '../../ui/ProfilePictureSection'
 
 const SettingsMenu = () => {
 
@@ -136,6 +136,12 @@ const SettingsMenu = () => {
                     enabled: true,
                     notifications: me.kyc ? 0 : 1
                 },
+                {
+                    title: 'Eliminar cuenta',
+                    screen: 'DeleteAccountScreen',
+                    enabled: true,
+                    notifications: 0
+                },
             ],
         },
         notifications: {
@@ -203,7 +209,7 @@ const SettingsMenu = () => {
 
                 <View style={{ marginBottom: 10 }}>
                     <ProfilePictureSection user={me} size={120} />
-                    <Text style={globalStyles.bio}>{bio}</Text>
+                    {/* <Text style={globalStyles.bio}>{bio}</Text> */}
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

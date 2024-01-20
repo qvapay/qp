@@ -16,7 +16,7 @@ export default function CompletedPayment({ uuid = "" }) {
                 <LottieView source={require('../../../assets/lotties/completed.json')} autoPlay loop={false} style={styles.loadingAnimation} />
 
                 <Text style={textStyles.h2}>Pago completado</Text>
-                <Text style={[textStyles.h6, { textAlign: 'center' }]}>Hemos procesado este pago y estará en su destino en pocos segundos.</Text>
+                <Text style={[textStyles.h6, { textAlign: 'center', paddingHorizontal: 20 }]}>Hemos procesado este pago y estará en su destino en pocos segundos.</Text>
             </View>
 
             <QPButton title="Ver Transacción" onPress={() => { navigation.navigate('TransactionStack', { screen: 'TransactionShow', params: { uuid } }) }} />

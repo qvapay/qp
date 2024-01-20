@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, KeyboardAvoidingView, ScrollView } from 'react-native'
-import { globalStyles, textStyles } from '../../ui/Theme'
+import { globalStyles } from '../../ui/Theme'
 import { useNavigation } from '@react-navigation/native';
 import QPInput from '../../ui/QPInput';
 import QPButton from '../../ui/QPButton';
@@ -73,7 +73,6 @@ export default function PasswordScreen() {
 
     // Api call to update the password
     const updatePasswordRequest = async () => {
-        // Send update Passorw request to apiRequest
         try {
             const url = `/user/password`
             const data = { password: userPassword, new_password: newUserPassword }
@@ -105,7 +104,7 @@ export default function PasswordScreen() {
 
                 <View style={{ marginVertical: 20 }}>
 
-                    <Text style={textStyles.h1}>Cambiar contraseña:</Text>
+                    {/** TODO Lottie Here */}
 
                     <QPInput
                         prefixIconName="lock"
@@ -145,7 +144,3 @@ export default function PasswordScreen() {
         </KeyboardAvoidingView>
     )
 }
-
-const styles = StyleSheet.create({
-
-})

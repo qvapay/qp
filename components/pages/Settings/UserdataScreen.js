@@ -96,7 +96,9 @@ export default function UserdataScreen() {
 
                     <TouchableOpacity onPress={updatePicture} style={styles.avatarContainer}>
                         <AvatarPicture size={76} source_uri={me.profile_photo_url} showBadge={false} rating={me.average_rating} vip={me.vip} />
-                        {uploadingAvatar && <LottieView source={require('../../../assets/lotties/spiner.json')} autoPlay loop style={styles.loadingAnimation} />}
+                        
+                        {uploadingAvatar && <LottieView source={require('../../../assets/lotties/spinner.json')} autoPlay loop style={styles.loadingAnimation} />}
+                        
                         <View style={[styles.editIcon, { width: 84, height: 84, backgroundColor: '#FFFFFF20', borderRadius: 42 }]}>
                             <FontAwesome5 name="camera" size={30} color="#FFFFFFC0" style={{ position: 'absolute', bottom: 26, right: 26 }} />
                         </View>
@@ -112,7 +114,6 @@ export default function UserdataScreen() {
                 </View>
 
                 <View style={{ marginVertical: 20 }}>
-                    <Text style={textStyles.h1}>Datos de usuario:</Text>
                     <QPInput prefixIconName='user' placeholder='Nombre de Usuario' value={username} onChangeText={(username) => setUsername(username)} />
                     <QPInput prefixIconName='id-card' placeholder='Nombre' value={name} onChangeText={(name) => setName(name)} />
                     <QPInput prefixIconName='id-card' placeholder='Apellido' value={lastname} onChangeText={(lastname) => setLastname(lastname)} />
